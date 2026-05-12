@@ -61,7 +61,7 @@ These rules are absolute. They cannot be overridden by reference image appearanc
 - **Fonts:** Archivo for all UI and body copy. JetBrains Mono for eyebrows, captions, labels, status codes, and technical strings. No other typefaces.
 - **Signal Cyan `#2BB3E6`:** Used only for active states, links, CTAs, status pills, and a single highlighted word per page. Never as a body copy background.
 - **Beacon Amber `#E8A33D`:** Used only for advisories, maintenance notices, and scheduled/time-bound content. Never decorative.
-- **Moss `#6B7A4F`:** Never used in product UI. Editorial only.
+- **Indigo `#35267A`:** Never used in product UI. Editorial only.
 - **Logo:** Always an approved lockup, unmodified. No effects, shadows, strokes, distortion, or re-creation in another typeface. Correct variant for container size per `BRAND.md`.
 - **No exclamation marks** anywhere in copy, labels, buttons, or tooltips.
 - **No dark mode toggle** at launch. Dark sections (hero, nav, footer) use Ink `#0B0E10`. Light sections use Paper `#F4F2EC`. This is not user-configurable.

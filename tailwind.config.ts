@@ -12,7 +12,7 @@ const config: Config = {
         paper: '#F4F2EC',
         signal: '#2BB3E6',
         beacon: '#E8A33D',
-        moss: '#6B7A4F',
+        indigo: '#35267A',
         mist: '#ECEDEF',
       },
       fontFamily: {

@@ -29,14 +29,14 @@
 | `--color-paper` | `#F4F2EC` | Primary ground — light mode backgrounds, cards |
 | `--color-signal` | `#2BB3E6` | Accent · Live — links, active states, CTAs, status pills, single highlighted words. **Never use as a body copy background.** |
 | `--color-beacon` | `#E8A33D` | Accent · Warm — advisories, maintenance windows, scheduled notices, human and time-bound information. Pair with ink only. |
-| `--color-moss` | `#6B7A4F` | Tertiary — editorial use only (print pieces, long-form articles, case studies). Off-limits in product UI. |
+| `--color-indigo` | `#35267A` | Tertiary — editorial use only (print pieces, long-form articles, case studies). Off-limits in product UI. |
 | `--color-mist` | `#ECEDEF` | Neutral surface — section dividers, subtle backgrounds, table stripes |
 
 ### Colour Proportion Rules
 
 **Light mode (default):** Paper 80% · Ink 15% · Signal 5%
 **Dark mode:** Ink 80% · Paper 15% · Signal 5%
-**Editorial / Alert state:** Paper 70% · Ink 18% · Beacon 8% · Moss 4%
+**Editorial / Alert state:** Paper 70% · Ink 18% · Beacon 8% · Indigo 4%
 
 ### Signal (Status) System
 
@@ -56,7 +56,7 @@ Use these colours exclusively for live system state. Never invent new colours fo
 - **DO** maintain WCAG AA contrast (4.5:1) on all body text
 - **DON'T** use Signal Cyan as a background for any body copy
 - **DON'T** run Signal and Beacon side-by-side at equal visual weight — one leads, one supports
-- **DON'T** use Moss in product UI — editorial print and long-form only
+- **DON'T** use Indigo in product UI — editorial print and long-form only
 - **DON'T** place the logo on clashing gradients, orange, or pink backgrounds
 - **DON'T** introduce colours outside this palette
 

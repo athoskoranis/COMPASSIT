@@ -114,7 +114,7 @@ The minimum clear space unit is the cap-height of the letter "C" in COMPASS — 
 | **Paper** | `--color-paper` | `#F4F2EC` | 244 242 236 | 3 3 6 0 | Warm Gray 1 C | Primary ground · light backgrounds |
 | **Signal** | `--color-signal` | `#2BB3E6` | 43 179 230 | 72 15 0 0 | 2389 C | Accent · live · active · links · CTAs |
 | **Beacon** | `--color-beacon` | `#E8A33D` | 232 163 61 | 5 38 85 0 | 1365 C | Accent · advisories · scheduled events |
-| **Moss** | `--color-moss` | `#6B7A4F` | 107 122 79 | 52 33 75 15 | 5757 C | Tertiary · editorial only |
+| **Indigo** | `--color-indigo` | `#35267A` | 53 38 122 | 57 69 0 52 | 2736 C | Tertiary · editorial only |
 | **Mist** | `--color-mist` | `#ECEDEF` | 236 237 239 | 6 4 3 0 | Cool Gray 1 C | Neutral surface · backgrounds |
 
 ### Proportion Rules
@@ -132,7 +132,7 @@ The brand runs on an 80/15/5 ratio. This is not a suggestion — it is the syste
 - 5% Signal `#2BB3E6` — same active/CTA role as above
 
 **Editorial / Alert (advisory content):**
-- 70% Paper · 18% Ink · 8% Beacon · 4% Moss
+- 70% Paper · 18% Ink · 8% Beacon · 4% Indigo
 
 ### Colour Usage Rules
 
@@ -140,7 +140,7 @@ The brand runs on an 80/15/5 ratio. This is not a suggestion — it is the syste
 |---|---|---|
 | Signal `#2BB3E6` | Active states · status pills · links · a single highlighted word per page · CTA buttons | Body copy background · decorative fills · more than one focal element per view |
 | Beacon `#E8A33D` | Maintenance notices · advisory banners · human, time-bound information | General decoration · branding the logo · pairing alongside signal at equal weight |
-| Moss `#6B7A4F` | Long-form editorial · print pieces · case study photography overlays | Product UI · navigation · buttons · any interactive element |
+| Indigo `#35267A` | Long-form editorial · print pieces · case study photography overlays | Product UI · navigation · buttons · any interactive element |
 | Mist `#ECEDEF` | Subtle backgrounds · section dividers · table alternating rows | Body text (too low contrast against Paper) |
 
 **Two accents maximum per view.** Never run Signal and Beacon at the same visual weight on the same screen — one must lead, one must support.
@@ -221,5 +221,5 @@ Before publishing any new visual asset on the site, verify:
 - [ ] Signal colour is used sparingly — one focal use per view
 - [ ] No Signal colour behind body text
 - [ ] Beacon is used only for advisory/time-bound content
-- [ ] Moss is not present in any product UI
+- [ ] Indigo is not present in any product UI
 - [ ] No colours introduced outside the six-colour palette
