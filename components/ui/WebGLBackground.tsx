@@ -29,7 +29,7 @@ vec3 saturate3(vec3 v){ return clamp(v,0.0,1.0); }
 
 #define BG     vec3(0.0431, 0.0549, 0.0627)
 #define CYAN   vec3(0.1686, 0.7020, 0.9020)
-#define INDIGO vec3(0.40, 0.18, 0.80)
+#define INDIGO vec3(0.26, 0.14, 0.54)
 
 void main(){
   vec2 uv = gl_FragCoord.xy / uRes;
