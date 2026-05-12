@@ -31,13 +31,13 @@ const variants = {
   },
   indigo: {
     '--base': '258',
-    '--spread': '18',
-    '--saturation': '72',
-    '--lightness': '58',
+    '--spread': '12',
+    '--saturation': '85',
+    '--lightness': '32',
     '--border-spot-opacity': '1',
-    '--border-light-opacity': '0.85',
-    '--bg-spot-opacity': '0.10',
-    '--backup-border': 'hsl(258 50% 28% / 0.9)',
+    '--border-light-opacity': '0.08',
+    '--bg-spot-opacity': '0.18',
+    '--backup-border': 'hsl(258 70% 20% / 0.95)',
   },
 }
 
