@@ -85,12 +85,15 @@ export default function Nav() {
         {/* Logo — far left */}
         <Link href="#hero" className="flex items-center flex-shrink-0">
           <img
-            src="/brand/Monogram%20Transparent.svg"
+            src="/brand/Secondary%20Transparent.svg"
             alt="Compass ITS"
-            width={40}
-            height={40}
-            className="w-10 h-10 object-contain"
-            style={{ filter: 'invert(1)' }}
+            height={36}
+            className="object-contain transition-all duration-300"
+            style={{
+              height: floating ? '30px' : '36px',
+              width: 'auto',
+              filter: 'invert(1)',
+            }}
           />
         </Link>
 
