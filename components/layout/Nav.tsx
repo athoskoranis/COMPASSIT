@@ -90,7 +90,7 @@ export default function Nav() {
             height={36}
             className="object-contain transition-all duration-300"
             style={{
-              height: floating ? '30px' : '36px',
+              height: floating ? '40px' : '50px',
               width: 'auto',
               filter: 'invert(1)',
             }}

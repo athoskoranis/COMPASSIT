@@ -125,7 +125,7 @@ a {
     rgba(43,179,230,0.02) 70%,
     transparent 100%
   );
-  animation: blob-drift-1 18s ease-in-out infinite;
+  animation: blob-drift-1 48s ease-in-out infinite;
 }
 
 /* Cyan blob 2 — center-right, 24s */
@@ -141,7 +141,7 @@ a {
     rgba(43,179,230,0.01) 75%,
     transparent 100%
   );
-  animation: blob-drift-2 24s ease-in-out infinite;
+  animation: blob-drift-2 64s ease-in-out infinite;
 }
 
 /* Cyan blob 3 — lower-right, 20s */
@@ -157,7 +157,7 @@ a {
     rgba(43,179,230,0.01) 80%,
     transparent 100%
   );
-  animation: blob-drift-3 20s ease-in-out infinite;
+  animation: blob-drift-3 54s ease-in-out infinite;
 }
 
 /* Indigo blob 1 — upper-right, 28s */
@@ -173,7 +173,7 @@ a {
     rgba(80,45,150,0.06) 80%,
     transparent 100%
   );
-  animation: blob-drift-4 28s ease-in-out infinite;
+  animation: blob-drift-4 72s ease-in-out infinite;
 }
 
 /* GlowCard — metallic spotlight border effect */
@@ -242,7 +242,7 @@ a {
     rgba(80,45,150,0.05) 80%,
     transparent 100%
   );
-  animation: blob-drift-5 22s ease-in-out infinite;
+  animation: blob-drift-5 58s ease-in-out infinite;
 }
 
 /* Glow metallic button */
@@ -259,11 +259,8 @@ a {
   );
   background-size: 200% auto;
   box-shadow:
-    0 0 18px rgba(80, 45, 150, 0.95),
-    0 0 40px rgba(80, 45, 150, 0.65),
-    0 0 70px rgba(80, 45, 150, 0.3),
     0 2px 8px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(160, 100, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
     inset 0 -1px 0 rgba(0, 0, 0, 0.12);
   transition: box-shadow 0.25s ease, transform 0.15s ease;
 }
@@ -282,7 +279,7 @@ a {
   background: linear-gradient(
     110deg,
     transparent 25%,
-    rgba(160, 100, 255, 0.22) 50%,
+    rgba(255, 255, 255, 0.12) 50%,
     transparent 75%
   );
   background-size: 200% 100%;
@@ -298,11 +295,8 @@ a {
 
 .glow-btn:hover {
   box-shadow:
-    0 0 28px rgba(80, 45, 150, 1),
-    0 0 60px rgba(80, 45, 150, 0.75),
-    0 0 100px rgba(80, 45, 150, 0.4),
     0 4px 14px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(160, 100, 255, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
     inset 0 -1px 0 rgba(0, 0, 0, 0.12);
   transform: translateY(-1px);
 }
@@ -311,8 +305,6 @@ a {
 .glow-btn[data-state="clicked"] {
   transform: scale(0.97) translateY(1px);
   box-shadow:
-    0 0 14px rgba(80, 45, 150, 0.85),
-    0 0 32px rgba(80, 45, 150, 0.5),
     0 1px 4px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.18),
     inset 0 2px 6px rgba(0, 0, 0, 0.12);
