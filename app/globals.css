@@ -167,10 +167,10 @@ a {
   top: -5%;
   right: 15%;
   background: radial-gradient(ellipse at center,
-    rgba(53,38,122,0.20) 0%,
-    rgba(53,38,122,0.12) 22%,
-    rgba(53,38,122,0.05) 52%,
-    rgba(53,38,122,0.01) 78%,
+    rgba(53,38,122,0.75) 0%,
+    rgba(53,38,122,0.45) 22%,
+    rgba(53,38,122,0.18) 52%,
+    rgba(53,38,122,0.04) 78%,
     transparent 100%
   );
   animation: blob-drift-4 28s ease-in-out infinite;
@@ -236,10 +236,10 @@ a {
   top: 65%;
   left: -5%;
   background: radial-gradient(ellipse at center,
-    rgba(53,38,122,0.17) 0%,
-    rgba(53,38,122,0.10) 22%,
-    rgba(53,38,122,0.04) 55%,
-    rgba(53,38,122,0.01) 80%,
+    rgba(53,38,122,0.70) 0%,
+    rgba(53,38,122,0.40) 22%,
+    rgba(53,38,122,0.15) 55%,
+    rgba(53,38,122,0.03) 80%,
     transparent 100%
   );
   animation: blob-drift-5 22s ease-in-out infinite;
