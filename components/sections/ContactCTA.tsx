@@ -10,11 +10,21 @@ export default function ContactCTA() {
     name: '',
     email: '',
     phone: '',
-    service: '',
+    services: [] as string[],
     urgency: '',
     message: '',
   })
   const [submitted, setSubmitted] = useState(false)
+  const [servicesOpen, setServicesOpen] = useState(false)
+
+  const toggleService = (opt: string) => {
+    setForm(f => ({
+      ...f,
+      services: f.services.includes(opt)
+        ? f.services.filter(s => s !== opt)
+        : [...f.services, opt],
+    }))
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -74,28 +84,47 @@ export default function ContactCTA() {
                 className={inputClass}
               />
 
-              {/* Service area */}
-              <div className="relative">
-                <select
-                  value={form.service}
-                  onChange={e => setForm(f => ({ ...f, service: e.target.value }))}
+              {/* Service multi-select — collapsible */}
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setServicesOpen(o => !o)}
                   className={[
                     inputClass,
-                    'appearance-none cursor-pointer',
-                    form.service === '' ? 'text-paper/30' : 'text-paper',
+                    'flex items-center justify-between cursor-pointer',
+                    form.services.length === 0 ? 'text-paper/30' : 'text-paper',
                   ].join(' ')}
-                  style={{ backgroundColor: '#0e1215' }}
                 >
-                  <option value="" disabled style={{ color: 'rgba(244,242,236,0.3)', backgroundColor: '#0B0E10' }}>
-                    {tr.contact.servicePlaceholder}
-                  </option>
-                  {tr.contact.serviceOptions.map((opt) => (
-                    <option key={opt} value={opt} style={{ backgroundColor: '#0B0E10', color: '#F4F2EC' }}>
-                      {opt}
-                    </option>
-                  ))}
-                </select>
-                <ChevronDown size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-paper/30 pointer-events-none" />
+                  <span>
+                    {form.services.length === 0
+                      ? tr.contact.serviceLabel
+                      : `${form.services.length} area${form.services.length > 1 ? 's' : ''} selected`}
+                  </span>
+                  <ChevronDown
+                    size={16}
+                    className={['text-paper/30 transition-transform duration-200 flex-shrink-0', servicesOpen ? 'rotate-180' : ''].join(' ')}
+                  />
+                </button>
+
+                {servicesOpen && (
+                  <div className="mt-2 grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {tr.contact.serviceOptions.map((opt) => (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() => toggleService(opt)}
+                        className={[
+                          'font-barlow text-[13px] px-3 py-2.5 rounded-xl border text-left transition-all duration-200',
+                          form.services.includes(opt)
+                            ? 'border-signal/60 bg-signal/10 text-signal'
+                            : 'border-paper/[0.12] bg-paper/[0.05] text-paper/40 hover:border-paper/25 hover:text-paper/60',
+                        ].join(' ')}
+                      >
+                        {opt}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Urgency pills */}

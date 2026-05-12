@@ -87,7 +87,7 @@ export const t = {
       namePlaceholder: 'Your name',
       phonePlaceholder: 'Phone / WhatsApp (optional)',
       emailPlaceholder: 'Email address',
-      servicePlaceholder: 'What can we help with?',
+      serviceLabel: 'What can we help with?',
       serviceOptions: [
         'Managed IT Services',
         'Network Infrastructure',
@@ -206,7 +206,7 @@ export const t = {
       namePlaceholder: 'اسمك',
       phonePlaceholder: 'الهاتف / واتساب (اختياري)',
       emailPlaceholder: 'البريد الإلكتروني',
-      servicePlaceholder: 'كيف يمكننا مساعدتك؟',
+      serviceLabel: 'كيف يمكننا مساعدتك؟',
       serviceOptions: [
         'خدمات تقنية المعلومات المُدارة',
         'البنية التحتية للشبكات',
