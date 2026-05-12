@@ -36,6 +36,9 @@ export const metadata: Metadata = {
   description:
     'Managed IT services for organisations across Qatar and the GCC. Network infrastructure, cloud, cybersecurity, and web development — wired right the first time.',
   metadataBase: new URL('https://compass-its.com'),
+  alternates: {
+    canonical: 'https://compass-its.com',
+  },
   openGraph: {
     siteName: 'Compass IT Solutions',
     type: 'website',
@@ -43,7 +46,6 @@ export const metadata: Metadata = {
     title: 'Compass IT Solutions — Managed IT Services, Qatar',
     description:
       'Managed IT services for organisations across Qatar and the GCC. Network infrastructure, cloud, cybersecurity, and web development — wired right the first time.',
-    images: [{ url: '/brand/og-image.png', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -54,24 +56,54 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
+  '@type': ['LocalBusiness', 'ProfessionalService'],
   name: 'Compass IT Solutions',
   url: 'https://compass-its.com',
-  logo: 'https://compass-its.com/brand/compass-its-horizontal-dark.svg',
+  logo: 'https://compass-its.com/brand/Monogram%20Transparent.svg',
+  image: 'https://compass-its.com/opengraph-image',
   description:
     'Managed IT services provider specialising in network infrastructure, cloud solutions, and cybersecurity. Based in Doha, Qatar.',
   address: {
     '@type': 'PostalAddress',
+    streetAddress: 'West Bay',
     addressLocality: 'Doha',
-    addressRegion: 'West Bay',
+    addressRegion: 'Ad Dawhah',
     addressCountry: 'QA',
   },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 25.3209,
+    longitude: 51.5295,
+  },
+  hasMap: 'https://maps.google.com/?q=West+Bay,+Doha,+Qatar',
+  telephone: '+974-5149-0825',
+  email: 'asahli@compass-its.com',
   contactPoint: {
     '@type': 'ContactPoint',
     telephone: '+974-5149-0825',
     contactType: 'customer service',
     email: 'asahli@compass-its.com',
+    availableLanguage: ['English', 'Arabic'],
   },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'],
+      opens: '08:00',
+      closes: '17:00',
+    },
+  ],
+  areaServed: [
+    { '@type': 'City', 'name': 'Doha' },
+    { '@type': 'Country', 'name': 'Qatar' },
+    { '@type': 'Country', 'name': 'Saudi Arabia' },
+    { '@type': 'Country', 'name': 'United Arab Emirates' },
+    { '@type': 'Country', 'name': 'Kuwait' },
+    { '@type': 'Country', 'name': 'Bahrain' },
+    { '@type': 'Country', 'name': 'Oman' },
+  ],
+  currenciesAccepted: 'QAR',
+  priceRange: '$$',
   sameAs: ['https://instagram.com/compass.its'],
   foundingDate: '2025',
 }
