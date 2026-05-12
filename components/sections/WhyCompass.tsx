@@ -55,10 +55,10 @@ export default function WhyCompass() {
                 <span className="font-jetbrains text-xs text-signal/50 tracking-eyebrow block mb-4">
                   {reason.number}
                 </span>
-                <h3 className="font-archivo text-[18px] font-medium text-paper tracking-[-0.02em] leading-snug mb-3">
+                <h3 className="font-barlow text-[18px] font-medium text-paper tracking-[-0.02em] leading-snug mb-3">
                   {reason.heading}
                 </h3>
-                <p className="font-archivo text-body text-paper/50 leading-[28px]">
+                <p className="font-barlow text-body text-paper/50 leading-[28px]">
                   {reason.body}
                 </p>
               </GlowCard>
@@ -67,7 +67,7 @@ export default function WhyCompass() {
         </div>
 
         <div className="mt-10 border-l-4 border-signal px-8 py-6 bg-paper/[0.03] rounded-r-lg shadow-glow-signal-sm">
-          <p className="font-archivo text-body-l text-paper italic mb-3">
+          <p className="font-barlow text-body-l text-paper italic mb-3">
             {tr.whyCompass.quote}
           </p>
           <span className="font-jetbrains text-xs text-signal tracking-eyebrow">

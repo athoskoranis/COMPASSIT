@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Archivo, JetBrains_Mono, Cairo } from 'next/font/google'
+import { Archivo, Barlow, JetBrains_Mono, Cairo } from 'next/font/google'
 import './globals.css'
 import { LanguageProvider } from '@/context/LanguageContext'
 
@@ -8,6 +8,13 @@ const archivo = Archivo({
   variable: '--font-archivo',
   display: 'swap',
   weight: ['300', '400', '500', '600', '700'],
+})
+
+const barlow = Barlow({
+  subsets: ['latin'],
+  variable: '--font-barlow',
+  display: 'swap',
+  weight: ['300', '400', '500', '600'],
 })
 
 const jetbrainsMono = JetBrains_Mono({
@@ -79,7 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body
-        className={`${archivo.variable} ${jetbrainsMono.variable} ${cairo.variable} font-archivo bg-ink text-paper antialiased`}
+        className={`${archivo.variable} ${barlow.variable} ${jetbrainsMono.variable} ${cairo.variable} font-archivo bg-ink text-paper antialiased`}
       >
         <LanguageProvider>{children}</LanguageProvider>
       </body>

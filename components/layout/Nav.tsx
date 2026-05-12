@@ -83,18 +83,15 @@ export default function Nav() {
       >
 
         {/* Logo — far left */}
-        <Link href="#hero" className="flex items-center gap-0.5 flex-shrink-0">
+        <Link href="#hero" className="flex items-center flex-shrink-0">
           <img
-            src="/brand/background-removed-background-removed.png"
+            src="/brand/Monogram%20Transparent.svg"
             alt="Compass ITS"
-            width={24}
-            height={24}
+            width={40}
+            height={40}
             className="w-10 h-10 object-contain"
-            style={{ filter: 'brightness(0) invert(1)' }}
+            style={{ filter: 'invert(1)' }}
           />
-          <span className="font-archivo font-medium text-[15px] text-paper tracking-[-0.02em]">
-            Compass IT Solutions
-          </span>
         </Link>
 
         {/* Right group: nav links + CTA */}
@@ -119,7 +116,7 @@ export default function Nav() {
 
           <Link
             href="#contact"
-            className="inline-flex items-center justify-center font-archivo text-[13px] font-medium uppercase tracking-cta bg-signal text-ink px-4 pt-[9px] pb-[5px] rounded-xl shadow-glow-signal-sm hover:shadow-glow-signal hover:bg-signal/90 transition-all duration-200 ml-1"
+            className="inline-flex items-center justify-center leading-none font-archivo text-[13px] font-medium uppercase tracking-cta glow-btn text-ink px-4 py-[7px] rounded-xl ml-1"
           >
             {tr.nav.cta}
           </Link>
@@ -160,7 +157,7 @@ export default function Nav() {
               <Link
                 href="#contact"
                 onClick={() => setMobileOpen(false)}
-                className="inline-flex items-center justify-center w-full font-archivo text-[14px] font-medium uppercase tracking-cta bg-signal text-ink px-6 py-3 rounded-xl shadow-glow-signal transition-all duration-200"
+                className="inline-flex items-center justify-center w-full leading-none font-archivo text-[14px] font-medium uppercase tracking-cta glow-btn text-ink px-6 py-3 rounded-xl"
               >
                 {tr.nav.cta}
               </Link>

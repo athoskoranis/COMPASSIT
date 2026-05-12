@@ -32,7 +32,7 @@ export default function ServicesOverview() {
             {tr.services.heading}{' '}
             <span className="text-signal">{tr.services.headingHighlight}</span>
           </h2>
-          <p className="font-archivo text-body text-paper/50 mt-4 max-w-[460px]">
+          <p className="font-barlow text-body text-paper/50 mt-4 max-w-[460px]">
             {tr.services.body}
           </p>
         </div>

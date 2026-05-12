@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import Link from 'next/link'
-import { Mail, Phone, MapPin } from 'lucide-react'
+import { Mail, MapPin } from 'lucide-react'
 import { TextHoverEffect, FooterBackgroundGradient } from '@/components/ui/hover-footer'
 import { useLanguage } from '@/context/LanguageContext'
 
@@ -30,10 +30,8 @@ export default function Footer() {
   }))
 
   const contactInfo: ContactItem[] = [
-    { Icon: Mail,         iconProps: { size: 15, className: 'text-signal flex-shrink-0' }, text: 'asahli@compass-its.com', href: 'mailto:asahli@compass-its.com' },
-    { Icon: Phone,        iconProps: { size: 15, className: 'text-signal flex-shrink-0' }, text: '+974 5149 0825',         href: 'tel:+97451490825' },
-    { Icon: WhatsAppIcon, iconProps: {},                                                    text: tr.footer.whatsappText,  href: 'https://wa.me/97451490825', external: true },
-    { Icon: MapPin,       iconProps: { size: 15, className: 'text-signal flex-shrink-0' }, text: 'West Bay, Doha, Qatar' },
+    { Icon: Mail,   iconProps: { size: 15, className: 'text-signal flex-shrink-0' }, text: 'asahli@compass-its.com', href: 'mailto:asahli@compass-its.com' },
+    { Icon: MapPin, iconProps: { size: 15, className: 'text-signal flex-shrink-0' }, text: 'West Bay, Doha, Qatar' },
   ]
 
   return (
@@ -51,32 +49,18 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <Link href="#hero" className="flex items-center gap-2 mb-4">
               <img
-                src="/brand/background-removed-background-removed.png"
+                src="/brand/Monogram%20Transparent.svg"
                 alt="Compass ITS"
                 className="w-6 h-6 object-contain"
-                style={{ filter: 'brightness(0) invert(1)' }}
+                style={{ filter: 'invert(1)' }}
               />
               <span className="font-archivo font-medium text-[15px] text-paper tracking-[-0.02em]">
                 Compass IT Solutions
               </span>
             </Link>
-            <p className="font-archivo text-[14px] text-paper/50 leading-relaxed mb-6">
+            <p className="font-archivo text-[14px] text-paper/50 leading-relaxed">
               {tr.footer.tagline}
             </p>
-            <a
-              href="https://instagram.com/compass.its"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              className="inline-flex items-center gap-2 font-archivo text-[13px] text-paper/40 hover:text-signal transition-colors"
-            >
-              <svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                <circle cx="12" cy="12" r="4"/>
-                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-              </svg>
-              @compass.its
-            </a>
           </div>
 
           {/* Services */}
@@ -145,7 +129,34 @@ export default function Footer() {
                   </li>
                 )
               })}
+              {/* WhatsApp / phone row */}
+              <li className="flex items-center gap-3">
+                <WhatsAppIcon />
+                <a
+                  href="https://wa.me/97451490825"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-archivo text-[13px] text-paper/50 hover:text-signal transition-colors tracking-caption"
+                >
+                  +974 5149 0825
+                </a>
+              </li>
             </ul>
+
+            {/* Instagram */}
+            <a
+              href="https://instagram.com/compass.its"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 font-archivo text-[13px] text-paper/40 hover:text-signal transition-colors mt-5"
+            >
+              <svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+              </svg>
+              @compass.its
+            </a>
           </div>
         </div>
 

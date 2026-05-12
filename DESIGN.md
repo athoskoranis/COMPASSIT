@@ -69,11 +69,12 @@ Use these colours exclusively for live system state. Never invent new colours fo
 | Role | Typeface | Import |
 |---|---|---|
 | Primary — Display & UI | **Archivo** | `https://fonts.google.com/specimen/Archivo` |
-| Secondary — Technical / Mono | **JetBrains Mono** | `https://fonts.google.com/specimen/JetBrains+Mono` |
+| Secondary — Body | **Barlow** | `https://fonts.google.com/specimen/Barlow` |
+| Tertiary — Technical / Mono | **JetBrains Mono** | `https://fonts.google.com/specimen/JetBrains+Mono` |
 
 **Fallback stack:**
 ```css
-font-family: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+font-family: "Archivo", "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
 font-family: "JetBrains Mono", "Courier New", monospace;
 ```
 
@@ -91,14 +92,16 @@ font-family: "JetBrains Mono", "Courier New", monospace;
 
 ### Weight Usage
 
-Archivo weights in use: **300** (light display), **400** (body), **500** (UI labels), **700** (emphasis, bold callouts)
+Archivo weights in use: **300** (light display), **400** (UI copy), **500** (UI labels), **700** (emphasis, bold callouts)
+Barlow weights in use: **300** (light body), **400** (body), **500** (lead paragraphs), **600** (bold body)
 JetBrains Mono weights in use: **400** (captions), **500** (labels), **700** (code emphasis)
 
 ### Do's and Don'ts — Typography
 
+- **DO** use Archivo for: all headings (Display XL → Heading 2), buttons, navigation, UI labels
+- **DO** use Barlow for: body copy, lead paragraphs (Body L, Body), lists, and long-form text
 - **DO** use JetBrains Mono for: eyebrow labels (e.g. `NETWORK · CLOUD · CONTINUITY`), ticket numbers, status codes, inline code, data values
-- **DO** use Archivo for: all headings, body copy, buttons, navigation
-- **DON'T** use any typeface other than Archivo and JetBrains Mono
+- **DON'T** use any typeface other than Archivo, Barlow, and JetBrains Mono
 - **DON'T** recreate the wordmark in another typeface
 - **DON'T** reduce type contrast below WCAG AA legibility
 
@@ -321,7 +324,7 @@ When generating UI for this project, always:
 1. **Read this file first** before writing a single line of CSS or component code.
 2. **Use only the colours defined above** — never hardcode a hex value not in this palette.
 3. **Validate all text contrast** against WCAG AA (4.5:1 body, 3:1 large text).
-4. **Use Archivo for all UI text** and JetBrains Mono exclusively for labels, eyebrows, monospace, and technical strings.
+4. **Use Archivo for headings and UI** (nav, buttons, labels). **Use Barlow for body copy and long-form text** (Body L, Body, lists). **Use JetBrains Mono** exclusively for eyebrows, captions, ticket IDs, status codes, and technical strings.
 5. **Apply the spacing scale** — all spacing should be a multiple of 4px.
 6. **Match the Signal status system** exactly when rendering any live/operational/maintenance state — do not invent colours for new states.
 7. **Keep the voice in copy** direct, calm, specific, quietly warm — no exclamation marks, no acronym soup, no fear-selling. Reference `VOICE.md` before writing any UI string.

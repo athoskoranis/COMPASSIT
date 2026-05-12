@@ -29,7 +29,12 @@ export default function BrandPillars() {
     <section id="about" className="py-20 lg:py-24 relative z-[1] overflow-hidden">
       <div className="max-w-content mx-auto px-6 lg:px-20 relative z-10">
         <div className="mb-14">
-          <EyebrowLabel className="mb-4 block">{tr.brandPillars.eyebrow}</EyebrowLabel>
+          <EyebrowLabel className="mb-4 block">
+            {(() => {
+              const [a, b, c] = tr.brandPillars.eyebrow.split(' · ')
+              return <>{a} · <span className="text-paper">{b}</span> · {c}</>
+            })()}
+          </EyebrowLabel>
           <h2 className="font-archivo text-heading-2 font-semibold text-paper tracking-[-0.02em]">
             {tr.brandPillars.heading}
           </h2>
@@ -45,14 +50,14 @@ export default function BrandPillars() {
                 transition: `opacity 0.6s ease ${i * 120}ms`,
               }}
             >
-              <GlowCard className="p-6 h-full">
+              <GlowCard variant="indigo" className="p-6 h-full">
                 <span className="font-jetbrains text-xs text-signal/60 tracking-eyebrow block mb-4">
                   {pillar.number}
                 </span>
-                <h3 className="font-archivo text-[22px] font-medium text-paper leading-tight tracking-[-0.02em] mb-4">
+                <h3 className="font-barlow text-[22px] font-medium text-paper leading-tight tracking-[-0.02em] mb-4">
                   {pillar.heading}
                 </h3>
-                <p className="font-archivo text-body text-paper/55 leading-[28px]">
+                <p className="font-barlow text-body text-paper/55 leading-[28px]">
                   {pillar.body}
                 </p>
               </GlowCard>

@@ -98,7 +98,7 @@ export default function RadialOrbitalTimeline({ timelineData, seeLabel = 'See' }
     const radian = (angle * Math.PI) / 180
     const x = radius * Math.cos(radian)
     const y = radius * Math.sin(radian)
-    const zIndex = Math.round(100 + 50 * Math.cos(radian))
+    const zIndex = Math.round(100 + 50 * Math.sin(radian))
     const opacity = Math.max(0.4, Math.min(1, 0.4 + 0.6 * ((1 + Math.sin(radian)) / 2)))
     return { x, y, zIndex, opacity, bottomHalf: y > 0 }
   }
@@ -127,10 +127,18 @@ export default function RadialOrbitalTimeline({ timelineData, seeLabel = 'See' }
         >
           {/* Center orb */}
           <img
-            src="/brand/background-removed-background-removed.png"
+            src="/brand/Monogram%20Transparent.svg"
             alt="Compass ITS"
-            className="absolute z-10 w-40 h-40 object-contain"
-            style={{ filter: 'brightness(0) invert(1) drop-shadow(0 0 20px rgba(43,179,230,0.9)) drop-shadow(0 0 10px rgba(43,179,230,0.65)) drop-shadow(0 0 3px rgba(255,255,255,0.9))' }}
+            className="absolute z-[200] w-40 h-40 object-contain"
+            style={{
+              filter: [
+                'invert(1)',
+                'drop-shadow(0 0 6px rgba(80,45,150,1))',
+                'drop-shadow(0 0 12px rgba(80,45,150,0.9))',
+                'drop-shadow(0 0 20px rgba(80,45,150,0.7))',
+                'drop-shadow(0 0 30px rgba(80,45,150,0.4))',
+              ].join(' '),
+            }}
           />
 
           {/* Orbit ring — data-glow inherits --x/--y from containerRef */}
@@ -138,6 +146,7 @@ export default function RadialOrbitalTimeline({ timelineData, seeLabel = 'See' }
             data-glow
             className="absolute w-[700px] h-[700px] rounded-full"
             style={{
+              zIndex: 49,
               '--base': '190',
               '--spread': '65',
               '--radius': '350',
@@ -171,14 +180,14 @@ export default function RadialOrbitalTimeline({ timelineData, seeLabel = 'See' }
                 style={{
                   transform: `translate(${position.x}px, ${position.y}px)`,
                   zIndex: isExpanded ? 200 : position.zIndex,
-                  opacity: isExpanded ? 1 : position.opacity,
                 }}
                 onClick={(e) => { e.stopPropagation(); toggleItem(item.id) }}
               >
-                {/* Energy glow */}
+                {/* Energy glow — depth opacity here, behind the ball */}
                 <div
                   className={`absolute rounded-full ${isPulsing ? 'animate-pulse' : ''}`}
                   style={{
+                    opacity: isExpanded ? 1 : position.opacity,
                     background: 'radial-gradient(circle, rgba(43,179,230,0.30) 0%, rgba(43,179,230,0) 70%)',
                     width: `${item.energy * 0.75 + 70}px`,
                     height: `${item.energy * 0.75 + 70}px`,
@@ -187,27 +196,37 @@ export default function RadialOrbitalTimeline({ timelineData, seeLabel = 'See' }
                   }}
                 />
 
-                {/* Node circle */}
+                {/* Node circle — bg always fully opaque so ring can't bleed through */}
                 <div
                   className={[
                     'w-16 h-16 rounded-full flex items-center justify-center border-2 transition-all duration-300',
                     isExpanded
-                      ? 'bg-signal text-ink border-signal shadow-lg shadow-signal/30 scale-125'
+                      ? 'bg-signal border-signal shadow-lg shadow-signal/30 scale-125'
                       : isRelated
-                      ? 'bg-signal/20 text-paper border-signal/60 animate-pulse'
-                      : 'bg-ink/60 text-paper/70 border-paper/20',
+                      ? 'bg-ink border-signal/60 animate-pulse'
+                      : 'bg-ink border-paper/20',
                   ].join(' ')}
+                  style={{
+                    borderColor: isExpanded ? undefined
+                      : isRelated ? `rgba(43,179,230,${position.opacity * 0.6})`
+                      : `rgba(244,242,236,${position.opacity * 0.2})`,
+                  }}
                 >
-                  <Icon size={24} />
+                  <Icon
+                    size={24}
+                    style={{ opacity: isExpanded ? 1 : position.opacity }}
+                    className={isExpanded ? 'text-ink' : isRelated ? 'text-signal' : 'text-paper/70'}
+                  />
                 </div>
 
-                {/* Label */}
+                {/* Label — depth opacity */}
                 <div
                   className={[
                     'absolute top-[68px] left-1/2 -translate-x-1/2 whitespace-nowrap',
-                    'font-archivo text-[15px] font-medium tracking-wide transition-all duration-300',
+                    'font-barlow text-[15px] font-medium tracking-wide transition-all duration-300',
                     isExpanded ? 'text-signal' : 'text-paper/55',
                   ].join(' ')}
+                  style={{ opacity: isExpanded ? 1 : position.opacity }}
                 >
                   {item.title}
                 </div>
@@ -231,10 +250,10 @@ export default function RadialOrbitalTimeline({ timelineData, seeLabel = 'See' }
                       <span className="font-jetbrains text-[10px] text-signal/55 tracking-eyebrow uppercase block mb-2">
                         {item.category}
                       </span>
-                      <h3 className="font-archivo text-[18px] font-medium text-paper tracking-[-0.02em] leading-snug mb-2">
+                      <h3 className="font-barlow text-[18px] font-medium text-paper tracking-[-0.02em] leading-snug mb-2">
                         {item.title}
                       </h3>
-                      <p className="font-archivo text-[14px] text-paper/55 leading-snug mb-5">
+                      <p className="font-barlow text-[14px] text-paper/55 leading-snug mb-5">
                         {item.description}
                       </p>
                       {item.relatedIds.length > 0 && (

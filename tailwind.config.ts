@@ -17,6 +17,7 @@ const config: Config = {
       },
       fontFamily: {
         archivo: ['var(--font-archivo)', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        barlow: ['var(--font-barlow)', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
         jetbrains: ['var(--font-jetbrains)', 'Courier New', 'monospace'],
       },
       fontSize: {
