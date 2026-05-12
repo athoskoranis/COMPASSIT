@@ -51,7 +51,7 @@ export default function WhyCompass() {
                 transition: `opacity 0.6s ease ${i * 80}ms`,
               }}
             >
-              <GlowCard variant="amber" className="p-6 h-full">
+              <GlowCard variant="indigo" className="p-6 h-full">
                 <span className="font-jetbrains text-xs text-signal/50 tracking-eyebrow block mb-4">
                   {reason.number}
                 </span>

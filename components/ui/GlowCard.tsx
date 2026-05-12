@@ -5,7 +5,7 @@ import React, { useEffect, useRef, ReactNode } from 'react'
 interface GlowCardProps {
   children: ReactNode
   className?: string
-  variant?: 'cyan' | 'amber'
+  variant?: 'cyan' | 'amber' | 'indigo'
 }
 
 const variants = {
@@ -28,6 +28,16 @@ const variants = {
     '--border-light-opacity': '0.80',
     '--bg-spot-opacity': '0.10',
     '--backup-border': 'hsl(36 60% 35% / 0.9)',
+  },
+  indigo: {
+    '--base': '258',
+    '--spread': '18',
+    '--saturation': '72',
+    '--lightness': '58',
+    '--border-spot-opacity': '1',
+    '--border-light-opacity': '0.85',
+    '--bg-spot-opacity': '0.10',
+    '--backup-border': 'hsl(258 50% 28% / 0.9)',
   },
 }
 
