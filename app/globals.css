@@ -162,15 +162,15 @@ a {
 
 /* Indigo blob 1 — upper-right, 28s */
 .aurora-blob-4 {
-  width: 680px;
-  height: 560px;
+  width: 780px;
+  height: 640px;
   top: -5%;
   right: 15%;
   background: radial-gradient(ellipse at center,
-    rgba(53,38,122,0.75) 0%,
-    rgba(53,38,122,0.45) 22%,
-    rgba(53,38,122,0.18) 52%,
-    rgba(53,38,122,0.04) 78%,
+    rgba(110,45,210,0.92) 0%,
+    rgba(110,45,210,0.62) 22%,
+    rgba(110,45,210,0.28) 52%,
+    rgba(110,45,210,0.06) 78%,
     transparent 100%
   );
   animation: blob-drift-4 28s ease-in-out infinite;
@@ -231,15 +231,15 @@ a {
 
 /* Indigo blob 2 — lower-left, 22s */
 .aurora-blob-5 {
-  width: 640px;
-  height: 520px;
+  width: 740px;
+  height: 600px;
   top: 65%;
   left: -5%;
   background: radial-gradient(ellipse at center,
-    rgba(53,38,122,0.70) 0%,
-    rgba(53,38,122,0.40) 22%,
-    rgba(53,38,122,0.15) 55%,
-    rgba(53,38,122,0.03) 80%,
+    rgba(110,45,210,0.88) 0%,
+    rgba(110,45,210,0.56) 22%,
+    rgba(110,45,210,0.24) 55%,
+    rgba(110,45,210,0.05) 80%,
     transparent 100%
   );
   animation: blob-drift-5 22s ease-in-out infinite;

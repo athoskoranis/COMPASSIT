@@ -48,9 +48,9 @@ export default function MeshDrift() {
 
       // Indigo bloom following cursor
       const bloom = ctx.createRadialGradient(mx, my, 0, mx, my, 300)
-      bloom.addColorStop(0, 'rgba(53,38,122,0.45)')
-      bloom.addColorStop(0.35, 'rgba(53,38,122,0.18)')
-      bloom.addColorStop(1, 'rgba(53,38,122,0)')
+      bloom.addColorStop(0, 'rgba(110,45,210,0.72)')
+      bloom.addColorStop(0.35, 'rgba(110,45,210,0.30)')
+      bloom.addColorStop(1, 'rgba(110,45,210,0)')
       ctx.fillStyle = bloom
       ctx.fillRect(0, 0, w, h)
 

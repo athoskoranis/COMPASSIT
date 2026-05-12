@@ -29,7 +29,7 @@ vec3 saturate3(vec3 v){ return clamp(v,0.0,1.0); }
 
 #define BG     vec3(0.0431, 0.0549, 0.0627)
 #define CYAN   vec3(0.1686, 0.7020, 0.9020)
-#define INDIGO vec3(0.2078, 0.1490, 0.4784)
+#define INDIGO vec3(0.52, 0.22, 0.92)
 
 void main(){
   vec2 uv = gl_FragCoord.xy / uRes;
@@ -77,14 +77,14 @@ void main(){
   col = mix(col, LINE, lineMask * 0.035);
 
   float d0=distance(p,a[0]); float w0=exp(-d0*d0*7.1)*1.00;
-  float d1=distance(p,a[1]); float w1=exp(-d1*d1*3.8)*0.48;
+  float d1=distance(p,a[1]); float w1=exp(-d1*d1*3.8)*0.92;
   float d2=distance(p,a[2]); float w2=exp(-d2*d2*7.1)*1.00;
   float d3=distance(p,a[3]); float w3=exp(-d3*d3*7.1)*1.00;
-  float d4=distance(p,a[4]); float w4=exp(-d4*d4*3.8)*0.48;
+  float d4=distance(p,a[4]); float w4=exp(-d4*d4*3.8)*0.92;
   float p0=w0*w0; float p1=w1*w1; float p2=w2*w2; float p3=w3*w3; float p4=w4*w4;
   float pSum=p0+p1+p2+p3+p4+0.0001;
   vec3 blobColor=(c[0]*p0+c[1]*p1+c[2]*p2+c[3]*p3+c[4]*p4)/pSum;
-  float influence=min(w0+w1+w2+w3+w4,1.0)*0.36;
+  float influence=min(w0+w1+w2+w3+w4,1.0)*0.46;
   col=mix(col,blobColor,influence);
 
   gl_FragColor = vec4(saturate3(col), 1.0);
