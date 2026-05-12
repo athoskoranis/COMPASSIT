@@ -1,0 +1,246 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-ink: #0B0E10;
+  --color-paper: #F4F2EC;
+  --color-signal: #2BB3E6;
+  --color-beacon: #E8A33D;
+  --color-moss: #6B7A4F;
+  --color-mist: #ECEDEF;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+@keyframes compass-trace {
+  from { stroke-dashoffset: 3000; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* RTL: switch to Cairo for all text elements */
+[dir="rtl"] .font-archivo,
+[dir="rtl"] .font-jetbrains {
+  font-family: var(--font-cairo), 'Cairo', sans-serif;
+}
+
+/* RTL: reset letter-spacing (Arabic connected script) */
+[dir="rtl"] [class*="tracking-"] {
+  letter-spacing: 0 !important;
+}
+
+/* RTL: flip left-border callout blocks */
+[dir="rtl"] .border-l-4 {
+  border-left-width: 0;
+  border-right-width: 4px;
+}
+[dir="rtl"] .rounded-r-lg {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+/* Topographic contour lines — complex cubic bezier paths clustered like real terrain */
+.topo-lines-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='800'%3E%3Cpath d='M0 100 C150 30 280 200 480 90 C680 -20 820 220 1050 110 C1280 0 1450 180 1600 100' stroke='%232BB3E6' stroke-width='0.9' fill='none' opacity='0.13'/%3E%3Cpath d='M0 150 C200 80 380 240 580 140 C780 40 950 260 1150 160 C1350 60 1480 220 1600 150' stroke='%232BB3E6' stroke-width='0.8' fill='none' opacity='0.10'/%3E%3Cpath d='M0 200 C120 140 320 260 540 190 C760 120 920 290 1140 200 C1360 110 1500 250 1600 200' stroke='%232BB3E6' stroke-width='0.7' fill='none' opacity='0.07'/%3E%3Cpath d='M0 320 C180 240 340 400 560 310 C780 220 940 400 1160 300 C1380 200 1500 360 1600 320' stroke='%232BB3E6' stroke-width='0.9' fill='none' opacity='0.11'/%3E%3Cpath d='M0 380 C200 300 400 460 640 370 C880 280 1060 440 1300 360 C1480 290 1560 380 1600 380' stroke='%232BB3E6' stroke-width='0.7' fill='none' opacity='0.08'/%3E%3Cpath d='M0 490 C160 410 320 560 550 480 C780 400 960 560 1180 470 C1400 380 1520 510 1600 490' stroke='%232BB3E6' stroke-width='0.9' fill='none' opacity='0.10'/%3E%3Cpath d='M0 550 C220 470 440 620 680 540 C920 460 1120 620 1360 530 C1500 480 1570 550 1600 550' stroke='%232BB3E6' stroke-width='0.7' fill='none' opacity='0.07'/%3E%3Cpath d='M0 660 C180 580 380 740 600 650 C820 560 1020 720 1260 640 C1480 560 1560 660 1600 660' stroke='%232BB3E6' stroke-width='0.9' fill='none' opacity='0.12'/%3E%3Cpath d='M0 710 C240 630 480 790 720 700 C960 610 1160 770 1400 690 C1550 630 1580 710 1600 710' stroke='%232BB3E6' stroke-width='0.8' fill='none' opacity='0.09'/%3E%3Cpath d='M0 755 C200 680 420 830 660 745 C900 660 1120 810 1360 730 C1540 660 1580 755 1600 755' stroke='%232BB3E6' stroke-width='0.7' fill='none' opacity='0.06'/%3E%3C/svg%3E");
+  background-size: 1600px 800px;
+  background-repeat: repeat;
+}
+
+/* Blob drift keyframes — large free-roaming travel across the full viewport */
+@keyframes blob-drift-1 {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  20%  { transform: translate(140px, -340px) scale(1.1); }
+  45%  { transform: translate(-80px, -560px) scale(0.91); }
+  70%  { transform: translate(220px, -300px) scale(1.09); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes blob-drift-2 {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  30%  { transform: translate(-180px, 400px) scale(1.13); }
+  65%  { transform: translate(220px, 660px) scale(0.87); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes blob-drift-3 {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  35%  { transform: translate(-260px, -420px) scale(1.11); }
+  75%  { transform: translate(180px, 340px) scale(0.93); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes blob-drift-4 {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  25%  { transform: translate(260px, -220px) scale(1.07); }
+  55%  { transform: translate(-120px, 380px) scale(0.93); }
+  80%  { transform: translate(180px, 160px) scale(1.04); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes blob-drift-5 {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  40%  { transform: translate(180px, -300px) scale(1.09); }
+  75%  { transform: translate(-140px, 340px) scale(0.92); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+/* Aurora blob base */
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  will-change: transform;
+  pointer-events: none;
+  filter: blur(60px);
+}
+
+/* Cyan blob 1 — top-left, 18s */
+.aurora-blob-1 {
+  width: 1100px;
+  height: 860px;
+  top: 0%;
+  left: -15%;
+  background: radial-gradient(ellipse at center,
+    rgba(43,179,230,0.28) 0%,
+    rgba(43,179,230,0.18) 20%,
+    rgba(43,179,230,0.09) 45%,
+    rgba(43,179,230,0.03) 70%,
+    transparent 100%
+  );
+  animation: blob-drift-1 18s ease-in-out infinite;
+}
+
+/* Cyan blob 2 — center-right, 24s */
+.aurora-blob-2 {
+  width: 900px;
+  height: 1060px;
+  top: 20%;
+  right: -8%;
+  background: radial-gradient(ellipse at center,
+    rgba(43,179,230,0.22) 0%,
+    rgba(43,179,230,0.14) 20%,
+    rgba(43,179,230,0.06) 50%,
+    rgba(43,179,230,0.02) 75%,
+    transparent 100%
+  );
+  animation: blob-drift-2 24s ease-in-out infinite;
+}
+
+/* Cyan blob 3 — lower-right, 20s */
+.aurora-blob-3 {
+  width: 820px;
+  height: 660px;
+  top: 60%;
+  right: 5%;
+  background: radial-gradient(ellipse at center,
+    rgba(43,179,230,0.18) 0%,
+    rgba(43,179,230,0.11) 25%,
+    rgba(43,179,230,0.05) 55%,
+    rgba(43,179,230,0.01) 80%,
+    transparent 100%
+  );
+  animation: blob-drift-3 20s ease-in-out infinite;
+}
+
+/* Amber blob 1 — upper-right, 28s */
+.aurora-blob-4 {
+  width: 680px;
+  height: 560px;
+  top: -5%;
+  right: 15%;
+  background: radial-gradient(ellipse at center,
+    rgba(232,163,61,0.20) 0%,
+    rgba(232,163,61,0.12) 22%,
+    rgba(232,163,61,0.05) 52%,
+    rgba(232,163,61,0.01) 78%,
+    transparent 100%
+  );
+  animation: blob-drift-4 28s ease-in-out infinite;
+}
+
+/* GlowCard — metallic spotlight border effect */
+[data-glow]::before,
+[data-glow]::after {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  inset: calc(var(--border-size) * -1);
+  border: var(--border-size) solid transparent;
+  border-radius: calc((var(--radius) + var(--border, 2)) * 1px);
+  background-attachment: fixed;
+  background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
+  mask-clip: padding-box, border-box;
+  mask-composite: intersect;
+}
+
+[data-glow]::before {
+  background-image: radial-gradient(
+    calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at
+    calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+    hsl(var(--hue, 200) calc(var(--saturation, 72) * 1%) calc(var(--lightness, 50) * 1%) / var(--border-spot-opacity, 1)), transparent 100%
+  );
+  filter: brightness(2.8);
+}
+
+[data-glow]::after {
+  background-image: radial-gradient(
+    calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at
+    calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+    hsl(0 100% 100% / var(--border-light-opacity, 1)), transparent 100%
+  );
+}
+
+[data-glow] [data-glow] {
+  position: absolute;
+  inset: 0;
+  will-change: filter;
+  opacity: var(--outer, 1);
+  border-radius: calc(var(--radius) * 1px);
+  border-width: calc(var(--border-size) * 20);
+  filter: blur(calc(var(--border-size) * 10));
+  background: none;
+  pointer-events: none;
+  border: none;
+}
+
+[data-glow] > [data-glow]::before {
+  inset: -10px;
+  border-width: 10px;
+}
+
+/* Amber blob 2 — lower-left, 22s */
+.aurora-blob-5 {
+  width: 640px;
+  height: 520px;
+  top: 65%;
+  left: -5%;
+  background: radial-gradient(ellipse at center,
+    rgba(232,163,61,0.17) 0%,
+    rgba(232,163,61,0.10) 22%,
+    rgba(232,163,61,0.04) 55%,
+    rgba(232,163,61,0.01) 80%,
+    transparent 100%
+  );
+  animation: blob-drift-5 22s ease-in-out infinite;
+}
