@@ -109,7 +109,7 @@ a {
   mix-blend-mode: screen;
   will-change: transform;
   pointer-events: none;
-  filter: blur(60px);
+  filter: blur(80px);
 }
 
 /* Cyan blob 1 — top-left, 18s */
@@ -167,10 +167,10 @@ a {
   top: -5%;
   right: 15%;
   background: radial-gradient(ellipse at center,
-    rgba(110,45,210,0.92) 0%,
-    rgba(110,45,210,0.62) 22%,
-    rgba(110,45,210,0.28) 52%,
-    rgba(110,45,210,0.06) 78%,
+    rgba(95,38,185,0.90) 0%,
+    rgba(95,38,185,0.58) 25%,
+    rgba(95,38,185,0.24) 55%,
+    rgba(95,38,185,0.06) 80%,
     transparent 100%
   );
   animation: blob-drift-4 28s ease-in-out infinite;
@@ -236,10 +236,10 @@ a {
   top: 65%;
   left: -5%;
   background: radial-gradient(ellipse at center,
-    rgba(110,45,210,0.88) 0%,
-    rgba(110,45,210,0.56) 22%,
-    rgba(110,45,210,0.24) 55%,
-    rgba(110,45,210,0.05) 80%,
+    rgba(95,38,185,0.86) 0%,
+    rgba(95,38,185,0.54) 25%,
+    rgba(95,38,185,0.22) 55%,
+    rgba(95,38,185,0.05) 80%,
     transparent 100%
   );
   animation: blob-drift-5 22s ease-in-out infinite;
