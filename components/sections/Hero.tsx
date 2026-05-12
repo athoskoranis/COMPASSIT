@@ -40,18 +40,6 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right: logo — desktop only */}
-          <div className="hidden lg:flex items-start justify-center flex-shrink-0 w-[420px]">
-            <img
-              src="/brand/Monogram%20Hero.svg"
-              alt="Compass IT Solutions"
-              className="w-full object-contain"
-              style={{
-                filter: 'invert(1) drop-shadow(0 0 30px rgba(43,179,230,0.25))',
-                opacity: 0.65,
-              }}
-            />
-          </div>
         </div>
       </div>
 
