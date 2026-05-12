@@ -160,17 +160,17 @@ a {
   animation: blob-drift-3 20s ease-in-out infinite;
 }
 
-/* Amber blob 1 — upper-right, 28s */
+/* Indigo blob 1 — upper-right, 28s */
 .aurora-blob-4 {
   width: 680px;
   height: 560px;
   top: -5%;
   right: 15%;
   background: radial-gradient(ellipse at center,
-    rgba(232,163,61,0.20) 0%,
-    rgba(232,163,61,0.12) 22%,
-    rgba(232,163,61,0.05) 52%,
-    rgba(232,163,61,0.01) 78%,
+    rgba(53,38,122,0.20) 0%,
+    rgba(53,38,122,0.12) 22%,
+    rgba(53,38,122,0.05) 52%,
+    rgba(53,38,122,0.01) 78%,
     transparent 100%
   );
   animation: blob-drift-4 28s ease-in-out infinite;
@@ -229,17 +229,17 @@ a {
   border-width: 10px;
 }
 
-/* Amber blob 2 — lower-left, 22s */
+/* Indigo blob 2 — lower-left, 22s */
 .aurora-blob-5 {
   width: 640px;
   height: 520px;
   top: 65%;
   left: -5%;
   background: radial-gradient(ellipse at center,
-    rgba(232,163,61,0.17) 0%,
-    rgba(232,163,61,0.10) 22%,
-    rgba(232,163,61,0.04) 55%,
-    rgba(232,163,61,0.01) 80%,
+    rgba(53,38,122,0.17) 0%,
+    rgba(53,38,122,0.10) 22%,
+    rgba(53,38,122,0.04) 55%,
+    rgba(53,38,122,0.01) 80%,
     transparent 100%
   );
   animation: blob-drift-5 22s ease-in-out infinite;
