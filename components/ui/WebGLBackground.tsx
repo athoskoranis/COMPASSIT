@@ -28,8 +28,8 @@ float fbm(vec2 p){
 vec3 saturate3(vec3 v){ return clamp(v,0.0,1.0); }
 
 #define BG     vec3(0.0431, 0.0549, 0.0627)
-#define CYAN   vec3(0.1686, 0.7020, 0.9020)
-#define INDIGO vec3(0.26, 0.14, 0.54)
+#define CYAN   vec3(0.12, 0.54, 0.72)
+#define INDIGO vec3(0.24, 0.13, 0.50)
 
 void main(){
   vec2 uv = gl_FragCoord.xy / uRes;
@@ -84,7 +84,7 @@ void main(){
   float p0=w0*w0; float p1=w1*w1; float p2=w2*w2; float p3=w3*w3; float p4=w4*w4;
   float pSum=p0+p1+p2+p3+p4+0.0001;
   vec3 blobColor=(c[0]*p0+c[1]*p1+c[2]*p2+c[3]*p3+c[4]*p4)/pSum;
-  float influence=min(w0+w1+w2+w3+w4,1.0)*0.46;
+  float influence=min(w0+w1+w2+w3+w4,1.0)*0.52;
   col=mix(col,blobColor,influence);
 
   gl_FragColor = vec4(saturate3(col), 1.0);
