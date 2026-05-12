@@ -29,7 +29,7 @@ vec3 saturate3(vec3 v){ return clamp(v,0.0,1.0); }
 
 #define BG     vec3(0.0431, 0.0549, 0.0627)
 #define CYAN   vec3(0.1686, 0.7020, 0.9020)
-#define AMBER  vec3(0.9098, 0.6392, 0.2392)
+#define INDIGO vec3(0.2078, 0.1490, 0.4784)
 
 void main(){
   vec2 uv = gl_FragCoord.xy / uRes;
@@ -46,10 +46,10 @@ void main(){
 
   vec3 c[5];
   c[0] = CYAN;
-  c[1] = AMBER;
+  c[1] = INDIGO;
   c[2] = CYAN;
   c[3] = CYAN;
-  c[4] = AMBER;
+  c[4] = INDIGO;
 
   vec3 col = BG;
 
