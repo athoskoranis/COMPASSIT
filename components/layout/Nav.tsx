@@ -76,8 +76,8 @@ export default function Nav() {
       <div
         className="flex items-center transition-all duration-300 w-full"
         style={{
-          height: floating ? '46px' : '54px',
-          padding: floating ? '0 20px' : '0 16px',
+          height: floating ? '56px' : '72px',
+          padding: floating ? '0 20px' : '0 24px',
           justifyContent: 'space-between',
         }}
       >
@@ -90,7 +90,7 @@ export default function Nav() {
             height={36}
             className="object-contain transition-all duration-300"
             style={{
-              height: floating ? '40px' : '50px',
+              height: floating ? '46px' : '60px',
               width: 'auto',
               filter: 'invert(1)',
             }}
@@ -137,7 +137,7 @@ export default function Nav() {
 
       {/* Mobile overlay */}
       {mobileOpen && (
-        <div className="lg:hidden fixed top-[60px] left-0 right-0 bottom-0 z-50 bg-ink/95 backdrop-blur-lg border-t border-paper/10 overflow-y-auto">
+        <div className="lg:hidden fixed top-[72px] left-0 right-0 bottom-0 z-50 bg-ink/95 backdrop-blur-lg border-t border-paper/10 overflow-y-auto">
           <div className="px-6 py-8 flex flex-col gap-6">
             {navHrefs.map(({ key, href }) => (
               <Link
