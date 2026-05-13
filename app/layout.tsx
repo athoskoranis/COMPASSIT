@@ -52,6 +52,9 @@ export const metadata: Metadata = {
     site: '@compass.its',
   },
   robots: { index: true, follow: true },
+  verification: {
+    google: 'xiAflnEPGwvyy6_7lRtOuDOYSyucnZIndZmpaBRpAzs',
+  },
 }
 
 const jsonLd = {
