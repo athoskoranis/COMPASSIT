@@ -107,7 +107,7 @@ export default function Nav() {
       >
 
         {/* Logo — far left */}
-        <Link href="#hero" className="flex items-center flex-shrink-0">
+        <Link href={isHome ? '#hero' : '/'} className="flex items-center flex-shrink-0">
           <img
             src="/brand/Secondary%20Transparent.svg"
             alt="Compass ITS"
