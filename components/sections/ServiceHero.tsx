@@ -21,7 +21,7 @@ export default function ServiceHero({
       <div className="max-w-[1280px] mx-auto px-6 lg:px-20 py-20 lg:py-28 relative z-10">
         <EyebrowLabel className="mb-6 block">{eyebrow}</EyebrowLabel>
 
-        <h1 className="font-archivo font-light text-paper leading-none tracking-[-0.04em] text-[40px] md:text-[56px] lg:text-[72px] max-w-[820px] mb-7">
+        <h1 className="font-archivo font-semibold text-paper leading-none tracking-[-0.04em] text-[40px] md:text-[56px] lg:text-[72px] max-w-[820px] mb-7">
           {title}
         </h1>
 

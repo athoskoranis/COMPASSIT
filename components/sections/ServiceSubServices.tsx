@@ -26,7 +26,7 @@ export default function ServiceSubServices({
           <EyebrowLabel className="mb-5 block">{eyebrow}</EyebrowLabel>
         )}
 
-        <h2 className="font-archivo font-light text-paper tracking-[-0.04em] text-[32px] md:text-[44px] leading-none mb-6 max-w-[720px]">
+        <h2 className="font-archivo font-semibold text-paper tracking-[-0.03em] text-[32px] md:text-[44px] leading-none mb-6 max-w-[720px]">
           {heading}
         </h2>
 

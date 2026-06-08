@@ -15,7 +15,7 @@ export default function ServiceFAQ({ faqs }: ServiceFAQProps) {
       <div className="max-w-[1280px] mx-auto px-6 lg:px-20">
         <EyebrowLabel className="mb-5 block">FAQ</EyebrowLabel>
 
-        <h2 className="font-archivo font-light text-paper tracking-[-0.04em] text-[32px] md:text-[44px] leading-none mb-12 max-w-[560px]">
+        <h2 className="font-archivo font-semibold text-paper tracking-[-0.03em] text-[32px] md:text-[44px] leading-none mb-12 max-w-[560px]">
           Common questions
         </h2>
 
