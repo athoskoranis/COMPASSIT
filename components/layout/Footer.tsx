@@ -30,7 +30,7 @@ export default function Footer() {
   }))
 
   const contactInfo: ContactItem[] = [
-    { Icon: Mail,   iconProps: { size: 15, className: 'text-signal flex-shrink-0' }, text: 'asahli@compass-its.com', href: 'mailto:asahli@compass-its.com' },
+    { Icon: Mail,   iconProps: { size: 15, className: 'text-signal flex-shrink-0' }, text: 'info@compass-its.com', href: 'mailto:info@compass-its.com' },
     { Icon: MapPin, iconProps: { size: 15, className: 'text-signal flex-shrink-0' }, text: 'West Bay, Doha, Qatar' },
   ]
 

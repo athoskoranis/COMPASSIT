@@ -8,6 +8,7 @@ export default function ContactCTA() {
   const { tr } = useLanguage()
   const [form, setForm] = useState({
     name: '',
+    company: '',
     email: '',
     phone: '',
     services: [] as string[],
@@ -15,6 +16,8 @@ export default function ContactCTA() {
     message: '',
   })
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const [servicesOpen, setServicesOpen] = useState(false)
 
   const toggleService = (opt: string) => {
@@ -26,9 +29,27 @@ export default function ContactCTA() {
     }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
+    setLoading(true)
+    setError('')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      if (!res.ok) {
+        const data = await res.json()
+        setError(data.error || 'Something went wrong. Please try again.')
+      } else {
+        setSubmitted(true)
+      }
+    } catch {
+      setError('Could not send. Please check your connection and try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const inputClass =
@@ -62,6 +83,15 @@ export default function ContactCTA() {
                 placeholder={tr.contact.namePlaceholder}
                 value={form.name}
                 onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
+                className={inputClass}
+              />
+
+              {/* Company */}
+              <input
+                type="text"
+                placeholder={tr.contact.companyPlaceholder}
+                value={form.company}
+                onChange={e => setForm(f => ({ ...f, company: e.target.value }))}
                 className={inputClass}
               />
 
@@ -160,11 +190,18 @@ export default function ContactCTA() {
                 className={`${inputClass} resize-none`}
               />
 
+              {error && (
+                <p className="font-barlow text-[14px] text-beacon/80 text-center">{error}</p>
+              )}
+
               <button
                 type="submit"
-                className="w-full leading-none font-archivo text-[14px] font-medium uppercase tracking-cta glow-btn px-6 py-3 rounded-xl mt-2"
+                disabled={loading}
+                className="w-full leading-none font-archivo text-[14px] font-medium uppercase tracking-cta glow-btn px-6 py-3 rounded-xl mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <span className="glow-btn-knockout">{tr.contact.cta}</span>
+                <span className="glow-btn-knockout">
+                  {loading ? 'Sending…' : tr.contact.cta}
+                </span>
               </button>
             </form>
           )}

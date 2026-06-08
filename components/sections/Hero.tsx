@@ -8,7 +8,7 @@ export default function Hero() {
   const { h1 } = tr.hero
 
   return (
-    <section id="hero" className="pt-[72px] relative z-[1] overflow-hidden">
+    <section id="hero" className="pt-[54px] relative z-[1] overflow-hidden">
       <div className="max-w-content mx-auto px-6 lg:px-20 py-20 lg:py-28 relative z-10">
         <div className="flex flex-col lg:flex-row lg:items-stretch gap-12 lg:gap-16">
           {/* Left: content */}

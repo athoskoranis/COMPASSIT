@@ -1,8 +1,18 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/context/LanguageContext'
+
+const serviceLinks = [
+  { label: 'IT Services', href: '/services/it-services' },
+  { label: 'Network Infrastructure', href: '/services/network-infrastructure' },
+  { label: 'Cloud Solutions', href: '/services/cloud-solutions' },
+  { label: 'Cybersecurity', href: '/services/cybersecurity' },
+  { label: 'Web Development', href: '/services/web-development' },
+  { label: 'AI Development', href: '/services/ai-workflows' },
+]
 
 function useScroll(threshold: number) {
   const [scrolled, setScrolled] = useState(false)
@@ -41,17 +51,31 @@ function MenuIcon({ open }: { open: boolean }) {
   )
 }
 
-const navHrefs = [
-  { key: 'about' as const,      href: '#about' },
-  { key: 'services' as const,   href: '#services' },
-  { key: 'whyCompass' as const, href: '#why-compass' },
+const navAnchors = [
+  { key: 'about' as const,      anchor: 'about' },
+  { key: 'whyCompass' as const, anchor: 'why-compass' },
 ]
 
 export default function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [servicesOpen, setServicesOpen] = useState(false)
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
   const scrolled = useScroll(10)
   const floating = scrolled && !mobileOpen
   const { tr, toggle } = useLanguage()
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
+  const isHome = pathname === '/'
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setServicesOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : ''
@@ -99,16 +123,48 @@ export default function Nav() {
 
         {/* Right group: nav links + CTA */}
         <div className="hidden lg:flex items-center" style={{ gap: floating ? '6px' : '12px', transition: 'gap 300ms ease-out' }}>
-          {navHrefs.map(({ key, href }) => (
+          {navAnchors.map(({ key, anchor }) => (
             <Link
-              key={href}
-              href={href}
+              key={anchor}
+              href={isHome ? `#${anchor}` : `/#${anchor}`}
               className="font-archivo text-[14px] text-paper/70 hover:text-signal transition-all duration-300 ease-out"
               style={{ padding: floating ? '0 4px' : '0 8px' }}
             >
               {tr.nav[key]}
             </Link>
           ))}
+
+          {/* Services dropdown */}
+          <div ref={dropdownRef} className="relative">
+            <button
+              onClick={() => setServicesOpen(o => !o)}
+              className="font-archivo text-[14px] text-paper/70 hover:text-signal transition-all duration-300 ease-out flex items-center gap-1"
+              style={{ padding: floating ? '0 4px' : '0 8px' }}
+            >
+              Services
+              <svg
+                width="10" height="10" viewBox="0 0 10 10" fill="none"
+                className={`transition-transform duration-200 ${servicesOpen ? 'rotate-180' : ''}`}
+              >
+                <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+
+            {servicesOpen && (
+              <div className="absolute top-full left-0 mt-2 w-56 bg-ink/95 backdrop-blur-lg border border-paper/[0.12] rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] py-2 z-50">
+                {serviceLinks.map((s) => (
+                  <Link
+                    key={s.href}
+                    href={s.href}
+                    onClick={() => setServicesOpen(false)}
+                    className="block px-4 py-2.5 font-archivo text-[13px] text-paper/70 hover:text-signal hover:bg-paper/[0.05] transition-colors"
+                  >
+                    {s.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
 
           <button
             onClick={toggle}
@@ -139,16 +195,46 @@ export default function Nav() {
       {mobileOpen && (
         <div className="lg:hidden fixed top-[60px] left-0 right-0 bottom-0 z-50 bg-ink/95 backdrop-blur-lg border-t border-paper/10 overflow-y-auto">
           <div className="px-6 py-8 flex flex-col gap-6">
-            {navHrefs.map(({ key, href }) => (
+            {navAnchors.map(({ key, anchor }) => (
               <Link
-                key={href}
-                href={href}
+                key={anchor}
+                href={isHome ? `#${anchor}` : `/#${anchor}`}
                 onClick={() => setMobileOpen(false)}
                 className="font-archivo text-[17px] text-paper/80 hover:text-signal transition-colors"
               >
                 {tr.nav[key]}
               </Link>
             ))}
+
+            {/* Mobile services accordion */}
+            <div>
+              <button
+                onClick={() => setMobileServicesOpen(o => !o)}
+                className="font-archivo text-[17px] text-paper/80 hover:text-signal transition-colors flex items-center gap-2"
+              >
+                Services
+                <svg
+                  width="12" height="12" viewBox="0 0 10 10" fill="none"
+                  className={`transition-transform duration-200 ${mobileServicesOpen ? 'rotate-180' : ''}`}
+                >
+                  <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+              {mobileServicesOpen && (
+                <div className="mt-3 flex flex-col gap-3 pl-4 border-l border-paper/10">
+                  {serviceLinks.map((s) => (
+                    <Link
+                      key={s.href}
+                      href={s.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="font-archivo text-[15px] text-paper/60 hover:text-signal transition-colors"
+                    >
+                      {s.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
             <div className="pt-4 border-t border-paper/10 flex flex-col gap-3">
               <button

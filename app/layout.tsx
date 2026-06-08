@@ -80,12 +80,12 @@ const jsonLd = {
   },
   hasMap: 'https://maps.google.com/?q=West+Bay,+Doha,+Qatar',
   telephone: '+974-5149-0825',
-  email: 'asahli@compass-its.com',
+  email: 'info@compass-its.com',
   contactPoint: {
     '@type': 'ContactPoint',
     telephone: '+974-5149-0825',
     contactType: 'customer service',
-    email: 'asahli@compass-its.com',
+    email: 'info@compass-its.com',
     availableLanguage: ['English', 'Arabic'],
   },
   openingHoursSpecification: [
