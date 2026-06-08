@@ -197,11 +197,9 @@ export default function ContactCTA() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full leading-none font-archivo text-[14px] font-medium uppercase tracking-cta glow-btn px-6 py-3 rounded-xl mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full leading-none font-archivo text-[14px] font-medium uppercase tracking-cta liquid-fill px-6 py-3 rounded-xl mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <span className="glow-btn-knockout">
-                  {loading ? 'Sending…' : tr.contact.cta}
-                </span>
+                {loading ? 'Sending…' : tr.contact.cta}
               </button>
             </form>
           )}

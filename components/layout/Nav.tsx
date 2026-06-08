@@ -175,7 +175,7 @@ export default function Nav() {
 
           <Link
             href="#contact"
-            className="inline-flex items-center justify-center leading-none font-archivo text-[13px] font-medium uppercase tracking-cta glow-btn text-ink px-4 py-[7px] rounded-xl ml-1"
+            className="inline-flex items-center justify-center leading-none font-archivo text-[13px] font-medium uppercase tracking-cta liquid-fill px-4 py-[7px] rounded-xl ml-1"
           >
             {tr.nav.cta}
           </Link>
@@ -246,7 +246,7 @@ export default function Nav() {
               <Link
                 href="#contact"
                 onClick={() => setMobileOpen(false)}
-                className="inline-flex items-center justify-center w-full leading-none font-archivo text-[14px] font-medium uppercase tracking-cta glow-btn text-ink px-6 py-3 rounded-xl"
+                className="inline-flex items-center justify-center w-full leading-none font-archivo text-[14px] font-medium uppercase tracking-cta liquid-fill px-6 py-3 rounded-xl"
               >
                 {tr.nav.cta}
               </Link>
