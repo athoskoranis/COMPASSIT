@@ -27,6 +27,13 @@ const variants = {
 }
 
 const glowCSS = `
+  @media (hover: none) and (pointer: coarse) {
+    [data-glowcard]::before,
+    [data-glowcard]::after {
+      display: none;
+    }
+  }
+
   [data-glowcard]::before,
   [data-glowcard]::after {
     pointer-events: none;
