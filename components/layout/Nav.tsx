@@ -174,7 +174,7 @@ export default function Nav() {
           </button>
 
           <Link
-            href="#contact"
+            href={isHome ? '#contact' : '/contact'}
             className="inline-flex items-center justify-center leading-none font-archivo text-[13px] font-medium uppercase tracking-cta liquid-fill px-4 py-[7px] rounded-xl ml-1"
           >
             {tr.nav.cta}
@@ -244,7 +244,7 @@ export default function Nav() {
                 {tr.nav.langToggle}
               </button>
               <Link
-                href="#contact"
+                href={isHome ? '#contact' : '/contact'}
                 onClick={() => setMobileOpen(false)}
                 className="inline-flex items-center justify-center w-full leading-none font-archivo text-[14px] font-medium uppercase tracking-cta liquid-fill px-6 py-3 rounded-xl"
               >

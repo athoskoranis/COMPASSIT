@@ -116,7 +116,7 @@ export const t = {
       company: [
         { label: 'About',       href: '#about' },
         { label: 'Why Compass', href: '#why-compass' },
-        { label: 'Contact',     href: '#contact' },
+        { label: 'Contact',     href: '/contact' },
       ],
     },
   },
@@ -236,7 +236,7 @@ export const t = {
       company: [
         { label: 'عن الشركة',   href: '#about' },
         { label: 'لماذا كومباس', href: '#why-compass' },
-        { label: 'تواصل',       href: '#contact' },
+        { label: 'تواصل',       href: '/contact' },
       ],
     },
   },
