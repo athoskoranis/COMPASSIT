@@ -2,6 +2,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { Mail, MapPin } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 import { TextHoverEffect, FooterBackgroundGradient } from '@/components/ui/hover-footer'
 import { useLanguage } from '@/context/LanguageContext'
 
@@ -23,6 +24,8 @@ type ContactItem = {
 
 export default function Footer() {
   const { tr } = useLanguage()
+  const pathname = usePathname()
+  const isHome = pathname === '/'
 
   const services = tr.services.items.map((item) => ({
     label: item.title,
@@ -47,7 +50,7 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="#hero" className="flex items-center gap-2 mb-4">
+            <Link href={isHome ? '#hero' : '/'} className="flex items-center gap-2 mb-4">
               <img
                 src="/brand/Monogram%20Transparent.svg"
                 alt="Compass ITS"
@@ -143,20 +146,35 @@ export default function Footer() {
               </li>
             </ul>
 
-            {/* Instagram */}
-            <a
-              href="https://instagram.com/compass.its"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-archivo text-[13px] text-paper/40 hover:text-signal transition-colors mt-5"
-            >
-              <svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                <circle cx="12" cy="12" r="4"/>
-                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-              </svg>
-              @compass.its
-            </a>
+            {/* Social links */}
+            <div className="flex items-center gap-4 mt-5">
+              <a
+                href="https://www.instagram.com/compassits/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="text-paper/40 hover:text-signal transition-colors"
+              >
+                <svg width={17} height={17} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                  <circle cx="12" cy="12" r="4"/>
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                </svg>
+              </a>
+              <a
+                href="https://www.linkedin.com/company/compassits/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="text-paper/40 hover:text-signal transition-colors"
+              >
+                <svg width={17} height={17} viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                  <rect x="2" y="9" width="4" height="12"/>
+                  <circle cx="4" cy="4" r="2"/>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
 
