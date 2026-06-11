@@ -22,7 +22,7 @@ interface RadialOrbitalTimelineProps {
 export default function RadialOrbitalTimeline({ timelineData, seeLabel = 'See' }: RadialOrbitalTimelineProps) {
   const [expandedItems, setExpandedItems] = useState<Record<number, boolean>>({})
   const [rotationAngle, setRotationAngle] = useState<number>(0)
-  const [autoRotate, setAutoRotate] = useState<boolean>(true)
+  const [autoRotate, setAutoRotate] = useState<boolean>(false)
   const [pulseEffect, setPulseEffect] = useState<Record<number, boolean>>({})
   const [activeNodeId, setActiveNodeId] = useState<number | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -34,7 +34,6 @@ export default function RadialOrbitalTimeline({ timelineData, seeLabel = 'See' }
       setExpandedItems({})
       setActiveNodeId(null)
       setPulseEffect({})
-      setAutoRotate(true)
     }
   }
 
@@ -56,7 +55,6 @@ export default function RadialOrbitalTimeline({ timelineData, seeLabel = 'See' }
         centerViewOnNode(id)
       } else {
         setActiveNodeId(null)
-        setAutoRotate(true)
         setPulseEffect({})
       }
 
@@ -67,7 +65,7 @@ export default function RadialOrbitalTimeline({ timelineData, seeLabel = 'See' }
   useEffect(() => {
     if (!autoRotate) return
     const timer = setInterval(() => {
-      setRotationAngle((prev) => Number(((prev + 0.3) % 360).toFixed(3)))
+      setRotationAngle((prev) => Number(((prev + 0.05) % 360).toFixed(3)))
     }, 50)
     return () => clearInterval(timer)
   }, [autoRotate])
