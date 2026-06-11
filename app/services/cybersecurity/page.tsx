@@ -1,33 +1,17 @@
-'use client'
-import { useLanguage } from '@/context/LanguageContext'
-import Nav from '@/components/layout/Nav'
-import Footer from '@/components/layout/Footer'
-import TopoBackground from '@/components/ui/TopoBackgroundFBM'
-import ServiceHero from '@/components/sections/ServiceHero'
-import ServiceSubServices from '@/components/sections/ServiceSubServices'
-import ServiceWhyUs from '@/components/sections/ServiceWhyUs'
-import ServiceFAQ from '@/components/sections/ServiceFAQ'
-import ContactCTA from '@/components/sections/ContactCTA'
-import { serviceData } from '@/lib/serviceTranslations'
+import type { Metadata } from 'next'
+import CybersecurityPageClient from './client'
+
+export const metadata: Metadata = {
+  title: 'Top Cyber Security Service Provider in Qatar, GCC',
+  description: 'Full-scale cybersecurity consulting in Qatar — risk assessment, VAPT, ISO compliance, and security implementations for businesses across the GCC.',
+  alternates: { canonical: '/services/cybersecurity' },
+  openGraph: {
+    title: 'Top Cyber Security Service Provider in Qatar, GCC | Compass IT Solutions',
+    description: 'Full-scale cybersecurity consulting in Qatar — risk assessment, VAPT, ISO compliance, and security implementations.',
+    url: '/services/cybersecurity',
+  },
+}
 
 export default function CybersecurityPage() {
-  const { lang } = useLanguage()
-  const d = serviceData['cybersecurity'][lang]
-
-  return (
-    <>
-      <TopoBackground />
-      <Nav />
-      <main>
-        <ServiceHero {...d.hero} />
-        {d.sections.map((s, i) => (
-          <ServiceSubServices key={i} eyebrow={s.eyebrow} heading={s.heading} intro={s.intro} items={s.items} />
-        ))}
-        <ServiceWhyUs {...d.whyUs} />
-        {d.faq && <ServiceFAQ faqs={d.faq} />}
-        <ContactCTA />
-      </main>
-      <Footer />
-    </>
-  )
+  return <CybersecurityPageClient />
 }

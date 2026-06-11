@@ -32,13 +32,13 @@ const cairo = Cairo({
 })
 
 export const metadata: Metadata = {
-  title: 'Compass IT Solutions — Wired right. Kept running.',
+  title: {
+    default: 'Compass IT Solutions — Managed IT Services, Qatar',
+    template: '%s | Compass IT Solutions',
+  },
   description:
     'Managed IT services for organisations across Qatar and the GCC. Network infrastructure, cloud, cybersecurity, and web development — wired right the first time.',
   metadataBase: new URL('https://compass-its.com'),
-  alternates: {
-    canonical: 'https://compass-its.com',
-  },
   openGraph: {
     siteName: 'Compass IT Solutions',
     type: 'website',
