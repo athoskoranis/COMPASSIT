@@ -606,6 +606,236 @@ const networkInfrastructure: Record<Lang, ServicePageData> = {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// APP DEVELOPMENT
+// ─────────────────────────────────────────────────────────────────────────────
+const appDevelopment: Record<Lang, ServicePageData> = {
+  en: {
+    hero: {
+      eyebrow: 'APP DEVELOPMENT · QATAR · GCC',
+      title: 'Mobile App Development Services in Qatar, GCC',
+      subtitle: 'Native and cross-platform mobile applications built for performance, usability, and long-term maintainability. From the first user flow to the App Store listing.',
+      primaryCta: 'Start your app',
+    },
+    sections: [
+      {
+        eyebrow: 'OUR SERVICES',
+        heading: 'iOS & Android App Development for Businesses in Qatar, GCC',
+        intro: 'Compass IT Solutions builds native and cross-platform mobile applications that earn a place on the home screen. From scoping and UX design through to App Store submission and 30-day post-launch support — our mobile team owns the full delivery.',
+        items: [
+          { title: 'iOS App Development', description: 'Native Swift applications built to Apple Human Interface Guidelines — optimised for performance, accessibility, and App Store approval. We handle provisioning, signing, and submission so your team can focus on the product.' },
+          { title: 'Android App Development', description: 'Kotlin-first Android development from design handoff to Play Store listing. We build for the full Android device spectrum — screen sizes, OS versions, and performance tiers — so your app works for every user.' },
+          { title: 'Cross-Platform Development', description: 'React Native and Flutter solutions that share a single codebase across iOS and Android without compromising native feel. The right choice when speed-to-market and budget efficiency matter without sacrificing quality.' },
+          { title: 'UX & Interaction Design', description: 'Every app starts with flows — not code. Our UX process maps real user journeys, stress-tests navigation patterns, and produces interactive prototypes reviewed with stakeholders before a single line is written.' },
+          { title: 'API & Backend Integration', description: 'Most apps are only as good as their data layer. We design and integrate REST and GraphQL APIs, connect to third-party services, and build the Node.js backend your app needs to run reliably at scale.' },
+          { title: 'Quality Assurance & Testing', description: 'Manual exploratory testing, automated test suites, and crash-free monitoring on real devices — not emulators. We target 99.5%+ crash-free sessions and cold-start under two seconds before any submission.' },
+          { title: 'App Store Optimisation (ASO)', description: 'Title, description, keywords, screenshots, and preview video — all optimised for discoverability before launch. A well-optimised listing converts significantly better than a generic one.' },
+          { title: 'Post-Launch Support', description: '30-day post-launch support window included on every project. Bug fixes, OS compatibility updates, and performance monitoring handled proactively so issues never reach your users first.' },
+        ],
+      },
+      {
+        eyebrow: 'OUR PROCESS',
+        heading: 'How We Deliver Mobile Applications',
+        items: [
+          { title: 'Discovery & Scoping', description: 'Stakeholder interviews, competitive audit, user persona definition, and a detailed scope document. We agree on what is in scope — and what is not — before any design work begins.' },
+          { title: 'UX Design & Prototyping', description: 'Information architecture, user flows, wireframes, and interactive prototype. Reviewed and signed off before visual design begins.' },
+          { title: 'Visual Design & Component Library', description: 'On-brand visual design across all screens — light and dark modes, accessibility contrast, and a component library that speeds up development and keeps the UI consistent.' },
+          { title: 'Development Sprints', description: 'Two-week sprints with a working build at the end of each. You see progress continuously, not just at the finish line.' },
+          { title: 'QA, Testing & Submission', description: 'Full QA cycle across target devices and OS versions. App Store and Play Store submission handled end-to-end including review responses if required.' },
+        ],
+      },
+    ],
+    whyUs: {
+      eyebrow: 'WHY COMPASS ITS',
+      heading: 'Why Businesses in Qatar Choose Compass IT Solutions for App Development',
+      intro: 'From the first wireframe to the live app, Compass IT Solutions manages every stage of mobile development in-house — no subcontracting, no handoff gaps, no surprises at launch.',
+      points: [
+        'Crash-free 99.5%+ before submission — measured on mid-tier devices, not just flagships',
+        'Cold-start under two seconds on the full target device matrix',
+        'iOS and Android delivered in parallel — one team, one timeline, one point of accountability',
+        'Design and engineering under one roof — no handoff friction between UX and code',
+        'App Store and Play Store submission handled end-to-end including review responses',
+        '30-day post-launch support on every project — proactive monitoring, not reactive patching',
+      ],
+    },
+    faq: [
+      { question: 'How long does it take to build a mobile app in Qatar?', answer: 'A standard mobile application takes 10–16 weeks from discovery to App Store submission. Projects with complex backend integrations or custom hardware features may take longer. Compass IT Solutions provides a detailed timeline at the start of every project.' },
+      { question: 'Do you build for both iOS and Android?', answer: 'Yes. Compass IT Solutions builds native iOS (Swift), native Android (Kotlin), and cross-platform (React Native, Flutter) applications. The right technology choice depends on your budget, timeline, and performance requirements — we advise on this during the discovery phase.' },
+      { question: 'What happens after the app launches?', answer: 'Every project includes a 30-day post-launch support window covering bug fixes, OS compatibility updates, and performance monitoring. Ongoing retained support is also available on a monthly basis.' },
+    ],
+  },
+  ar: {
+    hero: {
+      eyebrow: 'تطوير التطبيقات · قطر · دول الخليج',
+      title: 'خدمات تطوير تطبيقات الجوال في قطر ودول الخليج',
+      subtitle: 'تطبيقات جوال أصيلة ومتعددة المنصات مبنية للأداء وسهولة الاستخدام والاستدامة على المدى البعيد — من أول تدفق للمستخدم حتى إدراج التطبيق في متجر التطبيقات.',
+      primaryCta: 'ابدأ مشروع تطبيقك',
+    },
+    sections: [
+      {
+        eyebrow: 'خدماتنا',
+        heading: 'تطوير تطبيقات iOS وAndroid للشركات في قطر ودول الخليج',
+        intro: 'تبني كومباس آي تي سولوشنز تطبيقات جوال أصيلة ومتعددة المنصات تستحق مكاناً على الشاشة الرئيسية. من تحديد النطاق وتصميم تجربة المستخدم وحتى تقديم التطبيق للمتجر ودعم 30 يوماً بعد الإطلاق — فريق الجوال لدينا يمتلك كامل دورة التسليم.',
+        items: [
+          { title: 'تطوير تطبيقات iOS', description: 'تطبيقات Swift أصيلة مبنية وفق إرشادات واجهة مستخدم Apple — محسّنة للأداء وإمكانية الوصول والموافقة على متجر التطبيقات. نتولى التوفير والتوقيع والتقديم حتى يركز فريقك على المنتج.' },
+          { title: 'تطوير تطبيقات Android', description: 'تطوير Android بلغة Kotlin من استلام التصميم حتى الإدراج في متجر Play. نبني للطيف الكامل من أجهزة Android — أحجام الشاشات وإصدارات نظام التشغيل ومستويات الأداء — حتى يعمل تطبيقك لكل مستخدم.' },
+          { title: 'التطوير متعدد المنصات', description: 'حلول React Native وFlutter تشترك في قاعدة كود واحدة عبر iOS وAndroid دون التنازل عن الإحساس الأصيل. الخيار الصحيح عندما يكون الوصول السريع للسوق وكفاءة الميزانية مهمين دون التضحية بالجودة.' },
+          { title: 'تصميم تجربة المستخدم والتفاعل', description: 'كل تطبيق يبدأ بالتدفقات — لا بالكود. تُعدّ عملية UX لدينا رحلات المستخدم الحقيقية واختبار أنماط التنقل وإنتاج نماذج أولية تفاعلية تُراجع مع أصحاب المصلحة قبل كتابة سطر واحد.' },
+          { title: 'تكامل API والخلفية البرمجية', description: 'معظم التطبيقات لا تتجاوز جودة طبقة البيانات الخاصة بها. نصمم ونُدمج REST وGraphQL APIs، ونتصل بخدمات الأطراف الثالثة، ونبني خلفية Node.js التي يحتاجها تطبيقك للعمل بموثوقية على نطاق واسع.' },
+          { title: 'ضمان الجودة والاختبار', description: 'اختبار استكشافي يدوي وأجنحة اختبار آلية ومراقبة خالية من الأعطال على أجهزة حقيقية — لا محاكيات. نستهدف 99.5%+ جلسات خالية من الأعطال وبدء تشغيل بارد أقل من ثانيتين قبل أي تقديم.' },
+          { title: 'تحسين متجر التطبيقات (ASO)', description: 'العنوان والوصف والكلمات المفتاحية والصور ومقطع الفيديو التوضيحي — كلها محسّنة للاكتشاف قبل الإطلاق. القوائم المحسّنة جيداً تحقق معدلات تحويل أعلى بكثير من القوائم العامة.' },
+          { title: 'دعم ما بعد الإطلاق', description: 'نافذة دعم 30 يوماً بعد الإطلاق مدرجة في كل مشروع. إصلاحات الأخطاء وتحديثات توافق نظام التشغيل ومراقبة الأداء تُعالَج باستباقية حتى لا تصل المشكلات إلى مستخدميك أولاً.' },
+        ],
+      },
+      {
+        eyebrow: 'منهجيتنا',
+        heading: 'كيف نُسلّم تطبيقات الجوال',
+        items: [
+          { title: 'الاستكشاف وتحديد النطاق', description: 'مقابلات أصحاب المصلحة، والمراجعة التنافسية، وتعريف شخصية المستخدم، ووثيقة نطاق تفصيلية. نتفق على ما هو ضمن النطاق وما هو خارجه قبل البدء بأي عمل تصميمي.' },
+          { title: 'تصميم UX والنماذج الأولية', description: 'هندسة المعلومات وتدفقات المستخدم والإطارات السلكية والنموذج الأولي التفاعلي. يُراجع ويُوافق عليه قبل البدء بالتصميم المرئي.' },
+          { title: 'التصميم المرئي ومكتبة المكونات', description: 'تصميم مرئي متوافق مع العلامة التجارية عبر جميع الشاشات — الوضع الفاتح والداكن وتباين إمكانية الوصول ومكتبة مكونات تسرّع التطوير وتحافظ على اتساق واجهة المستخدم.' },
+          { title: 'سبرينتات التطوير', description: 'سبرينتات أسبوعية مدتها أسبوعان مع نسخة عمل في نهاية كل منها. تشاهد التقدم باستمرار، لا في نهاية المشروع فقط.' },
+          { title: 'ضمان الجودة والاختبار والتقديم', description: 'دورة ضمان جودة كاملة عبر الأجهزة المستهدفة وإصدارات نظام التشغيل. تقديم App Store وPlay Store مُدار من البداية إلى النهاية بما في ذلك ردود المراجعة عند الحاجة.' },
+        ],
+      },
+    ],
+    whyUs: {
+      eyebrow: 'لماذا كومباس آي تي سولوشنز',
+      heading: 'لماذا تختار الشركات في قطر كومباس آي تي سولوشنز لتطوير التطبيقات',
+      intro: 'من أول إطار سلكي حتى التطبيق الحي، تُدير كومباس آي تي سولوشنز كل مرحلة من مراحل التطوير المحمول داخلياً — لا مقاولين من الباطن، لا فجوات في التسليم، لا مفاجآت عند الإطلاق.',
+      points: [
+        'خالٍ من الأعطال بنسبة 99.5%+ قبل التقديم — مقاس على الأجهزة المتوسطة، لا فقط على الأجهزة الرائدة',
+        'بدء تشغيل بارد أقل من ثانيتين على مصفوفة الأجهزة المستهدفة الكاملة',
+        'iOS وAndroid مُسلَّمان بالتوازي — فريق واحد، جدول زمني واحد، نقطة مساءلة واحدة',
+        'التصميم والهندسة تحت سقف واحد — لا احتكاك في التسليم بين UX والكود',
+        'تقديم App Store وPlay Store مُدار من البداية إلى النهاية بما في ذلك ردود المراجعة',
+        'دعم 30 يوماً بعد الإطلاق في كل مشروع — مراقبة استباقية، لا رقع تفاعلية',
+      ],
+    },
+    faq: [
+      { question: 'كم يستغرق بناء تطبيق جوال في قطر؟', answer: 'يستغرق تطبيق الجوال القياسي من 10 إلى 16 أسبوعاً من مرحلة الاستكشاف حتى تقديمه لمتجر التطبيقات. المشاريع ذات التكاملات المعقدة مع الخلفية البرمجية أو ميزات الأجهزة المخصصة قد تستغرق وقتاً أطول. تقدم كومباس آي تي سولوشنز جدولاً زمنياً تفصيلياً في بداية كل مشروع.' },
+      { question: 'هل تبنون لنظامي iOS وAndroid معاً؟', answer: 'نعم. تبني كومباس آي تي سولوشنز تطبيقات iOS أصيلة (Swift) وAndroid أصيلة (Kotlin) ومتعددة المنصات (React Native وFlutter). الاختيار التقني المناسب يعتمد على ميزانيتك وجدولك الزمني ومتطلبات الأداء — ننصح بذلك خلال مرحلة الاستكشاف.' },
+      { question: 'ماذا يحدث بعد إطلاق التطبيق؟', answer: 'كل مشروع يشمل نافذة دعم 30 يوماً بعد الإطلاق تغطي إصلاحات الأخطاء وتحديثات توافق نظام التشغيل ومراقبة الأداء. الدعم المستمر المُدار متاح أيضاً على أساس شهري.' },
+    ],
+  },
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// DIGITAL MARKETING
+// ─────────────────────────────────────────────────────────────────────────────
+const digitalMarketing: Record<Lang, ServicePageData> = {
+  en: {
+    hero: {
+      eyebrow: 'DIGITAL MARKETING · QATAR · GCC',
+      title: 'Digital Marketing Services in Qatar, GCC',
+      subtitle: 'Search, content, and paid channels engineered to work together — measured weekly, optimised monthly, compounded over quarters.',
+      primaryCta: 'Start measuring what matters',
+    },
+    sections: [
+      {
+        eyebrow: 'OUR SERVICES',
+        heading: 'Integrated Digital Marketing for Organisations Across Qatar and the GCC',
+        intro: 'Compass IT Solutions builds digital marketing programmes that compound over time — not campaigns that spike and fade. Search, social, email, and paid channels work together under one strategy, measured against real business outcomes.',
+        items: [
+          { title: 'Search Engine Optimisation (SEO)', description: 'Technical SEO, content strategy, and authority building — structured to move rankings that drive qualified traffic. Every recommendation is grounded in data: keyword opportunity, competitive gap, and crawl health.' },
+          { title: 'Search Engine Marketing (SEM)', description: 'Google Ads and Bing Ads campaigns managed to a clear performance brief. Budget allocation, bid strategy, ad copy, and landing page alignment reviewed monthly. We report what moved the number — not what was busy.' },
+          { title: 'Social Media Marketing', description: 'Organic and paid social across LinkedIn, Instagram, and X. Content calendars built from audience insight, not templates. Paid social targeted by role, industry, and intent — not just demographics.' },
+          { title: 'Content Marketing & Inbound', description: 'Long-form content, thought leadership, and resource assets that attract the right audience and convert them over time. Gated content, email nurture sequences, and lead scoring built around your sales process.' },
+          { title: 'Email Marketing & Automation', description: 'Segmented campaigns, drip sequences, and triggered workflows in HubSpot, Mailchimp, or your existing CRM. Open rates and click-throughs are reported — but the metric that matters is pipeline contribution.' },
+          { title: 'B2B Communication Strategy', description: 'Messaging architecture, value proposition development, and channel sequencing for complex B2B sales cycles. LinkedIn outreach, account-based marketing, and sales enablement content aligned to your funnel.' },
+          { title: 'Analytics & Attribution', description: 'GA4, Google Tag Manager, multi-touch attribution, and custom dashboards. We connect marketing activity to revenue — not just traffic. Vanity metrics get cut by month two.' },
+          { title: 'Digital Strategy & Audits', description: 'Before we recommend a channel mix, we audit what you have — existing content, analytics setup, competitor positioning, and keyword landscape. Strategy comes before execution.' },
+        ],
+      },
+      {
+        eyebrow: 'HOW WE WORK',
+        heading: 'Our Marketing Engagement Model',
+        items: [
+          { title: 'Audit & Baseline', description: 'We start by auditing your existing digital presence — SEO health, analytics accuracy, ad account structure, content library, and competitive positioning. The audit surfaces quick wins and long-term priorities.' },
+          { title: 'Strategy & Channel Mix', description: 'Based on the audit, we agree a channel mix and 90-day roadmap tied to your business objectives. Budget allocation, KPIs, and reporting cadence confirmed before any campaign launches.' },
+          { title: 'Creative & Content Production', description: 'Copy, design, and video assets produced in-house. Brand voice and visual identity applied consistently across every channel — no freelancer patchwork.' },
+          { title: 'Campaign Execution', description: 'Campaigns launched, monitored, and iterated within agreed timelines. Weekly check-ins and transparent reporting throughout.' },
+          { title: 'Monthly Review & Optimisation', description: 'Monthly reporting tied to agreed KPIs. Budget reallocation, bid adjustments, and content pivots made based on what the data shows — not gut feel.' },
+          { title: 'Quarterly Strategy Review', description: 'Every quarter we revisit the strategy — competitive landscape, channel performance, and roadmap for the next 90 days. Programmes that compound require a steady pace of small improvements.' },
+        ],
+      },
+    ],
+    whyUs: {
+      eyebrow: 'WHY COMPASS ITS',
+      heading: 'Why Businesses in Qatar Choose Compass IT Solutions for Digital Marketing',
+      intro: 'We report what moved the number — not what was busy. Every engagement starts with measurement infrastructure so we know what works from week one.',
+      points: [
+        'Weekly reporting tied to real business outcomes — not traffic and impressions alone',
+        'Multi-touch attribution so you know which channels and touchpoints drive pipeline',
+        'Search, social, email, and paid channels managed under one strategy — no silo gaps',
+        'Analytics and tracking infrastructure set up correctly before campaigns launch',
+        'B2B-capable — LinkedIn, account-based marketing, and sales enablement content in scope',
+        'Project or retained engagement models — test with a defined scope before committing long-term',
+      ],
+    },
+    faq: [
+      { question: 'What digital marketing services does Compass IT Solutions offer in Qatar?', answer: 'Compass IT Solutions provides SEO, Google Ads (SEM), social media marketing, content marketing, email automation, B2B communication strategy, and analytics and attribution — all managed under a single integrated strategy.' },
+      { question: 'How quickly can digital marketing show results?', answer: 'Paid channels (SEM, paid social) can show results within the first month. SEO and content marketing compound over 3–6 months. We set realistic timelines at the start of every engagement and report weekly so you can see momentum building.' },
+      { question: 'Do you work with B2B businesses in Qatar?', answer: 'Yes. Compass IT Solutions has experience with B2B digital marketing across professional services, technology, and industrial sectors in Qatar and the GCC. LinkedIn campaigns, account-based marketing, and sales enablement content are all in scope.' },
+    ],
+  },
+  ar: {
+    hero: {
+      eyebrow: 'التسويق الرقمي · قطر · دول الخليج',
+      title: 'خدمات التسويق الرقمي في قطر ودول الخليج',
+      subtitle: 'قنوات البحث والمحتوى والإعلانات المدفوعة مصممة للعمل معاً — قياس أسبوعي، تحسين شهري، تراكم على مدى أرباع السنة.',
+      primaryCta: 'ابدأ قياس ما يهم',
+    },
+    sections: [
+      {
+        eyebrow: 'خدماتنا',
+        heading: 'تسويق رقمي متكامل للمؤسسات في قطر ودول الخليج',
+        intro: 'تبني كومباس آي تي سولوشنز برامج تسويق رقمي تتراكم عبر الزمن — لا حملات تشتعل وتخبو. قنوات البحث والتواصل الاجتماعي والبريد الإلكتروني والإعلانات المدفوعة تعمل معاً تحت استراتيجية واحدة، مقاسة بنتائج الأعمال الحقيقية.',
+        items: [
+          { title: 'تحسين محركات البحث (SEO)', description: 'SEO تقني واستراتيجية محتوى وبناء سلطة — مهيكلة لتحريك الترتيبات التي تجلب الزيارات المؤهلة. كل توصية مبنية على البيانات: فرص الكلمات المفتاحية، والفجوة التنافسية، وصحة الزحف.' },
+          { title: 'التسويق عبر محركات البحث (SEM)', description: 'حملات Google Ads وBing Ads مُدارة وفق موجز أداء واضح. تخصيص الميزانية واستراتيجية العطاء ونسخة الإعلان ومحاذاة الصفحة المقصودة تُراجع شهرياً. نُبلّغ عما حرّك الرقم — لا عما كان مشغولاً فحسب.' },
+          { title: 'التسويق عبر وسائل التواصل الاجتماعي', description: 'تواصل اجتماعي عضوي ومدفوع عبر LinkedIn وInstagram وX. تقاويم المحتوى مبنية من رؤية الجمهور، لا من قوالب. التواصل الاجتماعي المدفوع مستهدف بالدور والصناعة والنية — لا بالديموغرافيا فقط.' },
+          { title: 'تسويق المحتوى والاستقطاب', description: 'محتوى طويل وقيادة فكرية وأصول موارد تجذب الجمهور المناسب وتحوّله عبر الزمن. محتوى مقيّد وتسلسلات تغذية بريد إلكتروني وتسجيل نقاط العملاء المحتملين مبنية حول عملية المبيعات الخاصة بك.' },
+          { title: 'التسويق عبر البريد الإلكتروني والأتمتة', description: 'حملات مجزأة وتسلسلات تدفق وسير عمل مُشغَّلة في HubSpot أو Mailchimp أو CRM الموجود. معدلات الفتح والنقر تُبلَّغ — لكن المقياس المهم هو مساهمة خط الأنابيب.' },
+          { title: 'استراتيجية التواصل B2B', description: 'هندسة الرسائل وتطوير عرض القيمة وتسلسل القنوات لدورات مبيعات B2B المعقدة. التواصل عبر LinkedIn والتسويق القائم على الحسابات ومحتوى تمكين المبيعات متوافقة مع مسار تحويلك.' },
+          { title: 'التحليلات والإسناد', description: 'GA4 وGoogle Tag Manager والإسناد متعدد اللمس ولوحات متابعة مخصصة. نربط نشاط التسويق بالإيرادات — لا بالزيارات فقط. مقاييس الغرور تُقطع بحلول الشهر الثاني.' },
+          { title: 'الاستراتيجية الرقمية والمراجعات', description: 'قبل أن نوصي بمزيج قنوات، نراجع ما لديك — المحتوى الموجود وإعداد التحليلات وتموضع المنافسين والمشهد الكلمات المفتاحية. الاستراتيجية تأتي قبل التنفيذ.' },
+        ],
+      },
+      {
+        eyebrow: 'كيف نعمل',
+        heading: 'نموذج التعاون التسويقي لدينا',
+        items: [
+          { title: 'المراجعة والخط الأساسي', description: 'نبدأ بمراجعة وجودك الرقمي الحالي — صحة SEO ودقة التحليلات وهيكل حساب الإعلانات ومكتبة المحتوى والتموضع التنافسي. تكشف المراجعة عن المكاسب السريعة والأولويات طويلة المدى.' },
+          { title: 'الاستراتيجية ومزيج القنوات', description: 'بناءً على المراجعة، نتفق على مزيج قنوات وخارطة طريق 90 يوماً مرتبطة بأهداف أعمالك. تخصيص الميزانية ومؤشرات KPI وإيقاع التقارير تُؤكَّد قبل إطلاق أي حملة.' },
+          { title: 'إنتاج الإبداع والمحتوى', description: 'الكتابة والتصميم وأصول الفيديو تُنتَج داخلياً. صوت العلامة التجارية والهوية البصرية تُطبَّق باتساق عبر كل قناة — لا تناثر للمستقلين.' },
+          { title: 'تنفيذ الحملة', description: 'الحملات تُطلق وتُراقب وتُكرَّر ضمن الجداول الزمنية المتفق عليها. فحوصات أسبوعية وتقارير شفافة طوال الفترة.' },
+          { title: 'المراجعة والتحسين الشهري', description: 'تقارير شهرية مرتبطة بمؤشرات KPI المتفق عليها. إعادة تخصيص الميزانية وتعديلات العطاء ومحاور المحتوى تُجرى بناءً على ما تُظهره البيانات — لا الحدس.' },
+          { title: 'مراجعة الاستراتيجية الفصلية', description: 'كل ربع سنة نُعيد النظر في الاستراتيجية — المشهد التنافسي وأداء القنوات وخارطة طريق الـ 90 يوماً القادمة. البرامج التراكمية تتطلب وتيرة ثابتة من التحسينات الصغيرة.' },
+        ],
+      },
+    ],
+    whyUs: {
+      eyebrow: 'لماذا كومباس آي تي سولوشنز',
+      heading: 'لماذا تختار الشركات في قطر كومباس آي تي سولوشنز للتسويق الرقمي',
+      intro: 'نُبلّغ عما حرّك الرقم — لا عما كان مشغولاً فحسب. كل تعاقد يبدأ ببنية تحتية للقياس حتى نعرف ما يصلح من الأسبوع الأول.',
+      points: [
+        'تقارير أسبوعية مرتبطة بنتائج أعمال حقيقية — لا الزيارات والظهور وحدهما',
+        'إسناد متعدد اللمس حتى تعرف أي القنوات ونقاط التماس تُحرّك خط الأنابيب',
+        'قنوات البحث والتواصل الاجتماعي والبريد الإلكتروني والإعلانات المدفوعة مُدارة تحت استراتيجية واحدة — لا فجوات عزل',
+        'بنية تحتية للتحليلات والتتبع تُعدّ بشكل صحيح قبل إطلاق الحملات',
+        'قادر على B2B — LinkedIn والتسويق القائم على الحسابات ومحتوى تمكين المبيعات ضمن النطاق',
+        'نماذج تعاقد بالمشروع أو المستمر — اختبر بنطاق محدد قبل الالتزام على المدى البعيد',
+      ],
+    },
+    faq: [
+      { question: 'ما خدمات التسويق الرقمي التي تقدمها كومباس آي تي سولوشنز في قطر؟', answer: 'تقدم كومباس آي تي سولوشنز SEO وGoogle Ads (SEM) والتسويق عبر وسائل التواصل الاجتماعي وتسويق المحتوى وأتمتة البريد الإلكتروني واستراتيجية التواصل B2B والتحليلات والإسناد — كلها مُدارة تحت استراتيجية متكاملة واحدة.' },
+      { question: 'كم من الوقت يستغرق التسويق الرقمي لإظهار النتائج؟', answer: 'القنوات المدفوعة (SEM والتواصل الاجتماعي المدفوع) يمكنها إظهار نتائج خلال الشهر الأول. SEO وتسويق المحتوى يتراكمان على مدى 3–6 أشهر. نضع جداول زمنية واقعية في بداية كل تعاقد ونُبلّغ أسبوعياً حتى ترى الزخم يتراكم.' },
+      { question: 'هل تعملون مع الشركات B2B في قطر؟', answer: 'نعم. لدى كومباس آي تي سولوشنز خبرة في التسويق الرقمي B2B عبر الخدمات المهنية والتكنولوجيا والقطاعات الصناعية في قطر ودول الخليج. حملات LinkedIn والتسويق القائم على الحسابات ومحتوى تمكين المبيعات كلها ضمن النطاق.' },
+    ],
+  },
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // EXPORT
 // ─────────────────────────────────────────────────────────────────────────────
 export const serviceData: Record<string, Record<Lang, ServicePageData>> = {
@@ -615,4 +845,6 @@ export const serviceData: Record<string, Record<Lang, ServicePageData>> = {
   'ai-workflows': aiWorkflows,
   'cloud-solutions': cloudSolutions,
   'network-infrastructure': networkInfrastructure,
+  'app-development': appDevelopment,
+  'digital-marketing': digitalMarketing,
 }
