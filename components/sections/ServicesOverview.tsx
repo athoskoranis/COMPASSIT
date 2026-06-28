@@ -13,7 +13,7 @@ const servicesMeta = [
   { id: 5, href: '/services/web-development',        icon: Globe,      relatedIds: [6, 8], energy: 75 },
   { id: 6, href: '/services/ai-workflows',           icon: Cpu,        relatedIds: [5, 7], energy: 70 },
   { id: 7, href: '/services/ai-workflows',           icon: Smartphone, relatedIds: [6, 8], energy: 82 },
-  { id: 8, href: '/contact',                         icon: TrendingUp, relatedIds: [5, 7], energy: 72 },
+  { id: 8, href: '/services/digital-marketing',       icon: TrendingUp, relatedIds: [5, 7], energy: 72 },
 ]
 
 export default function ServicesOverview() {
