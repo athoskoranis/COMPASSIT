@@ -11,7 +11,9 @@ const serviceLinks = [
   { label: 'Cloud Solutions', href: '/services/cloud-solutions' },
   { label: 'Cybersecurity', href: '/services/cybersecurity' },
   { label: 'Web Development', href: '/services/web-development' },
-  { label: 'AI Development', href: '/services/ai-workflows' },
+  { label: 'App Development', href: '/services/app-development' },
+  { label: 'AI Workflows', href: '/services/ai-workflows' },
+  { label: 'Digital Marketing', href: '/services/digital-marketing' },
 ]
 
 function useScroll(threshold: number) {
@@ -166,6 +168,14 @@ export default function Nav() {
             )}
           </div>
 
+          <Link
+            href="/blog"
+            className={`font-archivo text-[14px] transition-all duration-300 ease-out ${pathname.startsWith('/blog') ? 'text-signal' : 'text-paper/70 hover:text-signal'}`}
+            style={{ padding: floating ? '0 4px' : '0 8px' }}
+          >
+            Blog
+          </Link>
+
           <button
             onClick={toggle}
             className="font-jetbrains text-[11px] text-paper/50 hover:text-signal transition-colors px-2.5 py-1 border border-paper/15 hover:border-signal/40 rounded-lg"
@@ -235,6 +245,14 @@ export default function Nav() {
                 </div>
               )}
             </div>
+
+            <Link
+              href="/blog"
+              onClick={() => setMobileOpen(false)}
+              className={`font-archivo text-[17px] transition-colors ${pathname.startsWith('/blog') ? 'text-signal' : 'text-paper/80 hover:text-signal'}`}
+            >
+              Blog
+            </Link>
 
             <div className="pt-4 border-t border-paper/10 flex flex-col gap-3">
               <button
