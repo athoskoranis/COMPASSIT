@@ -33,9 +33,9 @@ export default function Footer() {
     '/services/cloud-solutions',
     '/services/cybersecurity',
     '/services/web-development',
-    '/contact',
+    '/services/app-development',
     '/services/ai-workflows',
-    '/contact',
+    '/services/digital-marketing',
   ]
 
   const services = tr.services.items.map((item, i) => ({

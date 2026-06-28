@@ -12,7 +12,7 @@ const serviceLinks = [
   { label: 'Cybersecurity', href: '/services/cybersecurity' },
   { label: 'Web Development', href: '/services/web-development' },
   { label: 'App Development', href: '/services/app-development' },
-  { label: 'AI Workflows', href: '/services/ai-workflows' },
+  { label: 'AI Workflows',    href: '/services/ai-workflows' },
   { label: 'Digital Marketing', href: '/services/digital-marketing' },
 ]
 
