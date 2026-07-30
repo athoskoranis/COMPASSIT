@@ -28,6 +28,12 @@
 
 ### Added — 2026-07-30
 
+**Decision 026 — Sitemap completed:**
+`app/sitemap.ts` listed only 7 of 15 public URLs — `/services/app-development`, `/services/digital-marketing`, `/blog`, and all five blog posts were missing, so they were left to organic discovery. Rewritten to cover every route: home (1.0), contact (0.9), all 8 service pages (0.8), blog index (0.7), and 5 posts (0.6). Service and top-level entries keep build-time `lastModified`; blog posts use their fixed `datePublished` from each post's JSON-LD instead, since a post that hasn't changed shouldn't report a fresh date on every deploy. Slugs are held in arrays and mapped, so adding a service or post is a one-line change.
+
+**Decision 027 — .gitignore expanded, artifacts untracked:**
+`.gitignore` covered only `node_modules` and `.next`, leaving `.env*`, `.vercel`, `.DS_Store`, and `tsconfig.tsbuildinfo` committable. `tsconfig.tsbuildinfo` dirtied the working tree on every build and three `.DS_Store` files were already tracked; all four untracked with `git rm --cached` (local files retained). The `.env*` rule is the important one — `app/api/contact/route.ts` reads `SMTP_USER` and `SMTP_PASS`, and this is a public repository.
+
 **Decision 025 — Google Tag Manager container added:**
 GTM container `GTM-KZ59QK4H` added to `app/layout.tsx` per the container snippet supplied by the SEO specialist: inline loader as the first child of `<head>`, `<noscript>` iframe fallback as the first child of `<body>`. Placed as raw inline tags rather than `next/script` so the tag fires as early as the snippet specifies, matching the existing JSON-LD pattern in the same file. GTM ID is hardcoded in a `GTM_ID` const — container IDs are public by design, and this keeps the site free of a new required env var on Vercel. This supersedes the README's `NEXT_PUBLIC_GTM_ID` env var note. GA4 and any further tags are now managed from the GTM UI, no code change needed.
 
