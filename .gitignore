@@ -1,2 +1,28 @@
+# dependencies
 node_modules
+
+# next.js
 .next
+out
+
+# build artifacts
+*.tsbuildinfo
+
+# env files — never commit credentials (SMTP_USER / SMTP_PASS live in Vercel)
+.env
+.env.local
+.env*.local
+.env.development
+.env.production
+
+# deployment
+.vercel
+
+# os / editor
+.DS_Store
+Thumbs.db
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
