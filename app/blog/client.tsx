@@ -80,8 +80,7 @@ export default function BlogIndexClient() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group flex flex-col lg:flex-row rounded-lg overflow-hidden border-t border-r border-b border-ink/10 hover:shadow-glow-signal-sm transition-shadow duration-300"
-                style={{ borderLeft: '3px solid #2BB3E6' }}
+                className="group bracketed bracketed-light bracketed-split raised-light flex flex-col lg:flex-row rounded-lg overflow-hidden transition-shadow duration-300"
               >
                 <div className="lg:w-[440px] shrink-0 overflow-hidden bg-ink">
                   <Image

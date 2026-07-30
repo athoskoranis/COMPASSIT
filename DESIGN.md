@@ -178,24 +178,78 @@ border-radius: 6px;
 Hover state: 10% opacity overlay of signal colour.
 Focus ring: `2px solid #2BB3E6` offset `2px`.
 
-### Cards — Service Cards
+### Cards — Surface Card
 
+> **This supersedes the 3px Signal left border.** Cards are now defined by
+> **elevation plus diagonal corner marks**, not by an accent stripe. The reason is
+> colour discipline: Signal is meant to mark things that are live or actionable —
+> links, CTAs, status pills, one highlighted word. A permanent stripe on every
+> card spent that colour on furniture. The marks below are neutral Paper or Ink,
+> so Signal stays available for the things it is supposed to mean.
+> Logged as Decision 033 in `CHANGELOG.md`.
+
+Two composable utilities, implemented in `app/globals.css`. A surface may take
+either independently — `.raised` for elevation, `.bracketed` for the marks.
+
+**On Ink / dark backgrounds:**
 ```css
-background: #F4F2EC;      /* Paper */
-border: 0.5px solid rgba(11,14,16,0.15);
-border-left: 3px solid #2BB3E6;   /* Signal accent */
+background: #0B0E10;              /* Ink — opaque, not translucent */
+border: none;
+border-radius: 12px;              /* radius-lg */
+padding: 30px;
+box-shadow: 0 26px 64px rgba(0,0,0,0.72);   /* .raised */
+```
+
+**On Paper / Mist backgrounds:**
+```css
+background: #F4F2EC;              /* Paper */
+border: none;
 border-radius: 12px;
-padding: 32px;
+padding: 30px;
+box-shadow: 0 18px 40px rgba(11,14,16,0.18); /* .raised-light */
 ```
 
-On dark-mode / Ink backgrounds:
-```css
-background: rgba(244,242,236,0.05);
-border: 0.5px solid rgba(244,242,236,0.15);
-border-left: 3px solid #2BB3E6;
-```
+**Corner marks (`.bracketed`)** — top-left and bottom-right only, never all four:
+
+| Property | Value |
+|---|---|
+| Arm length | 34px |
+| Stroke weight | 1.5px |
+| Outer corner radius | 3px |
+| Colour on Ink | `rgba(244,242,236,0.55)` — Paper at 55% |
+| Colour on Paper | `rgba(11,14,16,0.45)` — Ink at 45% |
+| Position | Inset 0, flush with the card corner |
+
+The diagonal pair is deliberate: two marks are enough for the eye to close the
+rectangle, and the asymmetry gives the card a reading direction — in at the
+top-left, out at the bottom-right.
+
+**Cards with two tones** — where one corner sits on a dark image and the other on
+Paper, as on the blog index cards — add `.bracketed-split`, which colours the
+start mark Paper so it does not vanish into the photograph. Per-corner overrides
+are `--bracket-start` and `--bracket-end`, both falling back to `--bracket`.
+
+**RTL:** the diagonal is directional and **must mirror** to top-right /
+bottom-left in Arabic. `globals.css` handles this under `[dir="rtl"]` — do not
+re-implement it per component.
+
+### Do's and Don'ts — Cards
+
+- **DO** compose `.raised` with `.bracketed` for a standard card
+- **DO** use `.raised-light` and `.bracketed-light` on Paper or Mist surfaces
+- **DON'T** put a Signal-coloured border on a card — that is the superseded pattern
+- **DON'T** bracket all four corners; the diagonal pair is the mark
+- **DON'T** re-implement RTL mirroring locally
 
 ### Callout Blocks (Brand standard)
+
+> **Still uses the Signal left border — intentionally, for now.** Decision 033
+> changed *cards*, not callouts. A callout is a quotation, and the stripe reads as
+> a quotation mark there rather than as card furniture. It is also load-bearing:
+> the 4px border pairs with `rounded-r-lg` and `shadow-glow-signal-sm`, so
+> removing it would leave an asymmetric radius and a glow with no edge to sit on.
+> If callouts should change too, they need a replacement treatment designed for
+> them, not the card brackets. Open decision.
 
 Used for key brand statements and live status callouts:
 

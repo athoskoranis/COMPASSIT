@@ -21,6 +21,17 @@
 
 ## [Unreleased]
 
+### Changed — 2026-07-30 (Card treatment)
+
+**Decision 033 — Signal left border on cards replaced by raised panel + diagonal brackets:**
+Cards were defined by a 3px Signal Cyan left border (`DESIGN.md` service-card spec). That spent the accent colour on permanent furniture — DESIGN.md reserves Signal for links, CTAs, status pills, and a single highlighted word, all of which mean "live" or "actionable", which a card edge does not. Cards are now defined by **elevation plus a diagonal pair of corner marks**, top-left and bottom-right, in neutral Paper (on Ink) or Ink (on Paper). Two arms are enough for the eye to close the rectangle, and the asymmetry gives the card a reading direction.
+
+Implemented as three composable utilities in `app/globals.css` — `.raised` / `.raised-light` for elevation and `.bracketed` / `.bracketed-light` for the marks — so a surface can take either independently, and via `::before`/`::after` so no markup changes beyond a class name. RTL is handled centrally: the diagonal is directional, so `[dir="rtl"]` mirrors it to top-right / bottom-left. Components must not re-implement that locally.
+
+Applied to all six card sites: the blog index post cards (`app/blog/client.tsx`) and the table-of-contents boxes in all five blog posts. `DESIGN.md` updated with the new spec, the supersession note, and card do's and don'ts.
+
+**Callout blocks deliberately unchanged.** The seven remaining 4px Signal borders are all quotation callouts, where the stripe reads as a quotation mark rather than card furniture. It is also load-bearing there: it pairs with `rounded-r-lg` and `shadow-glow-signal-sm`, so removing it would leave an asymmetric radius and a glow with no edge. Flagged in `DESIGN.md` as an open decision needing its own treatment, not the card brackets.
+
 ### Fixed — 2026-07-30
 
 **Decision 024 — Home services dial: App Development link and icons corrected:**

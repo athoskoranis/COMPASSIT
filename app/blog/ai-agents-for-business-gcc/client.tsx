@@ -84,7 +84,7 @@ export default function AIAgentsPostClient() {
           </p>
 
           {/* Table of contents */}
-          <div className="mb-12 p-6 bg-mist rounded-lg" style={{ borderLeft: '3px solid #2BB3E6' }}>
+          <div className="mb-12 p-6 bg-mist rounded-lg bracketed bracketed-light">
             <p className="font-jetbrains text-xs text-signal tracking-eyebrow uppercase mb-4">In this article</p>
             <ol className="space-y-3">
               {toc.map((item, i) => (
