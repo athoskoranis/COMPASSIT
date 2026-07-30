@@ -21,6 +21,16 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-07-30
+
+**Decision 024 — Home services dial: App Development link and icons corrected:**
+`components/sections/ServicesOverview.tsx` merges `servicesMeta` with `tr.services.items` by array index. Entries 6 and 7 were misaligned against the translations: "App Development" carried the Cpu icon and linked to `/services/ai-workflows`, leaving `/services/app-development` unreachable from the home page, while "AI Workflows" carried the Smartphone icon. Swapped `href` and `icon` on both entries so App Development → `/services/app-development` (Smartphone) and AI Workflows → `/services/ai-workflows` (Cpu). Nav and Footer were already correct; this only affected the home page dial and its mobile grid.
+
+### Added — 2026-07-30
+
+**Decision 025 — Google Tag Manager container added:**
+GTM container `GTM-KZ59QK4H` added to `app/layout.tsx` per the container snippet supplied by the SEO specialist: inline loader as the first child of `<head>`, `<noscript>` iframe fallback as the first child of `<body>`. Placed as raw inline tags rather than `next/script` so the tag fires as early as the snippet specifies, matching the existing JSON-LD pattern in the same file. GTM ID is hardcoded in a `GTM_ID` const — container IDs are public by design, and this keeps the site free of a new required env var on Vercel. This supersedes the README's `NEXT_PUBLIC_GTM_ID` env var note. GA4 and any further tags are now managed from the GTM UI, no code change needed.
+
 ### Changed — 2026-05-10 (Dark redesign pass)
 
 **Decision 013 — Full dark design adopted:**
