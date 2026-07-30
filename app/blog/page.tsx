@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import BlogIndexClient from './client'
 
 export const metadata: Metadata = {
-  title: 'Blog — Compass IT Solutions',
+  title: 'Blog',
   description: 'Thinking out loud on technology, infrastructure, and what makes IT work in Qatar and the GCC.',
   alternates: { canonical: '/blog' },
   openGraph: {

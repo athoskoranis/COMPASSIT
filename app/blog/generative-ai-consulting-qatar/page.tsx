@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import GenAIPostClient from './client'
 
 export const metadata: Metadata = {
-  title: 'Generative AI Consulting in Qatar | Compass ITS',
+  title: 'Generative AI Consulting in Qatar',
   description: 'What generative AI consulting should deliver for Qatar businesses in 2026: real use cases, data governance, and avoiding expensive dead ends.',
   alternates: { canonical: '/blog/generative-ai-consulting-qatar' },
   openGraph: {

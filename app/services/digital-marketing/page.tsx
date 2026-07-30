@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import DigitalMarketingPageClient from './client'
 
 export const metadata: Metadata = {
-  title: 'Digital Marketing Agency in Qatar, GCC | Compass IT Solutions',
+  title: 'Digital Marketing Agency in Qatar, GCC',
   description: 'Top digital marketing agency in Qatar. SEO, Google Ads, social media marketing, content marketing, and analytics for businesses in Doha and across the GCC.',
   alternates: { canonical: '/services/digital-marketing' },
   openGraph: {

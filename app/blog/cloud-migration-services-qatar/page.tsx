@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import CloudMigrationPostClient from './client'
 
 export const metadata: Metadata = {
-  title: 'Cloud Migration Services in Qatar | Compass ITS',
+  title: 'Cloud Migration Services in Qatar',
   description: 'What Qatar businesses should weigh before a cloud migration: data residency, the local Azure region, hidden costs, and a phased approach that works.',
   alternates: { canonical: '/blog/cloud-migration-services-qatar' },
   openGraph: {

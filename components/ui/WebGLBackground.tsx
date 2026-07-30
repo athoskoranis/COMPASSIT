@@ -161,10 +161,11 @@ export default function WebGLBackground() {
 
     const t0 = performance.now()
     const clicksFlat = new Float32Array(16)
-    let raf: number
+    let raf = 0
 
-    const tick = () => {
-      raf = requestAnimationFrame(tick)
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    const draw = () => {
       const t = (performance.now() - t0) / 1000
       mx += (tx - mx) * 0.12
       my += (ty - my) * 0.12
@@ -188,10 +189,37 @@ export default function WebGLBackground() {
 
       gl.drawArrays(gl.TRIANGLES, 0, 3)
     }
-    raf = requestAnimationFrame(tick)
+
+    const tick = () => {
+      raf = requestAnimationFrame(tick)
+      draw()
+    }
+
+    const start = () => {
+      if (!raf) raf = requestAnimationFrame(tick)
+    }
+    const stop = () => {
+      if (raf) { cancelAnimationFrame(raf); raf = 0 }
+    }
+
+    // Reduced motion: render one static frame instead of animating.
+    if (reducedMotion) {
+      draw()
+    } else {
+      start()
+    }
+
+    // Don't burn CPU/GPU animating a field nobody is looking at.
+    const onVisibility = () => {
+      if (reducedMotion) return
+      if (document.hidden) stop()
+      else start()
+    }
+    document.addEventListener('visibilitychange', onVisibility)
 
     return () => {
-      cancelAnimationFrame(raf)
+      stop()
+      document.removeEventListener('visibilitychange', onVisibility)
       window.removeEventListener('pointermove', onMove)
       window.removeEventListener('pointerleave', onLeave)
       window.removeEventListener('pointerdown', onDown)

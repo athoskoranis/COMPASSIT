@@ -2,6 +2,10 @@ import type { Metadata } from 'next'
 import { Archivo, Barlow, JetBrains_Mono, Cairo } from 'next/font/google'
 import './globals.css'
 import { LanguageProvider } from '@/context/LanguageContext'
+import Nav from '@/components/layout/Nav'
+import Footer from '@/components/layout/Footer'
+import SiteBackground from '@/components/layout/SiteBackground'
+import PointerTracker from '@/components/layout/PointerTracker'
 
 const archivo = Archivo({
   subsets: ['latin'],
@@ -144,7 +148,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           />
         </noscript>
         {/* End Google Tag Manager (noscript) */}
-        <LanguageProvider>{children}</LanguageProvider>
+        <LanguageProvider>
+          {/* Chrome lives here, not in each page — so navigating between routes
+              reuses it instead of tearing it down and rebuilding it. */}
+          <SiteBackground />
+          <PointerTracker />
+          <Nav />
+          {children}
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   )

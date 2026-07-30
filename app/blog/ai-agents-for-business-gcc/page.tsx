@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import AIAgentsPostClient from './client'
 
 export const metadata: Metadata = {
-  title: 'AI Agents for Business in the GCC | Compass ITS',
+  title: 'AI Agents for Business in the GCC',
   description: 'What AI agents can realistically do for GCC businesses in 2026, where they work, where they fail, and how to adopt them without wasting budget.',
   alternates: { canonical: '/blog/ai-agents-for-business-gcc' },
   openGraph: {

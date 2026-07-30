@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import PenTestPostClient from './client'
 
 export const metadata: Metadata = {
-  title: 'Penetration Testing Services in Qatar | Compass ITS',
+  title: 'Penetration Testing Services in Qatar',
   description: 'Why penetration testing matters for Qatar businesses, how it supports NCSA NIA compliance, and what a proper engagement should actually cover.',
   alternates: { canonical: '/blog/penetration-testing-services-qatar' },
   openGraph: {

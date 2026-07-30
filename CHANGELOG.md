@@ -37,6 +37,25 @@
 **Decision 025 — Google Tag Manager container added:**
 GTM container `GTM-KZ59QK4H` added to `app/layout.tsx` per the container snippet supplied by the SEO specialist: inline loader as the first child of `<head>`, `<noscript>` iframe fallback as the first child of `<body>`. Placed as raw inline tags rather than `next/script` so the tag fires as early as the snippet specifies, matching the existing JSON-LD pattern in the same file. GTM ID is hardcoded in a `GTM_ID` const — container IDs are public by design, and this keeps the site free of a new required env var on Vercel. This supersedes the README's `NEXT_PUBLIC_GTM_ID` env var note. GA4 and any further tags are now managed from the GTM UI, no code change needed.
 
+### Changed — 2026-07-30 (Navigation performance pass)
+
+Measured against a production build in a real browser before and after. Client-side navigation home → `/services/digital-marketing`: total blocking from long tasks **517 ms → 210 ms**. First Load JS: service pages **152 kB → 137 kB**, blog **122 kB → 101 kB**. No visual change intended.
+
+**Decision 028 — Site chrome hoisted into the root layout:**
+Every page's `client.tsx` rendered its own `<Nav />`, `<Footer />`, and background component, so all three were destroyed and rebuilt on every navigation (verified by tagging the DOM nodes and confirming they did not survive a route change). Moved all of it into `app/layout.tsx` via new `components/layout/SiteBackground.tsx`, and stripped the wrapper from all 16 pages — home, contact, 8 service clients, blog index, 5 post clients. Pages now render only their `<main>` content. Nav and Footer DOM nodes now persist across navigation.
+
+**Decision 029 — Topographic background is now a static asset:**
+`TopoBackgroundFBM` computed a marching-squares contour field on every mount: at 1440×900 that is 36,784 grid cells, 183,920 5-octave fbm noise calls, ~1.02M marching-squares iterations and 14,054 canvas path segments — measured at ~114 ms of pure JS, excluding canvas work. It also re-ran on every `resize` with no debounce. The output was fully deterministic (hardcoded `createNoise(42)`, nothing animated), so it was spending that budget to redraw a pixel-identical image on every navigation. Pre-generated with the identical algorithm and seed to `public/images/topo-contours.svg` (272 kB raw, ~71 kB brotli) and applied as a CSS background; `next.config.js` serves it `immutable` with a one-year max-age so it is fetched once. Runtime cost is now zero. `components/ui/TopoBackgroundFBM.tsx` deleted.
+
+**Decision 030 — GlowCard deduplicated:**
+Each instance injected its own copy of the same ~1.8 kB `<style>` block and registered its own `document` pointermove listener — 9 copies on the home page, 14 on `/services/digital-marketing` (25 kB of duplicate CSS and 14 listeners writing 4 CSS custom properties each per mouse move, so 56 style writes per event). CSS moved into `globals.css` once; pointer tracking replaced by a single listener in `components/layout/PointerTracker.tsx` that writes `--x/--xp/--y/--yp` to `:root`, coalesced to one write per frame via `requestAnimationFrame`. The cards inherit the values, which is what they already wanted — their gradients use `background-attachment: fixed`, so the coordinates were always viewport-relative. GlowCard is now a plain server component with no client JS. Verified after: 0 duplicate style tags, 0 per-card listeners.
+
+**Decision 031 — WebGL background pauses when not visible:**
+`WebGLBackground` ran an unconditional `requestAnimationFrame` loop with a 5-octave fbm fragment shader at full viewport, forever, including in background tabs. Now stops on `visibilitychange` when the document is hidden and resumes when shown, and renders a single static frame instead of animating under `prefers-reduced-motion: reduce`.
+
+**Decision 032 — Duplicated brand suffix in page titles fixed:**
+`app/layout.tsx` sets a title template of `%s | Compass IT Solutions`, but eight pages already included the brand in their own metadata title, producing output like `Digital Marketing Agency in Qatar, GCC | Compass IT Solutions | Compass IT Solutions`. Stripped the redundant suffix from the blog index, all 5 blog posts, `app-development`, and `digital-marketing`, and shortened the contact title for the same reason. `openGraph.title` values are left as-is — the template does not apply to them.
+
 ### Changed — 2026-05-10 (Dark redesign pass)
 
 **Decision 013 — Full dark design adopted:**

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import BlogPostClient from './client'
 
 export const metadata: Metadata = {
-  title: 'AI Workflow Automation for GCC Businesses | Compass ITS',
+  title: 'AI Workflow Automation for GCC Businesses',
   description: 'How AI workflow automation is helping Qatar and GCC businesses cut manual work, and what to evaluate before adopting it.',
   alternates: { canonical: '/blog/ai-workflow-automation-gcc-businesses' },
   openGraph: {
