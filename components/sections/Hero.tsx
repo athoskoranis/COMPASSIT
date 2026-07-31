@@ -2,6 +2,7 @@
 import { useLanguage } from '@/context/LanguageContext'
 import Button from '@/components/ui/Button'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
+import HeroContactCard from '@/components/sections/HeroContactCard'
 
 export default function Hero() {
   const { tr } = useLanguage()
@@ -10,9 +11,9 @@ export default function Hero() {
   return (
     <section id="hero" className="pt-[54px] relative z-[1] overflow-hidden">
       <div className="max-w-content mx-auto px-6 lg:px-20 py-20 lg:py-28 relative z-10">
-        <div className="flex flex-col lg:flex-row lg:items-stretch gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-12 lg:gap-14">
           {/* Left: content */}
-          <div className="flex-1 max-w-[620px]">
+          <div className="max-w-[620px]">
             <EyebrowLabel className="mb-6 block">
               {(() => {
                 const [a, b, c] = tr.hero.eyebrow.split(' · ')
@@ -20,7 +21,7 @@ export default function Hero() {
               })()}
             </EyebrowLabel>
 
-            <h1 className="font-archivo font-light text-paper leading-none tracking-[-0.045em] text-[52px] md:text-[72px] lg:text-[90px] xl:text-[110px] mb-7">
+            <h1 className="font-archivo font-light text-paper leading-none tracking-[-0.045em] text-[44px] md:text-[68px] lg:text-[58px] xl:text-[72px] mb-7">
               <span className="font-bold">{h1.bold1}</span>{h1.plain1}
               <br />
               <span className="whitespace-nowrap">{h1.plain2}<span className="font-bold">{h1.bold2}</span></span>
@@ -30,16 +31,19 @@ export default function Hero() {
               {tr.hero.body}
             </p>
 
+            {/* Primary CTA lives in the card now — the left column keeps only
+                the secondary route so the fold has one clear action. */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button href="#contact" variant="primary">
-                {tr.hero.cta}
-              </Button>
               <Button href="#why-compass" variant="ghost">
                 {tr.hero.ctaSecondary}
               </Button>
             </div>
           </div>
 
+          {/* Right: contact card */}
+          <div className="w-full max-w-[520px] lg:ms-auto">
+            <HeroContactCard />
+          </div>
         </div>
       </div>
 

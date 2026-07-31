@@ -15,6 +15,11 @@ export const t = {
       body: "We build the quiet infrastructure that lets ambitious teams move without friction — wired right the first time, kept running for the long haul.",
       cta: 'Get a quote',
       ctaSecondary: 'See how we work',
+      card: {
+        heading: 'Start with a conversation.',
+        body: "Tell us what you're working on and we'll come back to you within one business day.",
+        whatsapp: 'Or WhatsApp +974 5149 0825',
+      },
       monitorTitle: 'Infrastructure Monitor',
       live: 'LIVE',
       statusItems: ['Network services', 'Cloud backups', 'Endpoint security', '24/7 monitoring', 'Firewall config'],
@@ -136,6 +141,11 @@ export const t = {
       body: 'نبني البنية التحتية الهادئة التي تُمكِّن الفرق الطموحة من التحرك دون عوائق — مُثبَّتة بإتقان منذ البداية، وتعمل باستمرار على المدى البعيد.',
       cta: 'احصل على عرض سعر',
       ctaSecondary: 'اكتشف طريقة عملنا',
+      card: {
+        heading: 'ابدأ بمحادثة.',
+        body: 'أخبرنا بما تعمل عليه وسنعود إليك خلال يوم عمل واحد.',
+        whatsapp: 'أو تواصل عبر واتساب ٩٧٤٥١٤٩٠٨٢٥+',
+      },
       monitorTitle: 'مراقب البنية التحتية',
       live: 'مباشر',
       statusItems: ['خدمات الشبكة', 'نسخ احتياطي سحابي', 'أمن نقاط النهاية', 'مراقبة ٢٤/٧', 'تكوين الجدار الناري'],
