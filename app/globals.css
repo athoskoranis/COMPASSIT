@@ -317,9 +317,9 @@ a {
     hsl(var(--hue, 210) calc(var(--saturation, 100) * 1%) calc(var(--lightness, 50) * 1%) / var(--border-spot-opacity, 1)),
     transparent 100%
   );
-  /* Was brightness(2) — the spotlight border read as a hard neon edge on the
-     pillar cards. Kept just enough lift for the sweep to be perceptible. */
-  filter: brightness(1.15);
+  /* Was brightness(2), which read as a hard neon edge on the pillar cards.
+     1.15 killed the sweep entirely, so this sits about halfway. */
+  filter: brightness(1.5);
 }
 
 [data-glowcard]::after {

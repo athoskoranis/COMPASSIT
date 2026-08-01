@@ -29,15 +29,17 @@ Decision 037 derived the mark radius from the offset (`calc(12px + offset)`) so 
 **Decision 039 — Card glow substantially reduced:**
 The pointer-tracked spotlight on `GlowCard` was reading as a hard neon outline rather than a subtle sweep, most visibly on the BrandPillars and WhyCompass cards (both the indigo variant). Reduced across the board:
 
-| Knob | Was | Now |
-|---|---|---|
-| `brightness()` on the border spot | 2 | 1.15 |
-| `--border-spot-opacity` (cyan / amber) | 1 | 0.32 |
-| `--border-spot-opacity` (indigo) | 1 | 0.28 |
-| `--border-light-opacity` (cyan / amber) | 0.75 / 0.80 | 0.20 |
-| `--border-light-opacity` (indigo) | 0.08 | 0.04 |
-| `--bg-spot-opacity` | 0.06 / 0.10 / 0.18 | 0.035 / 0.05 / 0.07 |
-| `--outer` (outer bloom) | 1 | 0.3 |
+Tuned in two passes — the first went too far and lost the sweep, so the values landed at roughly half the original rather than a third:
+
+| Knob | Original | First pass (too low) | Final |
+|---|---|---|---|
+| `brightness()` on the border spot | 2 | 1.15 | **1.5** |
+| `--border-spot-opacity` (cyan / amber) | 1 | 0.32 | **0.6** |
+| `--border-spot-opacity` (indigo) | 1 | 0.28 | **0.55** |
+| `--border-light-opacity` (cyan / amber) | 0.75 / 0.80 | 0.20 | **0.4** |
+| `--border-light-opacity` (indigo) | 0.08 | 0.04 | **0.06** |
+| `--bg-spot-opacity` | 0.06 / 0.10 / 0.18 | 0.035 / 0.05 / 0.07 | **0.05 / 0.075 / 0.12** |
+| `--outer` (outer bloom) | 1 | 0.3 | **0.55** |
 
 Affects all three GlowCard consumers — BrandPillars, WhyCompass, and the service page sub-service cards. The orbit ring on the services dial uses the separate `[data-glow]` rules and its `brightness(2.8)` is deliberately untouched, since that effect is the dial's focal point rather than card furniture.
 
