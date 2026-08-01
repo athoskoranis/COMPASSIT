@@ -209,9 +209,18 @@ a {
   --bracket: rgba(244, 242, 236, 0.55);
   --bracket-size: 34px;
   --bracket-weight: 1.5px;
-  /* Must match the surface's own border-radius, or the mark's arc sits outside
-     the corner curve and reads as detached. Default is radius-lg. */
-  --bracket-radius: 12px;
+  /* How far the marks stand off the surface. 0 = flush with the corner. */
+  --bracket-offset: 0px;
+  /* Derived, not set by hand: the arc has to stay concentric with the surface
+     corner as the marks move outward, or it reads as detached rather than offset.
+     Base is the surface radius (radius-lg). */
+  --bracket-radius: calc(12px + var(--bracket-offset));
+}
+
+/* Marks stand clear of the panel. For standalone surfaces only — a container
+   that clips its contents (overflow-hidden) will crop offset marks away. */
+.bracketed-outset {
+  --bracket-offset: 12px;
 }
 
 /* Ink marks for use on Paper/Mist surfaces */
@@ -239,8 +248,8 @@ a {
 }
 
 .bracketed::before {
-  top: 0;
-  left: 0;
+  top: calc(var(--bracket-offset) * -1);
+  left: calc(var(--bracket-offset) * -1);
   border-color: var(--bracket-start, var(--bracket));
   border-top-width: var(--bracket-weight);
   border-left-width: var(--bracket-weight);
@@ -248,8 +257,8 @@ a {
 }
 
 .bracketed::after {
-  bottom: 0;
-  right: 0;
+  bottom: calc(var(--bracket-offset) * -1);
+  right: calc(var(--bracket-offset) * -1);
   border-color: var(--bracket-end, var(--bracket));
   border-bottom-width: var(--bracket-weight);
   border-right-width: var(--bracket-weight);
@@ -259,7 +268,7 @@ a {
 /* RTL: the diagonal is directional, so mirror it to top-right / bottom-left */
 [dir="rtl"] .bracketed::before {
   left: auto;
-  right: 0;
+  right: calc(var(--bracket-offset) * -1);
   border-left-width: 0;
   border-right-width: var(--bracket-weight);
   border-top-left-radius: 0;
@@ -268,7 +277,7 @@ a {
 
 [dir="rtl"] .bracketed::after {
   right: auto;
-  left: 0;
+  left: calc(var(--bracket-offset) * -1);
   border-right-width: 0;
   border-left-width: var(--bracket-weight);
   border-bottom-right-radius: 0;

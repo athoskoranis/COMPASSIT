@@ -38,7 +38,7 @@ export default function HeroContactCard() {
     'w-full font-barlow text-[15.5px] text-paper placeholder:text-paper/50 bg-paper/[0.07] border border-paper/[0.16] rounded-xl px-[17px] py-[14px] outline-none focus:border-signal/55 focus:bg-paper/[0.11] transition-all duration-200'
 
   return (
-    <div className="bracketed raised glass rounded-lg p-7 lg:p-8">
+    <div className="bracketed bracketed-outset raised glass rounded-lg p-7 lg:p-8">
       <h2 className="font-archivo text-[20px] font-medium text-paper tracking-[-0.02em] mb-[7px]">
         {tr.hero.card.heading}
       </h2>

@@ -21,6 +21,17 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-01 (Bracket standoff)
+
+**Decision 037 — Corner marks can stand clear of the surface:**
+The marks sat flush against the panel corner, which read as a partial border rather than as registration marks. Added `--bracket-offset` (default 0, so nothing existing changes) and a `.bracketed-outset` modifier that lifts them 12px clear. Applied to the hero contact card.
+
+The corner radius is now **derived** — `calc(12px + var(--bracket-offset))` — rather than a separate value. The arc has to stay concentric with the surface corner as the marks move outward, otherwise a 12px arc sitting 12px away from a 12px corner reads as detached, which is the same class of bug as Decision 033a. `--bracket-radius` should no longer be set by hand.
+
+The RTL mirror carries the offset through, so the marks stand off correctly in Arabic too.
+
+**Blog index cards stay flush deliberately.** They use `overflow-hidden` to clip the post image corners, which would crop offset marks away entirely. Documented in `DESIGN.md`: the outset is for standalone panels, not for surfaces that clip their own contents.
+
 ### Changed — 2026-08-01
 
 **Decision 036 — Hero contact card is now a see-through pane, and its text contrast fixed:**

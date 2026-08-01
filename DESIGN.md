@@ -215,10 +215,21 @@ box-shadow: 0 18px 40px rgba(11,14,16,0.18); /* .raised-light */
 |---|---|
 | Arm length | 34px |
 | Stroke weight | 1.5px |
-| Outer corner radius | `var(--bracket-radius)` — **must match the surface radius** (default 12px) |
+| Standoff | `var(--bracket-offset)` — 0 flush, or 12px via `.bracketed-outset` |
+| Outer corner radius | Derived: `calc(12px + var(--bracket-offset))` — never set by hand |
 | Colour on Ink | `rgba(244,242,236,0.55)` — Paper at 55% |
 | Colour on Paper | `rgba(11,14,16,0.45)` — Ink at 45% |
-| Position | Inset 0, flush with the card corner |
+
+**Standoff.** `.bracketed-outset` lifts the marks 12px clear of the surface so they
+read as registration marks rather than a partial border. Use it on **standalone
+panels** — the hero contact card is the reference. Leave it off any surface that
+clips its own contents, since `overflow: hidden` crops offset marks away entirely;
+the blog index cards are flush for exactly that reason.
+
+The corner radius is **derived from the offset, not set separately**. The arc has
+to stay concentric with the surface corner as the marks move outward — a 12px arc
+sitting 12px away from a 12px corner reads as detached rather than offset. Setting
+`--bracket-radius` by hand reintroduces the bug fixed in Decision 033a.
 
 The diagonal pair is deliberate: two marks are enough for the eye to close the
 rectangle, and the asymmetry gives the card a reading direction — in at the
