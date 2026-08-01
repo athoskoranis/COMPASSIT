@@ -50,11 +50,15 @@ a {
   border-left-width: 0;
   border-right-width: 4px;
 }
+/* 12px, not 0.5rem. This project redefines the lg token as 12px in
+   tailwind.config.ts — Tailwind's own default lg is 0.5rem/8px, so a value copied
+   from the docs silently gives Arabic callouts an 8px corner where the English
+   side has 12px. Must track the lg token, not Tailwind's default. */
 [dir="rtl"] .rounded-r-lg {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  border-top-left-radius: 0.5rem;
-  border-bottom-left-radius: 0.5rem;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
 }
 
 /* Topographic contour lines — complex cubic bezier paths clustered like real terrain */

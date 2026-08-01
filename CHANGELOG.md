@@ -21,7 +21,23 @@
 
 ## [Unreleased]
 
-### Fixed — 2026-08-01
+### Fixed — 2026-08-01 (Radius audit)
+
+**Decision 041 — Arabic callout corners were 8px where English is 12px:**
+Swept every radius declaration in the codebase after three mismatches in two days. One further real bug: the `[dir="rtl"] .rounded-r-lg` override in `globals.css` wrote `0.5rem`, which is **Tailwind's default `lg`**, not this project's. `tailwind.config.ts` redefines `lg` as 12px, so the mirrored corner came out 8px while the English side rendered 12px. Affects the 7 quotation callouts — five blog posts, `CalloutBlock`, and the WhyCompass pull quote — and only in Arabic, which is why it went unnoticed. Now 12px on both sides.
+
+Audit results for the rest:
+
+| Surface | Verdict |
+|---|---|
+| All 7 `.bracketed` surfaces | Correct — every one uses `rounded-lg`, matching the 12px bracket radius |
+| Services dial orbit ring | Correct — 700px element with `--radius: 350` is a true circle, and the `+1px` border makes the glow concentric |
+| `.glow-btn::before` | Correct — uses `border-radius: inherit` |
+| OG image blobs | Correct — `borderRadius: 50%` on square elements |
+
+**Separate finding, not changed:** `Button.tsx` and the contact-card inputs use `rounded-xl` (20px), while `DESIGN.md` specifies `radius-md` (6px) for both buttons and form fields. That is code diverging from the spec rather than two elements disagreeing with each other, and the pill shape is plainly deliberate on the live site — so the correct fix is updating `DESIGN.md`, which needs a decision rather than a patch.
+
+**Root cause worth remembering:** this project overrides Tailwind's radius scale (`lg` 8→12px, `xl` 12→20px). Any radius value copied from Tailwind's documentation, or any raw `rem` value, will silently disagree with the token of the same name.
 
 **Decision 040 — GlowCard spotlight corner radius matched to the card:**
 The glow traced a tighter corner than the card it outlines. `GlowCard` renders its surface with `rounded-xl` (20px per the Tailwind config) but passed `--radius: 12` to the glow, and `globals.css` derives the pseudo-element corner as `(--radius + --border)` — so the glow drew a 13.5px arc around a 20px corner, 6.5px too tight. Visible as the glow line cutting inside the card at each corner. Set `--radius: 20` so the derived arc is 21.5px, concentric with a 20px corner offset outward by the 1.5px border. Also corrects the nested outer-bloom element, which reads the same variable.
