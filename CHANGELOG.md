@@ -21,6 +21,21 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-01 (DESIGN.md button and input spec)
+
+**Decision 042 — Button and input spec updated to describe what actually ships:**
+`DESIGN.md` specified `radius-md` (6px) for buttons and inputs; both have been `radius-xl` (20px) in code since launch. Spec updated to match, since the pill shape is plainly deliberate and a spec that contradicts the build actively misleads — `CLAUDE.md` requires every agent to follow `DESIGN.md` before generating UI, so an inaccurate spec produces wrong output.
+
+Two further divergences corrected in the same pass, both larger than the radius:
+
+- **The primary button is not a solid Signal block.** It is the `.liquid-fill` treatment — Ink body, 1.5px Signal border, Paper text, with Signal pouring down from the top edge on hover. The spec described `background: #2BB3E6; color: #0B0E10`, which is not what any button on the site looks like. The solid version is retained in the spec as the correct choice on Paper surfaces, where the liquid fill has no dark body to sit against.
+- **Ghost border is 1px Paper at 40%,** not 1.5px `currentColor`.
+- **Inputs use Barlow, not Archivo** — entered text is body copy, and the type rules assign body copy to Barlow. Documented with separate fill and border values for Paper versus Ink/`.glass` surfaces, since contrast depends on what is behind them.
+
+Radius token table also revised: `radius-md` no longer claims buttons and inputs, `radius-lg` notes that all bracketed surfaces use it, and `radius-xl` now lists buttons and inputs.
+
+**Flagged, not changed:** two surfaces use `rounded-2xl` (Tailwind's default 16px, outside this system) — the footer panel and the contact page map frame. The config extends rather than replaces Tailwind's scale, so those classes still resolve. Both should be `radius-xl`; changing them alters the visible shape of the footer, so it needs a decision rather than a quiet patch.
+
 ### Fixed — 2026-08-01 (Radius audit)
 
 **Decision 041 — Arabic callout corners were 8px where English is 12px:**

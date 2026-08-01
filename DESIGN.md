@@ -136,10 +136,22 @@ Multiply the base unit (4px) for consistent rhythm:
 
 | Token | Value | Use |
 |---|---|---|
-| `radius-sm` | 2px | Subtle — badges, status pills |
-| `radius-md` | 6px | Buttons, inputs, small cards |
-| `radius-lg` | 12px | Service cards, feature panels |
-| `radius-xl` | 20px | Hero containers, large sections |
+| `radius-sm` | 2px | Subtle — badges, status pills, tags |
+| `radius-md` | 6px | Small chrome — thumbnails, inline tiles |
+| `radius-lg` | 12px | Cards and panels — **all bracketed surfaces use this** |
+| `radius-xl` | 20px | Buttons, inputs, hero containers, large sections |
+
+> **These are project overrides, not Tailwind defaults.** Tailwind ships `lg` at
+> 8px and `xl` at 12px. A radius copied from Tailwind's documentation, or written
+> as a raw `rem`, will silently disagree with the token of the same name here —
+> that is exactly what caused the Arabic callout bug in Decision 041. Always use
+> the token or the px value above.
+>
+> The config extends rather than replaces Tailwind's scale, so classes outside the
+> four tokens (`rounded-2xl`, `rounded-3xl`) still resolve — to values that are not
+> in this system. **Do not use them.** Two pre-existing exceptions are on the site
+> today, both at Tailwind's 16px `2xl`: the footer panel and the contact page map
+> frame. Both should be `radius-xl` (20px); flagged, not yet changed.
 
 ---
 
@@ -147,36 +159,65 @@ Multiply the base unit (4px) for consistent rhythm:
 
 ### Buttons
 
-**Primary CTA (Signal)**
+> **Updated to match the built components.** This section previously specified a
+> 6px radius and a solid Signal fill; neither was what shipped. Buttons are
+> `radius-xl` (20px) and the primary is a liquid-fill treatment, not a flat cyan
+> block. The spec now describes `components/ui/Button.tsx` and the `.liquid-fill`
+> rule in `globals.css`, which are the source of truth. Logged as Decision 042.
+
+**Primary CTA — liquid fill**
+
+Ink body with a Signal border; Signal pours down from the top on hover. Not a
+solid cyan block.
+
 ```css
-background: #2BB3E6;
-color: #0B0E10;
+background:
+  linear-gradient(#2BB3E6 0 0) no-repeat
+  calc(200% - var(--p, 0%)) 0% / 200% var(--p, 0.2em),
+  #0B0E10;                  /* Ink body, Signal wipe */
+border: 1.5px solid #2BB3E6;
+color: #F4F2EC;             /* Paper — stays Paper through the hover */
 font-family: Archivo;
 font-size: 15px;
 font-weight: 500;
-letter-spacing: 0.06em;
+letter-spacing: 0.06em;     /* tracking-cta */
 text-transform: uppercase;
 padding: 14px 28px;
-border-radius: 6px;
-border: none;
+border-radius: 20px;        /* radius-xl */
 ```
+
+Hover: `--p: 100%` with `--t: 0.3s`, which runs the fill from the top edge down.
+Apply via the `.liquid-fill` class rather than re-declaring the gradient.
 
 **Secondary / Ghost**
 ```css
 background: transparent;
-color: #0B0E10;        /* or #F4F2EC on dark bg */
-border: 1.5px solid currentColor;
+color: #F4F2EC;                              /* Paper on dark */
+border: 1px solid rgba(244,242,236,0.4);     /* Paper at 40% */
 font-family: Archivo;
 font-size: 15px;
 font-weight: 500;
 letter-spacing: 0.06em;
 text-transform: uppercase;
 padding: 13px 28px;
-border-radius: 6px;
+border-radius: 20px;        /* radius-xl */
 ```
 
-Hover state: 10% opacity overlay of signal colour.
+Ghost hover: border and text both go Signal.
 Focus ring: `2px solid #2BB3E6` offset `2px`.
+
+**Solid Signal button** — still correct for Paper surfaces, where the liquid fill
+has no dark body to sit against:
+```css
+background: #2BB3E6;
+color: #0B0E10;
+border: none;
+border-radius: 20px;
+```
+
+Inputs share the button radius — `radius-xl` (20px). Full field spec, including
+the fill and border values for dark and `.glass` surfaces, is in **Forms / Inputs**
+below.
 
 ### Cards — Surface Card
 
@@ -357,14 +398,14 @@ Example: `NETWORK · CLOUD · CONTINUITY`
 
 ### Forms / Inputs
 
+**On Paper surfaces:**
 ```css
-/* Input field */
 background: transparent;
 border: 1px solid rgba(11,14,16,0.3);
-border-radius: 6px;
-padding: 12px 16px;
-font-family: Archivo;
-font-size: 17px;
+border-radius: 20px;        /* radius-xl — matches the buttons */
+padding: 14px 17px;
+font-family: Barlow;
+font-size: 15.5px;
 color: #0B0E10;
 outline: none;
 
@@ -372,6 +413,27 @@ outline: none;
 border-color: #2BB3E6;
 box-shadow: 0 0 0 3px rgba(43,179,230,0.15);
 ```
+
+**On Ink or `.glass` surfaces** — as built in the hero contact card:
+```css
+background: rgba(244,242,236,0.07);          /* Paper at 7% */
+border: 1px solid rgba(244,242,236,0.16);
+border-radius: 20px;
+padding: 14px 17px;
+font-family: Barlow;
+font-size: 15.5px;
+color: #F4F2EC;
+
+/* Placeholder — 50% is the floor, see the .glass contrast table */
+::placeholder { color: rgba(244,242,236,0.5); }
+
+/* Focus */
+border-color: rgba(43,179,230,0.55);
+background: rgba(244,242,236,0.11);
+```
+
+Body font here is **Barlow**, not Archivo — inputs carry entered text, which is
+body copy, and the type rules assign body copy to Barlow.
 
 ---
 
