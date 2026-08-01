@@ -21,6 +21,17 @@
 
 ## [Unreleased]
 
+### Added — 2026-07-31
+
+**Decision 035 — Hero rail: markets served, then the latest article:**
+The hero left column now carries a rail beneath the secondary CTA — a hairline row listing the three markets served, then a compact card for the newest blog post (combination C1 from the exploration). Coverage answers a qualifying question inside the fold, and the article gives the fold evidence the firm is active, plus an internal link to content already written.
+
+New `lib/posts.ts` holds the blog list as a single source of truth. `app/blog/client.tsx` previously owned that array inline; it now imports it, and `components/sections/HeroRail.tsx` reads `latestPost` from the same module. Adding a post surfaces it in both places, so the hero cannot silently go stale — which was the main risk of putting the latest article in the fold.
+
+Serving label, country names and the "Latest" label are translated in both languages. Blog post titles and categories stay in English because the blog itself is not translated — worth revisiting if the blog is ever localised. Layout uses logical properties (`pe`, `border-e`) so the rail mirrors in Arabic without extra rules.
+
+The approved lede from CONTENT.md and the secondary CTA were both kept. The C1 mockup showed a shorter lede and no CTA, but that lede was invented copy, so the fold is a little taller than the mockup — worth checking on a laptop viewport.
+
 ### Fixed — 2026-07-31
 
 **Decision 034 — areaServed corrected to the three markets actually served:**

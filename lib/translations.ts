@@ -20,6 +20,11 @@ export const t = {
         body: "Tell us what you're working on and we'll come back to you within one business day.",
         whatsapp: 'Or WhatsApp +974 5149 0825',
       },
+      rail: {
+        servingLabel: 'Serving',
+        countries: ['Qatar', 'Saudi Arabia', 'UAE'],
+        latestLabel: 'Latest',
+      },
       monitorTitle: 'Infrastructure Monitor',
       live: 'LIVE',
       statusItems: ['Network services', 'Cloud backups', 'Endpoint security', '24/7 monitoring', 'Firewall config'],
@@ -145,6 +150,11 @@ export const t = {
         heading: 'ابدأ بمحادثة.',
         body: 'أخبرنا بما تعمل عليه وسنعود إليك خلال يوم عمل واحد.',
         whatsapp: 'أو تواصل عبر واتساب ٩٧٤٥١٤٩٠٨٢٥+',
+      },
+      rail: {
+        servingLabel: 'نخدم',
+        countries: ['قطر', 'المملكة العربية السعودية', 'الإمارات'],
+        latestLabel: 'الأحدث',
       },
       monitorTitle: 'مراقب البنية التحتية',
       live: 'مباشر',

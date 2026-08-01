@@ -3,6 +3,7 @@ import { useLanguage } from '@/context/LanguageContext'
 import Button from '@/components/ui/Button'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
 import HeroContactCard from '@/components/sections/HeroContactCard'
+import HeroRail from '@/components/sections/HeroRail'
 
 export default function Hero() {
   const { tr } = useLanguage()
@@ -27,7 +28,7 @@ export default function Hero() {
               <span className="whitespace-nowrap">{h1.plain2}<span className="font-bold">{h1.bold2}</span></span>
             </h1>
 
-            <p className="font-barlow text-body-l text-paper/60 max-w-[520px] mb-10">
+            <p className="font-barlow text-body-l text-paper/60 max-w-[520px] mb-8">
               {tr.hero.body}
             </p>
 
@@ -38,6 +39,8 @@ export default function Hero() {
                 {tr.hero.ctaSecondary}
               </Button>
             </div>
+
+            <HeroRail />
           </div>
 
           {/* Right: contact card */}
