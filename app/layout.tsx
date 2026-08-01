@@ -108,14 +108,14 @@ const jsonLd = {
       closes: '17:00',
     },
   ],
+  // Qatar, Saudi Arabia and the UAE only. Kuwait, Bahrain and Oman were listed
+  // here but are not served — declaring markets you do not cover misrepresents
+  // the business in structured data. Matches the areaServed on every service page.
   areaServed: [
     { '@type': 'City', 'name': 'Doha' },
     { '@type': 'Country', 'name': 'Qatar' },
     { '@type': 'Country', 'name': 'Saudi Arabia' },
     { '@type': 'Country', 'name': 'United Arab Emirates' },
-    { '@type': 'Country', 'name': 'Kuwait' },
-    { '@type': 'Country', 'name': 'Bahrain' },
-    { '@type': 'Country', 'name': 'Oman' },
   ],
   currenciesAccepted: 'QAR',
   priceRange: '$$',

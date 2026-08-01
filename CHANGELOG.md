@@ -21,6 +21,11 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-07-31
+
+**Decision 034 — areaServed corrected to the three markets actually served:**
+The site-wide JSON-LD in `app/layout.tsx` declared `areaServed` as Doha, Qatar, Saudi Arabia, UAE, Kuwait, Bahrain and Oman. Kuwait, Bahrain and Oman are not served — confirmed by the client. Declaring markets the business does not cover misrepresents it in structured data and invites enquiries that cannot be fulfilled. Removed those three; the list now matches the `areaServed` already declared on all eight service pages. No other file referenced them.
+
 ### Changed — 2026-07-30 (Card treatment)
 
 **Decision 033 — Signal left border on cards replaced by raised panel + diagonal brackets:**
