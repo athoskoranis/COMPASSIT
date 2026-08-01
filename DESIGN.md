@@ -215,7 +215,7 @@ box-shadow: 0 18px 40px rgba(11,14,16,0.18); /* .raised-light */
 |---|---|
 | Arm length | 34px |
 | Stroke weight | 1.5px |
-| Outer corner radius | 3px |
+| Outer corner radius | `var(--bracket-radius)` — **must match the surface radius** (default 12px) |
 | Colour on Ink | `rgba(244,242,236,0.55)` — Paper at 55% |
 | Colour on Paper | `rgba(11,14,16,0.45)` — Ink at 45% |
 | Position | Inset 0, flush with the card corner |

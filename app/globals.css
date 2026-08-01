@@ -198,6 +198,9 @@ a {
   --bracket: rgba(244, 242, 236, 0.55);
   --bracket-size: 34px;
   --bracket-weight: 1.5px;
+  /* Must match the surface's own border-radius, or the mark's arc sits outside
+     the corner curve and reads as detached. Default is radius-lg. */
+  --bracket-radius: 12px;
 }
 
 /* Ink marks for use on Paper/Mist surfaces */
@@ -230,7 +233,7 @@ a {
   border-color: var(--bracket-start, var(--bracket));
   border-top-width: var(--bracket-weight);
   border-left-width: var(--bracket-weight);
-  border-top-left-radius: 3px;
+  border-top-left-radius: var(--bracket-radius);
 }
 
 .bracketed::after {
@@ -239,7 +242,7 @@ a {
   border-color: var(--bracket-end, var(--bracket));
   border-bottom-width: var(--bracket-weight);
   border-right-width: var(--bracket-weight);
-  border-bottom-right-radius: 3px;
+  border-bottom-right-radius: var(--bracket-radius);
 }
 
 /* RTL: the diagonal is directional, so mirror it to top-right / bottom-left */
@@ -249,7 +252,7 @@ a {
   border-left-width: 0;
   border-right-width: var(--bracket-weight);
   border-top-left-radius: 0;
-  border-top-right-radius: 3px;
+  border-top-right-radius: var(--bracket-radius);
 }
 
 [dir="rtl"] .bracketed::after {
@@ -258,7 +261,7 @@ a {
   border-right-width: 0;
   border-left-width: var(--bracket-weight);
   border-bottom-right-radius: 0;
-  border-bottom-left-radius: 3px;
+  border-bottom-left-radius: var(--bracket-radius);
 }
 
 /* GlowCard — metallic spotlight border. Lives here rather than being injected
