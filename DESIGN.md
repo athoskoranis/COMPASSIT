@@ -229,6 +229,35 @@ Paper, as on the blog index cards — add `.bracketed-split`, which colours the
 start mark Paper so it does not vanish into the photograph. Per-corner overrides
 are `--bracket-start` and `--bracket-end`, both falling back to `--bracket`.
 
+### Cards — See-through pane (`.glass`)
+
+For cards that should sit *in* the background rather than on top of it — the hero
+contact card is the reference use.
+
+```css
+background-color: rgba(11,14,16,0.72);   /* Ink at 72% */
+backdrop-filter: blur(20px) saturate(115%);
+```
+
+**The tint direction is a hard constraint, not a preference.** Glass must be
+tinted toward **Ink**, never Paper. A Paper-tinted pane lets the cyan field show
+through undimmed, and secondary text then needs to be ~74% Paper to reach WCAG AA
+— which reads as near-white and breaks the type hierarchy. Ink at 72% keeps the
+gradient visible through the pane while holding the interior dark enough that
+Paper text at 50% clears 4.5:1 against the brightest part of the background.
+
+**Do not lighten past roughly 65% Ink** without re-checking contrast. Measured
+against the WebGL field's cyan peak, 65% is the last value where Paper at 50%
+still passes; 55% fails at 4.40:1.
+
+Minimum text opacities on `.glass`:
+
+| Element | Paper opacity | Contrast at worst case |
+|---|---|---|
+| Headings | 100% | 14.9:1 |
+| Body / sub | 55% | 5.4:1 |
+| Placeholders, fine print | 50% | 4.7:1 |
+
 **RTL:** the diagonal is directional and **must mirror** to top-right /
 bottom-left in Arabic. `globals.css` handles this under `[dir="rtl"]` — do not
 re-implement it per component.

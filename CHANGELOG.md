@@ -21,6 +21,17 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-01
+
+**Decision 036 — Hero contact card is now a see-through pane, and its text contrast fixed:**
+The card was opaque Ink; it is now a translucent pane so the gradient field reads through it. Added a documented `.glass` utility rather than one-off classes, so the treatment is reusable and specified.
+
+**The tint direction was determined by measurement, not taste.** A Paper-tinted glass lets the cyan field through undimmed, and secondary text then needs roughly 74% Paper opacity to reach WCAG AA — near-white, which flattens the type hierarchy. Tinting toward Ink at 72% keeps the gradient visible while holding the interior dark enough for Paper text at 50% to clear 4.5:1 against the brightest point of the background. Below about 65% Ink it stops passing: 55% measures 4.40:1.
+
+**This also fixed contrast failures that predated the change.** On the previous opaque card, placeholder text at 30% Paper measured 2.48:1, the WhatsApp line at 35% measured 2.96:1, and the article meta at 40% measured 3.52:1 — all below the 4.5:1 required by `CLAUDE.md`. Raised to 50% (4.68:1) and 55% (5.38:1). Field fill and border lifted to 7% and 16% so inputs still read as containers on a translucent surface.
+
+`DESIGN.md` documents the utility, the Ink-tint constraint with the measured reason, and a minimum text-opacity table.
+
 ### Added — 2026-07-31
 
 **Decision 035 — Hero rail: markets served, then the latest article:**

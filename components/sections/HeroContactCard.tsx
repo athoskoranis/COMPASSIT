@@ -35,14 +35,14 @@ export default function HeroContactCard() {
   }
 
   const inputClass =
-    'w-full font-barlow text-[15.5px] text-paper placeholder:text-paper/30 bg-paper/[0.05] border border-paper/[0.14] rounded-xl px-[17px] py-[14px] outline-none focus:border-signal/55 focus:bg-paper/[0.08] transition-all duration-200'
+    'w-full font-barlow text-[15.5px] text-paper placeholder:text-paper/50 bg-paper/[0.07] border border-paper/[0.16] rounded-xl px-[17px] py-[14px] outline-none focus:border-signal/55 focus:bg-paper/[0.11] transition-all duration-200'
 
   return (
-    <div className="bracketed raised bg-ink rounded-lg p-7 lg:p-8">
+    <div className="bracketed raised glass rounded-lg p-7 lg:p-8">
       <h2 className="font-archivo text-[20px] font-medium text-paper tracking-[-0.02em] mb-[7px]">
         {tr.hero.card.heading}
       </h2>
-      <p className="font-barlow text-[14.5px] text-paper/50 leading-[23px] mb-6">
+      <p className="font-barlow text-[14.5px] text-paper/[0.55] leading-[23px] mb-6">
         {tr.hero.card.body}
       </p>
 
@@ -94,7 +94,7 @@ export default function HeroContactCard() {
         href="https://wa.me/97451490825"
         target="_blank"
         rel="noopener noreferrer"
-        className="block font-jetbrains text-[9.5px] uppercase tracking-[0.1em] text-paper/35 hover:text-signal transition-colors mt-[14px] text-center"
+        className="block font-jetbrains text-[9.5px] uppercase tracking-[0.1em] text-paper/50 hover:text-signal transition-colors mt-[14px] text-center"
       >
         {tr.hero.card.whatsapp}
       </a>
