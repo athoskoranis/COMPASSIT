@@ -211,10 +211,10 @@ a {
   --bracket-weight: 1.5px;
   /* How far the marks stand off the surface. 0 = flush with the corner. */
   --bracket-offset: 0px;
-  /* Derived, not set by hand: the arc has to stay concentric with the surface
-     corner as the marks move outward, or it reads as detached rather than offset.
-     Base is the surface radius (radius-lg). */
-  --bracket-radius: calc(12px + var(--bracket-offset));
+  /* Matches the surface radius (radius-lg), independent of the standoff — the
+     mark repeats the panel's own corner shape rather than tracing a concentric
+     arc around it. Set this if the surface uses a different radius. */
+  --bracket-radius: 12px;
 }
 
 /* Marks stand clear of the panel. For standalone surfaces only — a container
@@ -317,7 +317,9 @@ a {
     hsl(var(--hue, 210) calc(var(--saturation, 100) * 1%) calc(var(--lightness, 50) * 1%) / var(--border-spot-opacity, 1)),
     transparent 100%
   );
-  filter: brightness(2);
+  /* Was brightness(2) — the spotlight border read as a hard neon edge on the
+     pillar cards. Kept just enough lift for the sweep to be perceptible. */
+  filter: brightness(1.15);
 }
 
 [data-glowcard]::after {

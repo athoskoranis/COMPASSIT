@@ -6,20 +6,24 @@ interface GlowCardProps {
   variant?: 'cyan' | 'amber' | 'indigo'
 }
 
+// Glow intensity was cut back substantially — the pointer spotlight was reading
+// as a neon outline on the pillar cards rather than a subtle sweep. Border spot
+// opacity is the main dial; the outer bloom (--outer) and the brightness filter
+// in globals.css carry the rest.
 const variants = {
   cyan: {
     base: 190, spread: 65, saturation: 55, lightness: 76,
-    borderSpotOpacity: 1, borderLightOpacity: 0.75, bgSpotOpacity: 0.06,
+    borderSpotOpacity: 0.32, borderLightOpacity: 0.20, bgSpotOpacity: 0.035,
     backupBorder: 'hsl(215 20% 22% / 0.9)',
   },
   amber: {
     base: 36, spread: 24, saturation: 88, lightness: 52,
-    borderSpotOpacity: 1, borderLightOpacity: 0.80, bgSpotOpacity: 0.10,
+    borderSpotOpacity: 0.32, borderLightOpacity: 0.20, bgSpotOpacity: 0.05,
     backupBorder: 'hsl(36 60% 35% / 0.9)',
   },
   indigo: {
     base: 258, spread: 12, saturation: 85, lightness: 32,
-    borderSpotOpacity: 1, borderLightOpacity: 0.08, bgSpotOpacity: 0.18,
+    borderSpotOpacity: 0.28, borderLightOpacity: 0.04, bgSpotOpacity: 0.07,
     backupBorder: 'hsl(258 70% 20% / 0.95)',
   },
 }
@@ -46,7 +50,7 @@ export default function GlowCard({ children, className = '', variant = 'cyan' }:
         '--radius': '12',
         '--border': '1.5',
         '--size': '300',
-        '--outer': '1',
+        '--outer': '0.3',
         '--border-size': 'calc(var(--border, 2) * 1px)',
         '--spotlight-size': 'calc(var(--size, 150) * 1px)',
         '--hue': 'calc(var(--base) + (var(--xp, 0) * var(--spread, 0)))',

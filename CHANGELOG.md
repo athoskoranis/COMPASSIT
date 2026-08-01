@@ -21,6 +21,26 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-01 (Bracket radius and card glow)
+
+**Decision 038 — Bracket radius matches the panel radius, not the standoff:**
+Decision 037 derived the mark radius from the offset (`calc(12px + offset)`) so the arc stayed concentric with the panel corner. Reviewed on screen, the client preferred the mark to repeat the panel's own corner shape instead, so `--bracket-radius` is a flat 12px again, independent of standoff. Both readings are defensible; this is a look call, and the flat version keeps the two curves identical rather than parallel. `DESIGN.md` corrected — it briefly instructed never to set the value by hand, which no longer applies.
+
+**Decision 039 — Card glow substantially reduced:**
+The pointer-tracked spotlight on `GlowCard` was reading as a hard neon outline rather than a subtle sweep, most visibly on the BrandPillars and WhyCompass cards (both the indigo variant). Reduced across the board:
+
+| Knob | Was | Now |
+|---|---|---|
+| `brightness()` on the border spot | 2 | 1.15 |
+| `--border-spot-opacity` (cyan / amber) | 1 | 0.32 |
+| `--border-spot-opacity` (indigo) | 1 | 0.28 |
+| `--border-light-opacity` (cyan / amber) | 0.75 / 0.80 | 0.20 |
+| `--border-light-opacity` (indigo) | 0.08 | 0.04 |
+| `--bg-spot-opacity` | 0.06 / 0.10 / 0.18 | 0.035 / 0.05 / 0.07 |
+| `--outer` (outer bloom) | 1 | 0.3 |
+
+Affects all three GlowCard consumers — BrandPillars, WhyCompass, and the service page sub-service cards. The orbit ring on the services dial uses the separate `[data-glow]` rules and its `brightness(2.8)` is deliberately untouched, since that effect is the dial's focal point rather than card furniture.
+
 ### Changed — 2026-08-01 (Bracket standoff)
 
 **Decision 037 — Corner marks can stand clear of the surface:**
