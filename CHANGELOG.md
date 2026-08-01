@@ -21,6 +21,13 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-08-01
+
+**Decision 040 — GlowCard spotlight corner radius matched to the card:**
+The glow traced a tighter corner than the card it outlines. `GlowCard` renders its surface with `rounded-xl` (20px per the Tailwind config) but passed `--radius: 12` to the glow, and `globals.css` derives the pseudo-element corner as `(--radius + --border)` — so the glow drew a 13.5px arc around a 20px corner, 6.5px too tight. Visible as the glow line cutting inside the card at each corner. Set `--radius: 20` so the derived arc is 21.5px, concentric with a 20px corner offset outward by the 1.5px border. Also corrects the nested outer-bloom element, which reads the same variable.
+
+Third instance of the same underlying pattern in two days — a corner radius hardcoded next to a surface whose radius is set elsewhere (see Decisions 033a and 038). Worth treating any standalone `--radius` or `border-radius` near a `rounded-*` class as suspect.
+
 ### Changed — 2026-08-01 (Bracket radius and card glow)
 
 **Decision 038 — Bracket radius matches the panel radius, not the standoff:**

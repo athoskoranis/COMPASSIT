@@ -46,7 +46,12 @@ export default function GlowCard({ children, className = '', variant = 'cyan' }:
         '--border-light-opacity': v.borderLightOpacity,
         '--bg-spot-opacity': v.bgSpotOpacity,
         '--backup-border': v.backupBorder,
-        '--radius': '12',
+        // Must match the card's own rounded-* class below (rounded-xl = 20px).
+        // globals.css derives the glow's corner from this as (--radius + --border),
+        // which keeps the spotlight arc concentric with the card edge it traces.
+        // It was 12 while the card was 20, so the glow corner turned tighter than
+        // the card's — visible as the glow cutting inside the corner.
+        '--radius': '20',
         '--border': '1.5',
         '--size': '300',
         '--outer': '0.55',
