@@ -16,6 +16,7 @@ const services = [
 // Article dates are fixed, not build-time — a post that hasn't changed
 // shouldn't report a fresh lastModified on every deploy.
 const posts = [
+  { slug: 'cloud-artificial-intelligence-it-innovation', published: '2026-08-13' },
   { slug: 'generative-ai-consulting-qatar', published: '2026-07-06' },
   { slug: 'cloud-migration-services-qatar', published: '2026-07-06' },
   { slug: 'penetration-testing-services-qatar', published: '2026-07-06' },

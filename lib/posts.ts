@@ -13,6 +13,16 @@ export type Post = {
 // silently go stale. Newest first.
 export const posts: Post[] = [
   {
+    slug: 'cloud-artificial-intelligence-it-innovation',
+    category: 'CLOUD SOLUTIONS',
+    title: 'How Cloud Artificial Intelligence Is Driving IT Innovation?',
+    excerpt:
+      'Cloud artificial intelligence is turning national AI ambition in Qatar and the Gulf into something IT teams can actually deploy. Here\'s what platforms like Google Cloud AI Platform change, and what still depends on solid IT governance.',
+    date: 'August 2026',
+    readTime: '6 min read',
+    image: '/images/blog/cloud-artificial-intelligence-it-innovation-1.jpg',
+  },
+  {
     slug: 'generative-ai-consulting-qatar',
     category: 'AI & MANAGED IT',
     title: 'Generative AI Consulting in Qatar: Turning the Hype Into Something Useful',
