@@ -13,6 +13,16 @@ export type Post = {
 // silently go stale. Newest first.
 export const posts: Post[] = [
   {
+    slug: 'how-cyber-security-reduces-business-risks',
+    category: 'CYBERSECURITY',
+    title: 'How Cyber Security Reduces Business Risks?',
+    excerpt:
+      'Cyber security is not IT hygiene sitting off to one side, it is one of the most direct ways a business controls its own risk. Here is what actually cuts the odds of a data breach, and what to expect from a security partner in Qatar.',
+    date: 'August 2026',
+    readTime: '6 min read',
+    image: '/images/blog/how-cyber-security-reduces-business-risks-1.jpg',
+  },
+  {
     slug: 'cloud-artificial-intelligence-it-innovation',
     category: 'CLOUD SOLUTIONS',
     title: 'How Cloud Artificial Intelligence Is Driving IT Innovation?',
