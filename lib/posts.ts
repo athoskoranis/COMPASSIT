@@ -13,6 +13,16 @@ export type Post = {
 // silently go stale. Newest first.
 export const posts: Post[] = [
   {
+    slug: 'how-to-build-network-infrastructure-qatar',
+    category: 'IT SERVICES',
+    title: 'How to Build Network Infrastructure in Qatar?',
+    excerpt:
+      'A practical guide to building network infrastructure in Qatar, from picking vendors and planning cable and switch capacity to segmenting the network for security from day one. Written for businesses that want a build that supports growth instead of one that has to be redone in two years.',
+    date: 'August 2026',
+    readTime: '6 min read',
+    image: '/images/blog/how-to-build-network-infrastructure-qatar-1.jpg',
+  },
+  {
     slug: 'how-cyber-security-reduces-business-risks',
     category: 'CYBERSECURITY',
     title: 'How Cyber Security Reduces Business Risks?',
