@@ -10,9 +10,6 @@ const FRAG = `
 precision highp float;
 uniform vec2  uRes;
 uniform float uTime;
-uniform vec2  uMouse;
-uniform float uMouseIn;
-uniform vec4  uClicks[4];
 
 float hash21(vec2 p){ vec3 p3=fract(vec3(p.xyx)*0.1031); p3+=dot(p3,p3.yzx+33.33); return fract((p3.x+p3.y)*p3.z); }
 float vnoise(vec2 p){
@@ -90,6 +87,19 @@ void main(){
   gl_FragColor = vec4(saturate3(col), 1.0);
 }`
 
+// The field is smooth gradients plus a contour line at 1.8% opacity. There is
+// nothing in it a retina pixel grid resolves, so it renders at CSS resolution
+// and the browser upscales. This used to run at min(devicePixelRatio, 2), which
+// on a 2x display is four times the fragment work for no visible return -- and
+// this shader is not cheap per fragment: two fbm() calls, five octaves each.
+const RENDER_SCALE = 1
+
+// The drift is uTime * 0.22 for the blobs and uTime * 0.012 for the contours.
+// At that speed 30fps and 60fps are indistinguishable, and halving the frame
+// rate halves the GPU time competing with scroll compositing.
+const TARGET_FPS = 30
+const FRAME_MS = 1000 / TARGET_FPS
+
 export default function WebGLBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -122,76 +132,44 @@ export default function WebGLBackground() {
     gl.enableVertexAttribArray(aPos)
     gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0)
 
-    const uRes     = gl.getUniformLocation(prog, 'uRes')
-    const uTime    = gl.getUniformLocation(prog, 'uTime')
-    const uMouse   = gl.getUniformLocation(prog, 'uMouse')
-    const uMouseIn = gl.getUniformLocation(prog, 'uMouseIn')
-    const uClicks  = gl.getUniformLocation(prog, 'uClicks')
+    const uRes  = gl.getUniformLocation(prog, 'uRes')
+    const uTime = gl.getUniformLocation(prog, 'uTime')
 
-    let tx = 0.5, ty = 0.5, mx = 0.5, my = 0.5
-    let targetIn = 0, easedIn = 0
-    const clicks: number[][] = [[0, 0, -99, 0], [0, 0, -99, 0], [0, 0, -99, 0], [0, 0, -99, 0]]
-    let nextSlot = 0
+    // There were uMouse, uMouseIn and uClicks uniforms here, fed by three window
+    // pointer listeners, an easing step and a four-slot click ring buffer -- and
+    // main() referenced none of them. The shader has no pointer response at all.
+    // The listeners were the part that mattered: pointermove on window without
+    // {passive: true} is a scroll-blocking hazard, and it duplicated the one
+    // PointerTracker already runs for the whole site.
 
-    const local = (e: PointerEvent) => {
-      const r = canvas.getBoundingClientRect()
-      return [(e.clientX - r.left) / r.width, 1 - (e.clientY - r.top) / r.height]
-    }
-
-    const onMove = (e: PointerEvent) => { const [x, y] = local(e); tx = x; ty = y; targetIn = 1 }
-    const onLeave = () => { targetIn = 0 }
-    const onDown = (e: PointerEvent) => {
-      const [x, y] = local(e)
-      clicks[nextSlot] = [x, y, performance.now() / 1000, 1.0]
-      nextSlot = (nextSlot + 1) % 4
-    }
-
-    window.addEventListener('pointermove', onMove)
-    window.addEventListener('pointerleave', onLeave)
-    window.addEventListener('pointerdown', onDown)
-
-    const dpr = Math.min(window.devicePixelRatio || 1, 2)
     const resize = () => {
-      const w = Math.max(2, Math.round(window.innerWidth * dpr))
-      const h = Math.max(2, Math.round(window.innerHeight * dpr))
+      const w = Math.max(2, Math.round(window.innerWidth * RENDER_SCALE))
+      const h = Math.max(2, Math.round(window.innerHeight * RENDER_SCALE))
       if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h }
     }
-    window.addEventListener('resize', resize)
+    window.addEventListener('resize', resize, { passive: true })
     resize()
 
     const t0 = performance.now()
-    const clicksFlat = new Float32Array(16)
     let raf = 0
+    let lastFrame = 0
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     const draw = () => {
       const t = (performance.now() - t0) / 1000
-      mx += (tx - mx) * 0.12
-      my += (ty - my) * 0.12
-      easedIn += (targetIn - easedIn) * 0.08
 
       gl.viewport(0, 0, canvas.width, canvas.height)
       gl.uniform2f(uRes, canvas.width, canvas.height)
       gl.uniform1f(uTime, t)
-      gl.uniform2f(uMouse, mx, my)
-      gl.uniform1f(uMouseIn, easedIn)
-
-      for (let i = 0; i < 4; i++) {
-        const c = clicks[i]
-        const age = t - c[2]
-        clicksFlat[i * 4 + 0] = c[0]
-        clicksFlat[i * 4 + 1] = c[1]
-        clicksFlat[i * 4 + 2] = age < 0 ? -1 : age
-        clicksFlat[i * 4 + 3] = c[3]
-      }
-      gl.uniform4fv(uClicks, clicksFlat)
 
       gl.drawArrays(gl.TRIANGLES, 0, 3)
     }
 
-    const tick = () => {
+    const tick = (now: number) => {
       raf = requestAnimationFrame(tick)
+      if (now - lastFrame < FRAME_MS) return
+      lastFrame = now
       draw()
     }
 
@@ -220,9 +198,6 @@ export default function WebGLBackground() {
     return () => {
       stop()
       document.removeEventListener('visibilitychange', onVisibility)
-      window.removeEventListener('pointermove', onMove)
-      window.removeEventListener('pointerleave', onLeave)
-      window.removeEventListener('pointerdown', onDown)
       window.removeEventListener('resize', resize)
     }
   }, [])

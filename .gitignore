@@ -21,6 +21,7 @@ out
 # os / editor
 .DS_Store
 Thumbs.db
+.claude/
 
 # logs
 npm-debug.log*

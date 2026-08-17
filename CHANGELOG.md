@@ -21,6 +21,32 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-18 (Home page scroll cost)
+
+**Decision 044 — The home page was paying for four effects nobody can see:**
+Scrolling the front page stuttered. Measured on the rendered page, every scroll frame had to repaint 9 `GlowCard`s worth of `background-attachment: fixed` gradients, re-run 11 backdrop filters, and composite all of it over a full-screen WebGL canvas redrawing at 60fps with a shader that runs two 5-octave `fbm()` calls per fragment. Four changes, none of which alter the design:
+
+- **`WebGLBackground` renders at CSS resolution, not `min(devicePixelRatio, 2)`.** On a 2x display that was four times the fragment work. The field is smooth gradients plus a contour line at 1.8% opacity — there is nothing in it a retina pixel grid resolves.
+- **`WebGLBackground` runs at 30fps.** The drift is `uTime * 0.22` for the blobs and `uTime * 0.012` for the contours. At that speed 30 and 60 are indistinguishable, and the halved GPU time is time the compositor gets back.
+- **Removed the shader's dead pointer machinery.** `uMouse`, `uMouseIn` and `uClicks` were declared, fed by three window listeners, an easing step and a four-slot click ring buffer, and referenced nowhere in `main()`. The shader has never had a pointer response. The listeners were the part that cost: `pointermove` on window without `{passive: true}` blocks scroll, and it duplicated the one `PointerTracker` already runs site-wide. Nav's scroll listener is now passive for the same reason.
+- **Dropped `backdrop-blur-[2px]` from `GlowCard` and `will-change: filter` from both outer-bloom rules.** Blurring a smooth gradient by 2px returns the same gradient, at the price of ten composited layers re-running a backdrop filter per frame. `will-change: filter` hinted at a value that never changes — only the background beneath it moves — so it promoted nine elements to their own layers and then defeated raster caching on each. The hero card's `.glass` blur(20px) is untouched: that one is a real effect on a single element. Card contrast is unaffected — blur does not dim.
+
+Verified after: backdrop-filtered elements 11 → 2, `will-change: filter` elements 9 → 0, console clean, `tsc --noEmit` and `next build` both pass. Frame timings were not captured — the browser pane was hidden for this session, which pins `window.innerWidth` to 0.
+
+**Also changed:** `Cairo` is now `preload: false` in `app/layout.tsx`. It only applies under `[dir="rtl"]`, which needs the language toggle, so four weights of an Arabic subset were on the critical path for every English visitor and used by none of them.
+
+**Flagged, not changed:** `components/ui/` holds five components nothing imports — `AuroraBackground`, `MeshDrift`, `TopoBackground`, `TopoBackgroundStatic`, `WhatsAppButton`. They cost nothing at runtime (never in the import graph) but `.aurora-blob` and its five `blob-drift-*` keyframes still ship in `globals.css`, and `@chriscourses/perlin-noise` is a dependency only they use.
+
+### Fixed — 2026-08-18 (Footer reveal mask emitted NaN on every page load)
+
+**Decision 043 — `TextHoverEffect` no longer measures a cursor position it does not have:**
+`components/ui/hover-footer.tsx` seeded its `cursor` state at `{x: 0, y: 0}` and ran the measuring effect immediately on mount. Two problems came out of that, and the second was visible in the console on every route, since the footer renders site-wide:
+
+- The SVG is sized `width="100%" height="100%"`. Before layout settles its rect can be `0 × 0`, so `(cursor.y - rect.top) / rect.height` divides by zero and returns `NaN`. SVG rejects `cx="NaN%"` outright — two errors per page load.
+- Even with a valid rect, `{0, 0}` is a real viewport coordinate, not an absence of one. The mask positioned itself relative to the top-left of the window before anyone had moved the mouse.
+
+`cursor` now starts as `null` and the effect returns early until a pointer has actually been over the SVG, with a second guard for a zero-sized rect. The resting mask stays at the declared `50% / 50%` until the first real `mousemove`, which is what the component always intended. Verified: pointer at 25% width / 50% height resolves to `cx: 24.93%`, `cy: 50%`, and the console is clean on load. No visual change at rest or on hover.
+
 ### Changed — 2026-08-01 (DESIGN.md button and input spec)
 
 **Decision 042 — Button and input spec updated to describe what actually ships:**

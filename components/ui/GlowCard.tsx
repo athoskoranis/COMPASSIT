@@ -31,6 +31,13 @@ const variants = {
 // Pointer tracking is global (see components/layout/PointerTracker) and the CSS
 // lives in globals.css, so this is a plain server component — no per-instance
 // listener, no duplicated <style> tag.
+//
+// No backdrop-blur on the card. What sits behind it is the WebGL field: smooth
+// gradients, and blurring a smooth gradient by 2px returns the same gradient. It
+// cost ten composited layers on the home page, each re-running a backdrop filter
+// per scroll frame, for an effect that cannot be seen. The .glass treatment on
+// the hero card keeps its blur — 20px over the busiest part of the field is a
+// real effect, and it is one element rather than ten.
 export default function GlowCard({ children, className = '', variant = 'cyan' }: GlowCardProps) {
   const v = variants[variant]
 
@@ -72,7 +79,7 @@ export default function GlowCard({ children, className = '', variant = 'cyan' }:
         boxShadow: '0 1rem 2rem -1rem rgba(0,0,0,0.8)',
         position: 'relative',
       } as unknown as React.CSSProperties}
-      className={`rounded-xl backdrop-blur-[2px] ${className}`}
+      className={`rounded-xl ${className}`}
     >
       <div data-glowcard />
       {children}
