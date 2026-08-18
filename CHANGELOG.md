@@ -21,6 +21,17 @@
 
 ## [Unreleased]
 
+### Removed — 2026-08-18 (`WebGLBackground.tsx`)
+
+**Decision 048 — The shader goes:**
+Decision 047 kept `components/ui/WebGLBackground.tsx` in the tree after the aurora replaced it, on the argument that a working implementation of the previous look is worth more than an abandoned experiment. That argument does not survive contact with Decision 045, which deleted four components for exactly the condition this one was left in. Consistency wins: nothing imports it, so it goes, and git history holds it if the old look is ever wanted back.
+
+Removes 90 lines of GLSL and its WebGL setup — shader compilation, program linking, uniform plumbing, the resize and visibility handlers, the rAF loop. The stale comment in `SiteBackground` that pointed at the file as still-present is corrected.
+
+`CHANGELOG` references to `WebGLBackground` in Decisions 044 and 047 are left alone. They are the record of what the component did while it existed, and rewriting them would make the history lie.
+
+Verified: `tsc --noEmit` and a clean `next build` both pass, no `gl_FragColor` or `OES_standard_derivatives` anywhere under `.next/static/`, `/` and `/contact` still render five `.aurora-blob` elements, `/blog` still renders the static texture, console clean.
+
 ### Changed — 2026-08-18 (Aurora replaces the WebGL field on `/` and `/contact`)
 
 **Decision 047 — `SiteBackground` serves `AuroraBackground` where it used to serve `WebGLBackground`:**
@@ -32,7 +43,7 @@ The two draw the same kind of thing at very different prices. The shader ran a f
 
 Verified on the running site: `/` and `/contact` render five `.aurora-blob` elements and no `<canvas>`; `/services/cybersecurity` and `/blog` render the static texture and no blobs. Computed styles on the blobs are `filter: none`, `will-change: transform`, `mix-blend-mode: screen`, with `blob-drift-*` running and eight gradient stops on blob 4. `/images/topo-lines.svg` resolves. Console clean, `tsc --noEmit` and `next build` both pass, and no `gl_FragColor` or `OES_standard_derivatives` survives in any client chunk.
 
-**`components/ui/WebGLBackground.tsx` is now unreferenced** and left in the tree deliberately, which is the same condition Decision 045 deleted four other components for. It is kept because it is a working implementation of the previous look rather than an abandoned experiment, and reverting this decision means re-importing one module. If that reasoning stops holding, delete it — the shader is 90 lines of GLSL that nothing calls.
+**Deleted by Decision 048 above.** `components/ui/WebGLBackground.tsx` was left in the tree here on the argument that a working implementation of the previous look is worth keeping. That did not survive comparison with Decision 045, which deleted four components for the same condition, so the shader is now gone too.
 
 ### Changed — 2026-08-18 (Aurora field kept, made cheap)
 
