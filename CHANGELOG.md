@@ -21,6 +21,30 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-18 (Nav and footer blur radius cut from 16px to 4px)
+
+**Decision 059 — the radius drops, the filter stays:**
+This is deliberately *not* the change that got reverted in Decision 052. Removing `backdrop-filter` takes an element off its own composited layer, and text antialiasing changes with it — grayscale inside a composited layer, subpixel outside. That is what altered the typography. Lowering the radius keeps the filter, keeps the promotion, and therefore keeps the antialiasing identical. Only the cost of the blur changes.
+
+**The measurement that justifies 4px.** Both surfaces sit under a near-opaque cover, so almost none of the blur was ever visible:
+
+| Surface | Blur | Cover | Blur actually visible |
+|---|---|---|---|
+| Footer panel | 16px | `rgba(11,14,16,0.9)` | **10%** |
+| Nav bar, floating | 16px | `bg-ink/90` | **10%** |
+| Services dropdown | 16px | `bg-ink/95` | **5%** |
+| Mobile menu overlay | 16px | `bg-ink/95` | **5%** |
+
+Seen through a 10% window, 4px and 16px are not meaningfully different — but the nav is `position: fixed` and on screen throughout every scroll, so it re-blurs whatever passes behind it on every frame, at full price, for a tenth of an effect.
+
+All four move to `backdrop-blur-sm`. It is one class name, so raising any of them back is trivial.
+
+Verified: the footer computes `backdrop-filter: blur(4px)` and remains promoted — `backdropFilter !== 'none'` — with its background alpha unchanged at 0.9. Built CSS carries `blur(4px)` where it carried `blur(16px)`. `tsc --noEmit` and a clean `next build` pass.
+
+**Left alone, out of scope:** `radial-orbital-timeline` still has one `backdrop-blur-lg` on its expanded-node popup at `bg-ink/95` — 95% covered, so the same argument applies, but it renders only on click and is not a scroll cost. `.glass` on the hero card keeps `blur(20px) saturate(115%)` at 72% cover, where 28% of the blur is visible and the effect is real.
+
+**Not verified: how it looks.** The nav's blur only exists in its scrolled state, which a non-compositing pane cannot reach, so the nav was checked in source and built CSS rather than on screen.
+
 ### Changed — 2026-08-18 (Glow surfaces no longer use `background-attachment: fixed`)
 
 **Decision 058 — 47 fixed-attachment backgrounds become 0, without losing the effect:**

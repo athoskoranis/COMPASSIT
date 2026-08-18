@@ -50,7 +50,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="relative z-[1] mx-4 lg:mx-8 mb-6 rounded-2xl overflow-hidden bg-ink/90 backdrop-blur-lg border border-paper/[0.12]"
+      className="relative z-[1] mx-4 lg:mx-8 mb-6 rounded-2xl overflow-hidden bg-ink/90 backdrop-blur-sm border border-paper/[0.12]"
       style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(43,179,230,0.08)' }}
     >
       <FooterBackgroundGradient />

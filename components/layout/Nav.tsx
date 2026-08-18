@@ -92,7 +92,7 @@ export default function Nav() {
         className={[
           'mx-auto transition-all duration-300 ease-out',
           floating
-            ? 'mt-3 rounded-xl bg-ink/90 backdrop-blur-lg border border-paper/[0.12] shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_0_1px_rgba(43,179,230,0.06)]'
+            ? 'mt-3 rounded-xl bg-ink/90 backdrop-blur-sm border border-paper/[0.12] shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_0_1px_rgba(43,179,230,0.06)]'
             : 'bg-ink border-b border-paper/10',
         ].join(' ')}
         style={{
@@ -155,7 +155,7 @@ export default function Nav() {
             </button>
 
             {servicesOpen && (
-              <div className="absolute top-full left-0 mt-2 w-56 bg-ink/95 backdrop-blur-lg border border-paper/[0.12] rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] py-2 z-50">
+              <div className="absolute top-full left-0 mt-2 w-56 bg-ink/95 backdrop-blur-sm border border-paper/[0.12] rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] py-2 z-50">
                 {serviceLinks.map((s) => (
                   <Link
                     key={s.href}
@@ -205,7 +205,7 @@ export default function Nav() {
 
       {/* Mobile overlay */}
       {mobileOpen && (
-        <div className="lg:hidden fixed top-[60px] left-0 right-0 bottom-0 z-50 bg-ink/95 backdrop-blur-lg border-t border-paper/10 overflow-y-auto">
+        <div className="lg:hidden fixed top-[60px] left-0 right-0 bottom-0 z-50 bg-ink/95 backdrop-blur-sm border-t border-paper/10 overflow-y-auto">
           <div className="px-6 py-8 flex flex-col gap-6">
             {navAnchors.map(({ key, anchor }) => (
               <Link
