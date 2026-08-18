@@ -21,6 +21,28 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-08-18 (Correction: Decision 061's shader numbers were inflated)
+
+**Decision 062 — the `readPixels` benchmark had a constant floor, and the octave reduction was not shipped because it buys nothing:**
+
+Benchmarking a *trivial* fragment shader — one line, flat colour — returns **16.67ms at 640×360, 16.82ms at 1280×720 and 16.90ms at 2560×1440**. That is a fixed cost of the `readPixels` synchronisation used to force the pipeline, almost exactly one 60Hz vsync interval, and it is present regardless of how much shading actually happens. Decision 061 reported raw benchmark numbers without subtracting it.
+
+Corrected figures for the real fragment shader:
+
+| Canvas | reported in 061 | measurement floor | **actual shader cost** |
+|---|---|---|---|
+| 2560×1440 | 67.1 ms | 16.9 | **~44.8 ms** |
+| 1280×720 | 27.5 ms | 16.8 | **~4.6 ms** |
+| 640×360 | 12.0 ms | 16.7 | **~0 ms** (below the floor) |
+
+**Decision 061's headline claim was wrong.** At CSS resolution the shader cost roughly 4.6ms per frame — about 28% of a 60fps budget — not the "165% of a 60fps frame" that entry states, and it was not "the lag all along". The original `min(devicePixelRatio, 2)` setting genuinely was ruinous at ~45ms, so cutting the render scale was still the right call and Decision 053 remains the largest single saving in this run. But the gap between 1280×720 and 640×360 is worth about 4.6ms per frame, not 15.5ms.
+
+**The octave reduction was therefore not applied.** At the current 640×360, five octaves and three octaves both sit on the measurement floor — 16.66ms against 16.63ms, a difference indistinguishable from noise. Dropping four of the ten noise evaluations per pixel would cost contour detail in exchange for nothing measurable. It only starts to matter at 2560×1440, where it saves about 14ms, and the site does not render at that size any more.
+
+**Consequence worth weighing:** since the true cost at 1280×720 is ~4.6ms rather than 27.5ms, `RENDER_SCALE = 0.5` may be trading more sharpness than the saving justifies. `0.75` costs roughly 2ms per frame more than `0.5` and restores half the lost resolution; `1` costs about 4.6ms more and restores all of it.
+
+**And the remaining lag is not the background.** With the shader effectively free at the current render scale, whatever is still making the site feel slow is elsewhere — and it cannot be found from here, because the browser pane never composites. A Performance recording from real Chrome while scrolling is now the only thing that will identify it.
+
 ### Changed — 2026-08-18 (The background shader was the lag all along)
 
 **Decision 061 — measured at last: `RENDER_SCALE` 1 → 0.5:**
