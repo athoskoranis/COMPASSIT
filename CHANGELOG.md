@@ -21,6 +21,17 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-18 (Orbital dial popup blur cut to 4px)
+
+**Decision 060 — the last `backdrop-blur-lg` in the codebase:**
+The expanded-node popup in `radial-orbital-timeline` sat at `bg-ink/95` behind a 16px blur — a 95% opaque cover, so **5% of that blur was ever visible**. Same treatment as Decision 059: the radius drops to `backdrop-blur-sm`, the filter stays, so layer promotion and text antialiasing are untouched.
+
+**Honest about the size of this one.** The popup renders only when a service node is clicked, so unlike the nav it was never a scroll cost. This is consistency and a cheaper popup open, not a fix for the lag. It is recorded as such rather than counted as a win.
+
+Verified: no `backdrop-blur-lg` remains anywhere in `app/` or `components/`, and `blur(16px)` has disappeared entirely from the built stylesheet — only `blur(2px)` on the glow cards and `blur(4px)` on the chrome are left, plus the hero card's `.glass` at `blur(20px)`, which is raw CSS rather than a Tailwind utility and is deliberately kept. `tsc --noEmit` and a clean `next build` pass.
+
+**Not verified: how it looks.** The popup requires clicking a node in a section that is below the fold and skipped by `content-visibility`, in a pane that does not scroll. Checked in source and built CSS only.
+
 ### Changed — 2026-08-18 (Nav and footer blur radius cut from 16px to 4px)
 
 **Decision 059 — the radius drops, the filter stays:**

@@ -223,7 +223,7 @@ export default function RadialOrbitalTimeline({ timelineData, seeLabel = 'See' }
                   <div
                     className={[
                       'absolute left-1/2 -translate-x-1/2 w-72',
-                      'bg-ink/95 backdrop-blur-lg border border-paper/15 rounded-xl shadow-xl shadow-black/50',
+                      'bg-ink/95 backdrop-blur-sm border border-paper/15 rounded-xl shadow-xl shadow-black/50',
                       position.bottomHalf ? 'bottom-[112px]' : 'top-[112px]',
                     ].join(' ')}
                   >
