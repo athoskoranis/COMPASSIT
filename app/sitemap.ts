@@ -2,6 +2,9 @@ import { MetadataRoute } from 'next'
 
 const BASE = 'https://compass-its.com'
 
+// Bump when the copy on the static pages changes. See the note in sitemap().
+const CONTENT_UPDATED = '2026-08-18'
+
 const services = [
   'it-services',
   'network-infrastructure',
@@ -27,30 +30,43 @@ const posts = [
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date()
+  // Static pages report the date their content last actually changed, not the
+  // date of the build. lastModified: new Date() meant every deploy told Google
+  // that the home page, contact page and all eight service pages had been
+  // modified -- which trains it to ignore the signal entirely. Bump this when
+  // page copy changes; 2026-08-18 is when titles and meta descriptions were
+  // reset from SEO.md across every one of these routes.
+  const contentUpdated = new Date(CONTENT_UPDATED)
+
+  // The blog index genuinely does change whenever a post lands, and that date is
+  // already known, so it is derived rather than declared.
+  const newestPost = posts
+    .map((p) => p.published)
+    .sort()
+    .reverse()[0]
 
   return [
     {
       url: BASE,
-      lastModified: now,
+      lastModified: contentUpdated,
       changeFrequency: 'weekly',
       priority: 1,
     },
     {
       url: `${BASE}/contact`,
-      lastModified: now,
+      lastModified: contentUpdated,
       changeFrequency: 'monthly',
       priority: 0.9,
     },
     ...services.map((slug) => ({
       url: `${BASE}/services/${slug}`,
-      lastModified: now,
+      lastModified: contentUpdated,
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     })),
     {
       url: `${BASE}/blog`,
-      lastModified: now,
+      lastModified: new Date(newestPost),
       changeFrequency: 'weekly' as const,
       priority: 0.7,
     },

@@ -21,6 +21,36 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-08-18 (Sitemap reported the build time as `lastmod` on every static page)
+
+**Decision 069 — 11 URLs claimed to change on every deploy:**
+`app/sitemap.ts` set `lastModified: new Date()` for the home page, the contact page, all eight service pages and the blog index. Production proves it precisely — eleven URLs sharing `2026-08-18T15:21:08.217Z`, the exact instant of the last build:
+
+```
+  11  2026-08-18T15:21:08.217Z   <- home, contact, 8 services, blog index
+   4  2026-07-06T00:00:00.000Z   <- blog posts, correctly fixed
+   2  2026-08-13T00:00:00.000Z
+   1  2026-08-14T00:00:00.000Z
+   1  2026-06-01T00:00:00.000Z
+```
+
+Every deploy told Google that eleven pages had changed when nothing on them had. `lastmod` is a hint Google is free to disregard, and the way it decides to disregard it is by noticing that a site's dates do not correspond to real changes. The blog posts were already right — the file even carries a comment saying a post that has not changed should not report a fresh date — so the static pages contradicted the reasoning already written beside them.
+
+**Static pages now report `CONTENT_UPDATED`**, a constant to be bumped when their copy changes. It is set to `2026-08-18`, which is honest: titles and meta descriptions were reset from `SEO.md` across every one of those routes today.
+
+**The blog index derives its date** from the newest entry in the sitemap's own post list rather than declaring one, because it genuinely does change when a post lands and that date is already known. It now reports `2026-08-14`, the date of the most recent post, and will follow the next one automatically.
+
+**Checked and found correct, so left alone.** Several things audited in the same pass turned out already to be right, and are recorded here so they are not re-investigated:
+
+- **Images are optimised in delivery.** The 19MB of blog JPEGs in the repository is build and clone weight only. Every reference in the served HTML goes through `/_next/image` — zero raw `/images/blog/` references on the blog index or on a post — and the optimiser turns the heaviest file, 5,451,477 bytes of JPEG, into **112,050 bytes of WebP**. This corrects the concern raised early in this session: it is a repository-hygiene issue, not a Core Web Vitals one.
+- **Service pages and blog posts already reference `#organization`** by `@id` for `provider`, `author` and `publisher`, from the entity-graph consolidation. Nothing inline remains.
+- **Service pages already carry `BreadcrumbList`** alongside `Service` and `FAQPage`.
+- **The sitemap's post list is in sync with `lib/posts.ts`** — eight slugs each, no additions or omissions on either side.
+
+**Still open, and larger than a technical fix.** The Arabic translation is a client-side toggle with no distinct URL, so `<html lang="en">` ships on every page and there is nothing for a crawler to index. No amount of metadata work changes that; Arabic search visibility needs real routing under `/ar/`, which is a project rather than an adjustment.
+
+Verified: eleven static URLs now report `2026-08-18`, the blog index `2026-08-14` derived from its newest post, and the eight posts their own unchanged dates. `tsc --noEmit` and a clean `next build` pass.
+
 ### Fixed — 2026-08-18 (Custom Solutions title, in both documents)
 
 **Decision 068 — 63 characters down to 54, and the same string now in `SITEMAP.md`:**
