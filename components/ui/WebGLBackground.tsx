@@ -28,6 +28,12 @@ vec3 saturate3(vec3 v){ return clamp(v,0.0,1.0); }
 #define CYAN   vec3(0.12, 0.54, 0.72)
 #define INDIGO vec3(0.24, 0.13, 0.50)
 
+// How strongly the five drifting blobs mix over the background -- the brightness
+// dial for the field. Was 0.52. Lower is dimmer; the blobs keep their shape and
+// motion, they just sit further back. Safe to tune in either direction, and it
+// costs nothing either way: it is one multiply per fragment regardless.
+#define BLOB_INTENSITY 0.35
+
 void main(){
   vec2 uv = gl_FragCoord.xy / uRes;
   float ar = uRes.x / uRes.y;
@@ -81,7 +87,7 @@ void main(){
   float p0=w0*w0; float p1=w1*w1; float p2=w2*w2; float p3=w3*w3; float p4=w4*w4;
   float pSum=p0+p1+p2+p3+p4+0.0001;
   vec3 blobColor=(c[0]*p0+c[1]*p1+c[2]*p2+c[3]*p3+c[4]*p4)/pSum;
-  float influence=min(w0+w1+w2+w3+w4,1.0)*0.52;
+  float influence=min(w0+w1+w2+w3+w4,1.0)*BLOB_INTENSITY;
   col=mix(col,blobColor,influence);
 
   gl_FragColor = vec4(saturate3(col), 1.0);

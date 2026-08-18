@@ -21,6 +21,24 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-18 (Background orbs dimmed)
+
+**Decision 055 — `BLOB_INTENSITY` 0.52 → 0.35:**
+The five drifting blobs in the WebGL field read too bright. The dial is the multiplier on `influence`, which sets how strongly blob colour mixes over the background:
+
+```glsl
+float influence = min(w0+w1+w2+w3+w4, 1.0) * BLOB_INTENSITY;
+col = mix(col, blobColor, influence);
+```
+
+That multiplier was a bare `0.52` inline. It is now a named `#define` at the top of the shader beside `BG`, `CYAN` and `INDIGO`, so it is a one-line dial like `RENDER_SCALE` and `TARGET_FPS`. **0.35 is roughly a third dimmer.** The blobs keep their shape, colour and motion — they sit further back. Tune in either direction at no cost: it is one multiply per fragment regardless.
+
+**One trap worth recording.** The comment introducing the `#define` was first written with an em-dash, putting a non-ASCII character inside GLSL source. Shader compilers may reject bytes above 0x7F even inside comments, and a failed compile here means a black background with only a `console.error` to show for it. Replaced with `--`, and the shader source is now verified ASCII-only. Keep GLSL comments ASCII.
+
+Verified in the browser against the live WebGL context, not just the file: fragment shader `COMPILE_STATUS` true with an empty info log, program `LINK_STATUS` true, context not lost. `getShaderSource()` on the running program reports `#define BLOB_INTENSITY 0.35`, no `uMouse`, no `uClicks`, zero non-ASCII characters, and `ACTIVE_UNIFORMS` down from 5 to **2** — `uRes` and `uTime`, confirming Decision 054's removals took effect in the compiled program. Canvas buffer 1280×720 at `devicePixelRatio` 1.5, so `RENDER_SCALE` still holds. Clean `next build` passes.
+
+**Not verified:** how it looks. The browser pane reports layout dimensions but does not composite, so screenshots still fail. The 0.35 was chosen as a sensible first step, not matched to a reference.
+
 ### Removed — 2026-08-18 (Dead shader uniforms and their pointer listeners)
 
 **Decision 054 — `uMouse`, `uMouseIn` and `uClicks` drove nothing:**
