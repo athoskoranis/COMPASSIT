@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Archivo, Barlow, JetBrains_Mono, Cairo } from 'next/font/google'
 import './globals.css'
-import { LanguageProvider } from '@/context/LanguageContext'
 import Nav from '@/components/layout/Nav'
 import Footer from '@/components/layout/Footer'
 import SiteBackground from '@/components/layout/SiteBackground'
@@ -165,15 +164,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           />
         </noscript>
         {/* End Google Tag Manager (noscript) */}
-        <LanguageProvider>
-          {/* Chrome lives here, not in each page — so navigating between routes
-              reuses it instead of tearing it down and rebuilding it. */}
-          <SiteBackground />
-          <PointerTracker />
-          <Nav />
-          {children}
-          <Footer />
-        </LanguageProvider>
+        {/* Chrome lives here, not in each page — so navigating between routes
+            reuses it instead of tearing it down and rebuilding it. Locale comes
+            from the pathname, so this renders Arabic on /ar without being
+            inside the /ar layout. */}
+        <SiteBackground />
+        <PointerTracker />
+        <Nav />
+        {children}
+        <Footer />
       </body>
     </html>
   )

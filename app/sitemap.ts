@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next'
+import { AR_ROUTES } from '@/lib/locale'
 
 const BASE = 'https://compass-its.com'
 
@@ -70,6 +71,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly' as const,
       priority: 0.7,
     },
+    // Arabic routes. Derived from AR_ROUTES so this cannot list a page that
+    // does not exist, or miss one that does. The blog has no Arabic content, so
+    // it is absent here by construction rather than by omission.
+    ...AR_ROUTES.map((route) => ({
+      url: route === '/' ? `${BASE}/ar` : `${BASE}/ar${route}`,
+      lastModified: contentUpdated,
+      changeFrequency: 'monthly' as const,
+      priority: route === '/' ? 0.9 : 0.7,
+    })),
     ...posts.map((post) => ({
       url: `${BASE}/blog/${post.slug}`,
       lastModified: new Date(post.published),

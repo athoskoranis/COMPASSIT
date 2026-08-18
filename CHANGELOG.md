@@ -21,6 +21,31 @@
 
 ## [Unreleased]
 
+### Added — 2026-08-18 (Arabic routing under `/ar`)
+
+**Decision 073 — Arabic becomes 10 real URLs instead of a client-side re-render:**
+The translation existed but was unreachable. `LanguageContext` held the locale in `useState` with a `toggle()` that flipped it in place, so Arabic was a re-render of an English URL — one document, one server-rendered language, nothing for a crawler to fetch, rank or link to. `/ar` now serves Arabic on the server for every route that has translated content.
+
+**The standard approach was unavailable.** Next's convention is `app/[locale]/...`, which means moving every existing route into a locale segment. The blog bot writes directly into `app/blog/<slug>/`, `lib/posts.ts` and `app/sitemap.ts`, so relocating the English tree would send every auto-published post to a path that no longer routes. English therefore stays at the root and Arabic sits in a parallel `app/ar/` tree.
+
+**Locale is derived from the pathname, and the first attempt at this was wrong.** Passing `lang` into a provider broke the chrome: `Nav` and `Footer` are rendered by the root layout, which sits *outside* `app/ar/layout.tsx`, so they kept resolving to English on Arabic pages and the language switcher pointed at the page it was already on. Caught by checking the rendered switcher target, not by reading the code. `useLanguage()` now reads `usePathname()`, which has no such blind spot — every client component resolves correctly wherever it sits, including chrome rendered above the route that determines the locale, and it resolves identically on server and client.
+
+**What ships:**
+
+- **10 Arabic routes**, all statically generated: `/ar`, `/ar/contact`, and `/ar/services/{8 services}`. Build output went from 26 to 36 static pages.
+- **Reciprocal `hreflang`** on all 20 routes — each English page declares its Arabic alternate and vice versa. One-directional annotations are ignored by Google, so both sides were verified.
+- **Self-referencing canonicals** per locale, so the two versions are not treated as duplicates.
+- **Sitemap** carries the 10 Arabic URLs, derived from `AR_ROUTES` in `lib/locale.ts` so it cannot list a page that does not exist or miss one that does.
+- **The language switcher is a link between URLs**, not a state flip, with `hrefLang` on the anchor.
+
+**The blog has no Arabic content**, so it has no Arabic routes, no `hreflang`, and no sitemap entries — absent by construction rather than omission. The switcher on blog pages points at the Arabic home; sending a reader there is a compromise, but it beats a dead control or a 404.
+
+**`<html lang>` stays `en` on Arabic pages, deliberately.** Only a root layout may render `<html>`, and the English routes cannot move without breaking the bot. `lang="ar" dir="rtl"` sit on the `/ar` wrapper instead, which is valid HTML, and an inline script corrects `document.documentElement` before first paint so the RTL layout never flashes left-to-right. Google states it determines page language from visible content and `hreflang` rather than the `lang` attribute, so the cost falls on accessibility rather than ranking, and the script covers that.
+
+Verified on all 20 routes: HTTP 200, exactly one canonical, exactly two `hreflang` annotations. Arabic is genuinely in the server-rendered HTML — 2,376 characters on `/ar` against 4 on `/`, and 4,547 on `/ar/services/cybersecurity`. The chrome renders Arabic too: 32 Arabic characters in the nav and 260 in the footer on `/ar`, which is what the provider approach got wrong. Switcher targets confirmed in both directions. `tsc --noEmit` and a clean `next build` pass.
+
+**Not done: Arabic metadata.** Each Arabic route declares its own canonical, `hreflang` pair and `og:locale`, but reuses the English title and meta description — `SEO.md` specifies neither, and `CLAUDE.md` forbids inventing copy. The indexable Arabic *content* is the page body, which is what matters most, but Arabic titles and descriptions are the obvious next step and need a spec first.
+
 ### Added — 2026-08-18 (`prebuild` guard so bot-published posts cannot ship without an `og:image`)
 
 **Decision 072 — repair the output, since the template cannot be reached:**

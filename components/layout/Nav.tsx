@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/context/LanguageContext'
+import { toArabic, toEnglish } from '@/lib/locale'
 
 const serviceLinks = [
   { label: 'IT Services', href: '/services/it-services' },
@@ -66,7 +67,7 @@ export default function Nav() {
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
   const scrolled = useScroll(10)
   const floating = scrolled && !mobileOpen
-  const { tr, toggle } = useLanguage()
+  const { tr, lang } = useLanguage()
   const dropdownRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
   const isHome = pathname === '/'
@@ -178,12 +179,15 @@ export default function Nav() {
             Blog
           </Link>
 
-          <button
-            onClick={toggle}
+          {/* A link between two real URLs, not a state flip. hrefLang tells a
+              crawler what sits on the other side. */}
+          <Link
+            href={lang === 'ar' ? toEnglish(pathname) : toArabic(pathname)}
+            hrefLang={lang === 'ar' ? 'en' : 'ar'}
             className="font-jetbrains text-[11px] text-paper/50 hover:text-signal transition-colors px-2.5 py-1 border border-paper/15 hover:border-signal/40 rounded-lg"
           >
             {tr.nav.langToggle}
-          </button>
+          </Link>
 
           <Link
             href={isHome ? '#contact' : '/contact'}
@@ -257,12 +261,14 @@ export default function Nav() {
             </Link>
 
             <div className="pt-4 border-t border-paper/10 flex flex-col gap-3">
-              <button
-                onClick={toggle}
+              <Link
+                href={lang === 'ar' ? toEnglish(pathname) : toArabic(pathname)}
+                hrefLang={lang === 'ar' ? 'en' : 'ar'}
+                onClick={() => setMobileOpen(false)}
                 className="font-jetbrains text-[12px] text-paper/50 hover:text-signal transition-colors px-3 py-2 border border-paper/15 hover:border-signal/40 rounded-lg text-start"
               >
                 {tr.nav.langToggle}
-              </button>
+              </Link>
               <Link
                 href={isHome ? '#contact' : '/contact'}
                 onClick={() => setMobileOpen(false)}

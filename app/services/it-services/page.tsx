@@ -4,7 +4,10 @@ import ITServicesPageClient from './client'
 export const metadata: Metadata = {
   title: { absolute: "IT Services — The IT team behind your IT team · Compass ITS" },
   description: "Managed IT services for Qatar-based organisations. 24/7 on-call, 99.9% uptime SLA, onsite and remote coverage. Starts with a 30-day diagnostic.",
-  alternates: { canonical: '/services/it-services' },
+  alternates: {
+    canonical: '/services/it-services',
+    languages: { en: '/services/it-services', ar: '/ar/services/it-services' },
+  },
   openGraph: {
     title: 'Managed IT Services in Qatar, GCC | Compass IT Solutions',
     description: 'End-to-end managed IT support, AMC, hardware supply, and network solutions for businesses in Qatar and the GCC.',

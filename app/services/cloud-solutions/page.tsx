@@ -4,7 +4,10 @@ import CloudSolutionsPageClient from './client'
 export const metadata: Metadata = {
   title: { absolute: "Cloud Solutions — AWS, Azure & Hybrid · Compass ITS" },
   description: "Cloud architecture and migration for organisations in Qatar. AWS, Microsoft Azure, and hybrid environments — built for redundancy, performance, and security.",
-  alternates: { canonical: '/services/cloud-solutions' },
+  alternates: {
+    canonical: '/services/cloud-solutions',
+    languages: { en: '/services/cloud-solutions', ar: '/ar/services/cloud-solutions' },
+  },
   openGraph: {
     title: 'Cloud Consulting Company in Qatar, GCC | Compass IT Solutions',
     description: 'End-to-end cloud computing services in Qatar — cloud migration, infrastructure management, security, and modernization.',

@@ -4,7 +4,10 @@ import AIWorkflowsPageClient from './client'
 export const metadata: Metadata = {
   title: { absolute: "AI Workflows — Automate the manual middle · Compass ITS" },
   description: "AI agent deployment for business workflows across Qatar. Triage, drafting, reconciliation, and reporting — automated. Humans stay in the loop where it matters.",
-  alternates: { canonical: '/services/ai-workflows' },
+  alternates: {
+    canonical: '/services/ai-workflows',
+    languages: { en: '/services/ai-workflows', ar: '/ar/services/ai-workflows' },
+  },
   openGraph: {
     title: 'AI Workflow Automation Services in Qatar, GCC | Compass IT Solutions',
     description: 'AI development and consulting services in Qatar — machine learning, AI chatbots, process automation, and data annotation.',

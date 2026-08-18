@@ -13,7 +13,10 @@ import ContactCTA from '@/components/sections/ContactCTA'
 export const metadata: Metadata = {
   title: { absolute: "Compass IT Solutions — Wired right. Kept running." },
   description: "Managed IT services for organisations across Qatar and the GCC. Network infrastructure, cloud, cybersecurity, and web development — wired right the first time.",
-  alternates: { canonical: '/' },
+  alternates: {
+    canonical: '/',
+    languages: { en: '/', ar: '/ar' },
+  },
   openGraph: { url: '/' },
 }
 
