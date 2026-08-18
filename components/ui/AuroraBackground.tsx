@@ -1,6 +1,8 @@
+// Decorative only — aria-hidden so the blob divs stay out of the accessibility
+// tree, matching the static contour texture in SiteBackground.
 export default function AuroraBackground() {
   return (
-    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+    <div aria-hidden className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
       <div className="absolute inset-0 topo-lines-pattern" />
       <div className="aurora-blob aurora-blob-1" />
       <div className="aurora-blob aurora-blob-2" />

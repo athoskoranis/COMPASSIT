@@ -21,6 +21,19 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-18 (Aurora replaces the WebGL field on `/` and `/contact`)
+
+**Decision 047 — `SiteBackground` serves `AuroraBackground` where it used to serve `WebGLBackground`:**
+Decision 046 made the aurora cheap but left it imported by nothing. It is now the animated field on the two routes that had one. Every other route keeps the static contour texture, unchanged.
+
+The two draw the same kind of thing at very different prices. The shader ran a fullscreen pass built from two 5-octave `fbm()` calls per fragment, every frame, forever — even at the reduced resolution and 30fps from Decision 044, that is real GPU work on every device that loads the home page. The aurora is five gradient layers the compositor translates and nothing else: no filter, no per-frame rasterisation, no WebGL context.
+
+`WEBGL_ROUTES` is renamed `AURORA_ROUTES`. `AuroraBackground` picks up `aria-hidden`, matching the static texture it sits alongside — it is decoration and has no business in the accessibility tree.
+
+Verified on the running site: `/` and `/contact` render five `.aurora-blob` elements and no `<canvas>`; `/services/cybersecurity` and `/blog` render the static texture and no blobs. Computed styles on the blobs are `filter: none`, `will-change: transform`, `mix-blend-mode: screen`, with `blob-drift-*` running and eight gradient stops on blob 4. `/images/topo-lines.svg` resolves. Console clean, `tsc --noEmit` and `next build` both pass, and no `gl_FragColor` or `OES_standard_derivatives` survives in any client chunk.
+
+**`components/ui/WebGLBackground.tsx` is now unreferenced** and left in the tree deliberately, which is the same condition Decision 045 deleted four other components for. It is kept because it is a working implementation of the previous look rather than an abandoned experiment, and reverting this decision means re-importing one module. If that reasoning stops holding, delete it — the shader is 90 lines of GLSL that nothing calls.
+
 ### Changed — 2026-08-18 (Aurora field kept, made cheap)
 
 **Decision 046 — The aurora blobs and contour lines stay; what made them expensive does not:**
@@ -34,7 +47,7 @@ Decision 045 removed `AuroraBackground` along with the other unreferenced compon
 
 Verified: all six `.aurora-blob*` classes present in the built stylesheet, `blur(80px)` gone, no `data:image/svg` left in any built CSS, `/images/topo-lines.svg` serves 200. `tsc --noEmit` and `next build` both pass.
 
-**Still unreferenced.** `AuroraBackground` is imported by nothing, so none of this renders today — `SiteBackground` serves `WebGLBackground` on `/` and `/contact`, and the static contour texture elsewhere. The work above makes the component cheap for whenever it is wired in; until then its CSS ships and draws nothing.
+**Wired in by Decision 047 above.** At the time of this decision `AuroraBackground` was still imported by nothing; it is now the animated field on `/` and `/contact`.
 
 ### Removed — 2026-08-18 (Unreferenced components in `components/ui/`)
 
