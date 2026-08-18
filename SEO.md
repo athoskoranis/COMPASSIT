@@ -41,10 +41,10 @@ These apply to all pages unless overridden by a page-specific OG block below.
 
 ### Home `/`
 
-**Title tag (58 chars):**
+**Title tag (49 chars):**
 Compass IT Solutions — Wired right. Kept running.
 
-**Meta description (155 chars):**
+**Meta description (159 chars):**
 Managed IT services for organisations across Qatar and the GCC. Network infrastructure, cloud, cybersecurity, and web development — wired right the first time.
 
 **Primary keyword target:**
@@ -88,10 +88,10 @@ IT solutions Doha · MSP Qatar · network infrastructure Qatar · cloud services
 
 ### About `/about`
 
-**Title tag (52 chars):**
+**Title tag (33 chars):**
 Who We Are — Compass IT Solutions
 
-**Meta description (152 chars):**
+**Meta description (156 chars):**
 Founded in 2025, Compass IT Solutions is a managed IT services provider based in Doha, Qatar. Network infrastructure, cloud, cybersecurity, and development.
 
 **Primary keyword:**
@@ -111,10 +111,10 @@ Compass IT Solutions about
 
 ### Services Index `/services`
 
-**Title tag (55 chars):**
+**Title tag (46 chars):**
 IT Services & Solutions — Compass IT Solutions
 
-**Meta description (158 chars):**
+**Meta description (144 chars):**
 Network infrastructure, cloud, cybersecurity, web and app development, AI automation, and digital marketing — one partner across the full stack.
 
 **Primary keyword:**
@@ -124,10 +124,10 @@ IT services Qatar
 
 ### IT Services `/services/it-services`
 
-**Title tag (59 chars):**
+**Title tag (47 chars):**
 IT Professional Services — Compass IT Solutions
 
-**Meta description (157 chars):**
+**Meta description (143 chars):**
 Managed IT services for Qatar-based organisations. 24/7 on-call, 99.9% uptime SLA, onsite and remote coverage. Starts with a 30-day diagnostic.
 
 **Primary keyword:**
@@ -152,10 +152,10 @@ IT outsourcing Qatar · remote IT support Qatar · IT managed services provider 
 
 ### Network Infrastructure `/services/network-infrastructure`
 
-**Title tag (60 chars):**
+**Title tag (45 chars):**
 Network Infrastructure — Compass IT Solutions
 
-**Meta description (154 chars):**
+**Meta description (142 chars):**
 Network design, installation, and management for businesses in Qatar. Every cable labelled, every config documented. On-call support included.
 
 **Primary keyword:**
@@ -168,10 +168,10 @@ Cisco network Qatar · network installation Doha · IT infrastructure Qatar
 
 ### Cloud Solutions `/services/cloud-solutions`
 
-**Title tag (57 chars):**
+**Title tag (51 chars):**
 Cloud Solutions — AWS, Azure & Hybrid · Compass ITS
 
-**Meta description (156 chars):**
+**Meta description (161 chars):**
 Cloud architecture and migration for organisations across Qatar. AWS, Microsoft Azure, and hybrid environments — built for redundancy, performance, and security.
 
 **Primary keyword:**
@@ -184,10 +184,10 @@ AWS Qatar · Azure migration Qatar · cloud migration Doha · hybrid cloud Qatar
 
 ### Cybersecurity `/services/cybersecurity`
 
-**Title tag (52 chars):**
+**Title tag (36 chars):**
 Cybersecurity — Compass IT Solutions
 
-**Meta description (153 chars):**
+**Meta description (162 chars):**
 Cybersecurity services for businesses in Qatar. Fortinet-backed protection, risk registers, and 24/7 incident monitoring. No fear-selling — just clear assessment.
 
 **Primary keyword:**
@@ -200,10 +200,10 @@ Fortinet Qatar · IT security Doha · network security Qatar · cybersecurity MS
 
 ### Website Development `/services/web-development`
 
-**Title tag (59 chars):**
+**Title tag (42 chars):**
 Website Development — Compass IT Solutions
 
-**Meta description (155 chars):**
+**Meta description (158 chars):**
 End-to-end website development for organisations in Qatar. Lighthouse 95+, Core Web Vitals green at launch, 30-day post-launch support. Next.js and WordPress.
 
 **Primary keyword:**
@@ -216,10 +216,10 @@ website development Doha · Next.js agency Qatar · WordPress development Qatar 
 
 ### App Development `/services/app-development`
 
-**Title tag (59 chars):**
+**Title tag (45 chars):**
 App Development — iOS & Android · Compass ITS
 
-**Meta description (156 chars):**
+**Meta description (155 chars):**
 Native and cross-platform mobile app development for businesses in Qatar. iOS and Android. Crash-free 99.5%+ before submission. 30-day post-launch support.
 
 **Primary keyword:**
@@ -232,10 +232,10 @@ iOS app development Qatar · Android app Qatar · React Native Qatar · Flutter 
 
 ### AI Workflows `/services/ai-workflows`
 
-**Title tag (58 chars):**
+**Title tag (48 chars):**
 AI Workflows & Automation — Compass IT Solutions
 
-**Meta description (155 chars):**
+**Meta description (159 chars):**
 AI agent deployment for business workflows across Qatar. Triage, drafting, reconciliation, and reporting — automated. Humans stay in the loop where it matters.
 
 **Primary keyword:**
@@ -248,10 +248,10 @@ workflow automation Doha · AI agents Qatar · business process automation Qatar
 
 ### Custom Solutions `/services/custom-solutions`
 
-**Title tag (59 chars):**
+**Title tag (63 chars):**
 Custom Solutions — Web Platforms & Internal Tools · Compass ITS
 
-**Meta description (154 chars):**
+**Meta description (157 chars):**
 Bespoke web platforms, internal tools, and data analytics products for organisations in Qatar. Built, tested, documented, and handed over with full runbooks.
 
 **Primary keyword:**
@@ -261,10 +261,10 @@ custom web platform development Qatar
 
 ### Digital Marketing `/services/digital-marketing`
 
-**Title tag (57 chars):**
+**Title tag (40 chars):**
 Digital Marketing — Compass IT Solutions
 
-**Meta description (157 chars):**
+**Meta description (152 chars):**
 Search, social, and email marketing for organisations in Qatar. Measured weekly, optimised monthly. SEM, SEO, inbound, and B2B communication strategies.
 
 **Primary keyword:**
@@ -277,10 +277,10 @@ SEO Qatar · Google Ads Qatar · digital marketing agency Doha · inbound market
 
 ### How We Work `/how-we-work`
 
-**Title tag (56 chars):**
+**Title tag (54 chars):**
 How We Work — Six Steps, Nothing Skipped · Compass ITS
 
-**Meta description (155 chars):**
+**Meta description (159 chars):**
 Every Compass engagement runs on the same six-step model — Discovery through Reporting. Weekly checkpoints, documented deliverables, and we stay after go-live.
 
 **Primary keyword:**
@@ -312,10 +312,10 @@ Individual posts carry their own `Article` + `BreadcrumbList` + `FAQPage` graph,
 
 ### Contact `/contact`
 
-**Title tag (50 chars):**
+**Title tag (35 chars):**
 Get in Touch — Compass IT Solutions
 
-**Meta description (154 chars):**
+**Meta description (151 chars):**
 Start a conversation with Compass IT Solutions. Most engagements begin with a 30-day diagnostic. Doha, Qatar — +974 5149 0825 — asahli@compass-its.com.
 
 **Primary keyword:**

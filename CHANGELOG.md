@@ -21,6 +21,29 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-08-18 (`SEO.md` character counts, and the three breaches they were hiding)
+
+**Decision 067 — 28 of 30 counts in the document were wrong:**
+Every `**Title tag (N chars):**` and `**Meta description (N chars):**` parenthetical was recomputed from the string beneath it. Only the two written for the Blog entry in Decision 066 were already correct. Nothing but the numbers changed — the diff is exactly 28 lines, all parentheticals, and all 11 pages applying the spec still match it byte for byte.
+
+Titles were overstated almost without exception, several severely: *Who We Are — Compass IT Solutions* was labelled 52 characters and is 33; *Website Development — Compass IT Solutions* was labelled 59 and is 42; *Digital Marketing — Compass IT Solutions* was labelled 57 and is 40. Descriptions drifted both ways, from −14 to +9.
+
+**The corrected numbers expose three real rule breaches that the wrong ones concealed:**
+
+| Entry | Breach | Was labelled |
+|---|---|---|
+| `/services/custom-solutions` | **Title 63 chars**, over the 60 limit | 59 |
+| `/services/cybersecurity` | **Description 162**, over the 140–160 range | 153 |
+| `/services/cloud-solutions` | **Description 161**, over the range | 156 |
+
+The Custom Solutions one is the most useful catch: that page does not exist yet, so the over-length title has never shipped. It would have gone live breaching the document's own limit, and the label said it was fine.
+
+The two description breaches are already live, applied verbatim in Decision 065 as instructed. They are 1 and 2 characters over — trimming either is a copy decision and is left alone here.
+
+**Why this mattered beyond tidiness.** These labels are what anyone writing a new page checks against, and they were the reason the drift between spec and site went unnoticed for so long: a title labelled 60 that was really 45 gave no signal that the shipped page had grown to 72. The counts are now measurable rather than decorative — recomputing them is a one-line script, and doing so validates the whole document against its own rules in a single pass.
+
+Verified: all 15 entries recounted, three breaches reported, no copy altered, every applied page still matching the spec.
+
 ### Added — 2026-08-18 (`SEO.md` entry for `/blog`)
 
 **Decision 066 — the blog finally has a spec, and the page now follows it:**
