@@ -124,8 +124,8 @@ IT services Qatar
 
 ### IT Services `/services/it-services`
 
-**Title tag (47 chars):**
-IT Professional Services — Compass IT Solutions
+**Title tag (59 chars):**
+IT Services — The IT team behind your IT team · Compass ITS
 
 **Meta description (143 chars):**
 Managed IT services for Qatar-based organisations. 24/7 on-call, 99.9% uptime SLA, onsite and remote coverage. Starts with a 30-day diagnostic.
@@ -200,8 +200,8 @@ Fortinet Qatar · IT security Doha · network security Qatar · cybersecurity MS
 
 ### Website Development `/services/web-development`
 
-**Title tag (42 chars):**
-Website Development — Compass IT Solutions
+**Title tag (59 chars):**
+Website Development — Sites that keep earning · Compass ITS
 
 **Meta description (158 chars):**
 End-to-end website development for organisations in Qatar. Lighthouse 95+, Core Web Vitals green at launch, 30-day post-launch support. Next.js and WordPress.
@@ -232,8 +232,8 @@ iOS app development Qatar · Android app Qatar · React Native Qatar · Flutter 
 
 ### AI Workflows `/services/ai-workflows`
 
-**Title tag (48 chars):**
-AI Workflows & Automation — Compass IT Solutions
+**Title tag (55 chars):**
+AI Workflows — Automate the manual middle · Compass ITS
 
 **Meta description (159 chars):**
 AI agent deployment for business workflows across Qatar. Triage, drafting, reconciliation, and reporting — automated. Humans stay in the loop where it matters.
@@ -261,8 +261,8 @@ custom web platform development Qatar
 
 ### Digital Marketing `/services/digital-marketing`
 
-**Title tag (40 chars):**
-Digital Marketing — Compass IT Solutions
+**Title tag (58 chars):**
+Digital Marketing — Marketing that compounds · Compass ITS
 
 **Meta description (152 chars):**
 Search, social, and email marketing for organisations in Qatar. Measured weekly, optimised monthly. SEM, SEO, inbound, and B2B communication strategies.
@@ -278,7 +278,7 @@ SEO Qatar · Google Ads Qatar · digital marketing agency Doha · inbound market
 ### How We Work `/how-we-work`
 
 **Title tag (54 chars):**
-How We Work — Six Steps, Nothing Skipped · Compass ITS
+How We Work — Six steps, nothing skipped · Compass ITS
 
 **Meta description (159 chars):**
 Every Compass engagement runs on the same six-step model — Discovery through Reporting. Weekly checkpoints, documented deliverables, and we stay after go-live.

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import ITServicesPageClient from './client'
 
 export const metadata: Metadata = {
-  title: { absolute: "IT Professional Services — Compass IT Solutions" },
+  title: { absolute: "IT Services — The IT team behind your IT team · Compass ITS" },
   description: "Managed IT services for Qatar-based organisations. 24/7 on-call, 99.9% uptime SLA, onsite and remote coverage. Starts with a 30-day diagnostic.",
   alternates: { canonical: '/services/it-services' },
   openGraph: {

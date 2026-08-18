@@ -21,6 +21,36 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-18 (Title reconciliation: one title per route, in both documents)
+
+**Decision 070 — the distinctive wording wins where it fits, and the two specs stop contradicting each other:**
+Decision 068 found `SEO.md` and `SITEMAP.md` disagreeing on 7 of the 14 titles they both declare. Decision 065 had already applied `SEO.md`'s brand-led versions to the live pages, so the mechanical answer was to align `SITEMAP.md` down to `SEO.md` — but `SITEMAP.md` held the better writing, and discarding it to satisfy a hierarchy would have been the wrong trade. This takes the stronger line wherever it fits the 60-character limit.
+
+**Adopted from `SITEMAP.md`:**
+
+| Route | Title | Chars | Replaced |
+|---|---|---|---|
+| `/services/it-services` | IT Services — The IT team behind your IT team · Compass ITS | 59 | IT Professional Services — Compass IT Solutions |
+| `/services/ai-workflows` | AI Workflows — Automate the manual middle · Compass ITS | 55 | AI Workflows & Automation — Compass IT Solutions |
+| `/services/digital-marketing` | Digital Marketing — Marketing that compounds · Compass ITS | 58 | Digital Marketing — Compass IT Solutions |
+| `/how-we-work` | How We Work — Six steps, nothing skipped · Compass ITS | 54 | …Six **S**teps, **N**othing **S**kipped… |
+
+The `/how-we-work` change is case only, and sentence case is the house pattern — every distinctive title above uses it.
+
+**Shortened, because the original did not fit:**
+`SITEMAP.md` had *Website Development — Sites that ship, measure, and keep earning · Compass ITS* at **78 characters**, the longest breach in either document. Now `Website Development — Sites that keep earning · Compass ITS` (59). It keeps the argument — that a site is an asset rather than a delivery — and drops only "ship, measure", which the meta description already covers with *Lighthouse 95+, Core Web Vitals green at launch*.
+
+**Kept from `SEO.md`, because `SITEMAP.md` added nothing:**
+`/services` — its version dropped the "IT" qualifier for no gain in voice. `/services/app-development` — its version only expanded to "Application Development"; "App development" is how the term is searched.
+
+**Keyword impact is close to neutral**, which is what made the trade worth taking. Each new title was checked against its entry's own primary keyword: none of the previous titles carried the geographic qualifier either, so nothing was surrendered. The single change of substance is `ai-workflows` trading the noun *Automation* for the verb *Automate*, with "AI Workflows" still leading.
+
+**`SITEMAP.md` is now aligned on every route**, including the two where `SEO.md` won, so the documents cannot drift apart again silently. Titles declared in both: 14. Agreeing: **14**. Differing: **0** — down from 7.
+
+Four live pages changed title a second time today, having been set from `SEO.md` this morning. Repeated title changes are not penalised, but Search Console impression data for these routes will show two step-changes rather than one, which matters when reading the effect of either.
+
+Verified: every title in `SEO.md` inside the 60-character limit, all counts recomputed, both documents agreeing on all 14 shared routes, and the four rendered pages emitting the new titles at 59, 55, 58 and 59 characters with the brand appearing once. `tsc --noEmit` and a clean `next build` pass. The only remaining breaches in the spec are the two live descriptions at 161 and 162 characters, applied verbatim on instruction.
+
 ### Fixed — 2026-08-18 (Sitemap reported the build time as `lastmod` on every static page)
 
 **Decision 069 — 11 URLs claimed to change on every deploy:**

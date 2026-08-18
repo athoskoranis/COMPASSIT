@@ -55,7 +55,7 @@ compass-its.com/
 
 | Property | Value |
 |---|---|
-| Title tag | Services & Solutions — Compass IT Solutions |
+| Title tag | IT Services & Solutions — Compass IT Solutions |
 | Nav label | Services |
 | Purpose | Overview grid linking to all 9 service sub-pages |
 | Primary CTA per card | "See [service name]" → individual service page |
@@ -111,7 +111,7 @@ compass-its.com/
 
 | Property | Value |
 |---|---|
-| Title tag | Website Development — Sites that ship, measure, and keep earning · Compass ITS |
+| Title tag | Website Development — Sites that keep earning · Compass ITS |
 | Nav label | Website Development |
 | Primary CTA | "Start your project" → `/contact` |
 | Key sections | Headline · Stats bar (6–10 wks / 95+ / Green / 30-day) · 4-phase process · Callout · What we build · Stack |
@@ -122,7 +122,7 @@ compass-its.com/
 
 | Property | Value |
 |---|---|
-| Title tag | Application Development — iOS & Android · Compass ITS |
+| Title tag | App Development — iOS & Android · Compass ITS |
 | Nav label | App Development |
 | Primary CTA | "Start your app" → `/contact` |
 | Key sections | Headline · Stats bar (iOS+Android / 10–16 wks / 99.5% / 30-day) · 4-phase process · Callout · Stack |

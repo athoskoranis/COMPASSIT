@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import DigitalMarketingPageClient from './client'
 
 export const metadata: Metadata = {
-  title: { absolute: "Digital Marketing — Compass IT Solutions" },
+  title: { absolute: "Digital Marketing — Marketing that compounds · Compass ITS" },
   description: "Search, social, and email marketing for organisations in Qatar. Measured weekly, optimised monthly. SEM, SEO, inbound, and B2B communication strategies.",
   alternates: { canonical: '/services/digital-marketing' },
   openGraph: {

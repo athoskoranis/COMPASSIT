@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import AIWorkflowsPageClient from './client'
 
 export const metadata: Metadata = {
-  title: { absolute: "AI Workflows & Automation — Compass IT Solutions" },
+  title: { absolute: "AI Workflows — Automate the manual middle · Compass ITS" },
   description: "AI agent deployment for business workflows across Qatar. Triage, drafting, reconciliation, and reporting — automated. Humans stay in the loop where it matters.",
   alternates: { canonical: '/services/ai-workflows' },
   openGraph: {

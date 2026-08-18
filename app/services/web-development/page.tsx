@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import WebDevelopmentPageClient from './client'
 
 export const metadata: Metadata = {
-  title: { absolute: "Website Development — Compass IT Solutions" },
+  title: { absolute: "Website Development — Sites that keep earning · Compass ITS" },
   description: "End-to-end website development for organisations in Qatar. Lighthouse 95+, Core Web Vitals green at launch, 30-day post-launch support. Next.js and WordPress.",
   alternates: { canonical: '/services/web-development' },
   openGraph: {
