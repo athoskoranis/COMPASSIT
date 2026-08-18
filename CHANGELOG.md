@@ -21,6 +21,20 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-18 (Shader render scale and frame rate, and nothing else)
+
+**Decision 053 — the two dials from Decision 044 that do not touch layer promotion:**
+Decision 052 reverted the whole optimisation pass because it changed how type rendered. The cause was layer promotion: removing `backdrop-filter` and `will-change: filter` moved elements off their own composited layers, and text antialiasing changes with them — grayscale in a composited layer, subpixel outside one. Those two stay reverted. These two do not go near it:
+
+- **`RENDER_SCALE = 1`** — the canvas draws at CSS resolution rather than `min(devicePixelRatio, 2)`. Measured on a 1.5x display: buffer went from 1920×1080 to 1280×720, **0.45× the fragments**. On a 2x display it is a quarter. Nothing about the element's compositing changes; only how many fragments the shader evaluates.
+- **`TARGET_FPS = 30`** — the drift is `uTime * 0.22` for the blobs and `uTime * 0.012` for the contours, so nothing on screen moves fast enough for 30 and 60 to differ, and the compositor gets back half the GPU time it was competing for.
+
+Both are named constants at the top of the file so they are one-line dials. `RENDER_SCALE` is the only value here that is a genuine resolution change — the field is smooth gradients plus a contour line at 1.8% opacity so it should not read as softer, but `1.5` keeps most of the saving if it does.
+
+**Not reapplied, deliberately:** `backdrop-filter` and `will-change: filter` stay as they were before this session. Also left alone are the shader's dead `uMouse`/`uMouseIn`/`uClicks` uniforms and their three non-passive `pointermove` listeners — invisible, and a real scroll-blocking hazard, but outside what was asked for here.
+
+Verified: canvas buffer 1280×720 against a 1265×720 CSS box at `devicePixelRatio` 1.5; `git diff` against the revert touches one file; `tsc --noEmit` and a clean `next build` pass. The frame throttle is verified by code and type check only — the browser pane reports layout dimensions but is not compositing, so `requestAnimationFrame` does not fire and the rate cannot be sampled here.
+
 ### Reverted — 2026-08-18 (Home and contact look restored to pre-optimisation)
 
 **Decision 052 — the visual changes from Decisions 044, 046 and 047 are reverted at the client's request:**

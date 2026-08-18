@@ -90,6 +90,23 @@ void main(){
   gl_FragColor = vec4(saturate3(col), 1.0);
 }`
 
+// Two dials, both chosen because they change GPU cost without changing layer
+// promotion — the thing that altered text antialiasing when backdrop-filter and
+// will-change were removed, and got that pass reverted.
+//
+// RENDER_SCALE 1 draws at CSS resolution instead of min(devicePixelRatio, 2),
+// which is four times fewer fragments on a 2x display. This is the one value
+// here that is a genuine resolution change: the field is smooth gradients plus
+// a contour line at 1.8% opacity, so it should not read as softer, but if it
+// does, 1.5 keeps most of the saving. It is a one-line dial.
+const RENDER_SCALE = 1
+
+// The drift is uTime * 0.22 for the blobs and uTime * 0.012 for the contours.
+// Nothing on screen moves fast enough for 30 and 60 to differ, and halving the
+// frame rate hands the compositor back half the GPU time it was competing for.
+const TARGET_FPS = 30
+const FRAME_MS = 1000 / TARGET_FPS
+
 export default function WebGLBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -150,10 +167,9 @@ export default function WebGLBackground() {
     window.addEventListener('pointerleave', onLeave)
     window.addEventListener('pointerdown', onDown)
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2)
     const resize = () => {
-      const w = Math.max(2, Math.round(window.innerWidth * dpr))
-      const h = Math.max(2, Math.round(window.innerHeight * dpr))
+      const w = Math.max(2, Math.round(window.innerWidth * RENDER_SCALE))
+      const h = Math.max(2, Math.round(window.innerHeight * RENDER_SCALE))
       if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h }
     }
     window.addEventListener('resize', resize)
@@ -190,8 +206,11 @@ export default function WebGLBackground() {
       gl.drawArrays(gl.TRIANGLES, 0, 3)
     }
 
-    const tick = () => {
+    let lastFrame = 0
+    const tick = (now: number) => {
       raf = requestAnimationFrame(tick)
+      if (now - lastFrame < FRAME_MS) return
+      lastFrame = now
       draw()
     }
 
