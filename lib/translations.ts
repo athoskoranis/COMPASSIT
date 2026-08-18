@@ -18,7 +18,7 @@ export const t = {
       card: {
         heading: 'Start with a conversation.',
         body: "Tell us what you're working on and we'll come back to you within one business day.",
-        whatsapp: 'Or WhatsApp +974 5149 0825',
+        whatsapp: 'Or WhatsApp +1 971 506 0879',
       },
       rail: {
         servingLabel: 'Serving',
@@ -149,7 +149,7 @@ export const t = {
       card: {
         heading: 'ابدأ بمحادثة.',
         body: 'أخبرنا بما تعمل عليه وسنعود إليك خلال يوم عمل واحد.',
-        whatsapp: 'أو تواصل عبر واتساب ٩٧٤٥١٤٩٠٨٢٥+',
+        whatsapp: 'أو تواصل عبر واتساب ١٩٧١٥٠٦٠٨٧٩+',
       },
       rail: {
         servingLabel: 'نخدم',

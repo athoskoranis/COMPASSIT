@@ -210,7 +210,7 @@ export default function ContactCTA({ headingLevel = 2 }: { headingLevel?: 1 | 2 
           )}
 
           <a
-            href="https://wa.me/97451490825"
+            href="https://wa.me/19715060879"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center font-archivo text-[14px] font-medium text-paper/40 hover:text-signal transition-colors gap-2 mt-8"

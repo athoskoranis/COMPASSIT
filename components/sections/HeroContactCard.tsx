@@ -91,7 +91,7 @@ export default function HeroContactCard() {
       )}
 
       <a
-        href="https://wa.me/97451490825"
+        href="https://wa.me/19715060879"
         target="_blank"
         rel="noopener noreferrer"
         className="block font-jetbrains text-[9.5px] uppercase tracking-[0.1em] text-paper/50 hover:text-signal transition-colors mt-[14px] text-center"

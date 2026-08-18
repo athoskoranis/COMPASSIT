@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import Link from 'next/link'
-import { Mail, MapPin } from 'lucide-react'
+import { Mail, MapPin, Phone } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { TextHoverEffect, FooterBackgroundGradient } from '@/components/ui/hover-footer'
 import { useLanguage } from '@/context/LanguageContext'
@@ -45,6 +45,7 @@ export default function Footer() {
 
   const contactInfo: ContactItem[] = [
     { Icon: Mail,   iconProps: { size: 15, className: 'text-signal flex-shrink-0' }, text: 'info@compass-its.com', href: 'mailto:info@compass-its.com' },
+    { Icon: Phone,  iconProps: { size: 15, className: 'text-signal flex-shrink-0' }, text: '+974 5149 0825', href: 'tel:+97451490825' },
     { Icon: MapPin, iconProps: { size: 15, className: 'text-signal flex-shrink-0' }, text: 'West Bay, Doha, Qatar' },
   ]
 
@@ -165,16 +166,18 @@ export default function Footer() {
                   </li>
                 )
               })}
-              {/* WhatsApp / phone row */}
+              {/* WhatsApp. A different number from the phone line above — this
+                  row used to show the calling number behind a WhatsApp icon and
+                  a wa.me link, so the button did not reach the account it named. */}
               <li className="flex items-center gap-3">
                 <WhatsAppIcon />
                 <a
-                  href="https://wa.me/97451490825"
+                  href="https://wa.me/19715060879"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-archivo text-[13px] text-paper/50 hover:text-signal transition-colors tracking-caption"
                 >
-                  +974 5149 0825
+                  +1 971 506 0879
                 </a>
               </li>
             </ul>

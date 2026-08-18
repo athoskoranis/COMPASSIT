@@ -21,6 +21,19 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-08-18 (WhatsApp button pointed at the wrong number)
+
+**Decision 075 — the WhatsApp link used the calling number:**
+Every WhatsApp control on the site linked to `wa.me/97451490825` and displayed `+974 5149 0825`. That is the phone line for calls, not the WhatsApp account. The correct WhatsApp number is **+1 971 506 0879**. Anyone tapping the button reached an account that does not exist, on the highest-intent control the site has — reported by the client, not by any check that could have caught it.
+
+Corrected in five places: the `wa.me` href in `Footer`, `ContactCTA` and `HeroContactCard`, and the displayed string in both the English and Arabic translations. The Arabic string uses Arabic-Indic digits to match the existing convention — `١٩٧١٥٠٦٠٨٧٩+`.
+
+**The footer needed restructuring, not just a substitution.** Its contact list carried one row, commented "WhatsApp / phone", showing the calling number behind a WhatsApp icon and a `wa.me` link. That worked only while the two numbers were the same. It is now a WhatsApp row carrying the WhatsApp number, and the calling number has its own row with a `tel:` link — which it never had, so the phone number was not dialable from the footer at all.
+
+**Left alone deliberately:** the `telephone` and `contactPoint` values in the organisation schema, which are the calling number and correct. The schema claims no WhatsApp number, so nothing there was wrong. Adding one as a second `contactPoint` would be accurate and is worth considering, but nothing currently misstates it.
+
+Verified on `/`, `/contact` and `/ar`: every `wa.me` link resolves to `19715060879`, the `tel:` link to `+97451490825`, and both numbers display correctly with the Arabic page showing the Arabic-Indic form. `tsc --noEmit` and a clean `next build` pass.
+
 ### Added — 2026-08-18 (Arabic titles and meta descriptions)
 
 **Decision 074 — the 10 Arabic routes get their own metadata, specified before it was applied:**
