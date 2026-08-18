@@ -21,6 +21,17 @@
 
 ## [Unreleased]
 
+### Removed — 2026-08-18 (Dead shader uniforms and their pointer listeners)
+
+**Decision 054 — `uMouse`, `uMouseIn` and `uClicks` drove nothing:**
+All three were declared in the fragment shader and read by `main()` **zero times** — verified by extracting the shader body and counting occurrences, against `uRes` at 3 and `uTime` at 2. The shader has never had a pointer response. Removed along with everything that existed to feed them: three `window` pointer listeners, the `local()` mapper, the easing step in `draw()`, the four-slot click ring buffer and its per-frame `Float32Array(16)` upload.
+
+The listeners were the part that cost. `pointermove` on `window` without `{ passive: true }` blocks scrolling until the handler returns, and `PointerTracker` already runs one rAF-coalesced listener for the whole site — this was a second, uncoalesced one feeding uniforms nobody read.
+
+Invisible by construction: nothing here reaches layer promotion, which is what caused the typography regression in Decision 052. No compositing change, no paint change.
+
+Verified: no reference to any of the removed identifiers survives outside explanatory comments; `tsc --noEmit` passes.
+
 ### Changed — 2026-08-18 (Shader render scale and frame rate, and nothing else)
 
 **Decision 053 — the two dials from Decision 044 that do not touch layer promotion:**
