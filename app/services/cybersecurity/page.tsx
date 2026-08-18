@@ -3,7 +3,7 @@ import CybersecurityPageClient from './client'
 
 export const metadata: Metadata = {
   title: { absolute: "Cybersecurity — Compass IT Solutions" },
-  description: "Cybersecurity services for businesses in Qatar. Fortinet-backed protection, risk registers, and 24/7 incident monitoring. No fear-selling — just clear assessment.",
+  description: "Cybersecurity for businesses in Qatar. Fortinet-backed protection, risk registers, and 24/7 incident monitoring. No fear-selling — just clear assessment.",
   alternates: { canonical: '/services/cybersecurity' },
   openGraph: {
     title: 'Top Cyber Security Service Provider in Qatar, GCC | Compass IT Solutions',

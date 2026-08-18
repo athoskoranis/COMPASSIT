@@ -171,8 +171,8 @@ Cisco network Qatar · network installation Doha · IT infrastructure Qatar
 **Title tag (51 chars):**
 Cloud Solutions — AWS, Azure & Hybrid · Compass ITS
 
-**Meta description (161 chars):**
-Cloud architecture and migration for organisations across Qatar. AWS, Microsoft Azure, and hybrid environments — built for redundancy, performance, and security.
+**Meta description (157 chars):**
+Cloud architecture and migration for organisations in Qatar. AWS, Microsoft Azure, and hybrid environments — built for redundancy, performance, and security.
 
 **Primary keyword:**
 cloud solutions Qatar
@@ -187,8 +187,8 @@ AWS Qatar · Azure migration Qatar · cloud migration Doha · hybrid cloud Qatar
 **Title tag (36 chars):**
 Cybersecurity — Compass IT Solutions
 
-**Meta description (162 chars):**
-Cybersecurity services for businesses in Qatar. Fortinet-backed protection, risk registers, and 24/7 incident monitoring. No fear-selling — just clear assessment.
+**Meta description (153 chars):**
+Cybersecurity for businesses in Qatar. Fortinet-backed protection, risk registers, and 24/7 incident monitoring. No fear-selling — just clear assessment.
 
 **Primary keyword:**
 cybersecurity services Qatar

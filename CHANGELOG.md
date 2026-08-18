@@ -21,6 +21,23 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-08-18 (The last two descriptions brought inside 160 characters)
+
+**Decision 071 — `SEO.md` now satisfies its own rules on every entry:**
+The two descriptions applied verbatim in Decision 065 were the document's own breaches of its 140–160 range. Both trimmed with the smallest edit that clears it, and every substantive claim kept.
+
+**Cloud Solutions, 161 → 157.** *organisations across Qatar* → *organisations in Qatar*. The shorter form is already the house usage — Network Infrastructure reads *for businesses in Qatar* — so this is consistency, not a new phrasing. The alternative considered, dropping the Oxford comma from *redundancy, performance, and security*, landed on exactly 160: on the boundary, and against a serial-comma pattern the rest of the document follows.
+
+**Cybersecurity, 162 → 153.** *Cybersecurity services for businesses in Qatar* → *Cybersecurity for businesses in Qatar*. "Services" was redundant against the sentence that follows, which enumerates them. Replacing the em-dash in *No fear-selling — just clear assessment* with a comma was measured and rejected: it saves a single character and still lands on 161.
+
+Both edits leave the Fortinet reference, the risk registers, the 24/7 monitoring, the cloud platforms and the no-fear-selling line untouched. The diff on `SEO.md` is exactly two description lines and their two counts.
+
+**The document is now internally consistent for the first time.** Running the validator over every entry returns no breaches: 15 titles all inside 60 characters, 15 descriptions all inside 140–160, and all 14 titles declared in both `SEO.md` and `SITEMAP.md` agreeing exactly.
+
+Verified on all eleven live routes — home, contact, blog and the eight service pages — measured by character on the rendered HTML: **zero breaching either limit**. `tsc --noEmit` and a clean `next build` pass.
+
+For the record, the state of the spec across Decisions 064–071: three structural defects fixed (missing canonical, missing `h1`, four route groups with no `og:image`), a blog entry written where none existed, 28 wrong character counts corrected, one over-length title caught before the page was ever built, seven title conflicts between the two documents reconciled to one string each, the sitemap stopped reporting build time as `lastmod`, and now the final two length breaches closed.
+
 ### Changed — 2026-08-18 (Title reconciliation: one title per route, in both documents)
 
 **Decision 070 — the distinctive wording wins where it fits, and the two specs stop contradicting each other:**
