@@ -21,6 +21,24 @@
 
 ## [Unreleased]
 
+### Added — 2026-08-18 (WhatsApp as a second `contactPoint` in the organisation schema)
+
+**Decision 077 — the schema now declares both channels:**
+Decision 075 corrected the WhatsApp links but left the structured data alone, on the grounds that it claimed no WhatsApp number and therefore misstated nothing. It now declares one, so the number a crawler reads matches the number the button dials.
+
+`contactPoint` becomes an array of two:
+
+| Channel | `contactType` | Number | Identified by |
+|---|---|---|---|
+| Phone / email | `customer service` | `+974-5149-0825` | `email: info@compass-its.com` |
+| WhatsApp | `customer support` | `+1-971-506-0879` | `url: https://wa.me/19715060879` |
+
+**`contactType` has no WhatsApp value, and inventing one would be wrong.** In schema.org it names a *purpose* — customer service, technical support, billing, sales — not a channel. The WhatsApp entry is therefore identified by its `wa.me` url, which is unambiguous to a consumer and is the same URL the on-page button uses. `telephone` at the top of the node stays the calling number, which is what it means.
+
+The two numbers being different is the whole reason this is worth declaring separately: a single `contactPoint` carrying the phone number is exactly the shape that let the WhatsApp button spend its life pointing at an account that does not exist.
+
+Verified on the rendered page: the organisation node parses, reports two `contactPoint` entries, and the WhatsApp entry's url matches the live button character for character. The entity graph is intact — 4 nodes defined, 4 references, **0 dangling**. `tsc --noEmit` and a clean `next build` pass.
+
 ### Added — 2026-08-18 (Category filter on the blog index)
 
 **Decision 076 — press a category, see only those posts:**

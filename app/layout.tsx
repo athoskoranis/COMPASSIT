@@ -99,13 +99,29 @@ const jsonLd = {
       hasMap: 'https://maps.google.com/?q=West+Bay,+Doha,+Qatar',
       telephone: '+974-5149-0825',
       email: 'info@compass-its.com',
-      contactPoint: {
-        '@type': 'ContactPoint',
-        telephone: '+974-5149-0825',
-        contactType: 'customer service',
-        email: 'info@compass-its.com',
-        availableLanguage: ['English', 'Arabic'],
-      },
+      // Two channels on two different numbers. The phone line and the WhatsApp
+      // account are not the same number, and a single contactPoint carrying the
+      // phone number was the reason the WhatsApp button spent its life linking
+      // to an account that did not exist. contactType has no WhatsApp value in
+      // schema.org — it names a purpose, not a channel — so the channel is
+      // identified by the wa.me url on the entry that carries the WhatsApp
+      // number.
+      contactPoint: [
+        {
+          '@type': 'ContactPoint',
+          telephone: '+974-5149-0825',
+          contactType: 'customer service',
+          email: 'info@compass-its.com',
+          availableLanguage: ['English', 'Arabic'],
+        },
+        {
+          '@type': 'ContactPoint',
+          telephone: '+1-971-506-0879',
+          contactType: 'customer support',
+          url: 'https://wa.me/19715060879',
+          availableLanguage: ['English', 'Arabic'],
+        },
+      ],
       openingHoursSpecification: [
         {
           '@type': 'OpeningHoursSpecification',
