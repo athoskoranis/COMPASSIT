@@ -73,22 +73,42 @@ The minimum clear space unit is the cap-height of the letter "C" in COMPASS — 
 **Critical:** Never re-export brand assets from a raster source (JPG, PNG, or screenshot). Always export from the master vector file.
 
 **Logo file locations in repo:**
+
+The four vector assets that exist, named as this document specifies:
+
 ```
 /public/brand/
-  compass-its-horizontal-dark.svg      ← Default
-  compass-its-horizontal-white.svg     ← Reversed
-  compass-its-stacked-dark.svg
-  compass-its-stacked-white.svg
-  compass-its-monogram-dark.svg
-  compass-its-monogram-white.svg
-  compass-its-monogram-signal.svg      ← White on Signal Cyan
-  favicon.ico
-  favicon-16.png
-  favicon-32.png
-  favicon-64.png
-  favicon-144.png
-  apple-touch-icon.png
-  og-image.png                         ← 1200×630px Open Graph image
+  compass-its-horizontal-dark.svg       ← Default. Mark left, wordmark right, 4.35:1
+  compass-its-stacked-dark.svg          ← Mark above wordmark, 1.41:1
+  compass-its-monogram-dark.svg         ← Mark only, 1.11:1
+  compass-its-monogram-dark-hero.svg    ← Monogram on a tight crop. Not part of the
+                                          standard set; currently unused.
+```
+
+They arrived from the brand vendor as `Secondary Transparent.svg`, `Primary
+Transparent.svg`, `Monogram Transparent.svg` and `Monogram Hero.svg` — note that
+the vendor's "Primary" is the *stacked* lockup and its "Secondary" is the
+*horizontal* one, the reverse of the priority this document sets. They were
+renamed to the names above on 18 August 2026; the old names appear nowhere in
+the codebase.
+
+**Reversed (white) variants are not files.** Every asset above is `fill:black`.
+Where the logo sits on Ink — the nav is the only such placement today — it is
+reversed at runtime with `filter: invert(1)`, not by loading a different file.
+So `compass-its-horizontal-white.svg`, `compass-its-stacked-white.svg`,
+`compass-its-monogram-white.svg` and `compass-its-monogram-signal.svg` do not
+exist. If a placement ever needs a true white asset rather than an inverted one,
+request it from brand@compass-its.com.
+
+**Favicons and the Open Graph image are generated, not stored.** Next.js App
+Router owns these by file convention, so there is no `favicon.ico`, no
+`favicon-*.png`, no `apple-touch-icon.png` and no `og-image.png`:
+
+```
+app/icon.svg                 ← favicon, all sizes
+app/opengraph-image.tsx      ← site-wide OG image, rendered at request time
+app/contact/opengraph-image.tsx
+app/services/*/opengraph-image.tsx
 ```
 
 ---

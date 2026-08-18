@@ -87,7 +87,7 @@ const jsonLd = {
       '@type': ['LocalBusiness', 'ProfessionalService'],
       name: 'Compass IT Solutions',
       url: 'https://compass-its.com',
-      logo: 'https://compass-its.com/brand/Monogram%20Transparent.svg',
+      logo: 'https://compass-its.com/brand/compass-its-horizontal-dark.svg',
       image: 'https://compass-its.com/opengraph-image',
       description:
         'Managed IT services provider specialising in network infrastructure, cloud solutions, and cybersecurity. Based in Doha, Qatar.',

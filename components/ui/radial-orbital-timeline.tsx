@@ -125,7 +125,7 @@ export default function RadialOrbitalTimeline({ timelineData, seeLabel = 'See' }
         >
           {/* Center orb */}
           <img
-            src="/brand/Monogram%20Transparent.svg"
+            src="/brand/compass-its-monogram-dark.svg"
             alt="Compass ITS"
             className="absolute z-[200] w-40 h-40 object-contain"
             style={{

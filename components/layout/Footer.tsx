@@ -63,7 +63,7 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <Link href={isHome ? '#hero' : '/'} className="flex items-center gap-2 mb-4">
               <img
-                src="/brand/Monogram%20Transparent.svg"
+                src="/brand/compass-its-monogram-dark.svg"
                 alt="Compass ITS"
                 className="w-6 h-6 object-contain"
                 style={{ filter: 'invert(1)' }}

@@ -113,7 +113,7 @@ export default function Nav() {
         {/* Logo — far left */}
         <Link href={isHome ? '#hero' : '/'} className="flex items-center flex-shrink-0">
           <img
-            src="/brand/Secondary%20Transparent.svg"
+            src="/brand/compass-its-horizontal-dark.svg"
             alt="Compass ITS"
             height={36}
             className="object-contain transition-all duration-300"

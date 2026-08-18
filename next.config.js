@@ -7,20 +7,22 @@ const nextConfig = {
     remotePatterns: [{ protocol: 'https', hostname: 'placehold.co' }],
   },
   async redirects() {
+    // The brand assets arrived from the vendor under these names and were
+    // renamed to the ones BRAND.md specifies. Two reasons these have to keep
+    // resolving rather than 404:
+    //
+    //   1. An earlier commit shipped a 308 from compass-its-horizontal-dark.svg
+    //      to "Monogram Transparent.svg" as a stopgap for the blog bot. 308 is
+    //      cached hard by browsers and crawlers, so anyone who loaded that URL
+    //      while it was live still follows it to the old path. That stopgap is
+    //      gone now the real file exists under the right name, but the cached
+    //      redirects outlive it.
+    //   2. Anything external that already links a vendor-named asset.
     return [
-      {
-        // The blog bot writes every new post with
-        // publisher.logo = /brand/compass-its-horizontal-dark.svg, a filename
-        // BRAND.md documents but that has never existed in /public/brand — so
-        // all eight existing posts pointed their publisher logo at a 404. Those
-        // now reference #organization instead and inherit its logo, but the bot
-        // template lives outside this repo and cannot be changed from here, so
-        // the URL itself has to resolve or every future post reintroduces the
-        // break. Target is the same asset #organization declares.
-        source: '/brand/compass-its-horizontal-dark.svg',
-        destination: '/brand/Monogram Transparent.svg',
-        permanent: true,
-      },
+      { source: '/brand/Secondary%20Transparent.svg', destination: '/brand/compass-its-horizontal-dark.svg', permanent: true },
+      { source: '/brand/Primary%20Transparent.svg', destination: '/brand/compass-its-stacked-dark.svg', permanent: true },
+      { source: '/brand/Monogram%20Transparent.svg', destination: '/brand/compass-its-monogram-dark.svg', permanent: true },
+      { source: '/brand/Monogram%20Hero.svg', destination: '/brand/compass-its-monogram-dark-hero.svg', permanent: true },
     ]
   },
   async headers() {
