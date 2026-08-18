@@ -9,6 +9,7 @@ export const metadata: Metadata = {
     title: 'AI Agents for Business in the GCC | Compass ITS',
     description: 'What AI agents can realistically do for GCC businesses in 2026, where they work, where they fail, and how to adopt them without wasting budget.',
     url: '/blog/ai-agents-for-business-gcc',
+    images: ['/blog/opengraph-image'],
   },
 }
 

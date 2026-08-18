@@ -9,6 +9,7 @@ export const metadata: Metadata = {
     title: 'How Cloud Artificial Intelligence Is Driving IT Innovation? | Compass ITS',
     description: 'How cloud artificial intelligence platforms are reshaping IT strategy in Qatar and the GCC, from managed AI infrastructure to practical deployment.',
     url: '/blog/cloud-artificial-intelligence-it-innovation',
+    images: ['/blog/opengraph-image'],
   },
 }
 

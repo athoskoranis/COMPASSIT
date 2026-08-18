@@ -9,6 +9,7 @@ export const metadata: Metadata = {
     title: 'Penetration Testing Services in Qatar | Compass ITS',
     description: 'Why penetration testing matters for Qatar businesses, how it supports NCSA NIA compliance, and what a proper engagement should actually cover.',
     url: '/blog/penetration-testing-services-qatar',
+    images: ['/blog/opengraph-image'],
   },
 }
 

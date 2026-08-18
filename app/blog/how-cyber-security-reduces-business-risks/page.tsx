@@ -9,6 +9,7 @@ export const metadata: Metadata = {
     title: 'How Cyber Security Reduces Business Risks? | Compass ITS',
     description: 'How cyber security cuts business risk for Qatar and GCC companies: breach costs, access controls, and what to expect from a security partner.',
     url: '/blog/how-cyber-security-reduces-business-risks',
+    images: ['/blog/opengraph-image'],
   },
 }
 

@@ -21,6 +21,37 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-08-18 (Technical SEO: canonical, `h1`, and Open Graph images)
+
+**Decision 064 — three defects found by crawling production, not by reading the code:**
+
+**1. The home page had no canonical.** It was the only route on the site without one, because `app/page.tsx` had no `metadata` export at all and inherited the layout's, which sets none. `SEO.md` requires a self-referencing canonical on every page. Added, with the OG url pinned; title and description are unchanged.
+
+**2. `/contact` had no `h1`.** Its 72px display heading was an `h2` with nothing above it. The cause is that `ContactCTA` closes *every* page on the site — on all the others it is a secondary CTA sitting under that page's own `h1`, where `h2` is correct. It now takes an optional `headingLevel`, defaulting to 2, and `/contact` passes 1. No other page changes.
+
+**3. Four route groups emitted no `og:image` whatsoever** — `/blog`, all eight blog posts, `/services/app-development` and `/services/digital-marketing`. The root `app/opengraph-image.tsx` does **not** cascade to a segment whose page defines its own `openGraph` object, and those were exactly the routes with no `opengraph-image.tsx` of their own. Verified by diffing served HTML: `/services/cybersecurity` emits `og:image`, `og:image:type` and `og:image:alt`; `/services/app-development` emitted none of the three. Blog posts are the most-shared content on the site and were sharing as bare links.
+
+Added `opengraph-image.tsx` for `/blog`, `/services/app-development` and `/services/digital-marketing`, following the existing service-page pattern. The `/blog` one does not reach the posts either — each post's own `openGraph` block replaces the inherited one — so all eight posts now reference it explicitly via `images: ['/blog/opengraph-image']`.
+
+Verified across all 14 routes: canonical present, exactly one `h1`, `og:image` present. `tsc --noEmit` and a clean `next build` pass.
+
+**Flagged, not changed — copy decisions that belong to whoever owns the SEO brief.** `SEO.md` sets titles at ≤60 characters and descriptions at 140–160. Live values breach it in both directions:
+
+| Route | Title | Description |
+|---|---|---|
+| `/services/cybersecurity` | **72** | 147 |
+| `/services/network-infrastructure` | **69** | 161 |
+| `/services/ai-workflows` | **68** | 153 |
+| `/services/cloud-solutions` | **61** | 160 |
+| `/services/digital-marketing` | **61** | 155 |
+| `/services/web-development` | **61** | **139** |
+| `/services/it-services` | 56 | **111** |
+| `/blog` | 27 | **93** |
+
+Over-length titles get truncated in results; the 93-character blog description leaves most of the snippet unused. `CLAUDE.md` forbids inventing copy, and `SEO.md` already specifies exact strings for these pages that differ from what ships — reconciling the two is a content decision, not a code one.
+
+**Also flagged: the blog bot.** Its page template writes an `openGraph` block without `images`, so the next auto-published post will ship without an OG image again, exactly as these eight did. The template lives outside this repo.
+
 ### Changed — 2026-08-18 (`RENDER_SCALE` back to 1)
 
 **Decision 063 — the field renders at full CSS resolution again:**

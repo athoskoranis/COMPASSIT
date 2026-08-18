@@ -9,6 +9,7 @@ export const metadata: Metadata = {
     title: 'Cloud Migration Services in Qatar | Compass ITS',
     description: 'What Qatar businesses should weigh before a cloud migration: data residency, the local Azure region, hidden costs, and a phased approach that works.',
     url: '/blog/cloud-migration-services-qatar',
+    images: ['/blog/opengraph-image'],
   },
 }
 

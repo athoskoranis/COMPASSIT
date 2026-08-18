@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <main>
-      <ContactCTA />
+      <ContactCTA headingLevel={1} />
 
       {/* Full-width map */}
       <div className="relative z-[1] px-6 lg:px-20 pb-16 max-w-[1280px] mx-auto">

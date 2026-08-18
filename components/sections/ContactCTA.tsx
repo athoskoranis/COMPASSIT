@@ -4,7 +4,12 @@ import { ChevronDown } from 'lucide-react'
 import { useLanguage } from '@/context/LanguageContext'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
 
-export default function ContactCTA() {
+// headingLevel exists because this section closes every page on the site. On
+// all of them it is a secondary CTA under the page's own h1, so h2 is right.
+// On /contact it is the only heading there is, and the page shipped with no h1
+// at all -- a 72px display heading marked up as an h2 under nothing.
+export default function ContactCTA({ headingLevel = 2 }: { headingLevel?: 1 | 2 }) {
+  const Heading = (headingLevel === 1 ? 'h1' : 'h2') as 'h1' | 'h2'
   const { tr } = useLanguage()
   const [form, setForm] = useState({
     name: '',
@@ -61,9 +66,9 @@ export default function ContactCTA() {
         <div className="max-w-[560px] mx-auto text-center">
           <EyebrowLabel className="mb-6 block">{tr.contact.eyebrow}</EyebrowLabel>
 
-          <h2 className="font-archivo font-light text-paper tracking-[-0.04em] text-[48px] md:text-[64px] lg:text-[72px] leading-none mb-6">
+          <Heading className="font-archivo font-light text-paper tracking-[-0.04em] text-[48px] md:text-[64px] lg:text-[72px] leading-none mb-6">
             {tr.contact.heading}
-          </h2>
+          </Heading>
 
           <p className="font-barlow text-body-l text-paper/55 mb-10">
             {tr.contact.body}

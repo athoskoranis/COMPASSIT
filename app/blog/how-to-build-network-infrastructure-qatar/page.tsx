@@ -9,6 +9,7 @@ export const metadata: Metadata = {
     title: 'How to Build Network Infrastructure in Qatar? | Compass ITS',
     description: 'A practical guide to building network infrastructure in Qatar: choosing vendors, planning for growth, and building security in from the start.',
     url: '/blog/how-to-build-network-infrastructure-qatar',
+    images: ['/blog/opengraph-image'],
   },
 }
 

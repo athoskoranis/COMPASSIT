@@ -9,6 +9,7 @@ export const metadata: Metadata = {
     title: 'AI Workflow Automation for GCC Businesses | Compass ITS',
     description: 'How AI workflow automation is helping Qatar and GCC businesses cut manual work, and what to evaluate before adopting it.',
     url: '/blog/ai-workflow-automation-gcc-businesses',
+    images: ['/blog/opengraph-image'],
   },
 }
 

@@ -9,6 +9,7 @@ export const metadata: Metadata = {
     title: 'Generative AI Consulting in Qatar | Compass ITS',
     description: 'What generative AI consulting should deliver for Qatar businesses in 2026: real use cases, data governance, and avoiding expensive dead ends.',
     url: '/blog/generative-ai-consulting-qatar',
+    images: ['/blog/opengraph-image'],
   },
 }
 
