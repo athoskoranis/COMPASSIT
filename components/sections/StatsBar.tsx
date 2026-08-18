@@ -52,7 +52,7 @@ export default function StatsBar() {
   }, [])
 
   return (
-    <section className="py-20 lg:py-24 relative z-[1] overflow-hidden">
+    <section id="by-the-numbers" className="py-20 lg:py-24 relative z-[1] overflow-hidden">
       <div className="max-w-content mx-auto px-6 lg:px-20 relative z-10">
         <div className="text-center mb-14">
           <EyebrowLabel className="mb-4 block">{tr.stats.eyebrow}</EyebrowLabel>

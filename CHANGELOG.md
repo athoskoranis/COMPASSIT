@@ -21,6 +21,35 @@
 
 ## [Unreleased]
 
+### Added — 2026-08-18 (Offscreen home sections skip rendering)
+
+**Decision 057 — `content-visibility: auto` on every home section below the fold:**
+The home page is 5732px against a 720px viewport — roughly eight screens, seven of them offscreen at any moment — and carries 47 `background-attachment: fixed` backgrounds. Fixed-attachment backgrounds cannot be composited: each repaints every scroll frame because the background is anchored to the viewport while the element moves under it. `content-visibility: auto` stops the offscreen seven-eighths from paying that, and skips their style and layout too.
+
+Chosen because it is the one remaining large win that is meant to be invisible. It does not touch layer promotion, so it cannot repeat the text-antialiasing regression of Decision 052, and it does not touch the field.
+
+`#hero` is excluded — above the fold, nothing to skip, and deferring it would only delay first paint. `StatsBar` gained `id="by-the-numbers"` so it could be targeted; it was the only section without one.
+
+**The intrinsic sizes are measured, and the first attempt was wrong.** `contain-intrinsic-size` sizes the **content box**, so a section's vertical padding is added on top of it. Setting it from a measured `getBoundingClientRect()` height over-sized every placeholder by its padding — 1161px became a 1321px placeholder against a real 1161px section, which is exactly the scrollbar jitter this was supposed to avoid. Corrected by subtracting each section's padding (`py-20 lg:py-24`, and `py-24 lg:py-32` on `#contact`).
+
+Values are per-breakpoint because these sections change height sharply: `#why-compass` is 958px at 1280 wide and 2058px at 375. Written mobile-first with desktop overrides above `lg`. The `auto` keyword means the browser stores each section's real height after its first render and reuses it, so these lengths only govern first paint.
+
+Verified at both breakpoints, against the heights recorded before the change:
+
+| | desktop 1280 | mobile 375 |
+|---|---|---|
+| document height before | 5732px | 8315px |
+| document height after | 5734px | 8317px |
+| **drift** | **+2px** | **+2px** |
+
+Every section's placeholder matched its real rendered height exactly at both sizes — 580 / 1072 / 414 / 958 / 1231 on desktop, 1161 / 803 / 564 / 2058 / 1173 on mobile. Content is untouched: `#why-compass` still holds 1008 characters of `textContent` with its heading queryable, and the server-rendered HTML still contains every section's copy at 1349 words. `content-visibility` is a rendering optimisation only — nothing changes for crawlers or assistive technology.
+
+`tsc --noEmit` and a clean `next build` pass.
+
+**Not verified: whether it feels faster.** The browser pane never composites, so paint cannot be profiled and scrolling cannot be exercised — `window.scrollTo` leaves `scrollY` at 0. The mechanism and the absence of layout shift are confirmed; the improvement is not. A Performance recording or Paint-flashing pass in a real Chrome is what would settle it.
+
+**Unsupported browsers ignore it.** `content-visibility` is Chrome/Edge, Safari 18+, Firefox 125+. Anywhere else the declaration is dropped and the page renders exactly as before.
+
 ### Removed — 2026-08-18 (A duplicate pointer listener and a dead interval in the orbital dial)
 
 **Decision 056 — two costs in `radial-orbital-timeline` that touch neither the field nor type rendering:**

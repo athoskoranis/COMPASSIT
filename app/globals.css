@@ -543,3 +543,47 @@ a {
   --t: 0.3s;
   color: #F4F2EC;
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Offscreen sections skip rendering.
+
+   The home page is roughly eight screens tall and carries 47
+   background-attachment: fixed backgrounds (9 elements plus 38
+   pseudo-elements). Fixed-attachment backgrounds cannot be composited: each
+   one repaints every scroll frame because the background is anchored to the
+   viewport while the element moves under it. content-visibility: auto stops
+   the seven screens nobody is looking at from paying that, and skips their
+   style and layout too.
+
+   contain-intrinsic-size uses the `auto` keyword deliberately. The browser
+   stores each section's real height after it has rendered once and reuses
+   that from then on, so the length below is only a first-paint estimate.
+   That matters because these sections change height a lot across
+   breakpoints -- why-compass measures 958px at 1280 wide and 2058px at 375
+   -- and a single fixed value would be wrong at one of them and show up as
+   the scrollbar jumping while you scroll. Values below are measured, not
+   guessed, mobile-first with the real desktop numbers above the lg
+   breakpoint. They are content-box heights: contain-intrinsic-size sizes the
+   content box, so each section's vertical padding is added on top of it and
+   must be subtracted from a measured border-box height.
+
+   #hero is excluded: it is above the fold, so there is nothing to skip and
+   deferring it would only delay first paint.
+   ───────────────────────────────────────────────────────────────────────── */
+main > section:not(#hero) {
+  content-visibility: auto;
+}
+
+#about           { contain-intrinsic-size: auto 1001px; }
+#services        { contain-intrinsic-size: auto 643px; }
+#by-the-numbers  { contain-intrinsic-size: auto 404px; }
+#why-compass     { contain-intrinsic-size: auto 1898px; }
+#contact         { contain-intrinsic-size: auto 981px; }
+
+@media (min-width: 1024px) {
+  #about           { contain-intrinsic-size: auto 388px; }
+  #services        { contain-intrinsic-size: auto 880px; }
+  #by-the-numbers  { contain-intrinsic-size: auto 222px; }
+  #why-compass     { contain-intrinsic-size: auto 766px; }
+  #contact         { contain-intrinsic-size: auto 975px; }
+}
