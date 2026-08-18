@@ -21,6 +21,23 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-18 (Glow surfaces no longer use `background-attachment: fixed`)
+
+**Decision 058 — 47 fixed-attachment backgrounds become 0, without losing the effect:**
+Fixed-attachment backgrounds cannot be composited. The background is anchored to the viewport while the element moves under it, so all 47 repainted on every scroll frame. This removes them.
+
+**Deleting the property alone would have broken the glow, not merely changed it.** The gradients are centred at `calc(var(--x) * 1px) calc(var(--y) * 1px)` where `--x`/`--y` are *viewport* coordinates, and `background-attachment: fixed` is precisely what makes the background's positioning area the viewport. Without it those viewport numbers are measured from each element's own top-left instead. A 231px-tall card with the pointer at viewport y=400 would place its glow 400px below its own top — outside itself. Most glows would have vanished.
+
+So the coordinates moved into element space instead. `PointerTracker` now writes `--gx`/`--gy` on every `[data-glowcard]` and `[data-glow]` — the same pointer position expressed relative to that element — alongside the existing `:root` variables, which stay for the hue ramp. Rects are read for the whole batch before any are written, so it costs one layout rather than one per element, and offscreen surfaces are skipped.
+
+**Scrolling now does no work here at all.** Local coordinates are recomputed on pointer movement only. Because the gradient is painted in the element's own box, scrolling changes nothing about how the element looks and the compositor can simply move it.
+
+**The visible trade.** While scrolling *without* moving the mouse, the glow rides along with its card instead of staying anchored on screen, and corrects on the next pointer movement. That is a real behavioural difference and it is the price of the change. Before the pointer has moved at all, `--gx`/`--gy` fall back to `0`, putting the glow at each card's top-left — the same resting state as before, when `--x`/`--y` were unset and the glow sat at the viewport's top-left.
+
+Verified: `background-attachment: fixed` count on the home page **47 → 0**, elements and pseudo-elements both. The coordinate plumbing resolves correctly end to end — writing `--gx: 120, --gy: 45` on a card produced a gradient centre of exactly `120px 45px` on the element background and on its `::before`, and `--gx: 200, --gy: 80` on the orbit ring produced `200px 80px` on its `::before`. `tsc --noEmit` and a clean `next build` pass.
+
+**Not verified: the live update path or how any of it looks.** `PointerTracker` coalesces behind `requestAnimationFrame`, which never fires in a non-compositing pane, so the write path could only be checked by resolving the CSS by hand rather than by moving a real pointer. This is the third change in a row whose mechanism is proven and whose appearance is not.
+
 ### Added — 2026-08-18 (Offscreen home sections skip rendering)
 
 **Decision 057 — `content-visibility: auto` on every home section below the fold:**

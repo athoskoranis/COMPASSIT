@@ -60,14 +60,13 @@ export default function GlowCard({ children, className = '', variant = 'cyan' }:
         '--hue': 'calc(var(--base) + (var(--xp, 0) * var(--spread, 0)))',
         backgroundImage: `radial-gradient(
           var(--spotlight-size) var(--spotlight-size) at
-          calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+          calc(var(--gx, 0) * 1px) calc(var(--gy, 0) * 1px),
           hsl(var(--hue, 200) calc(var(--saturation, 72) * 1%) calc(var(--lightness, 58) * 1%) / var(--bg-spot-opacity, 0.07)),
           transparent
         )`,
         backgroundColor: 'hsl(0 0% 60% / 0.06)',
         backgroundSize: 'calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)))',
         backgroundPosition: '50% 50%',
-        backgroundAttachment: 'fixed',
         border: 'var(--border-size) solid var(--backup-border)',
         boxShadow: '0 1rem 2rem -1rem rgba(0,0,0,0.8)',
         position: 'relative',
