@@ -21,6 +21,18 @@
 
 ## [Unreleased]
 
+### Added — 2026-08-18 (Blog index `CollectionPage` + `ItemList` schema)
+
+**Decision 049 — SEO-supplied blog collection schema, with two faults in it corrected:**
+Added the `CollectionPage` + `ItemList` graph requested for `/blog`, in the structure supplied. Two things in the markup as given would not have worked:
+
+- **It listed six posts; the blog has eight.** The supplied `itemListElement` began at *How Cloud Artificial Intelligence Is Driving IT Innovation*, the site's third post, omitting `how-to-build-network-infrastructure-qatar` and `how-cyber-security-reduces-business-risks` — both auto-published by `blog-pumper` after the markup was written. `numberOfItems: 6` on a page rendering eight article links is a mismatch a crawler can see. The `ItemList` is now built from `lib/posts.ts`, for the reason that file already states about the index and hero rail: it is the single source of truth, and anything that restates it goes stale. The bot's next post now gets schema without anyone remembering to add it.
+- **`isPartOf` and `publisher` referenced `@id` nodes that existed nowhere on the site.** No `@id` appeared anywhere in the codebase, so both references dangled — the `CollectionPage` would have had no publisher and belonged to no website. `app/layout.tsx` now emits an `@graph`: the existing `LocalBusiness`/`ProfessionalService` node carries `@id: https://compass-its.com/#organization`, and a `WebSite` node sits at `#website` publishing from it. Declared in the layout so the anchors are present on every route, ready for other pages to reference.
+
+Verified on the rendered page: both `ld+json` blocks parse; four nodes defined (`#organization`, `#website`, `/blog#collectionpage`, `/blog#itemlist`); all four `@id` references resolve, zero dangling; `numberOfItems` 8 matches 8 actual items, order Descending. `tsc --noEmit` and `next build` pass.
+
+**Left as supplied:** the schema `description` ("Technology, infrastructure, and IT insights for businesses in Qatar and the GCC.") does not match the page's meta description ("Thinking out loud on technology, infrastructure, and what makes IT work in Qatar and the GCC."). That is a copy decision for whoever owns the SEO brief, not a defect.
+
 ### Removed — 2026-08-18 (`WebGLBackground.tsx`)
 
 **Decision 048 — The shader goes:**
