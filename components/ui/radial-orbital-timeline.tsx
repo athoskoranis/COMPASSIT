@@ -22,7 +22,6 @@ interface RadialOrbitalTimelineProps {
 export default function RadialOrbitalTimeline({ timelineData, seeLabel = 'See' }: RadialOrbitalTimelineProps) {
   const [expandedItems, setExpandedItems] = useState<Record<number, boolean>>({})
   const [rotationAngle, setRotationAngle] = useState<number>(0)
-  const [autoRotate, setAutoRotate] = useState<boolean>(false)
   const [pulseEffect, setPulseEffect] = useState<Record<number, boolean>>({})
   const [activeNodeId, setActiveNodeId] = useState<number | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -47,7 +46,6 @@ export default function RadialOrbitalTimeline({ timelineData, seeLabel = 'See' }
 
       if (!prev[id]) {
         setActiveNodeId(id)
-        setAutoRotate(false)
         const relatedItems = getRelatedItems(id)
         const newPulseEffect: Record<number, boolean> = {}
         relatedItems.forEach((relId) => { newPulseEffect[relId] = true })
@@ -62,26 +60,17 @@ export default function RadialOrbitalTimeline({ timelineData, seeLabel = 'See' }
     })
   }
 
-  useEffect(() => {
-    if (!autoRotate) return
-    const timer = setInterval(() => {
-      setRotationAngle((prev) => Number(((prev + 0.05) % 360).toFixed(3)))
-    }, 50)
-    return () => clearInterval(timer)
-  }, [autoRotate])
+  // The 20Hz auto-rotation interval that used to live here was dead: autoRotate
+  // initialised to false and setAutoRotate(true) was never called, so the timer
+  // never started. Removed with the state itself rather than left to look load-
+  // bearing. Nothing rotated before and nothing rotates now.
 
-  useEffect(() => {
-    const syncPointer = (e: PointerEvent) => {
-      if (containerRef.current) {
-        containerRef.current.style.setProperty('--x', e.clientX.toFixed(2))
-        containerRef.current.style.setProperty('--xp', (e.clientX / window.innerWidth).toFixed(2))
-        containerRef.current.style.setProperty('--y', e.clientY.toFixed(2))
-        containerRef.current.style.setProperty('--yp', (e.clientY / window.innerHeight).toFixed(2))
-      }
-    }
-    document.addEventListener('pointermove', syncPointer)
-    return () => document.removeEventListener('pointermove', syncPointer)
-  }, [])
+  // No pointer listener here. PointerTracker already writes --x/--xp/--y/--yp
+  // on :root with identical values, and custom properties inherit, so the ring
+  // below reads the same numbers without this. The one removed was a second
+  // listener on document with no { passive: true } and no rAF coalescing, so it
+  // ran four setProperty calls on every pointermove event rather than once per
+  // frame -- on a high-polling-rate mouse that is several hundred a second.
 
   const centerViewOnNode = (nodeId: number) => {
     const nodeIndex = timelineData.findIndex((item) => item.id === nodeId)
@@ -139,7 +128,7 @@ export default function RadialOrbitalTimeline({ timelineData, seeLabel = 'See' }
             }}
           />
 
-          {/* Orbit ring — data-glow inherits --x/--y from containerRef */}
+          {/* Orbit ring — data-glow inherits --x/--y from :root, set by PointerTracker */}
           <div
             data-glow
             className="absolute w-[700px] h-[700px] rounded-full"

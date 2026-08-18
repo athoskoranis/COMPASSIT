@@ -21,6 +21,19 @@
 
 ## [Unreleased]
 
+### Removed — 2026-08-18 (A duplicate pointer listener and a dead interval in the orbital dial)
+
+**Decision 056 — two costs in `radial-orbital-timeline` that touch neither the field nor type rendering:**
+
+- **A second `pointermove` listener on `document`, uncoalesced and non-passive.** It wrote `--x`, `--xp`, `--y` and `--yp` on the dial's container — the same four values `PointerTracker` already writes on `:root`. Custom properties inherit, so the ring reads identical numbers without it: verified by setting `--x: 640.00` on `:root` and reading `640.00` back off both the `[data-glow]` ring and a `[data-glowcard]`. The difference is cadence. `PointerTracker` coalesces to one write per frame behind `requestAnimationFrame` and registers `{ passive: true }`; this one ran four `setProperty` calls on **every** `pointermove` event, which on a high-polling-rate mouse is several hundred a second, each invalidating style for everything below it.
+- **A 20Hz `setInterval` driving `setRotationAngle`.** Dead: `autoRotate` initialised to `false` and `setAutoRotate(true)` was never called anywhere, so the timer never started. Removed with the state itself rather than left looking load-bearing. Nothing rotated before and nothing rotates now — this is cleanup, not a saving, and it is recorded as such.
+
+**What the measurements actually said, including where a hypothesis was wrong.** The page is 461 DOM nodes and 5732px tall against a 720px viewport — roughly eight screens, most of it offscreen at any moment. It carries **47 `background-attachment: fixed` backgrounds** (9 elements plus 38 pseudo-elements), 11 `backdrop-filter`s, 13 `filter`s and 13 `box-shadow`s.
+
+The theory that `--x`/`--y` invalidation was the bottleneck did not survive testing: forcing style plus layout after writing those variables measured **1.09×** the cost of writing an unused custom property. The pointer variables are not special. The cost is paint, not style recalc — and paint is precisely what cannot be profiled here, because the browser pane reports layout dimensions but never composites, so `requestAnimationFrame` does not fire and no frame timing exists to sample.
+
+Verified: `[data-glow]` still inherits from `:root`; DOM node count unchanged at 461; `tsc --noEmit` and a clean `next build` pass.
+
 ### Changed — 2026-08-18 (Background orbs dimmed)
 
 **Decision 055 — `BLOB_INTENSITY` 0.52 → 0.35 → 0.25:**
