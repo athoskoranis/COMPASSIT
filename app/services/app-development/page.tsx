@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import AppDevelopmentPageClient from './client'
 
 export const metadata: Metadata = {
-  title: 'App Development — iOS & Android',
-  description: 'Native and cross-platform mobile app development for businesses in Qatar. iOS and Android. Crash-free 99.5%+ before submission. 30-day post-launch support.',
+  title: { absolute: "App Development — iOS & Android · Compass ITS" },
+  description: "Native and cross-platform mobile app development for businesses in Qatar. iOS and Android. Crash-free 99.5%+ before submission. 30-day post-launch support.",
   alternates: { canonical: '/services/app-development' },
   openGraph: {
     title: 'App Development — iOS & Android · Compass ITS',

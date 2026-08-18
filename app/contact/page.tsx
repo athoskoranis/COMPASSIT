@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import ContactCTA from '@/components/sections/ContactCTA'
 
 export const metadata: Metadata = {
-  title: 'Contact — IT Support in Qatar',
-  description: 'Get in touch with Compass IT Solutions. Managed IT services, network infrastructure, cybersecurity, and cloud solutions for businesses across Qatar and the GCC.',
+  title: { absolute: "Get in Touch — Compass IT Solutions" },
+  description: "Start a conversation with Compass IT Solutions. Most engagements begin with a 30-day diagnostic. Doha, Qatar — +974 5149 0825 — asahli@compass-its.com.",
   alternates: { canonical: 'https://compass-its.com/contact' },
 }
 

@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import CybersecurityPageClient from './client'
 
 export const metadata: Metadata = {
-  title: 'Top Cyber Security Service Provider in Qatar, GCC',
-  description: 'Full-scale cybersecurity consulting in Qatar — risk assessment, VAPT, ISO compliance, and security implementations for businesses across the GCC.',
+  title: { absolute: "Cybersecurity — Compass IT Solutions" },
+  description: "Cybersecurity services for businesses in Qatar. Fortinet-backed protection, risk registers, and 24/7 incident monitoring. No fear-selling — just clear assessment.",
   alternates: { canonical: '/services/cybersecurity' },
   openGraph: {
     title: 'Top Cyber Security Service Provider in Qatar, GCC | Compass IT Solutions',

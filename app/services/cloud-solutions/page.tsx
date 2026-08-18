@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import CloudSolutionsPageClient from './client'
 
 export const metadata: Metadata = {
-  title: 'Cloud Consulting Company in Qatar, GCC',
-  description: 'End-to-end cloud computing services in Qatar — cloud migration, infrastructure management, security, modernization, and managed cloud services across the GCC.',
+  title: { absolute: "Cloud Solutions — AWS, Azure & Hybrid · Compass ITS" },
+  description: "Cloud architecture and migration for organisations across Qatar. AWS, Microsoft Azure, and hybrid environments — built for redundancy, performance, and security.",
   alternates: { canonical: '/services/cloud-solutions' },
   openGraph: {
     title: 'Cloud Consulting Company in Qatar, GCC | Compass IT Solutions',

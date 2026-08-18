@@ -11,6 +11,8 @@ import ContactCTA from '@/components/sections/ContactCTA'
 // which SEO.md requires of every page. Title and description stay identical to
 // the layout defaults; this exists for the canonical and to pin the OG url.
 export const metadata: Metadata = {
+  title: { absolute: "Compass IT Solutions — Wired right. Kept running." },
+  description: "Managed IT services for organisations across Qatar and the GCC. Network infrastructure, cloud, cybersecurity, and web development — wired right the first time.",
   alternates: { canonical: '/' },
   openGraph: { url: '/' },
 }

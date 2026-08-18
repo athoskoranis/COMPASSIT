@@ -21,6 +21,40 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-18 (Titles and meta descriptions set from `SEO.md` verbatim)
+
+**Decision 065 — the spec now governs, on ten routes:**
+`SEO.md` has always specified an exact title tag and meta description per page. What shipped was different — keyword-led rather than brand-led, and longer. Applied verbatim on every route that exists *and* has an entry in the spec:
+
+| Route | Title | Chars |
+|---|---|---|
+| `/` | Compass IT Solutions — Wired right. Kept running. | 49 |
+| `/contact` | Get in Touch — Compass IT Solutions | 35 |
+| `/services/it-services` | IT Professional Services — Compass IT Solutions | 47 |
+| `/services/network-infrastructure` | Network Infrastructure — Compass IT Solutions | 45 |
+| `/services/cloud-solutions` | Cloud Solutions — AWS, Azure & Hybrid · Compass ITS | 51 |
+| `/services/cybersecurity` | Cybersecurity — Compass IT Solutions | 36 |
+| `/services/web-development` | Website Development — Compass IT Solutions | 42 |
+| `/services/app-development` | App Development — iOS & Android · Compass ITS | 45 |
+| `/services/ai-workflows` | AI Workflows & Automation — Compass IT Solutions | 48 |
+| `/services/digital-marketing` | Digital Marketing — Compass IT Solutions | 40 |
+
+**Titles use `title: { absolute: ... }`.** The layout sets a template of `'%s | Compass IT Solutions'`, and every `SEO.md` title already carries the brand — without `absolute`, `/services/cybersecurity` would have rendered *Cybersecurity — Compass IT Solutions | Compass IT Solutions*. Verified: no rendered title carries the brand twice.
+
+**Every title is now within the 60-character limit**, where the longest previously ran to 72.
+
+**Worth naming: this trades keyword targeting for compliance.** The live titles front-loaded search terms — `Top Cyber Security Service Provider in Qatar, GCC` — while the spec's are brand-led and drop the geographic qualifier. That is the spec's choice, applied as instructed, but it is a real change in what these pages compete for and is easily reverted per page.
+
+**`openGraph` blocks were left alone.** `SEO.md` specifies OG copy only for the home page; for the rest it defines a title tag and a meta description, which is what changed. Social cards therefore keep the keyword-led copy. Worth a follow-up decision either way, since `og:title` now diverges from `<title>` on nine routes.
+
+**Two of the spec's own descriptions breach the spec's own rule.** `SEO.md` requires 140–160 characters, but its Cloud Solutions text is 161 and its Cybersecurity text is 162 — and the parenthetical counts in the document claim 156 and 153, which are simply wrong. Applied verbatim as asked; the document should be corrected at source.
+
+**`/blog` was left untouched** — its description is 93 characters, well under the minimum, but `SEO.md` has no blog entry and `CLAUDE.md` forbids inventing copy. It needs a spec before it can be fixed.
+
+**Correction to Decision 064's table.** Those description lengths were byte counts from a shell measurement, so any string containing an em-dash read three bytes per character and looked two longer than it was. The character counts above are measured properly. The conclusions held — the breaches were real — but the numbers were slightly inflated.
+
+Verified on all eleven rendered routes: titles ≤60 characters, no duplicated branding, descriptions matching the spec byte for byte. `tsc --noEmit` and a clean `next build` pass.
+
 ### Fixed — 2026-08-18 (Technical SEO: canonical, `h1`, and Open Graph images)
 
 **Decision 064 — three defects found by crawling production, not by reading the code:**

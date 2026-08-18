@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import NetworkInfrastructurePageClient from './client'
 
 export const metadata: Metadata = {
-  title: 'Network Infrastructure Solutions in Qatar, GCC',
-  description: 'Network infrastructure solutions in Qatar — routers, switches, LAN & WAN, firewall solutions, managed network services, and on-site support across the GCC.',
+  title: { absolute: "Network Infrastructure — Compass IT Solutions" },
+  description: "Network design, installation, and management for businesses in Qatar. Every cable labelled, every config documented. On-call support included.",
   alternates: { canonical: '/services/network-infrastructure' },
   openGraph: {
     title: 'Network Infrastructure Solutions in Qatar, GCC | Compass IT Solutions',
