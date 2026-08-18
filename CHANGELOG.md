@@ -21,6 +21,31 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-18 (The background shader was the lag all along)
+
+**Decision 061 — measured at last: `RENDER_SCALE` 1 → 0.5:**
+After five rounds of reasoning about paint costs without ever profiling anything, the shader was finally benchmarked directly — compiled into an offscreen WebGL context and driven with `readPixels` after each draw to force the pipeline to complete. `gl.finish()` alone reports ~0ms here, because ANGLE/D3D11 never synchronises for a canvas that is never presented; that false zero is what made this measurable only once `readPixels` was used.
+
+On the target hardware — **Intel Iris Xe integrated graphics** — the fragment shader costs:
+
+| Canvas | Pixels | Cost per frame |
+|---|---|---|
+| 2560×1440 (`min(dpr, 2)`, the original) | 3.69 MP | **67.1 ms** |
+| 1280×720 (CSS resolution, Decision 053) | 0.92 MP | **27.5 ms** |
+| 640×360 (this change) | 0.23 MP | **12.0 ms** |
+
+A 60fps frame is 16.7ms and a 30fps frame is 33.3ms. **At CSS resolution the background alone consumed 165% of a 60fps frame and 83% of a 30fps one**, leaving essentially nothing for the page to paint, composite or scroll in. Two `fbm()` calls of five octaves each is ten noise evaluations per pixel, plus eight `exp()` calls and a dozen trig operations, and integrated graphics feel every one.
+
+**This reframes Decisions 044, 053, 056, 057, 058, 059 and 060.** Every one of those addressed a real cost — 47 uncompositable fixed-attachment backgrounds, seven offscreen screens rendering needlessly, a duplicate uncoalesced pointer listener, four 16px blurs behind 90–95% opaque covers. All genuine, all worth keeping. But none of them could have fixed this, because the frame budget was already gone before the page painted a single pixel. The lag was never in the parts being optimised.
+
+At 0.5 the canvas renders at half CSS resolution per axis — a quarter of the fragments — and the browser upscales. The field is smooth gradients plus a contour line at 1.8% opacity, so there is little detail to lose, but this **is** a real resolution change. If it reads soft, 0.75 still costs far less than 1.
+
+Verified: canvas buffer 640×360 against a 1265×720 CSS box, 0.25× the fragments, shader still links, context not lost, `tsc --noEmit` and a clean `next build` pass.
+
+**Still unverified: how it looks.** The pane does not composite. But for the first time this session a performance claim rests on a measurement rather than an argument.
+
+**If it is still laggy after this**, the next lever is the shader itself rather than its resolution: dropping `fbm()` from five octaves to three removes four of the ten noise evaluations per pixel, at some cost to contour detail.
+
 ### Changed — 2026-08-18 (Orbital dial popup blur cut to 4px)
 
 **Decision 060 — the last `backdrop-blur-lg` in the codebase:**

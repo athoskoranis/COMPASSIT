@@ -97,12 +97,27 @@ void main(){
 // promotion — the thing that altered text antialiasing when backdrop-filter and
 // will-change were removed, and got that pass reverted.
 //
-// RENDER_SCALE 1 draws at CSS resolution instead of min(devicePixelRatio, 2),
-// which is four times fewer fragments on a 2x display. This is the one value
-// here that is a genuine resolution change: the field is smooth gradients plus
-// a contour line at 1.8% opacity, so it should not read as softer, but if it
-// does, 1.5 keeps most of the saving. It is a one-line dial.
-const RENDER_SCALE = 1
+// RENDER_SCALE is the single biggest lever on this page, by a wide margin.
+// Benchmarked on the target hardware (Intel Iris Xe integrated) by compiling
+// this exact shader into an offscreen context and forcing the pipeline to
+// complete with readPixels, which is the only way to get a true number when the
+// canvas is never presented:
+//
+//     2560x1440  (the original min(dpr,2))   67.1 ms/frame
+//     1280x720   (CSS resolution)            27.5 ms/frame
+//      640x360   (this setting)              12.0 ms/frame
+//
+// A 60fps frame is 16.7ms and a 30fps frame is 33.3ms, so at CSS resolution the
+// background alone consumed the entire 60fps budget and most of the 30fps one,
+// leaving nothing for the page to paint or scroll in. Two fbm() calls of five
+// octaves each is ten noise evaluations per pixel, and integrated graphics feel
+// every one of them.
+//
+// At 0.5 the canvas is half CSS resolution in each axis and the browser upscales.
+// The field is smooth gradients plus a contour line at 1.8% opacity, so there is
+// very little detail to lose, but this is a real resolution change: if it reads
+// soft, 0.75 still costs far less than 1.
+const RENDER_SCALE = 0.5
 
 // The drift is uTime * 0.22 for the blobs and uTime * 0.012 for the contours.
 // Nothing on screen moves fast enough for 30 and 60 to differ, and halving the
