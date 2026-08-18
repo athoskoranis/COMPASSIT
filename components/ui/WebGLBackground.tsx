@@ -28,11 +28,11 @@ vec3 saturate3(vec3 v){ return clamp(v,0.0,1.0); }
 #define CYAN   vec3(0.12, 0.54, 0.72)
 #define INDIGO vec3(0.24, 0.13, 0.50)
 
-// How strongly the five drifting blobs mix over the background -- the brightness
-// dial for the field. Was 0.52. Lower is dimmer; the blobs keep their shape and
-// motion, they just sit further back. Safe to tune in either direction, and it
-// costs nothing either way: it is one multiply per fragment regardless.
-#define BLOB_INTENSITY 0.35
+// How strongly the five drifting blobs mix over the background -- the
+// brightness dial for the field. Was 0.52, then 0.35. Lower is dimmer: the
+// blobs keep their shape, colour and motion, they just sit further back.
+// Tune in either direction at no cost, it is one multiply per fragment.
+#define BLOB_INTENSITY 0.25
 
 void main(){
   vec2 uv = gl_FragCoord.xy / uRes;
