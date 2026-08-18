@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/ensure-blog-og.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "check:og": "node scripts/ensure-blog-og.mjs --check"
   },
   "dependencies": {
     "clsx": "^2.1.1",

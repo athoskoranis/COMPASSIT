@@ -21,6 +21,37 @@
 
 ## [Unreleased]
 
+### Added — 2026-08-18 (`prebuild` guard so bot-published posts cannot ship without an `og:image`)
+
+**Decision 072 — repair the output, since the template cannot be reached:**
+Decision 064 gave all eight existing posts an OG image by hand, and flagged that the next auto-published one would ship without one again. The publishing bot's page template lives outside this repository, so the requirement cannot be written where the posts are generated. This fixes the output instead.
+
+**The mechanism, verified rather than assumed.** A probe post was created carrying exactly the bot's metadata shape — an `openGraph` block with `title`, `description` and `url`, and no `images` key — and built. It rendered **no `og:image` tag at all**, with `app/blog/opengraph-image.tsx` sitting right above it. Next's file-convention image does not reach post segments in this setup; a post has to declare the image itself. That is why adding the parent file in Decision 064 was not enough on its own.
+
+`scripts/ensure-blog-og.mjs` scans `app/blog/*/page.tsx`, and for any post with an `openGraph` block and no `images` key, inserts `images: ['/blog/opengraph-image']` as its first entry — first so it survives whatever key ordering the template emits. Posts that ship their own `opengraph-image.tsx` are skipped, since they need nothing.
+
+It runs as **`prebuild`**, so it fires on every `npm run build` — local or on the deploy host — before Next reads a single file. A post published by the bot at 3am is repaired before it is ever rendered.
+
+It repairs rather than fails deliberately. Exiting non-zero would turn a missing OG image into a failed deploy, which would keep the whole post offline — a considerably worse outcome than the problem being solved. `npm run check:og` gives the strict behaviour for anyone who wants it: reports and exits 1, writing nothing.
+
+**Proved end to end.** With the probe reset to the raw bot shape and no manual intervention, a plain `npm run build` produced:
+
+```
+> node scripts/ensure-blog-og.mjs
+ensure-blog-og: added og:image to 1 post(s) -> zz-mechanism-probe
+✓ Compiled successfully
+
+property="og:image" content="https://compass-its.com/blog/opengraph-image"
+```
+
+The probe was then removed, leaving no trace in `git status`.
+
+Verified after: `check:og` reports all 8 posts declaring an image, a clean build emits `og:image` on all 8 rendered posts, `tsc --noEmit` passes.
+
+**`SEO.md`'s note on the bot is updated** to record the exception — that OG images are handled in-repo by this script, while anything else required of new posts still has to be specified in the bot's own template.
+
+**What this does not cover.** Only the OG image. The same structural gap remains for anything else the template omits — the `ItemList` count problem was solved differently, by generating from `lib/posts.ts`. A post arriving with a wrong `datePublished`, a missing canonical or a malformed `Article` graph would still ship as written. The durable fix is still to correct the bot's template; this is a guard, not a substitute.
+
 ### Fixed — 2026-08-18 (The last two descriptions brought inside 160 characters)
 
 **Decision 071 — `SEO.md` now satisfies its own rules on every entry:**

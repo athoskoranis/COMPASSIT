@@ -306,7 +306,9 @@ IT blog Qatar · network infrastructure Qatar · cybersecurity Qatar · cloud mi
 `CollectionPage` + `ItemList`, already implemented in `app/blog/page.tsx`. The `ItemList` is generated from `lib/posts.ts` rather than hand-written, so it cannot drift from what the page renders when a post is added. Both nodes reference the site-wide entity graph — `isPartOf` → `#website`, `publisher` → `#organization` — declared in `app/layout.tsx`.
 
 **Note on the posts themselves:**
-Individual posts carry their own `Article` + `BreadcrumbList` + `FAQPage` graph, written by the publishing bot from its own template. That template lives outside this repository, so anything required of new posts has to be specified there as well as here.
+Individual posts carry their own `Article` + `BreadcrumbList` + `FAQPage` graph, written by the publishing bot from its own template. That template lives outside this repository, so anything required of new posts generally has to be specified there as well as here.
+
+The one exception is the Open Graph image. The bot writes an `openGraph` block with no `images` key, and Next's file-convention image at `app/blog/opengraph-image.tsx` does not reach post segments — verified, a post in that shape renders no `og:image` at all. `scripts/ensure-blog-og.mjs` runs on `prebuild` and adds the key to any post missing it, so auto-published posts are covered without touching the bot. `npm run check:og` reports without writing.
 
 ---
 
