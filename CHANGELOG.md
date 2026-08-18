@@ -21,6 +21,23 @@
 
 ## [Unreleased]
 
+### Reverted — 2026-08-18 (Home and contact look restored to pre-optimisation)
+
+**Decision 052 — the visual changes from Decisions 044, 046 and 047 are reverted at the client's request:**
+The typography and the background orbs were not wanted. Everything that altered the rendered appearance is back to its state at `0c8d6fa`, byte-identical:
+
+- **`WebGLBackground` is the field on `/` and `/contact` again**, restored in full — `min(devicePixelRatio, 2)`, 60fps, and the pointer uniforms. `SiteBackground` imports it again. `AuroraBackground` is unreferenced once more, exactly as it was before this session touched it.
+- **`GlowCard` gets `backdrop-blur-[2px]` back**, and `will-change: filter` returns to both `[data-glowcard] [data-glowcard]` and `[data-glow] [data-glow]`. These two are the likeliest cause of the typography complaint: `backdrop-filter` and `will-change` both force layer promotion, and text in a composited layer is antialiased differently — grayscale rather than subpixel. Removing them changed how type rendered on every glow card and on the orbital dial, which is a visual change the performance rationale did not account for.
+- **`Cairo` is preloaded again** — `preload: false` removed.
+
+**Kept, because none of it is visible:** the `hover-footer` `NaN` fix (Decision 043, console-only), the passive scroll listener on `Nav` (behaviour, not appearance), the removal of four unreferenced components (Decision 045), and the aurora CSS improvements from Decision 046 — the aurora renders nowhere now, so its stops and keyframes have no effect either way.
+
+**Also kept in full:** the entity graph and blog schema (Decisions 049, 050) and the brand asset renames (Decision 051). Verified after the revert: `/blog` still declares `numberOfItems: 8`, `#organization` and `#website` still resolve, and both brand assets still load.
+
+Verified: `<canvas>` present, zero `.aurora-blob` elements rendered, `backdrop-filter: blur(2px)` on the cards, `will-change: filter` on the inner bloom, `tsc --noEmit` passes, console clean.
+
+**The performance findings from Decision 044 still stand and are now un-actioned.** The scroll cost that prompted them — nine fixed-attachment gradients, eleven backdrop filters and a full-resolution 60fps shader per frame — is back. If the stutter returns, the fix has to come from somewhere that does not change how the page looks: the render scale and frame rate on the shader are invisible dials, unlike the layer-promotion changes that caused this revert.
+
 ### Changed — 2026-08-18 (Brand assets renamed to the names `BRAND.md` specifies)
 
 **Decision 051 — the four vector assets now carry their documented names:**

@@ -389,14 +389,10 @@ a {
   );
 }
 
-/* No will-change: filter here. The filter value never changes -- only the
-   fixed-attachment background underneath it moves as the page scrolls -- so the
-   hint promoted nine of these to their own layers on the home page alone and
-   then defeated raster caching on every one. Promotion is not free; hint at what
-   actually animates or hint at nothing. */
 [data-glowcard] [data-glowcard] {
   position: absolute;
   inset: 0;
+  will-change: filter;
   opacity: var(--outer, 1);
   border-radius: calc((var(--radius) + var(--border)) * 1px);
   filter: blur(calc(var(--border-size) * 10));
@@ -445,10 +441,10 @@ a {
   );
 }
 
-/* Same as [data-glowcard] [data-glowcard] above -- static filter, no hint. */
 [data-glow] [data-glow] {
   position: absolute;
   inset: 0;
+  will-change: filter;
   opacity: var(--outer, 1);
   border-radius: calc(var(--radius) * 1px);
   border-width: calc(var(--border-size) * 20);

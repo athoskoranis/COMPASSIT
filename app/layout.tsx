@@ -28,17 +28,11 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ['400', '500', '700'],
 })
 
-// preload: false because Cairo only ever applies under [dir="rtl"] (globals.css),
-// which needs the language toggle. Preloaded, four weights of an Arabic subset
-// were fetched on every English page load and used by none of them. Without the
-// hint the browser still fetches it the moment the toggle flips -- just not
-// before, and not on the critical path for the visitor who never flips it.
 const cairo = Cairo({
   subsets: ['arabic'],
   variable: '--font-cairo',
   display: 'swap',
   weight: ['400', '500', '600', '700'],
-  preload: false,
 })
 
 export const metadata: Metadata = {
