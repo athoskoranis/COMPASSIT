@@ -19,16 +19,8 @@ const jsonLd = {
       '@type': 'Article',
       headline: 'How to Build Network Infrastructure in Qatar?',
       description: 'A practical guide to building network infrastructure in Qatar: choosing vendors, planning for growth, and building security in from the start.',
-      author: {
-        '@type': 'Organization',
-        name: 'Compass IT Solutions',
-        url: 'https://compass-its.com',
-      },
-      publisher: {
-        '@type': 'Organization',
-        name: 'Compass IT Solutions',
-        logo: { '@type': 'ImageObject', url: 'https://compass-its.com/brand/compass-its-horizontal-dark.svg' },
-      },
+      author: { '@id': 'https://compass-its.com/#organization' },
+      publisher: { '@id': 'https://compass-its.com/#organization' },
       datePublished: '2026-08-14',
       dateModified: '2026-08-14',
       url: 'https://compass-its.com/blog/how-to-build-network-infrastructure-qatar',

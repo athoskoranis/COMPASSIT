@@ -19,16 +19,8 @@ const jsonLd = {
       '@type': 'Article',
       headline: 'Generative AI Consulting in Qatar: Turning the Hype Into Something Useful',
       description: 'What generative AI consulting should deliver for Qatar businesses in 2026: real use cases, data governance, and avoiding expensive dead ends.',
-      author: {
-        '@type': 'Organization',
-        name: 'Compass IT Solutions',
-        url: 'https://compass-its.com',
-      },
-      publisher: {
-        '@type': 'Organization',
-        name: 'Compass IT Solutions',
-        logo: { '@type': 'ImageObject', url: 'https://compass-its.com/brand/compass-its-horizontal-dark.svg' },
-      },
+      author: { '@id': 'https://compass-its.com/#organization' },
+      publisher: { '@id': 'https://compass-its.com/#organization' },
       datePublished: '2026-07-06',
       dateModified: '2026-07-06',
       url: 'https://compass-its.com/blog/generative-ai-consulting-qatar',

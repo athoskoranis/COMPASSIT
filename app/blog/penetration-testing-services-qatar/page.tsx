@@ -19,16 +19,8 @@ const jsonLd = {
       '@type': 'Article',
       headline: 'Penetration Testing in Qatar: What It Is and Why NIA Compliance Increasingly Expects It',
       description: 'Why penetration testing matters for Qatar businesses, how it supports NCSA NIA compliance, and what a proper engagement should actually cover.',
-      author: {
-        '@type': 'Organization',
-        name: 'Compass IT Solutions',
-        url: 'https://compass-its.com',
-      },
-      publisher: {
-        '@type': 'Organization',
-        name: 'Compass IT Solutions',
-        logo: { '@type': 'ImageObject', url: 'https://compass-its.com/brand/compass-its-horizontal-dark.svg' },
-      },
+      author: { '@id': 'https://compass-its.com/#organization' },
+      publisher: { '@id': 'https://compass-its.com/#organization' },
       datePublished: '2026-07-06',
       dateModified: '2026-07-06',
       url: 'https://compass-its.com/blog/penetration-testing-services-qatar',

@@ -19,16 +19,8 @@ const jsonLd = {
       '@type': 'Article',
       headline: 'How Cloud Artificial Intelligence Is Driving IT Innovation?',
       description: 'How cloud artificial intelligence platforms are reshaping IT strategy in Qatar and the GCC, from managed AI infrastructure to practical deployment.',
-      author: {
-        '@type': 'Organization',
-        name: 'Compass IT Solutions',
-        url: 'https://compass-its.com',
-      },
-      publisher: {
-        '@type': 'Organization',
-        name: 'Compass IT Solutions',
-        logo: { '@type': 'ImageObject', url: 'https://compass-its.com/brand/compass-its-horizontal-dark.svg' },
-      },
+      author: { '@id': 'https://compass-its.com/#organization' },
+      publisher: { '@id': 'https://compass-its.com/#organization' },
       datePublished: '2026-08-13',
       dateModified: '2026-08-13',
       url: 'https://compass-its.com/blog/cloud-artificial-intelligence-it-innovation',

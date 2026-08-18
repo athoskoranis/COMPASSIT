@@ -19,7 +19,7 @@ const jsonLd = {
       '@type': 'Service',
       name: 'Cloud Solutions',
       description: 'End-to-end cloud computing services in Qatar including cloud migration, application development, infrastructure management, security, modernization, disaster management, and managed cloud services.',
-      provider: { '@type': 'Organization', name: 'Compass IT Solutions', url: 'https://compass-its.com' },
+      provider: { '@id': 'https://compass-its.com/#organization' },
       areaServed: [
         { '@type': 'Country', name: 'Qatar' },
         { '@type': 'Country', name: 'Saudi Arabia' },

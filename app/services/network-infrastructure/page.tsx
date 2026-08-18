@@ -19,7 +19,7 @@ const jsonLd = {
       '@type': 'Service',
       name: 'Network Infrastructure Solutions',
       description: 'Network infrastructure solutions in Qatar including network assessment, design and architecture, LAN and WAN implementation, firewall solutions, managed network services, and on-site support.',
-      provider: { '@type': 'Organization', name: 'Compass IT Solutions', url: 'https://compass-its.com' },
+      provider: { '@id': 'https://compass-its.com/#organization' },
       areaServed: [
         { '@type': 'Country', name: 'Qatar' },
         { '@type': 'Country', name: 'Saudi Arabia' },

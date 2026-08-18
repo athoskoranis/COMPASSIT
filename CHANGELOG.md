@@ -21,6 +21,25 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-18 (Entity graph consolidated site-wide)
+
+**Decision 050 — 24 anonymous Organization nodes become one referenced entity:**
+Decision 049 created `#organization` and `#website` so the blog `CollectionPage` had something to point at. Every other page still declared its own copy of the company: eight service pages with an inline `provider`, eight blog posts with an inline `author` and `publisher` — **24 anonymous `Organization` nodes across 16 pages**, none carrying an `@id`, so none of them merged. A crawler saw two dozen loosely similar organizations rather than one entity, which is exactly the fragmentation an entity graph exists to remove. All 24 now resolve to `{ '@id': 'https://compass-its.com/#organization' }` and inherit the node the layout already publishes — name, url, logo, address, geo, telephone, opening hours, areaServed, founding date.
+
+**This also fixed a live break.** Every one of the eight blog posts set `publisher.logo` to `/brand/compass-its-horizontal-dark.svg`. That file has never existed — `/public/brand/` holds `Monogram Hero.svg`, `Monogram Transparent.svg`, `Primary Transparent.svg` and `Secondary Transparent.svg`. The filename comes from `BRAND.md`, which documents an asset set that was never committed under those names. Confirmed 404 on every post. Since a publisher logo that does not resolve is precisely the signal this markup exists to send, that was the schema failing at its main job while validating cleanly.
+
+**The bot could not be left to reintroduce it.** The blog automation runs outside this repo — its commits create `app/blog/<slug>/page.tsx` and `client.tsx`, and append to `lib/posts.ts` and `app/sitemap.ts`. Its page template is not editable from here, so every future post will keep emitting the same inline publisher and the same missing logo path. `next.config.js` now permanently redirects `/brand/compass-its-horizontal-dark.svg` to the asset `#organization` declares, so the URL resolves no matter who writes it.
+
+Verified by simulating a bot publish — a post appended to `lib/posts.ts` plus a page carrying the bot's verbatim inline template:
+
+- the blog `ItemList` picked it up with no intervention, `numberOfItems` 8 → 9, new post at position 1
+- the bot-shaped page rendered 200 with its inline publisher intact, and its logo URL resolved 200 through the redirect
+- simulation reverted; `git status` showed only the 17 intended files
+
+Graph checked on every page type — home, blog index, contact, two blog posts, three service pages: **zero dangling references site-wide**. `tsc --noEmit` and a clean `next build` pass.
+
+**Still outstanding, for whoever owns the bot:** its template should emit `author` and `publisher` as `{ "@id": "https://compass-its.com/#organization" }`. Until it does, new posts stay valid and their logo resolves, but they declare their own anonymous Organization instead of joining the graph — the redirect is a safety net, not the fix.
+
 ### Added — 2026-08-18 (Blog index `CollectionPage` + `ItemList` schema)
 
 **Decision 049 — SEO-supplied blog collection schema, with two faults in it corrected:**

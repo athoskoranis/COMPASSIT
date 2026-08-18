@@ -19,7 +19,7 @@ const jsonLd = {
       '@type': 'Service',
       name: 'Cybersecurity Services',
       description: 'Full-scale cybersecurity consulting in Qatar including risk assessment, vulnerability assessment and penetration testing (VAPT), ISO compliance, security implementations and trainings, and business continuity planning.',
-      provider: { '@type': 'Organization', name: 'Compass IT Solutions', url: 'https://compass-its.com' },
+      provider: { '@id': 'https://compass-its.com/#organization' },
       areaServed: [
         { '@type': 'Country', name: 'Qatar' },
         { '@type': 'Country', name: 'Saudi Arabia' },

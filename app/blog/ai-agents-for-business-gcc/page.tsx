@@ -19,16 +19,8 @@ const jsonLd = {
       '@type': 'Article',
       headline: 'AI Agents for Business: What They Do, and What GCC Companies Should Expect',
       description: 'What AI agents can realistically do for GCC businesses in 2026, where they work, where they fail, and how to adopt them without wasting budget.',
-      author: {
-        '@type': 'Organization',
-        name: 'Compass IT Solutions',
-        url: 'https://compass-its.com',
-      },
-      publisher: {
-        '@type': 'Organization',
-        name: 'Compass IT Solutions',
-        logo: { '@type': 'ImageObject', url: 'https://compass-its.com/brand/compass-its-horizontal-dark.svg' },
-      },
+      author: { '@id': 'https://compass-its.com/#organization' },
+      publisher: { '@id': 'https://compass-its.com/#organization' },
       datePublished: '2026-07-06',
       dateModified: '2026-07-06',
       url: 'https://compass-its.com/blog/ai-agents-for-business-gcc',

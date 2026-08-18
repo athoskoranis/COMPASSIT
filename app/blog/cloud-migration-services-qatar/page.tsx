@@ -19,16 +19,8 @@ const jsonLd = {
       '@type': 'Article',
       headline: 'Cloud Migration in Qatar: Data Residency, the Local Region, and Getting It Right',
       description: 'What Qatar businesses should weigh before a cloud migration: data residency, the local Azure region, hidden costs, and a phased approach that works.',
-      author: {
-        '@type': 'Organization',
-        name: 'Compass IT Solutions',
-        url: 'https://compass-its.com',
-      },
-      publisher: {
-        '@type': 'Organization',
-        name: 'Compass IT Solutions',
-        logo: { '@type': 'ImageObject', url: 'https://compass-its.com/brand/compass-its-horizontal-dark.svg' },
-      },
+      author: { '@id': 'https://compass-its.com/#organization' },
+      publisher: { '@id': 'https://compass-its.com/#organization' },
       datePublished: '2026-07-06',
       dateModified: '2026-07-06',
       url: 'https://compass-its.com/blog/cloud-migration-services-qatar',

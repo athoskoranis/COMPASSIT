@@ -6,6 +6,23 @@ const nextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns: [{ protocol: 'https', hostname: 'placehold.co' }],
   },
+  async redirects() {
+    return [
+      {
+        // The blog bot writes every new post with
+        // publisher.logo = /brand/compass-its-horizontal-dark.svg, a filename
+        // BRAND.md documents but that has never existed in /public/brand — so
+        // all eight existing posts pointed their publisher logo at a 404. Those
+        // now reference #organization instead and inherit its logo, but the bot
+        // template lives outside this repo and cannot be changed from here, so
+        // the URL itself has to resolve or every future post reintroduces the
+        // break. Target is the same asset #organization declares.
+        source: '/brand/compass-its-horizontal-dark.svg',
+        destination: '/brand/Monogram Transparent.svg',
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
     return [
       {

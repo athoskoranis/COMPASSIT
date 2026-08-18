@@ -19,16 +19,8 @@ const jsonLd = {
       '@type': 'Article',
       headline: 'How AI Workflow Automation Is Changing the Way GCC Businesses Operate',
       description: 'How AI workflow automation is helping Qatar and GCC businesses cut manual work, and what to evaluate before adopting it.',
-      author: {
-        '@type': 'Organization',
-        name: 'Compass IT Solutions',
-        url: 'https://compass-its.com',
-      },
-      publisher: {
-        '@type': 'Organization',
-        name: 'Compass IT Solutions',
-        logo: { '@type': 'ImageObject', url: 'https://compass-its.com/brand/compass-its-horizontal-dark.svg' },
-      },
+      author: { '@id': 'https://compass-its.com/#organization' },
+      publisher: { '@id': 'https://compass-its.com/#organization' },
       datePublished: '2026-06-01',
       dateModified: '2026-06-17',
       url: 'https://compass-its.com/blog/ai-workflow-automation-gcc-businesses',

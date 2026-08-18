@@ -19,7 +19,7 @@ const jsonLd = {
       '@type': 'Service',
       name: 'Web Development Services',
       description: 'Custom website design, web application development, ecommerce solutions, WordPress development, PSD to HTML conversion, and website testing and QA for businesses across Qatar and the GCC.',
-      provider: { '@type': 'Organization', name: 'Compass IT Solutions', url: 'https://compass-its.com' },
+      provider: { '@id': 'https://compass-its.com/#organization' },
       areaServed: [
         { '@type': 'Country', name: 'Qatar' },
         { '@type': 'Country', name: 'Saudi Arabia' },

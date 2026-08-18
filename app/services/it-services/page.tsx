@@ -19,7 +19,7 @@ const jsonLd = {
       '@type': 'Service',
       name: 'Managed IT Services',
       description: 'End-to-end managed IT support, Annual Maintenance Contracts (AMC), hardware and software supply, onsite and remote IT support, and network solutions for businesses in Qatar and the GCC.',
-      provider: { '@type': 'Organization', name: 'Compass IT Solutions', url: 'https://compass-its.com' },
+      provider: { '@id': 'https://compass-its.com/#organization' },
       areaServed: [
         { '@type': 'Country', name: 'Qatar' },
         { '@type': 'Country', name: 'Saudi Arabia' },

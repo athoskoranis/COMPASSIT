@@ -20,12 +20,7 @@ const jsonLd = {
       '@type': 'Service',
       name: 'Digital Marketing Services in Qatar',
       description: 'Full-service digital marketing agency in Qatar offering SEO, Google Ads, social media marketing, content marketing, email automation, and analytics for businesses in Doha and across the GCC.',
-      provider: {
-        '@type': 'Organization',
-        name: 'Compass IT Solutions',
-        url: 'https://compass-its.com',
-        address: { '@type': 'PostalAddress', addressLocality: 'Doha', addressRegion: 'West Bay', addressCountry: 'QA' },
-      },
+      provider: { '@id': 'https://compass-its.com/#organization' },
       areaServed: [
         { '@type': 'City', name: 'Doha' },
         { '@type': 'Country', name: 'Qatar' },

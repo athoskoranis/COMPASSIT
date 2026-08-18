@@ -19,7 +19,7 @@ const jsonLd = {
       '@type': 'Service',
       name: 'AI Workflow Automation',
       description: 'AI development and consulting services in Qatar including AI workflow automation, machine learning, AI chatbots, process automation, data annotation, and AI integration for businesses across the GCC.',
-      provider: { '@type': 'Organization', name: 'Compass IT Solutions', url: 'https://compass-its.com' },
+      provider: { '@id': 'https://compass-its.com/#organization' },
       areaServed: [
         { '@type': 'Country', name: 'Qatar' },
         { '@type': 'Country', name: 'Saudi Arabia' },

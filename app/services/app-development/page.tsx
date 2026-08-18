@@ -19,7 +19,7 @@ const jsonLd = {
       '@type': 'Service',
       name: 'Mobile App Development',
       description: 'Native and cross-platform mobile app development for businesses in Qatar and the GCC. iOS and Android apps built for performance, usability, and long-term maintainability.',
-      provider: { '@type': 'Organization', name: 'Compass IT Solutions', url: 'https://compass-its.com' },
+      provider: { '@id': 'https://compass-its.com/#organization' },
       areaServed: [
         { '@type': 'Country', name: 'Qatar' },
         { '@type': 'Country', name: 'Saudi Arabia' },

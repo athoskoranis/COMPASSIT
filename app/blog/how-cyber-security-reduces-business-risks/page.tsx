@@ -19,16 +19,8 @@ const jsonLd = {
       '@type': 'Article',
       headline: 'How Cyber Security Reduces Business Risks?',
       description: 'How cyber security cuts business risk for Qatar and GCC companies: breach costs, access controls, and what to expect from a security partner.',
-      author: {
-        '@type': 'Organization',
-        name: 'Compass IT Solutions',
-        url: 'https://compass-its.com',
-      },
-      publisher: {
-        '@type': 'Organization',
-        name: 'Compass IT Solutions',
-        logo: { '@type': 'ImageObject', url: 'https://compass-its.com/brand/compass-its-horizontal-dark.svg' },
-      },
+      author: { '@id': 'https://compass-its.com/#organization' },
+      publisher: { '@id': 'https://compass-its.com/#organization' },
       datePublished: '2026-08-13',
       dateModified: '2026-08-13',
       url: 'https://compass-its.com/blog/how-cyber-security-reduces-business-risks',
