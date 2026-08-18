@@ -21,6 +21,25 @@
 
 ## [Unreleased]
 
+### Added — 2026-08-18 (Arabic titles and meta descriptions)
+
+**Decision 074 — the 10 Arabic routes get their own metadata, specified before it was applied:**
+Decision 073 shipped Arabic routing with English titles and descriptions, because `SEO.md` specified no Arabic and `CLAUDE.md` forbids inventing copy. A new `## Arabic Pages` section now covers all ten, and the pages read from it.
+
+**Composed from approved Arabic, not written from nothing.** Every string is derived from Arabic already in the repository — the hero headings and bodies in `lib/translations.ts`, and the hero titles, subtitles, eyebrows and section intros in `lib/serviceTranslations.ts` — trimmed and joined to fit. Examples: the home description is the Arabic brand positioning with the geography attached to its closing clause; the cybersecurity description is the approved section intro reduced from 242 characters; the digital marketing description is its hero subtitle at 111 characters extended with an approved clause.
+
+**Titles use a mixed script deliberately.** `خدمات الأمن السيبراني في قطر ودول الخليج · Compass ITS` keeps the Arabic service phrase and geography while the brand stays Latin. The Arabic rendering, `كومباس آي تي سولوشنز`, is 20 characters and would have pushed most of these past the limit — the cybersecurity hero title alone is 51. The home and contact titles do carry the Arabic brand, where there is room.
+
+**Two descriptions needed extending rather than trimming**, which is the harder direction: the home body came to 138 and the contact copy 126, both under the 140 minimum. Extended by attaching approved material — the geography for home, and the Doha location and phone number for contact, mirroring the shape of the English `/contact` entry, which also carries them.
+
+Verified on all ten rendered Arabic routes: titles 33–58 characters, descriptions 140–159, Arabic script present in every title, brand appearing once. **10 / 10 compliant.** `tsc --noEmit` and a clean `next build` pass at 36 static pages.
+
+**Two caveats written into the spec section itself, not just here.**
+
+The composition is mine. The source strings are approved Arabic, but the trimming and joining are not native work, and marketing copy for a client's live site deserves a native reader before it is treated as final. The section says so.
+
+The length limits are inherited from the English entries and applied by character count. They are a proxy for pixel width in a search result, and Arabic script sets to a different width than Latin at the same count, so a compliant Arabic title can still truncate differently. The numbers are a guide until the pages have been seen in a live result.
+
 ### Added — 2026-08-18 (Arabic routing under `/ar`)
 
 **Decision 073 — Arabic becomes 10 real URLs instead of a client-side re-render:**

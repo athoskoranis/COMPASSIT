@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
+  title: { absolute: "كومباس آي تي سولوشنز — مُثبَّت بإتقان. يعمل باستمرار." },
+  description: "نبني البنية التحتية الهادئة التي تُمكِّن الفرق الطموحة من التحرك دون عوائق — مُثبَّتة بإتقان منذ البداية، وتعمل باستمرار على المدى البعيد في قطر ودول الخليج.",
   alternates: {
     canonical: '/ar',
     languages: { en: '/', ar: '/ar' },

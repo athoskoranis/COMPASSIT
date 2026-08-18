@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
+  title: { absolute: "تطوير تطبيقات الجوال في قطر ودول الخليج · Compass ITS" },
+  description: "تطبيقات جوال أصيلة ومتعددة المنصات مبنية للأداء وسهولة الاستخدام والاستدامة على المدى البعيد — من أول تدفق للمستخدم حتى إدراج التطبيق في متجر التطبيقات.",
   alternates: {
     canonical: '/ar/services/app-development',
     languages: { en: '/services/app-development', ar: '/ar/services/app-development' },

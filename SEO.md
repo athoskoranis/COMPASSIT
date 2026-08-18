@@ -335,6 +335,137 @@ Compass IT Solutions contact
 
 ---
 
+## Arabic Pages
+
+Arabic lives at `/ar` and mirrors the English routes that have translated content. The blog has none, so it has no Arabic route and appears nowhere below.
+
+Every entry pairs with its English counterpart through reciprocal `hreflang`, declared in both directions — a one-way annotation is ignored. Each Arabic route also carries its own self-referencing canonical and `og:locale: ar_QA`.
+
+**These strings were composed from the Arabic already approved in `lib/translations.ts` and `lib/serviceTranslations.ts`** — page headings, hero subtitles and section intros — trimmed to fit the length rules. They were not written from nothing, but the trimming and joining are not native work and should be reviewed by an Arabic speaker before they are treated as final.
+
+**A note on the length rules.** The 60 and 140–160 character limits are inherited from the English entries and applied here by character count. They are a proxy for pixel width in a search result, and Arabic script sets to a different width than Latin at the same character count, so a compliant Arabic title may still truncate differently. Treat the numbers as a guide rather than a guarantee until the pages have been seen in a live result.
+
+---
+
+### Arabic Home `/ar`
+
+**Title tag (53 chars):**
+كومباس آي تي سولوشنز — مُثبَّت بإتقان. يعمل باستمرار.
+
+**Meta description (157 chars):**
+نبني البنية التحتية الهادئة التي تُمكِّن الفرق الطموحة من التحرك دون عوائق — مُثبَّتة بإتقان منذ البداية، وتعمل باستمرار على المدى البعيد في قطر ودول الخليج.
+
+**English counterpart:** `/`
+
+---
+
+### Arabic Contact `/ar/contact`
+
+**Title tag (33 chars):**
+تواصل معنا — كومباس آي تي سولوشنز
+
+**Meta description (144 chars):**
+معظم مشاريعنا تبدأ بمحادثة. أخبرنا بما تعمل عليه وسنعود إليك خلال يوم عمل واحد. خدمات تقنية معلومات مُدارة في الدوحة، قطر — هاتف 0825 5149 974+.
+
+**English counterpart:** `/contact`
+
+---
+
+### Arabic IT Services `/ar/services/it-services`
+
+**Title tag (54 chars):**
+خدمات تقنية المعلومات في قطر ودول الخليج · Compass ITS
+
+**Meta description (159 chars):**
+بوصفها شركة رائدة في خدمات تقنية المعلومات بقطر، تقدم كومباس آي تي سولوشنز حلولاً تقنية شاملة للشركات في جميع أنحاء دول الخليج، مدعومةً بخبرة في أحدث التقنيات.
+
+**English counterpart:** `/services/it-services`
+
+---
+
+### Arabic Network Infrastructure `/ar/services/network-infrastructure`
+
+**Title tag (55 chars):**
+البنية التحتية للشبكات في قطر ودول الخليج · Compass ITS
+
+**Meta description (153 chars):**
+تحتاج الشركات اليوم إلى اتصال دائم ومستقر. نبني العمود الفقري القوي الذي يبقي شبكتك تعمل — تصميم وتركيب وإدارة البنية التحتية للشبكات في قطر ودول الخليج.
+
+**English counterpart:** `/services/network-infrastructure`
+
+---
+
+### Arabic Cloud Solutions `/ar/services/cloud-solutions`
+
+**Title tag (48 chars):**
+الحلول السحابية في قطر ودول الخليج · Compass ITS
+
+**Meta description (143 chars):**
+نجعل رحلة تحديث أعمالك أيسر من خلال خدماتنا السحابية. نضع استراتيجيات سحابية ترفع كفاءة التكلفة وتزيد إنتاجية الأعمال وتيسّر التعاون بين الفرق.
+
+**English counterpart:** `/services/cloud-solutions`
+
+---
+
+### Arabic Cybersecurity `/ar/services/cybersecurity`
+
+**Title tag (54 chars):**
+خدمات الأمن السيبراني في قطر ودول الخليج · Compass ITS
+
+**Meta description (144 chars):**
+خدمات استشارات أمن سيبراني متكاملة في قطر ودول الخليج تتوافق مع رؤيتك التجارية — تقييم المخاطر واختبار الاختراق والامتثال وتنفيذ الحلول الأمنية.
+
+**English counterpart:** `/services/cybersecurity`
+
+---
+
+### Arabic Website Development `/ar/services/web-development`
+
+**Title tag (58 chars):**
+تطوير المواقع الإلكترونية في قطر ودول الخليج · Compass ITS
+
+**Meta description (148 chars):**
+نطور حلول مواقع إلكترونية تفاعلية تحقق نتائج أعمال ملموسة. وسّع قاعدة عملائك واحصل على مزيد من الفرص مع خدمات تطوير المواقع من كومباس آي تي سولوشنز.
+
+**English counterpart:** `/services/web-development`
+
+---
+
+### Arabic App Development `/ar/services/app-development`
+
+**Title tag (53 chars):**
+تطوير تطبيقات الجوال في قطر ودول الخليج · Compass ITS
+
+**Meta description (152 chars):**
+تطبيقات جوال أصيلة ومتعددة المنصات مبنية للأداء وسهولة الاستخدام والاستدامة على المدى البعيد — من أول تدفق للمستخدم حتى إدراج التطبيق في متجر التطبيقات.
+
+**English counterpart:** `/services/app-development`
+
+---
+
+### Arabic AI Workflows `/ar/services/ai-workflows`
+
+**Title tag (53 chars):**
+الذكاء الاصطناعي وأتمتة العمليات في قطر · Compass ITS
+
+**Meta description (151 chars):**
+حسّن نتائج أعمالك من خلال خدمات تطوير واستشارات الذكاء الاصطناعي في دول الخليج — التعلم الآلي وتصنيف المحتوى وأتمتة العمليات لتحقيق أهدافك بكفاءة أعلى.
+
+**English counterpart:** `/services/ai-workflows`
+
+---
+
+### Arabic Digital Marketing `/ar/services/digital-marketing`
+
+**Title tag (53 chars):**
+خدمات التسويق الرقمي في قطر ودول الخليج · Compass ITS
+
+**Meta description (140 chars):**
+قنوات البحث والمحتوى والإعلانات المدفوعة مصممة للعمل معاً — قياس أسبوعي وتحسين شهري وتراكم على مدى أرباع السنة. برامج تسويق رقمي تبنى لتدوم.
+
+**English counterpart:** `/services/digital-marketing`
+
+---
 ## Technical SEO Checklist (At Launch)
 
 - [ ] `sitemap.xml` generated and submitted to Google Search Console
