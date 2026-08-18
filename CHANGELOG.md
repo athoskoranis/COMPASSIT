@@ -21,6 +21,23 @@
 
 ## [Unreleased]
 
+### Added — 2026-08-18 (Category filter on the blog index)
+
+**Decision 076 — press a category, see only those posts:**
+The blog index listed all eight posts with no way to narrow them. It now carries a filter bar: `All (8)` plus one control per category — `AI & MANAGED IT (3)`, `CLOUD SOLUTIONS (2)`, `CYBERSECURITY (2)`, `IT SERVICES (1)`. Pressing a category shows only its posts; pressing it again clears the filter, as does `All`.
+
+**Categories are derived from `lib/posts.ts`, not listed.** The publishing bot appends to that file, so a post introducing a new category produces a new control with no one editing anything — the same reasoning that keeps the `ItemList` schema from drifting. Counts are shown because with four categories and eight posts, a filter that returns one result is otherwise hard to distinguish from a broken one.
+
+**The filter deliberately does not touch the URL.** A `?category=` parameter would be crawlable, turning one indexed page into five near-identical ones competing with `/blog` itself — a duplicate-content problem created in exchange for shareable filter links nobody asked for. Client state avoids it entirely.
+
+**Crawlers are unaffected**, which was the thing to check rather than assume: the server still renders all eight posts, and the `ItemList` still declares `numberOfItems: 8`. Filtering happens after hydration, so what Google indexes is unchanged.
+
+Styled from `DESIGN.md`: JetBrains Mono at 11px with eyebrow tracking, `radius-xl` to match the button spec, 16px/8px padding on the 4px scale. Signal Cyan marks the active control, which is exactly the "active states" use `BRAND.md` reserves it for, with Ink text on Signal for contrast. Inactive controls are Ink at 60% on the Paper surface.
+
+Accessible: real `<button>` elements in a labelled group, `aria-pressed` reflecting state, and a visually hidden `aria-live` region announcing the result count so a screen-reader user hears the list change.
+
+Verified in the browser by driving the controls: 8 posts initially; pressing `CYBERSECURITY (2)` leaves exactly 2, all in that category, with `aria-pressed` true on that control alone; pressing it again returns 8; `AI & MANAGED IT (3)` leaves 3; `All` returns 8 and the live region reads "8 articles". Server HTML still contains 8 post links against an `ItemList` of 8. `tsc --noEmit` and a clean `next build` pass.
+
 ### Fixed — 2026-08-18 (WhatsApp button pointed at the wrong number)
 
 **Decision 075 — the WhatsApp link used the calling number:**
