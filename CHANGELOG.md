@@ -21,6 +21,88 @@
 
 ## [Unreleased]
 
+### Removed — 2026-08-18 (`WebGLBackground.tsx`)
+
+**Decision 048 — The shader goes:**
+Decision 047 kept `components/ui/WebGLBackground.tsx` in the tree after the aurora replaced it, on the argument that a working implementation of the previous look is worth more than an abandoned experiment. That argument does not survive contact with Decision 045, which deleted four components for exactly the condition this one was left in. Consistency wins: nothing imports it, so it goes, and git history holds it if the old look is ever wanted back.
+
+Removes 90 lines of GLSL and its WebGL setup — shader compilation, program linking, uniform plumbing, the resize and visibility handlers, the rAF loop. The stale comment in `SiteBackground` that pointed at the file as still-present is corrected.
+
+`CHANGELOG` references to `WebGLBackground` in Decisions 044 and 047 are left alone. They are the record of what the component did while it existed, and rewriting them would make the history lie.
+
+Verified: `tsc --noEmit` and a clean `next build` both pass, no `gl_FragColor` or `OES_standard_derivatives` anywhere under `.next/static/`, `/` and `/contact` still render five `.aurora-blob` elements, `/blog` still renders the static texture, console clean.
+
+### Changed — 2026-08-18 (Aurora replaces the WebGL field on `/` and `/contact`)
+
+**Decision 047 — `SiteBackground` serves `AuroraBackground` where it used to serve `WebGLBackground`:**
+Decision 046 made the aurora cheap but left it imported by nothing. It is now the animated field on the two routes that had one. Every other route keeps the static contour texture, unchanged.
+
+The two draw the same kind of thing at very different prices. The shader ran a fullscreen pass built from two 5-octave `fbm()` calls per fragment, every frame, forever — even at the reduced resolution and 30fps from Decision 044, that is real GPU work on every device that loads the home page. The aurora is five gradient layers the compositor translates and nothing else: no filter, no per-frame rasterisation, no WebGL context.
+
+`WEBGL_ROUTES` is renamed `AURORA_ROUTES`. `AuroraBackground` picks up `aria-hidden`, matching the static texture it sits alongside — it is decoration and has no business in the accessibility tree.
+
+Verified on the running site: `/` and `/contact` render five `.aurora-blob` elements and no `<canvas>`; `/services/cybersecurity` and `/blog` render the static texture and no blobs. Computed styles on the blobs are `filter: none`, `will-change: transform`, `mix-blend-mode: screen`, with `blob-drift-*` running and eight gradient stops on blob 4. `/images/topo-lines.svg` resolves. Console clean, `tsc --noEmit` and `next build` both pass, and no `gl_FragColor` or `OES_standard_derivatives` survives in any client chunk.
+
+**Deleted by Decision 048 above.** `components/ui/WebGLBackground.tsx` was left in the tree here on the argument that a working implementation of the previous look is worth keeping. That did not survive comparison with Decision 045, which deleted four components for the same condition, so the shader is now gone too.
+
+### Changed — 2026-08-18 (Aurora field kept, made cheap)
+
+**Decision 046 — The aurora blobs and contour lines stay; what made them expensive does not:**
+Decision 045 removed `AuroraBackground` along with the other unreferenced components. Reinstated on request, with the cost taken out rather than the feature:
+
+- **Dropped `filter: blur(80px)` from `.aurora-blob`.** Every blob is a radial-gradient already fading through four or five stops to transparent — that *is* a blur, drawn for free by the gradient rasteriser. The 80px filter pass ran over surfaces up to 1100×860, five of them, under `mix-blend-mode: screen`, and added almost nothing visible. Where it was doing real work — the steeper indigo falloffs on blobs 4 and 5, which ran 0.90 to 0.25 across a quarter of the radius — extra stops at 10%, 40% and 68% carry it instead.
+- **Dropped `scale()` from all five `blob-drift-*` keyframes, keeping `translate()`.** Scaling a promoted layer forces it to re-rasterise at every new size; a pure translate is handed to the compositor and costs nothing per frame. The blobs still roam, they no longer breathe.
+- **`will-change: transform` stays.** Unlike the `will-change: filter` removed in Decision 044, this one is honest: transform is what animates here.
+- **`.topo-lines-pattern` now loads `/images/topo-lines.svg` instead of an inlined `data:` URI.** That was 1,786 bytes of encoded SVG sitting in a render-blocking stylesheet on every page, including all the ones that never draw it. As a file it loads in parallel, caches on its own terms, and `next.config.js` gives it the same immutable header as `topo-contours.svg`.
+- **Added a `prefers-reduced-motion` rule.** Five infinite animations had no reduced-motion path; the WebGL field already had one.
+
+Verified: all six `.aurora-blob*` classes present in the built stylesheet, `blur(80px)` gone, no `data:image/svg` left in any built CSS, `/images/topo-lines.svg` serves 200. `tsc --noEmit` and `next build` both pass.
+
+**Wired in by Decision 047 above.** At the time of this decision `AuroraBackground` was still imported by nothing; it is now the animated field on `/` and `/contact`.
+
+### Removed — 2026-08-18 (Unreferenced components in `components/ui/`)
+
+> **Partly superseded by Decision 046 above.** `AuroraBackground` and its CSS were reinstated on request and made cheap instead. The other four components, the dependency and the type shim stay removed. The line-count figure below describes the state before that reinstatement.
+
+**Decision 045 — Five components nothing imports, and everything that existed only to serve them:**
+`AuroraBackground`, `MeshDrift`, `TopoBackground`, `TopoBackgroundStatic` and `WhatsAppButton` were each defined in their own file and referenced from nowhere — verified across every file type, not just `.tsx`. They cost nothing at runtime, since a module outside the import graph is never built, but they anchored things that did cost:
+
+- **`.aurora-blob`, `.aurora-blob-1` through `-5`, and the five `blob-drift-*` keyframes** shipped in `globals.css` on every page. Hand-written CSS in the base layer is not purged the way unused Tailwind classes are.
+- **`.topo-lines-pattern`** went with them — a ten-path contour SVG inlined as a `data:` URI, used only by `AuroraBackground`.
+- **`@chriscourses/perlin-noise`** was imported by `TopoBackground` alone, so the dependency and its hand-written type shim (`types/chriscourses__perlin-noise.d.ts`, and with it the whole `types/` directory) are gone. `TopoBackgroundStatic` carried its own inlined perlin and never used the package.
+
+`globals.css` drops from 494 to 376 lines. `tsconfig.json` needed no change — it globs `**/*.ts` rather than naming `types/`.
+
+**Kept:** `public/images/topo-contours.svg`. Despite the name it belongs to `SiteBackground`, which serves it as the static field on every non-WebGL route, and `next.config.js` sets its immutable cache header. Nothing to do with the deleted `TopoBackground`.
+
+Verified: `tsc --noEmit` and `next build` both pass, home page renders, console clean.
+
+### Changed — 2026-08-18 (Home page scroll cost)
+
+**Decision 044 — The home page was paying for four effects nobody can see:**
+Scrolling the front page stuttered. Measured on the rendered page, every scroll frame had to repaint 9 `GlowCard`s worth of `background-attachment: fixed` gradients, re-run 11 backdrop filters, and composite all of it over a full-screen WebGL canvas redrawing at 60fps with a shader that runs two 5-octave `fbm()` calls per fragment. Four changes, none of which alter the design:
+
+- **`WebGLBackground` renders at CSS resolution, not `min(devicePixelRatio, 2)`.** On a 2x display that was four times the fragment work. The field is smooth gradients plus a contour line at 1.8% opacity — there is nothing in it a retina pixel grid resolves.
+- **`WebGLBackground` runs at 30fps.** The drift is `uTime * 0.22` for the blobs and `uTime * 0.012` for the contours. At that speed 30 and 60 are indistinguishable, and the halved GPU time is time the compositor gets back.
+- **Removed the shader's dead pointer machinery.** `uMouse`, `uMouseIn` and `uClicks` were declared, fed by three window listeners, an easing step and a four-slot click ring buffer, and referenced nowhere in `main()`. The shader has never had a pointer response. The listeners were the part that cost: `pointermove` on window without `{passive: true}` blocks scroll, and it duplicated the one `PointerTracker` already runs site-wide. Nav's scroll listener is now passive for the same reason.
+- **Dropped `backdrop-blur-[2px]` from `GlowCard` and `will-change: filter` from both outer-bloom rules.** Blurring a smooth gradient by 2px returns the same gradient, at the price of ten composited layers re-running a backdrop filter per frame. `will-change: filter` hinted at a value that never changes — only the background beneath it moves — so it promoted nine elements to their own layers and then defeated raster caching on each. The hero card's `.glass` blur(20px) is untouched: that one is a real effect on a single element. Card contrast is unaffected — blur does not dim.
+
+Verified after: backdrop-filtered elements 11 → 2, `will-change: filter` elements 9 → 0, console clean, `tsc --noEmit` and `next build` both pass. Frame timings were not captured — the browser pane was hidden for this session, which pins `window.innerWidth` to 0.
+
+**Also changed:** `Cairo` is now `preload: false` in `app/layout.tsx`. It only applies under `[dir="rtl"]`, which needs the language toggle, so four weights of an Arabic subset were on the critical path for every English visitor and used by none of them.
+
+**Flagged, then removed** — see Decision 045 below.
+
+### Fixed — 2026-08-18 (Footer reveal mask emitted NaN on every page load)
+
+**Decision 043 — `TextHoverEffect` no longer measures a cursor position it does not have:**
+`components/ui/hover-footer.tsx` seeded its `cursor` state at `{x: 0, y: 0}` and ran the measuring effect immediately on mount. Two problems came out of that, and the second was visible in the console on every route, since the footer renders site-wide:
+
+- The SVG is sized `width="100%" height="100%"`. Before layout settles its rect can be `0 × 0`, so `(cursor.y - rect.top) / rect.height` divides by zero and returns `NaN`. SVG rejects `cx="NaN%"` outright — two errors per page load.
+- Even with a valid rect, `{0, 0}` is a real viewport coordinate, not an absence of one. The mask positioned itself relative to the top-left of the window before anyone had moved the mouse.
+
+`cursor` now starts as `null` and the effect returns early until a pointer has actually been over the SVG, with a second guard for a zero-sized rect. The resting mask stays at the declared `50% / 50%` until the first real `mousemove`, which is what the component always intended. Verified: pointer at 25% width / 50% height resolves to `cx: 24.93%`, `cy: 50%`, and the console is clean on load. No visual change at rest or on hover.
+
 ### Changed — 2026-08-01 (DESIGN.md button and input spec)
 
 **Decision 042 — Button and input spec updated to describe what actually ships:**

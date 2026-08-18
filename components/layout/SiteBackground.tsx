@@ -1,15 +1,21 @@
 'use client'
 import { usePathname } from 'next/navigation'
-import WebGLBackground from '@/components/ui/WebGLBackground'
+import AuroraBackground from '@/components/ui/AuroraBackground'
 
-// Routes that get the animated WebGL field. Everything else gets the static
-// contour texture — same visual as the old canvas renderer, none of the cost.
-const WEBGL_ROUTES = new Set(['/', '/contact'])
+// Routes that get the animated field. Everything else gets the static contour
+// texture — same visual, none of the cost.
+//
+// This was WebGLBackground until the aurora replaced it. The shader drew a
+// fullscreen field from two 5-octave fbm() calls per fragment, every frame,
+// forever; the aurora is five gradient layers the compositor translates and
+// nothing else. Same role, a fraction of the GPU. The shader is gone from the
+// tree entirely; git history has it if the old look is ever wanted back.
+const AURORA_ROUTES = new Set(['/', '/contact'])
 
 export default function SiteBackground() {
   const pathname = usePathname()
 
-  if (WEBGL_ROUTES.has(pathname)) return <WebGLBackground />
+  if (AURORA_ROUTES.has(pathname)) return <AuroraBackground />
 
   return (
     <div

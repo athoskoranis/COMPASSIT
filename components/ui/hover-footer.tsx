@@ -12,7 +12,11 @@ export const TextHoverEffect = ({
   className?: string
 }) => {
   const svgRef = useRef<SVGSVGElement>(null)
-  const [cursor, setCursor] = useState({ x: 0, y: 0 })
+  // null until the pointer has actually been over the SVG. It used to start at
+  // {0,0}, which is a real coordinate the effect below would happily measure
+  // against -- so the mask jumped to wherever (0,0) fell relative to the SVG
+  // before anyone had moved the mouse.
+  const [cursor, setCursor] = useState<{ x: number; y: number } | null>(null)
   const [hovered, setHovered] = useState(false)
   const [maskPosition, setMaskPosition] = useState({ cx: '50%', cy: '50%' })
   const [shouldAnimate, setShouldAnimate] = useState(false)
@@ -37,12 +41,16 @@ export const TextHoverEffect = ({
   }, [])
 
   useEffect(() => {
-    if (svgRef.current) {
-      const svgRect = svgRef.current.getBoundingClientRect()
-      const cxPercentage = ((cursor.x - svgRect.left) / svgRect.width) * 100
-      const cyPercentage = ((cursor.y - svgRect.top) / svgRect.height) * 100
-      setMaskPosition({ cx: `${cxPercentage}%`, cy: `${cyPercentage}%` })
-    }
+    if (!cursor || !svgRef.current) return
+    const svgRect = svgRef.current.getBoundingClientRect()
+    // The SVG is sized 100%/100%, so before layout settles the rect can be
+    // 0x0 and the division below returns NaN. SVG rejects "NaN%" outright --
+    // that was two console errors per page load, on every route, because the
+    // footer renders everywhere.
+    if (!svgRect.width || !svgRect.height) return
+    const cxPercentage = ((cursor.x - svgRect.left) / svgRect.width) * 100
+    const cyPercentage = ((cursor.y - svgRect.top) / svgRect.height) * 100
+    setMaskPosition({ cx: `${cxPercentage}%`, cy: `${cyPercentage}%` })
   }, [cursor])
 
   return (

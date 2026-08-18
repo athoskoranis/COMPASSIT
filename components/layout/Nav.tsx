@@ -22,7 +22,9 @@ function useScroll(threshold: number) {
     setScrolled(window.scrollY > threshold)
   }, [threshold])
   useEffect(() => {
-    window.addEventListener('scroll', onScroll)
+    // Passive: this handler never calls preventDefault, and without the flag the
+    // browser has to wait for it to return before it can scroll.
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [onScroll])
   useEffect(() => { onScroll() }, [onScroll])
