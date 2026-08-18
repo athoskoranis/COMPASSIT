@@ -21,6 +21,21 @@
 
 ## [Unreleased]
 
+### Removed — 2026-08-18 (Unreferenced components in `components/ui/`)
+
+**Decision 045 — Five components nothing imports, and everything that existed only to serve them:**
+`AuroraBackground`, `MeshDrift`, `TopoBackground`, `TopoBackgroundStatic` and `WhatsAppButton` were each defined in their own file and referenced from nowhere — verified across every file type, not just `.tsx`. They cost nothing at runtime, since a module outside the import graph is never built, but they anchored things that did cost:
+
+- **`.aurora-blob`, `.aurora-blob-1` through `-5`, and the five `blob-drift-*` keyframes** shipped in `globals.css` on every page. Hand-written CSS in the base layer is not purged the way unused Tailwind classes are.
+- **`.topo-lines-pattern`** went with them — a ten-path contour SVG inlined as a `data:` URI, used only by `AuroraBackground`.
+- **`@chriscourses/perlin-noise`** was imported by `TopoBackground` alone, so the dependency and its hand-written type shim (`types/chriscourses__perlin-noise.d.ts`, and with it the whole `types/` directory) are gone. `TopoBackgroundStatic` carried its own inlined perlin and never used the package.
+
+`globals.css` drops from 494 to 376 lines. `tsconfig.json` needed no change — it globs `**/*.ts` rather than naming `types/`.
+
+**Kept:** `public/images/topo-contours.svg`. Despite the name it belongs to `SiteBackground`, which serves it as the static field on every non-WebGL route, and `next.config.js` sets its immutable cache header. Nothing to do with the deleted `TopoBackground`.
+
+Verified: `tsc --noEmit` and `next build` both pass, home page renders, console clean.
+
 ### Changed — 2026-08-18 (Home page scroll cost)
 
 **Decision 044 — The home page was paying for four effects nobody can see:**
@@ -35,7 +50,7 @@ Verified after: backdrop-filtered elements 11 → 2, `will-change: filter` eleme
 
 **Also changed:** `Cairo` is now `preload: false` in `app/layout.tsx`. It only applies under `[dir="rtl"]`, which needs the language toggle, so four weights of an Arabic subset were on the critical path for every English visitor and used by none of them.
 
-**Flagged, not changed:** `components/ui/` holds five components nothing imports — `AuroraBackground`, `MeshDrift`, `TopoBackground`, `TopoBackgroundStatic`, `WhatsAppButton`. They cost nothing at runtime (never in the import graph) but `.aurora-blob` and its five `blob-drift-*` keyframes still ship in `globals.css`, and `@chriscourses/perlin-noise` is a dependency only they use.
+**Flagged, then removed** — see Decision 045 below.
 
 ### Fixed — 2026-08-18 (Footer reveal mask emitted NaN on every page load)
 
