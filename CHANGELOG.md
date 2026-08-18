@@ -21,6 +21,19 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-18 (`RENDER_SCALE` back to 1)
+
+**Decision 063 — the field renders at full CSS resolution again:**
+Decision 061 dropped it to 0.5 on a benchmark reading of 27.5ms that had not had the ~16.7ms `readPixels` floor subtracted. Decision 062 established the real figure at **~4.6ms per frame**, about 28% of a 60fps budget. Halving the resolution of the background to reclaim 4.6ms is not a trade worth making, so it is reverted. The field is sharp again.
+
+**What stays gone is the setting that actually mattered.** The original `min(devicePixelRatio, 2)` renders 2560×1440 on a 2x display, which measures **~44.8ms per frame** net of the floor — well past a 30fps budget on its own. That is the reading that justified Decision 053, and it still does. `RENDER_SCALE = 1` keeps the canvas at CSS resolution regardless of device pixel ratio, which is the whole point.
+
+The comment above the constant now carries the corrected table, including the flat-colour control that exposes the measurement floor, so the next person to touch this dial does not repeat the mistake.
+
+Verified: canvas buffer 1280×720 against a 1265×720 CSS box at `devicePixelRatio` 1.5 — full CSS resolution rather than half, and notably *not* the 1920×1080 the old `min(dpr, 2)` would have produced here. Shader links, context not lost, `tsc --noEmit` and a clean `next build` pass.
+
+**Net effect on the lag: none expected.** This costs back ~4.6ms per frame relative to 0.5. It is a quality decision, not a performance one, and the thing making the site feel slow remains unidentified.
+
 ### Fixed — 2026-08-18 (Correction: Decision 061's shader numbers were inflated)
 
 **Decision 062 — the `readPixels` benchmark had a constant floor, and the octave reduction was not shipped because it buys nothing:**
