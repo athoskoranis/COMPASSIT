@@ -21,7 +21,24 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-18 (Aurora field kept, made cheap)
+
+**Decision 046 — The aurora blobs and contour lines stay; what made them expensive does not:**
+Decision 045 removed `AuroraBackground` along with the other unreferenced components. Reinstated on request, with the cost taken out rather than the feature:
+
+- **Dropped `filter: blur(80px)` from `.aurora-blob`.** Every blob is a radial-gradient already fading through four or five stops to transparent — that *is* a blur, drawn for free by the gradient rasteriser. The 80px filter pass ran over surfaces up to 1100×860, five of them, under `mix-blend-mode: screen`, and added almost nothing visible. Where it was doing real work — the steeper indigo falloffs on blobs 4 and 5, which ran 0.90 to 0.25 across a quarter of the radius — extra stops at 10%, 40% and 68% carry it instead.
+- **Dropped `scale()` from all five `blob-drift-*` keyframes, keeping `translate()`.** Scaling a promoted layer forces it to re-rasterise at every new size; a pure translate is handed to the compositor and costs nothing per frame. The blobs still roam, they no longer breathe.
+- **`will-change: transform` stays.** Unlike the `will-change: filter` removed in Decision 044, this one is honest: transform is what animates here.
+- **`.topo-lines-pattern` now loads `/images/topo-lines.svg` instead of an inlined `data:` URI.** That was 1,786 bytes of encoded SVG sitting in a render-blocking stylesheet on every page, including all the ones that never draw it. As a file it loads in parallel, caches on its own terms, and `next.config.js` gives it the same immutable header as `topo-contours.svg`.
+- **Added a `prefers-reduced-motion` rule.** Five infinite animations had no reduced-motion path; the WebGL field already had one.
+
+Verified: all six `.aurora-blob*` classes present in the built stylesheet, `blur(80px)` gone, no `data:image/svg` left in any built CSS, `/images/topo-lines.svg` serves 200. `tsc --noEmit` and `next build` both pass.
+
+**Still unreferenced.** `AuroraBackground` is imported by nothing, so none of this renders today — `SiteBackground` serves `WebGLBackground` on `/` and `/contact`, and the static contour texture elsewhere. The work above makes the component cheap for whenever it is wired in; until then its CSS ships and draws nothing.
+
 ### Removed — 2026-08-18 (Unreferenced components in `components/ui/`)
+
+> **Partly superseded by Decision 046 above.** `AuroraBackground` and its CSS were reinstated on request and made cheap instead. The other four components, the dependency and the type shim stay removed. The line-count figure below describes the state before that reinstatement.
 
 **Decision 045 — Five components nothing imports, and everything that existed only to serve them:**
 `AuroraBackground`, `MeshDrift`, `TopoBackground`, `TopoBackgroundStatic` and `WhatsAppButton` were each defined in their own file and referenced from nowhere — verified across every file type, not just `.tsx`. They cost nothing at runtime, since a module outside the import graph is never built, but they anchored things that did cost:
