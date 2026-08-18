@@ -21,6 +21,31 @@
 
 ## [Unreleased]
 
+### Added — 2026-08-18 (`SEO.md` entry for `/blog`)
+
+**Decision 066 — the blog finally has a spec, and the page now follows it:**
+`/blog` was the one live route `SEO.md` never covered, which is why Decision 065 had to leave its 93-character description in place: `CLAUDE.md` forbids inventing copy, and there was no spec to apply. This writes the entry and applies it in the same change, so the two cannot drift apart the way the service pages had.
+
+**Title (52 chars):** Blog — IT, Cloud and Security in Qatar · Compass ITS
+
+Follows the `X — detail · Compass ITS` shape already used by Cloud Solutions and App Development, keeps the geographic qualifier, and is well inside the 60-character limit.
+
+**Meta description (158 chars):** Network infrastructure, cloud migration, cybersecurity and AI automation, written plainly for businesses in Qatar and the GCC by the engineers doing the work.
+
+Names the four subjects the eight published posts actually cover rather than describing the blog in the abstract, which is what the old 93-character version did. "Written plainly … by the engineers doing the work" is `VOICE.md`'s Plain-spoken pillar and its "talk like the person who fixes it" rule, stated rather than claimed.
+
+Copy was checked mechanically against `VOICE.md`'s prohibitions — no exclamation marks, and none of *world-class*, *cutting-edge*, *state-of-the-art*, *industry-leading*, *best-in-class*, *synergy*, *leverage*, *ecosystem*, *holistic*, *robust* or *seamless*. Both lengths were measured by character, not byte, after the counting error corrected in Decision 065.
+
+The entry also records what already exists rather than leaving it undocumented: the `CollectionPage` + `ItemList` graph from Decision 049, the fact that the `ItemList` is generated from `lib/posts.ts` so it cannot drift when a post is added, and that both nodes reference the site-wide entity graph.
+
+**Placed between How We Work and Contact**, matching the order the nav presents.
+
+**Carried a warning into the document itself.** The entry notes that individual posts get their `Article` + `BreadcrumbList` + `FAQPage` graph from the publishing bot's template, which lives outside this repository — so a requirement written here does not reach new posts unless it is also specified there. That is the same gap that produced the six-versus-eight `ItemList` and the missing OG images.
+
+**Existing entries still carry wrong character counts.** Digital Marketing claims 57 for a 40-character title; several others are similarly off. The counts on this entry are accurate. The rest are worth a pass, but rewriting figures across a spec document is a content decision.
+
+Verified on the rendered page: title 52 characters, description 158, both inside `SEO.md`'s limits, brand appearing once. `tsc --noEmit` and a clean `next build` pass.
+
 ### Changed — 2026-08-18 (Titles and meta descriptions set from `SEO.md` verbatim)
 
 **Decision 065 — the spec now governs, on ten routes:**

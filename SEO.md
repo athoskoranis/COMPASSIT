@@ -288,6 +288,28 @@ IT engagement model Qatar
 
 ---
 
+### Blog `/blog`
+
+**Title tag (52 chars):**
+Blog — IT, Cloud and Security in Qatar · Compass ITS
+
+**Meta description (158 chars):**
+Network infrastructure, cloud migration, cybersecurity and AI automation, written plainly for businesses in Qatar and the GCC by the engineers doing the work.
+
+**Primary keyword:**
+IT insights Qatar
+
+**Secondary keywords:**
+IT blog Qatar · network infrastructure Qatar · cybersecurity Qatar · cloud migration Qatar · AI automation GCC
+
+**Schema:**
+`CollectionPage` + `ItemList`, already implemented in `app/blog/page.tsx`. The `ItemList` is generated from `lib/posts.ts` rather than hand-written, so it cannot drift from what the page renders when a post is added. Both nodes reference the site-wide entity graph — `isPartOf` → `#website`, `publisher` → `#organization` — declared in `app/layout.tsx`.
+
+**Note on the posts themselves:**
+Individual posts carry their own `Article` + `BreadcrumbList` + `FAQPage` graph, written by the publishing bot from its own template. That template lives outside this repository, so anything required of new posts has to be specified there as well as here.
+
+---
+
 ### Contact `/contact`
 
 **Title tag (50 chars):**

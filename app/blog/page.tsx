@@ -5,8 +5,8 @@ import { posts } from '@/lib/posts'
 const BASE = 'https://compass-its.com'
 
 export const metadata: Metadata = {
-  title: 'Blog',
-  description: 'Thinking out loud on technology, infrastructure, and what makes IT work in Qatar and the GCC.',
+  title: { absolute: "Blog — IT, Cloud and Security in Qatar · Compass ITS" },
+  description: "Network infrastructure, cloud migration, cybersecurity and AI automation, written plainly for businesses in Qatar and the GCC by the engineers doing the work.",
   alternates: { canonical: '/blog' },
   openGraph: {
     title: 'Blog — Compass IT Solutions',
