@@ -21,6 +21,37 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-08-18 (Custom Solutions title, in both documents)
+
+**Decision 068 — 63 characters down to 54, and the same string now in `SITEMAP.md`:**
+
+Was: `Custom Solutions — Web Platforms & Internal Tools · Compass ITS` (63, over the 60 limit)
+Now: `Custom Solutions — Web Platforms & Tools · Compass ITS` (54)
+
+Only "Internal" was dropped. "Web Platforms" is kept because the entry's primary keyword is *custom web platform development Qatar*, so that is the phrase carrying the search intent; the internal-tools work is still spelled out in full in the meta description, which is unchanged. Checked against `VOICE.md`'s prohibitions.
+
+**`SITEMAP.md` declared a different title for the same page, and it was worse.** It had `Custom Solutions — Bespoke platforms and internal tools · Compass ITS` at **69 characters**. Fixing only `SEO.md` would have left whoever eventually builds this page choosing between a compliant title in one document and a 69-character one in the other. Both now carry the identical string.
+
+`/services/custom-solutions` does not exist yet, so nothing shipped and no page metadata changed. This is a defect caught before it cost anything — which was the point of correcting the counts in Decision 067.
+
+**Discovered while verifying: the two documents disagree on 7 of the 14 titles they both declare.** Custom Solutions was one instance of a systemic conflict, not an isolated typo:
+
+| Route | `SEO.md` | `SITEMAP.md` |
+|---|---|---|
+| `/services` | IT Services & Solutions — Compass IT Solutions | Services & Solutions — Compass IT Solutions |
+| `/services/it-services` | IT Professional Services — Compass IT Solutions | IT Services — The IT team behind your IT team · Compass ITS |
+| `/services/web-development` | Website Development — Compass IT Solutions | Website Development — Sites that ship, measure, and keep earning · Compass ITS |
+| `/services/app-development` | App Development — iOS & Android · Compass ITS | Application Development — iOS & Android · Compass ITS |
+| `/services/ai-workflows` | AI Workflows & Automation — Compass IT Solutions | AI Workflows — Automate the manual middle · Compass ITS |
+| `/services/digital-marketing` | Digital Marketing — Compass IT Solutions | Digital Marketing — Marketing that compounds · Compass ITS |
+| `/how-we-work` | How We Work — Six Steps, Nothing Skipped · Compass ITS | How We Work — Six steps, nothing skipped · Compass ITS |
+
+`SITEMAP.md`'s `/services/web-development` title is **78 characters** — the longest breach in either document.
+
+**Not reconciled, because it is a copy decision.** `CLAUDE.md` names `SEO.md` as the source for title tags, and Decision 065 applied `SEO.md`'s versions to the live pages, so `SITEMAP.md` is the divergent one and aligning it to `SEO.md` would be the consistent move. But `SITEMAP.md`'s titles are the more distinctive writing — *The IT team behind your IT team*, *Automate the manual middle* — and several read closer to `VOICE.md` than the brand-led versions now shipping. Choosing which set survives is not a mechanical fix, and discarding the better copy by default would be the wrong call to make unasked.
+
+Verified: `SEO.md` now passes its own title limit on every entry; the only remaining breaches are the two live descriptions at 161 and 162 characters, both applied verbatim on instruction.
+
 ### Fixed — 2026-08-18 (`SEO.md` character counts, and the three breaches they were hiding)
 
 **Decision 067 — 28 of 30 counts in the document were wrong:**

@@ -144,7 +144,7 @@ compass-its.com/
 
 | Property | Value |
 |---|---|
-| Title tag | Custom Solutions — Bespoke platforms and internal tools · Compass ITS |
+| Title tag | Custom Solutions — Web Platforms & Tools · Compass ITS |
 | Nav label | Custom Solutions |
 | Primary CTA | "Describe your problem" → `/contact` |
 | Key sections | Headline · Engagement model · 8-step delivery grid · Go-live callout |

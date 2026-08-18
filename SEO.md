@@ -248,8 +248,8 @@ workflow automation Doha · AI agents Qatar · business process automation Qatar
 
 ### Custom Solutions `/services/custom-solutions`
 
-**Title tag (63 chars):**
-Custom Solutions — Web Platforms & Internal Tools · Compass ITS
+**Title tag (54 chars):**
+Custom Solutions — Web Platforms & Tools · Compass ITS
 
 **Meta description (157 chars):**
 Bespoke web platforms, internal tools, and data analytics products for organisations in Qatar. Built, tested, documented, and handed over with full runbooks.
