@@ -21,6 +21,27 @@
 
 ## [Unreleased]
 
+### Added — 2026-08-18 (`/about` and `/how-we-work`)
+
+**Decision 078 — two pages that were fully specified and never built:**
+`CONTENT.md` carried complete approved copy for both. `SEO.md` specified titles and meta descriptions. `SITEMAP.md` declared their sections, CTAs and nav placement. Neither existed, and nothing on the site linked to them — approved content sitting unused while `/how-we-work` in particular answers a question ("how does an engagement actually run") that nothing else on the site does.
+
+Every string is verbatim from the specs. No copy was written for this.
+
+**`/about`** — "Who we are." with the three approved paragraphs, the four-figure stat block (2025 · 10+ · 20+ · 10+), the Doha location label, and the three brand pillars via the existing `BrandPillars` component, matching the sections `SITEMAP.md` lists. `AboutPage` + `BreadcrumbList` schema, both referencing `#organization` and `#website`.
+
+**`/how-we-work`** — "Six steps, nothing skipped.", the four stats (Day 1 · Weekly · Documented · We stay), and the six steps from Discovery through Reporting, each with its approved description. Carries `HowTo` schema with six `HowToStep` entries, which is what this content actually is and makes it eligible for step-based results.
+
+**Two sections `SITEMAP.md` lists are absent, deliberately.** It calls for "Ongoing support" and "Technology stack" on `/how-we-work`, and `CONTENT.md` provides copy for neither. `CLAUDE.md` forbids inventing it, so they are left out and noted in the page file rather than filled with something plausible. Everything the specs do supply is present.
+
+**Linked, not just built.** An unlinked page is an unindexed one, so both are wired into the nav and the footer Company column in English and Arabic, and into the sitemap at priority 0.8. The nav's "About" previously pointed at `/#about`, a section on the home page; it now points at the real page. "Why Compass" stays an anchor because no such page exists.
+
+The Arabic nav label for How We Work is `طريقة عملنا`, the noun phrase from the hero's approved secondary CTA `اكتشف طريقة عملنا` — derived from existing copy rather than translated fresh.
+
+**Eyebrow labels are the one composed element:** `COMPASS ITS · ABOUT` and `COMPASS ITS · HOW WE WORK`, following the pattern the blog index already uses. Structural labels rather than prose, but noted as not being spec-sourced.
+
+Verified: both routes 200 and statically generated (36 → 38 pages), exactly one `h1` each, canonical present, titles matching `SEO.md` character for character, copy matching `CONTENT.md`, `HowTo` and `AboutPage` schema parsing with **0 dangling references**, and both linked from every page's nav and footer including the Arabic tree. `tsc --noEmit` and a clean `next build` pass.
+
 ### Added — 2026-08-18 (WhatsApp as a second `contactPoint` in the organisation schema)
 
 **Decision 077 — the schema now declares both channels:**

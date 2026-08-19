@@ -56,10 +56,13 @@ function MenuIcon({ open }: { open: boolean }) {
   )
 }
 
-const navAnchors = [
-  { key: 'about' as const,      anchor: 'about' },
+// About and How We Work are real routes. Why Compass has no page of its own,
+// so it stays an anchor into the home page's section.
+const navItems = [
+  { key: 'about' as const,      href: '/about' },
+  { key: 'howWeWork' as const,  href: '/how-we-work' },
   { key: 'whyCompass' as const, anchor: 'why-compass' },
-]
+] as const
 
 export default function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -128,14 +131,14 @@ export default function Nav() {
 
         {/* Right group: nav links + CTA */}
         <div className="hidden lg:flex items-center" style={{ gap: floating ? '6px' : '12px', transition: 'gap 300ms ease-out' }}>
-          {navAnchors.map(({ key, anchor }) => (
+          {navItems.map((item) => (
             <Link
-              key={anchor}
-              href={isHome ? `#${anchor}` : `/#${anchor}`}
+              key={item.key}
+              href={'href' in item ? item.href : isHome ? `#${item.anchor}` : `/#${item.anchor}`}
               className="font-archivo text-[14px] text-paper/70 hover:text-signal transition-all duration-300 ease-out"
               style={{ padding: floating ? '0 4px' : '0 8px' }}
             >
-              {tr.nav[key]}
+              {tr.nav[item.key]}
             </Link>
           ))}
 
@@ -211,14 +214,14 @@ export default function Nav() {
       {mobileOpen && (
         <div className="lg:hidden fixed top-[60px] left-0 right-0 bottom-0 z-50 bg-ink/95 backdrop-blur-sm border-t border-paper/10 overflow-y-auto">
           <div className="px-6 py-8 flex flex-col gap-6">
-            {navAnchors.map(({ key, anchor }) => (
+            {navItems.map((item) => (
               <Link
-                key={anchor}
-                href={isHome ? `#${anchor}` : `/#${anchor}`}
+                key={item.key}
+                href={'href' in item ? item.href : isHome ? `#${item.anchor}` : `/#${item.anchor}`}
                 onClick={() => setMobileOpen(false)}
                 className="font-archivo text-[17px] text-paper/80 hover:text-signal transition-colors"
               >
-                {tr.nav[key]}
+                {tr.nav[item.key]}
               </Link>
             ))}
 

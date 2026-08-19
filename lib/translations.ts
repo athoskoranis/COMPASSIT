@@ -5,6 +5,7 @@ export const t = {
     nav: {
       about: 'About',
       services: 'Services',
+      howWeWork: 'How We Work',
       whyCompass: 'Why Compass',
       cta: 'Get a quote',
       langToggle: 'عربي',
@@ -136,6 +137,7 @@ export const t = {
     nav: {
       about: 'عن الشركة',
       services: 'الخدمات',
+      howWeWork: 'طريقة عملنا',
       whyCompass: 'لماذا كومباس',
       cta: 'احصل على عرض سعر',
       langToggle: 'English',
