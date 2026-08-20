@@ -10,9 +10,43 @@ export const metadata: Metadata = {
   },
 }
 
+
+// ContactPage, as specified by SEO. Both @id references resolve to the entity
+// graph declared in app/layout.tsx — #website and #organization — so this node
+// joins the existing graph rather than standing on its own.
+//
+// BreadcrumbList is added alongside it. Every other page on the site carries one
+// (services, blog posts, /about, /how-we-work); /contact was the only page-level
+// schema without it, and a lone ContactPage node would have kept that gap.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ContactPage',
+      '@id': 'https://compass-its.com/contact#contactpage',
+      url: 'https://compass-its.com/contact',
+      name: 'Contact Compass IT Solutions',
+      description:
+        'Get in touch with Compass IT Solutions to discuss your IT requirements, request a quote, or learn more about our IT services.',
+      isPartOf: { '@id': 'https://compass-its.com/#website' },
+      about: { '@id': 'https://compass-its.com/#organization' },
+      mainEntity: { '@id': 'https://compass-its.com/#organization' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://compass-its.com' },
+        { '@type': 'ListItem', position: 2, name: 'Contact', item: 'https://compass-its.com/contact' },
+      ],
+    },
+  ],
+}
+
 export default function ContactPage() {
   return (
-    <main>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <main>
       <ContactCTA headingLevel={1} />
 
       {/* Full-width map */}
@@ -50,6 +84,7 @@ export default function ContactPage() {
           >Open in Google Maps →</a>
         </p>
       </div>
-    </main>
+      </main>
+    </>
   )
 }

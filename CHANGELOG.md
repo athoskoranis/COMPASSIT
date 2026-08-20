@@ -21,6 +21,21 @@
 
 ## [Unreleased]
 
+### Added — 2026-08-18 (`ContactPage` schema on `/contact`)
+
+**Decision 081 — SEO-supplied `ContactPage` node, added as given:**
+`/contact` carried no page-level structured data at all — the only route besides the blog posts without any. It now emits the `ContactPage` node exactly as specified: `@id`, `url`, `name`, `description`, and `isPartOf` / `about` / `mainEntity` pointing into the entity graph.
+
+**Nothing in it needed correcting.** All three `@id` references resolve to nodes that already exist — `#website` and `#organization`, declared in `app/layout.tsx`. That is the second time a supplied snippet has assumed those anchors; the first time, for the blog `CollectionPage`, they did not exist yet and both references dangled. They do now, so this one joined the graph unmodified.
+
+**`BreadcrumbList` was added alongside it**, which is the one addition beyond the brief. Every other page-level schema on the site carries one — the eight service pages, all eight blog posts, `/about` and `/how-we-work`. A lone `ContactPage` node would have left `/contact` as the only page with schema and no breadcrumb, so it is included for consistency. Easy to drop if the brief meant the node in isolation.
+
+The node's `description` is deliberately not the page's meta description. The meta description carries the location, phone number and email; the schema description states what the page is for. They serve different consumers and there is no requirement that they match.
+
+Verified on the rendered page: four nodes present — `LocalBusiness+ProfessionalService`, `WebSite`, `ContactPage`, `BreadcrumbList` — all JSON parsing, three nodes carrying `@id`, four `@id` references, **zero dangling**. `tsc --noEmit` and a clean `next build` pass.
+
+**Unrelated repair in the same change.** `.claude/launch.json` at the workspace root had lost its `compassit` entry, and the path in the first attempt to restore it was mangled by shell escaping into `C:\u0000.ClaudeCOMPASSIT.claudedev.cmd`. Rewritten with `String.raw` and verified to exist on disk. That file is shared with other sessions in this workspace and is gitignored, so it is noted here rather than committed.
+
 ### Fixed — 2026-08-18 (One contact address across the specs and the site)
 
 **Decision 080 — the docs advertised an address the site never used:**
