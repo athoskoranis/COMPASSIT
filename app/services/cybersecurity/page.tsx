@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Cybersecurity for businesses in Qatar. Fortinet-backed protection, risk registers, and 24/7 incident monitoring. No fear-selling — just clear assessment.",
   alternates: {
     canonical: '/services/cybersecurity',
-    languages: { en: '/services/cybersecurity', ar: '/ar/services/cybersecurity' },
+    languages: { en: '/services/cybersecurity', ar: '/ar/services/cybersecurity', 'x-default': '/services/cybersecurity' },
   },
   openGraph: {
     title: 'Top Cyber Security Service Provider in Qatar, GCC | Compass IT Solutions',

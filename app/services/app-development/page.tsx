@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Native and cross-platform mobile app development for businesses in Qatar. iOS and Android. Crash-free 99.5%+ before submission. 30-day post-launch support.",
   alternates: {
     canonical: '/services/app-development',
-    languages: { en: '/services/app-development', ar: '/ar/services/app-development' },
+    languages: { en: '/services/app-development', ar: '/ar/services/app-development', 'x-default': '/services/app-development' },
   },
   openGraph: {
     title: 'App Development — iOS & Android · Compass ITS',

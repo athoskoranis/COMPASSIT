@@ -86,7 +86,7 @@ export default function BlogIndexClient() {
           </p>
 
           <div className="space-y-8">
-            {visible.map((post) => (
+            {visible.map((post, i) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
@@ -98,6 +98,14 @@ export default function BlogIndexClient() {
                     alt={post.title}
                     width={440}
                     height={260}
+                    // The card is 440px wide from lg up and full-bleed below.
+                    // Without sizes, next/image assumes the image could fill the
+                    // viewport and requests w=1080 for a 440px slot — roughly two
+                    // and a half times the pixels needed, on every card.
+                    sizes="(min-width: 1024px) 440px, 100vw"
+                    // The first card is the largest element in view on this page,
+                    // so it is the LCP candidate. The rest stay lazy.
+                    priority={i === 0}
                     className="w-full h-[220px] lg:h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
                   />
                 </div>

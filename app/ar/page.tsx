@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "نبني البنية التحتية الهادئة التي تُمكِّن الفرق الطموحة من التحرك دون عوائق — مُثبَّتة بإتقان منذ البداية، وتعمل باستمرار على المدى البعيد في قطر ودول الخليج.",
   alternates: {
     canonical: '/ar',
-    languages: { en: '/', ar: '/ar' },
+    languages: { en: '/', ar: '/ar', 'x-default': '/' },
   },
   openGraph: { url: '/ar', locale: 'ar_QA' },
 }

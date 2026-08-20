@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "نجعل رحلة تحديث أعمالك أيسر من خلال خدماتنا السحابية. نضع استراتيجيات سحابية ترفع كفاءة التكلفة وتزيد إنتاجية الأعمال وتيسّر التعاون بين الفرق.",
   alternates: {
     canonical: '/ar/services/cloud-solutions',
-    languages: { en: '/services/cloud-solutions', ar: '/ar/services/cloud-solutions' },
+    languages: { en: '/services/cloud-solutions', ar: '/ar/services/cloud-solutions', 'x-default': '/services/cloud-solutions' },
   },
   openGraph: { url: '/ar/services/cloud-solutions', locale: 'ar_QA' },
 }

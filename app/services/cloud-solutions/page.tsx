@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Cloud architecture and migration for organisations in Qatar. AWS, Microsoft Azure, and hybrid environments — built for redundancy, performance, and security.",
   alternates: {
     canonical: '/services/cloud-solutions',
-    languages: { en: '/services/cloud-solutions', ar: '/ar/services/cloud-solutions' },
+    languages: { en: '/services/cloud-solutions', ar: '/ar/services/cloud-solutions', 'x-default': '/services/cloud-solutions' },
   },
   openGraph: {
     title: 'Cloud Consulting Company in Qatar, GCC | Compass IT Solutions',

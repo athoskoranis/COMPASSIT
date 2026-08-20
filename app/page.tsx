@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description: "Managed IT services for organisations across Qatar and the GCC. Network infrastructure, cloud, cybersecurity, and web development — wired right the first time.",
   alternates: {
     canonical: '/',
-    languages: { en: '/', ar: '/ar' },
+    languages: { en: '/', ar: '/ar', 'x-default': '/' },
   },
   openGraph: { url: '/' },
 }

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Search, social, and email marketing for organisations in Qatar. Measured weekly, optimised monthly. SEM, SEO, inbound, and B2B communication strategies.",
   alternates: {
     canonical: '/services/digital-marketing',
-    languages: { en: '/services/digital-marketing', ar: '/ar/services/digital-marketing' },
+    languages: { en: '/services/digital-marketing', ar: '/ar/services/digital-marketing', 'x-default': '/services/digital-marketing' },
   },
   openGraph: {
     title: 'Digital Marketing Agency in Qatar, GCC | Compass IT Solutions',

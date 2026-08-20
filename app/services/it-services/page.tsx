@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Managed IT services for Qatar-based organisations. 24/7 on-call, 99.9% uptime SLA, onsite and remote coverage. Starts with a 30-day diagnostic.",
   alternates: {
     canonical: '/services/it-services',
-    languages: { en: '/services/it-services', ar: '/ar/services/it-services' },
+    languages: { en: '/services/it-services', ar: '/ar/services/it-services', 'x-default': '/services/it-services' },
   },
   openGraph: {
     title: 'Managed IT Services in Qatar, GCC | Compass IT Solutions',

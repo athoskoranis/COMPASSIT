@@ -21,6 +21,32 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-08-18 (Image sizing, `x-default`, sitemap hreflang, and a real 404)
+
+**Decision 079 — the remaining items from the technical SEO audit:**
+
+**Blog cards were downloading images two and a half times larger than the slot.** The card is 440px wide from `lg` up, but the `<Image>` carried no `sizes`, so `next/image` assumed it could fill the viewport and production served `w=1080` for every card. Measured against the live optimiser:
+
+| Candidate | Bytes |
+|---|---|
+| w=640 | 7,054 |
+| w=750 | 8,596 |
+| **w=1080** (what shipped) | **13,666** |
+
+`sizes="(min-width: 1024px) 440px, 100vw"` lets the browser pick 640 or 750 on desktop — **roughly half the bytes**, on eight cards.
+
+**The LCP image was lazy-loading.** Nothing on the site used `priority`. The first blog card is the largest element in view on `/blog`, so it now carries it: `fetchPriority="high"` and a preload, with the other seven staying lazy. Adding it to more than one would have them competing.
+
+**`x-default` was missing from every hreflang cluster.** All 20 paired routes now declare it alongside `en` and `ar`, pointing at the English version — the fallback Google uses for a reader whose language matches neither. `/about` and `/how-we-work` correctly carry none; they have no Arabic counterpart.
+
+**The sitemap declared no language alternates at all.** It listed the Arabic URLs but never paired them, so the annotations lived only in page markup. Every paired URL now carries `xhtml:link` entries — **60 in total, 20 each of `en`, `ar` and `x-default`** — derived from `alternatesFor()` in `lib/locale.ts`, so the sitemap cannot claim a pairing the routing does not have. They are absolute, because a sitemap has no `metadataBase` to resolve relative paths against.
+
+**A real 404 replaces Next's default.** Body copy is the approved line from `VOICE.md`, and it returns a genuine `404` status with `noindex, follow` and six internal links out — a dead end is a crawl dead end as much as a reader's.
+
+**One copy conflict, decided rather than deferred.** `VOICE.md`'s 404 line gives `asahli@compass-its.com`, but the footer, the contact page and the organisation schema all use `info@compass-its.com`. Sending someone who has already hit a dead end to an address the rest of the site does not advertise is the worse inconsistency, so `info@` is used and the divergence is noted in the page file. `VOICE.md` should be reconciled — this is the same spec-versus-live drift that produced the title and character-count problems.
+
+Verified: `sizes` present with 640w as the smallest srcset candidate; first card `fetchPriority="high"`; 3 hreflang annotations per paired route including `x-default`; 60 `xhtml:link` entries in the sitemap; `/this-page-does-not-exist` returns HTTP 404 with `noindex` and the approved copy. `tsc --noEmit` and a clean `next build` pass at 38 pages.
+
 ### Added — 2026-08-18 (`/about` and `/how-we-work`)
 
 **Decision 078 — two pages that were fully specified and never built:**

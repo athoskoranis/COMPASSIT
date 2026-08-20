@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "AI agent deployment for business workflows across Qatar. Triage, drafting, reconciliation, and reporting — automated. Humans stay in the loop where it matters.",
   alternates: {
     canonical: '/services/ai-workflows',
-    languages: { en: '/services/ai-workflows', ar: '/ar/services/ai-workflows' },
+    languages: { en: '/services/ai-workflows', ar: '/ar/services/ai-workflows', 'x-default': '/services/ai-workflows' },
   },
   openGraph: {
     title: 'AI Workflow Automation Services in Qatar, GCC | Compass IT Solutions',

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Start a conversation with Compass IT Solutions. Most engagements begin with a 30-day diagnostic. Doha, Qatar — +974 5149 0825 — asahli@compass-its.com.",
   alternates: {
     canonical: 'https://compass-its.com/contact',
-    languages: { en: '/contact', ar: '/ar/contact' },
+    languages: { en: '/contact', ar: '/ar/contact', 'x-default': '/contact' },
   },
 }
 

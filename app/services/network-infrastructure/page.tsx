@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Network design, installation, and management for businesses in Qatar. Every cable labelled, every config documented. On-call support included.",
   alternates: {
     canonical: '/services/network-infrastructure',
-    languages: { en: '/services/network-infrastructure', ar: '/ar/services/network-infrastructure' },
+    languages: { en: '/services/network-infrastructure', ar: '/ar/services/network-infrastructure', 'x-default': '/services/network-infrastructure' },
   },
   openGraph: {
     title: 'Network Infrastructure Solutions in Qatar, GCC | Compass IT Solutions',

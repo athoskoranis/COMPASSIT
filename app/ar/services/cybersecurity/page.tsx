@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "خدمات استشارات أمن سيبراني متكاملة في قطر ودول الخليج تتوافق مع رؤيتك التجارية — تقييم المخاطر واختبار الاختراق والامتثال وتنفيذ الحلول الأمنية.",
   alternates: {
     canonical: '/ar/services/cybersecurity',
-    languages: { en: '/services/cybersecurity', ar: '/ar/services/cybersecurity' },
+    languages: { en: '/services/cybersecurity', ar: '/ar/services/cybersecurity', 'x-default': '/services/cybersecurity' },
   },
   openGraph: { url: '/ar/services/cybersecurity', locale: 'ar_QA' },
 }

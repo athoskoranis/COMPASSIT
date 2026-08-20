@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "معظم مشاريعنا تبدأ بمحادثة. أخبرنا بما تعمل عليه وسنعود إليك خلال يوم عمل واحد. خدمات تقنية معلومات مُدارة في الدوحة، قطر — هاتف 0825 5149 974+.",
   alternates: {
     canonical: '/ar/contact',
-    languages: { en: '/contact', ar: '/ar/contact' },
+    languages: { en: '/contact', ar: '/ar/contact', 'x-default': '/contact' },
   },
   openGraph: { url: '/ar/contact', locale: 'ar_QA' },
 }

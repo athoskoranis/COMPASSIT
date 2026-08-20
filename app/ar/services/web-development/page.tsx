@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "نطور حلول مواقع إلكترونية تفاعلية تحقق نتائج أعمال ملموسة. وسّع قاعدة عملائك واحصل على مزيد من الفرص مع خدمات تطوير المواقع من كومباس آي تي سولوشنز.",
   alternates: {
     canonical: '/ar/services/web-development',
-    languages: { en: '/services/web-development', ar: '/ar/services/web-development' },
+    languages: { en: '/services/web-development', ar: '/ar/services/web-development', 'x-default': '/services/web-development' },
   },
   openGraph: { url: '/ar/services/web-development', locale: 'ar_QA' },
 }

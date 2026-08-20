@@ -39,6 +39,8 @@ export function alternatesFor(englishPath: string) {
   return {
     en: englishPath,
     ar: englishPath === '/' ? '/ar' : `/ar${englishPath}`,
+    // Fallback for a reader whose language matches neither annotation.
+    'x-default': englishPath,
   }
 }
 

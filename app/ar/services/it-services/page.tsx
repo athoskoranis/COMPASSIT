@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "بوصفها شركة رائدة في خدمات تقنية المعلومات بقطر، تقدم كومباس آي تي سولوشنز حلولاً تقنية شاملة للشركات في جميع أنحاء دول الخليج، مدعومةً بخبرة في أحدث التقنيات.",
   alternates: {
     canonical: '/ar/services/it-services',
-    languages: { en: '/services/it-services', ar: '/ar/services/it-services' },
+    languages: { en: '/services/it-services', ar: '/ar/services/it-services', 'x-default': '/services/it-services' },
   },
   openGraph: { url: '/ar/services/it-services', locale: 'ar_QA' },
 }

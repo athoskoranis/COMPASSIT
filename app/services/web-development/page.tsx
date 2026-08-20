@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "End-to-end website development for organisations in Qatar. Lighthouse 95+, Core Web Vitals green at launch, 30-day post-launch support. Next.js and WordPress.",
   alternates: {
     canonical: '/services/web-development',
-    languages: { en: '/services/web-development', ar: '/ar/services/web-development' },
+    languages: { en: '/services/web-development', ar: '/ar/services/web-development', 'x-default': '/services/web-development' },
   },
   openGraph: {
     title: 'Web Development Services in Qatar, GCC | Compass IT Solutions',

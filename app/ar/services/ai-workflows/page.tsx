@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "حسّن نتائج أعمالك من خلال خدمات تطوير واستشارات الذكاء الاصطناعي في دول الخليج — التعلم الآلي وتصنيف المحتوى وأتمتة العمليات لتحقيق أهدافك بكفاءة أعلى.",
   alternates: {
     canonical: '/ar/services/ai-workflows',
-    languages: { en: '/services/ai-workflows', ar: '/ar/services/ai-workflows' },
+    languages: { en: '/services/ai-workflows', ar: '/ar/services/ai-workflows', 'x-default': '/services/ai-workflows' },
   },
   openGraph: { url: '/ar/services/ai-workflows', locale: 'ar_QA' },
 }

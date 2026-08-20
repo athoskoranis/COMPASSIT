@@ -1,10 +1,17 @@
 import { MetadataRoute } from 'next'
-import { AR_ROUTES } from '@/lib/locale'
+import { AR_ROUTES, alternatesFor } from '@/lib/locale'
 
 const BASE = 'https://compass-its.com'
 
 // Bump when the copy on the static pages changes. See the note in sitemap().
 const CONTENT_UPDATED = '2026-08-18'
+
+// alternatesFor() returns site-relative paths because page metadata resolves
+// them against metadataBase. A sitemap has no such base, so xhtml:link entries
+// must be absolute.
+const absolute = (langs?: Record<string, string>) =>
+  langs &&
+  Object.fromEntries(Object.entries(langs).map(([k, v]) => [k, `${BASE}${v === '/' ? '' : v}`]))
 
 const services = [
   'it-services',
@@ -52,6 +59,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: contentUpdated,
       changeFrequency: 'weekly',
       priority: 1,
+      alternates: { languages: absolute(alternatesFor('/')) },
     },
     {
       url: `${BASE}/about`,
@@ -70,12 +78,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: contentUpdated,
       changeFrequency: 'monthly',
       priority: 0.9,
+      alternates: { languages: absolute(alternatesFor('/contact')) },
     },
     ...services.map((slug) => ({
       url: `${BASE}/services/${slug}`,
       lastModified: contentUpdated,
       changeFrequency: 'monthly' as const,
       priority: 0.8,
+      alternates: { languages: absolute(alternatesFor(`/services/${slug}`)) },
     })),
     {
       url: `${BASE}/blog`,
@@ -91,6 +101,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: contentUpdated,
       changeFrequency: 'monthly' as const,
       priority: route === '/' ? 0.9 : 0.7,
+      alternates: { languages: absolute(alternatesFor(route)) },
     })),
     ...posts.map((post) => ({
       url: `${BASE}/blog/${post.slug}`,
