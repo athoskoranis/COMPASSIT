@@ -163,7 +163,7 @@ Apply the same voice to error states, empty states, form validation, and tooltip
 | Form field empty | "Add your name before we send this." |
 | Invalid email | "Check the email address — something looks off." |
 | Form submission success | "Message sent. We'll be in touch within one business day." |
-| 404 page | "This page doesn't exist. If you followed a link here, let us know: asahli@compass-its.com" |
+| 404 page | "This page doesn't exist. If you followed a link here, let us know: info@compass-its.com" |
 | Loading state | "One moment." |
 
 ---

@@ -16,7 +16,7 @@ We build the quiet infrastructure that lets ambitious teams move without frictio
 NETWORK · CLOUD · CONTINUITY
 
 ### Contact details
-- **Email:** asahli@compass-its.com
+- **Email:** info@compass-its.com
 - **Phone:** +974 5149 0825
 - **Website:** compass-its.com
 - **Social:** @compass.its
@@ -418,7 +418,7 @@ Message sent. We'll be in touch within one business day.
 
 | Field | Value |
 |---|---|
-| Email | asahli@compass-its.com |
+| Email | info@compass-its.com |
 | Phone | +974 5149 0825 |
 | Social | @compass.its |
 | Website | compass-its.com |

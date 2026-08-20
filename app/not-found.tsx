@@ -3,13 +3,10 @@ import Link from 'next/link'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
 import Button from '@/components/ui/Button'
 
-// Body copy is the approved 404 line from VOICE.md, with one change: the
-// address. VOICE.md gives asahli@compass-its.com, but every other contact
-// surface on the site — the footer, the contact page and the organisation
-// schema — uses info@compass-its.com. Sending someone who has already hit a
-// dead end to a different address than the rest of the site advertises is the
-// worse of the two inconsistencies, so info@ is used here and the divergence is
-// flagged for VOICE.md to resolve.
+// Body copy is the approved 404 line from VOICE.md, verbatim. The spec used to
+// give asahli@compass-its.com here while every user-facing surface displayed
+// info@compass-its.com; the documents were aligned to the live address, so the
+// two now agree and this needs no exception.
 //
 // "Page not found." is a structural label rather than prose; VOICE.md supplies
 // the sentence beneath it, not a heading.

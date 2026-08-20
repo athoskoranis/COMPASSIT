@@ -75,7 +75,7 @@ IT solutions Doha · MSP Qatar · network infrastructure Qatar · cloud services
     "@type": "ContactPoint",
     "telephone": "+974-5149-0825",
     "contactType": "customer service",
-    "email": "asahli@compass-its.com"
+    "email": "info@compass-its.com"
   },
   "sameAs": [
     "https://instagram.com/compass.its"
@@ -317,8 +317,8 @@ The one exception is the Open Graph image. The bot writes an `openGraph` block w
 **Title tag (35 chars):**
 Get in Touch — Compass IT Solutions
 
-**Meta description (151 chars):**
-Start a conversation with Compass IT Solutions. Most engagements begin with a 30-day diagnostic. Doha, Qatar — +974 5149 0825 — asahli@compass-its.com.
+**Meta description (149 chars):**
+Start a conversation with Compass IT Solutions. Most engagements begin with a 30-day diagnostic. Doha, Qatar — +974 5149 0825 — info@compass-its.com.
 
 **Primary keyword:**
 Compass IT Solutions contact

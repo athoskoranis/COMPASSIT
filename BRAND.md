@@ -219,7 +219,7 @@ The brand extends the circuit-board mark into a working status vocabulary. Use t
 | Short form | Compass ITS |
 | Tagline | Wired right. Kept running. |
 | Website | compass-its.com |
-| Email (general) | asahli@compass-its.com |
+| Email (general) | info@compass-its.com |
 | Email (brand) | brand@compass-its.com |
 | Phone | +974 5149 0825 |
 | Social handle | @compass.its |

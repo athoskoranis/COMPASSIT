@@ -21,6 +21,21 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-08-18 (One contact address across the specs and the site)
+
+**Decision 080 — the docs advertised an address the site never used:**
+Five specification files gave `asahli@compass-its.com` as the contact address. Every user-facing surface — the footer, the contact page, the organisation schema — displays `info@compass-its.com`. Nine occurrences across `VOICE.md`, `BRAND.md`, `CONTENT.md` (twice), `README.md` (twice), `SEO.md` (twice) and one live page were aligned to `info@`.
+
+**One of those was already public.** `SEO.md`'s contact meta description contains the address, and Decision 065 applied that description verbatim to `/contact` — so the live meta description advertised `asahli@` while the page body and the schema both said `info@`. Google would have shown the wrong address in the search snippet for the contact page. That was shipped by applying a spec faithfully, which is exactly the failure mode of a spec that has drifted from the site.
+
+**`info@` was chosen because it is the operative address, not because it appeared more often.** The contact form posts to `SMTP_USER`, an environment variable, so the repository cannot say where mail actually lands. What it can say is that every surface a visitor or crawler reads displays `info@`, in two components and the structured data. Aligning the documents to the site is the direction that changes nothing for anyone currently contacting the business. **If `asahli@` is the intended public address, the fix runs the other way** — the site would change instead, and that is a one-command reversal.
+
+`SEO.md`'s contact description dropped from 151 to 149 characters, still inside the 140–160 range, and every count in the document was recomputed to confirm nothing else moved. The whole spec still reports **no rule breaches** across 25 entries.
+
+`app/not-found.tsx` no longer carries an exception. It used `info@` while `VOICE.md` said otherwise, with a comment explaining the divergence; the copy is now verbatim and the comment records that the documents were reconciled rather than overridden.
+
+Verified: `asahli@` appears nowhere outside this changelog's historical record and one explanatory comment. Every rendered surface — home, contact, about, the 404 and the Arabic tree — shows `info@compass-its.com` and nothing else, and `/contact`'s meta description now reads `— info@compass-its.com.` `tsc --noEmit` and a clean `next build` pass.
+
 ### Fixed — 2026-08-18 (Image sizing, `x-default`, sitemap hreflang, and a real 404)
 
 **Decision 079 — the remaining items from the technical SEO audit:**

@@ -169,7 +169,7 @@ NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
 
 # Contact form (e.g. Resend, Formspree, or custom API)
 CONTACT_FORM_API_KEY=your_key_here
-CONTACT_FORM_TO_EMAIL=asahli@compass-its.com
+CONTACT_FORM_TO_EMAIL=info@compass-its.com
 ```
 
 ---
@@ -201,7 +201,7 @@ DNS is managed separately. Contact the project owner before making changes to DN
 ## Contact
 
 **Project owner:** Compass IT Solutions
-**Email:** asahli@compass-its.com
+**Email:** info@compass-its.com
 **Phone:** +974 5149 0825
 **Social:** @compass.its
 **Brand enquiries:** brand@compass-its.com
