@@ -13,6 +13,16 @@ export type Post = {
 // silently go stale. Newest first.
 export const posts: Post[] = [
   {
+    slug: 'how-it-services-help-businesses-reduce-costs',
+    category: 'IT SERVICES',
+    title: 'How IT Services Help Businesses Reduce Costs?',
+    excerpt:
+      'IT services cut costs mainly by replacing guesswork with visibility. A ticketing system tracks recurring issues, an asset register stops you paying for software and hardware you don\'t use, and IT consulting scales with the business instead of sitting as a fixed cost.',
+    date: 'August 2026',
+    readTime: '6 min read',
+    image: '/images/blog/how-it-services-help-businesses-reduce-costs-1.jpg',
+  },
+  {
     slug: 'how-to-build-network-infrastructure-qatar',
     category: 'IT SERVICES',
     title: 'How to Build Network Infrastructure in Qatar?',
