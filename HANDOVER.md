@@ -4,7 +4,7 @@
 > the most value. Everything here is either waiting on an asset, a decision, or an
 > account nobody in the codebase can reach.
 >
-> Last reviewed 18 August 2026.
+> Last reviewed 21 August 2026.
 
 ---
 
@@ -152,22 +152,48 @@ going somewhere unmonitored, everything else in this document is academic.
 
 ---
 
-## 07 — Pages the specification declares but the site does not have
+## 07 — Custom Solutions page
 
-**Blocking:** nothing. Noted so the gap is deliberate rather than forgotten.
+**Blocking:** nothing. One route left of the two this item used to carry.
 
-`SITEMAP.md` declares two routes that do not exist:
+`SITEMAP.md` declares `/services/custom-solutions` among the service sub-pages.
+`CONTENT.md` has **no copy** for it. It needs writing before it can be built —
+and until it is, the services index deliberately shows eight cards rather than
+nine, because a ninth linking to a 404 is worse than an absence.
 
-| Route | Status |
-|---|---|
-| `/services` | Services index. `CONTENT.md` has copy for it. Buildable now |
-| `/services/custom-solutions` | `CONTENT.md` has **no copy**. Needs writing first |
+Whoever writes it should follow the shape of the other eight blocks in
+`CONTENT.md`: heading, Signal Cyan subheading, body, a Why Compass callout with
+a mono source label, four key stats, and a capability table. Add the slug to the
+`services` array in `app/services/page.tsx`, `app/sitemap.ts`,
+`components/layout/Nav.tsx` and `components/layout/Footer.tsx`, and a card
+appears in the grid.
 
-`/about` and `/how-we-work` were in the same state and were built today from the
-approved copy, so the pattern is established.
+**`/services` is done** — built 21 August. Note for the record that this item
+previously said `CONTENT.md` had copy for it. It did not: the block headed
+`## IT Services Page (/services)` is the copy for `/services/it-services` and
+was spent there. The index was assembled from strings already approved
+elsewhere — the home page's services heading, the meta description in `SEO.md`,
+and the eight card titles and descriptions in `lib/translations.ts` — so no new
+prose was invented. See Decision 083.
 
-The services index is the more valuable of the two: it would give the eight
-service pages a hub, which currently only exists as a nav dropdown.
+---
+
+## 08 — OG images on `/about` and `/how-we-work`
+
+**Blocking:** nothing. Two pages share as bare links.
+
+Next's root `app/opengraph-image.tsx` does **not** cascade into child route
+segments — the same limitation that put item 04 on this list. Confirmed by
+inspection: `/` and all eight `/services/*` pages emit an `og:image`;
+`/about` and `/how-we-work` emit no image meta tag at all.
+
+`/services` had the same gap and got `app/services/opengraph-image.tsx` when it
+was built, following the sibling service pages. The fix for the other two is the
+same file, roughly 30 lines each, no assets required — it renders from
+`next/og`. Not done here because it sits outside the services index.
+
+Check any new top-level route for this before shipping it. `npm run check:og`
+covers the blog only.
 
 ---
 
@@ -175,7 +201,9 @@ service pages a hub, which currently only exists as a nav dropdown.
 
 Recorded so nobody re-opens them:
 
-- **Sitemap submission.** Done. 31 URLs, including the ten Arabic routes.
+- **Sitemap submission.** Done. Submitted at 31 URLs; now 32 with the services
+  index, including the ten Arabic routes. A resubmission is not required — the
+  sitemap is fetched, not pushed.
 - **Blog images.** The 19MB in `/public/images/blog` is repository weight only.
   Every reference goes through `next/image`; the heaviest file is served as 112KB
   of WebP.

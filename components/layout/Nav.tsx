@@ -7,6 +7,10 @@ import { useLanguage } from '@/context/LanguageContext'
 import { toArabic, toEnglish } from '@/lib/locale'
 
 const serviceLinks = [
+  // The hub first, then the eight pages under it. Both dropdowns are the only
+  // way into /services from the nav, because the "Services" control itself has
+  // to stay a toggle.
+  { label: 'All services', href: '/services' },
   { label: 'IT Services', href: '/services/it-services' },
   { label: 'Network Infrastructure', href: '/services/network-infrastructure' },
   { label: 'Cloud Solutions', href: '/services/cloud-solutions' },
