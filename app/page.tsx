@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Hero from '@/components/sections/Hero'
 import BrandPillars from '@/components/sections/BrandPillars'
+import ClientProof from '@/components/sections/ClientProof'
 import ServicesOverview from '@/components/sections/ServicesOverview'
 import StatsBar from '@/components/sections/StatsBar'
 import WhyCompass from '@/components/sections/WhyCompass'
@@ -25,6 +26,9 @@ export default function HomePage() {
     <main>
       <Hero />
       <BrandPillars />
+      {/* Renders nothing until lib/clients.ts has a logo or a reference. Once it
+          does, this is the section that replaces BrandPillars above. */}
+      <ClientProof />
       <ServicesOverview />
       <StatsBar />
       <WhyCompass />

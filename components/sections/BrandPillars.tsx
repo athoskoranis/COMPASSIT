@@ -1,7 +1,6 @@
 'use client'
 import { useRef, useState, useEffect } from 'react'
 import { useLanguage } from '@/context/LanguageContext'
-import EyebrowLabel from '@/components/ui/EyebrowLabel'
 import GlowCard from '@/components/ui/GlowCard'
 
 export default function BrandPillars() {
@@ -29,12 +28,10 @@ export default function BrandPillars() {
     <section id="about" className="py-20 lg:py-24 relative z-[1] overflow-hidden">
       <div className="max-w-content mx-auto px-6 lg:px-20 relative z-10">
         <div className="mb-14">
-          <EyebrowLabel className="mb-4 block">
-            {(() => {
-              const [a, b, c] = tr.brandPillars.eyebrow.split(' · ')
-              return <>{a} · <span className="text-paper">{b}</span> · {c}</>
-            })()}
-          </EyebrowLabel>
+          {/* No eyebrow. The NETWORK · CLOUD · CONTINUITY label repeated the hero
+              eyebrow directly above it, so the heading now carries the section on
+              its own. tr.brandPillars.eyebrow is left in translations — the hero
+              still uses the same string, and it costs nothing to keep. */}
           <h2 className="font-archivo text-heading-2 font-semibold text-paper tracking-[-0.02em]">
             {tr.brandPillars.heading}
           </h2>

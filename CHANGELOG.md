@@ -21,6 +21,25 @@
 
 ## [Unreleased]
 
+### Added — 2026-08-18 (Client proof section, and a handover document)
+
+**Decision 082 — Option N built, rendering nothing until the assets exist:**
+Of sixteen directions explored for the slot below the hero, N was chosen. It is the only one that addresses an absence rather than a presentation problem: the site carries **no client name, no logo and no quote anywhere**, and `20+ clients served` in the stats bar is its entire stock of social proof.
+
+`components/sections/ClientProof.tsx` and `lib/clients.ts` are in place and mounted on the home page. **Both arrays are empty and the section returns `null`,** so the rendered home page is byte-identical to before. That is the point: a placeholder logo row or an invented quote on a live site is worse than no social proof at all. It appears the moment either array has one entry.
+
+Layout puts a named reference left and a dimmed logo grid right, because one person saying something specific outranks a wall of marks. Logos render at 40% opacity on Ink, lifting to 70% on hover, so they read as evidence rather than decoration. `hasClientProof()` gates the whole section, and the grid reflows for fewer than six logos.
+
+**The pillars section stays for now.** Swapping `<BrandPillars />` for `<ClientProof />` in `app/page.tsx` is a one-line change once the assets land — until then, removing the pillars would leave a hole.
+
+**The eyebrow is gone from the pillars**, which was the request that started this. `NETWORK · CLOUD · CONTINUITY` sat directly beneath the identical eyebrow in the hero; the heading now carries the section alone. `tr.brandPillars.eyebrow` is left in translations because the hero uses the same string. Verified: `CONTINUITY` now appears exactly once in the rendered home page, in the hero.
+
+**`HANDOVER.md` collects everything the site needs from people rather than from code**, ordered by what unblocks the most value, with client logos first. Seven open items, each with what is blocked and what to collect: logos and references with file specs and the difference between a useful quote and a compliment; native Arabic review; the four reversed logo files `BRAND.md` documents but that do not exist; the blog publisher template, patched here but not fixed at source; the Business Profile WhatsApp entry, with an explicit warning not to change the primary phone; confirmation that `SMTP_USER` is a mailbox someone reads; and the two routes `SITEMAP.md` declares that the site does not have.
+
+It closes with four items recorded as **not** outstanding, so nobody reopens them: the sitemap is submitted, the blog images are repository weight rather than a delivery problem, the `www` redirect is correct, and the contact address is settled.
+
+Verified: home page renders no placeholder proof, `CONTINUITY` appears once, `tsc --noEmit` and a clean `next build` pass at 38 static pages.
+
 ### Added — 2026-08-18 (`ContactPage` schema on `/contact`)
 
 **Decision 081 — SEO-supplied `ContactPage` node, added as given:**
