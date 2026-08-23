@@ -21,6 +21,23 @@
 
 ## [Unreleased]
 
+### Added — 2026-08-23 (A readable sitemap)
+
+**Decision 086 — the sitemap moves to a route handler, so it can carry a stylesheet:**
+Opening `/sitemap.xml` in Chrome shows a wall of untagged text. That is not a defect in the file — it is served as `application/xml`, parses clean, and Google reads it fine. Chrome simply no longer ships the pretty-printer it used to render XML with. Verified two things before touching anything: `XSLTProcessor` still exists in Chrome 148 and transforms correctly, and a real sitemap carrying an `<?xml-stylesheet?>` instruction still transforms to `text/html` in that same browser. So the viewer is buildable; only Chrome's default is gone.
+
+Next's `MetadataRoute.Sitemap` generates the XML itself and offers no hook for a processing instruction, so `app/sitemap.ts` moved to `lib/sitemap-entries.ts` — same file, same dates, same `AR_ROUTES` derivation, renamed export — and `app/sitemap.xml/route.ts` now serialises it.
+
+**The bytes Google reads did not change.** The new serialiser was diffed against Next's own prerendered output: **one added line**, the `<?xml-stylesheet?>` instruction, 55 bytes. Element order, self-closing `xhtml:link` form, ISO timestamps and priority formatting are all identical. That diff is the whole safety argument for hand-rolling a live SEO surface, and it is worth re-running if the serialiser is ever touched.
+
+**Decision 087 — the stylesheet is served from a route, not `/public`:**
+Chrome refuses a stylesheet that does not arrive as an XML or XSL media type, and a static `.xsl` can be served as `octet-stream` depending on the host. `app/sitemap.xsl/route.ts` sets `text/xsl; charset=utf-8` explicitly, so the transform cannot fail on a header.
+
+XSLT 1.0, because that is what browsers implement. The output uses the `DESIGN.md` tokens — Ink field, Paper text, Signal Cyan links, Archivo and JetBrains Mono — so an inspection surface looks like the site it describes. Table of URL, hreflang chips, last modified, frequency and priority, with `noindex` on the rendered page.
+
+Verified in Chrome 148: `/sitemap.xml` transforms to `text/html` with an `<html>` root, 33 rows, 60 hreflang chips, Ink background `rgb(11, 14, 16)`, Signal links `rgb(43, 179, 230)`, no parser error. At 375px the page does not overflow — the table scrolls inside its own container — and the heading drops to 32px.
+
+
 ### Added — 2026-08-21 (The services index)
 
 **Decision 083 — `/services` built from approved strings, because CONTENT.md has none for it:**
