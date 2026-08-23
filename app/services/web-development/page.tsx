@@ -35,7 +35,8 @@ const jsonLd = {
       '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://compass-its.com' },
-        { '@type': 'ListItem', position: 2, name: 'Web Development', item: 'https://compass-its.com/services/web-development' },
+        { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://compass-its.com/services' },
+        { '@type': 'ListItem', position: 3, name: 'Web Development', item: 'https://compass-its.com/services/web-development' },
       ],
     },
     {

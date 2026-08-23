@@ -87,7 +87,7 @@ export default function ServicesPage() {
       <main>
         <section className="pt-[54px] relative z-[1] overflow-hidden">
           <div className="max-w-content mx-auto px-6 lg:px-20 py-20 lg:py-28 relative z-10">
-            <EyebrowLabel className="mb-6 block max-w-[560px]">
+            <EyebrowLabel className="mb-6 block max-w-[720px]">
               NETWORK · CLOUD · SECURITY · DEVELOPMENT · DIGITAL MARKETING · AI AUTOMATION
             </EyebrowLabel>
 

@@ -29,7 +29,12 @@ export default function ServicesOverview() {
       {/* Desktop: orbital dial */}
       <div className="hidden lg:block relative h-[880px]">
         <div className="absolute top-0 left-0 right-0 z-10 max-w-content mx-auto px-6 lg:px-20 pointer-events-none">
-          <EyebrowLabel className="mb-4 block">{tr.services.eyebrow}</EyebrowLabel>
+          {/* The eyebrow is the home page's only link to the services hub, which
+              otherwise had none. pointer-events-auto because the wrapper turns
+              them off so the orbital dial behind stays interactive. */}
+          <Link href="/services" className="pointer-events-auto inline-block mb-4 hover:underline underline-offset-4">
+            <EyebrowLabel>{tr.services.eyebrow}</EyebrowLabel>
+          </Link>
           <h2 className="font-archivo text-heading-1 font-semibold text-paper tracking-[-0.025em] max-w-[520px]">
             {tr.services.heading}{' '}
             <span className="text-signal">{tr.services.headingHighlight}</span>
@@ -43,7 +48,9 @@ export default function ServicesOverview() {
 
       {/* Mobile: list grid */}
       <div className="lg:hidden max-w-content mx-auto px-6">
-        <EyebrowLabel className="mb-4 block">{tr.services.eyebrow}</EyebrowLabel>
+        <Link href="/services" className="inline-block mb-4 hover:underline underline-offset-4">
+          <EyebrowLabel>{tr.services.eyebrow}</EyebrowLabel>
+        </Link>
         <h2 className="font-archivo text-[32px] font-semibold text-paper tracking-[-0.025em] mb-2">
           {tr.services.heading}{' '}
           <span className="text-signal">{tr.services.headingHighlight}</span>

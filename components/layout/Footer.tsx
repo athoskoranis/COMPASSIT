@@ -103,7 +103,12 @@ export default function Footer() {
           {/* Services */}
           <div>
             <p className="font-jetbrains text-[10px] text-paper/30 uppercase tracking-eyebrow mb-5">
-              {tr.footer.servicesLabel}
+              {/* The column heading is the link to the hub. Every page gets a
+                  footer link to /services this way, without inventing an "All
+                  services" string that would have no approved Arabic. */}
+              <Link href="/services" className="hover:text-signal transition-colors">
+                {tr.footer.servicesLabel}
+              </Link>
             </p>
             <ul className="space-y-3">
               {services.map((item) => (
@@ -128,7 +133,10 @@ export default function Footer() {
               {tr.footer.company.map((item) => (
                 <li key={item.label}>
                   <Link
-                    href={item.href}
+                    // A bare "#why-compass" scrolls nowhere on /services or a blog
+                    // post -- the section only exists on the home page. Prefix it
+                    // off-home, as Nav does with the same anchor.
+                    href={item.href.startsWith('#') && !isHome ? `/${item.href}` : item.href}
                     className="font-archivo text-[14px] text-paper/50 hover:text-signal transition-colors"
                   >
                     {item.label}

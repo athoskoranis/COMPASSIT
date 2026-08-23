@@ -125,7 +125,10 @@ export const t = {
       copyright: '© 2026 Compass IT Solutions. All rights reserved. · West Bay, Doha, Qatar',
       brandLine: 'BRAND V1.0 · MAY 2026 · BRAND@COMPASS-ITS.COM',
       company: [
-        { label: 'About',       href: '#about' },
+        // /about and /how-we-work are real pages. These pointed at home-page
+        // anchors, so the only internal link either page had was the nav.
+        { label: 'About',       href: '/about' },
+        { label: 'How We Work', href: '/how-we-work' },
         { label: 'Why Compass', href: '#why-compass' },
         { label: 'Blog',        href: '/blog' },
         { label: 'Contact',     href: '/contact' },
@@ -257,7 +260,11 @@ export const t = {
       copyright: '© ٢٠٢٦ كومباس لحلول تقنية المعلومات. جميع الحقوق محفوظة. · الدوحة، قطر',
       brandLine: 'BRAND V1.0 · MAY 2026 · BRAND@COMPASS-ITS.COM',
       company: [
-        { label: 'عن الشركة',   href: '#about' },
+        // Labels are the approved nav strings. These point at the English pages
+        // because there is no Arabic /about or /how-we-work -- the same
+        // compromise the nav already makes with the same two labels.
+        { label: 'عن الشركة',   href: '/about' },
+        { label: 'طريقة عملنا',  href: '/how-we-work' },
         { label: 'لماذا كومباس', href: '#why-compass' },
         { label: 'المدونة',      href: '/blog' },
         { label: 'تواصل',       href: '/contact' },

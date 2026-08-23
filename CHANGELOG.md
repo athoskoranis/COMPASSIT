@@ -21,6 +21,33 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-08-23 (Internal links to the pages Google has not crawled)
+
+**Decision 090 — the three newest pages had almost no internal links:**
+Search Console reports **8 pages indexed and 29 not**, with **22 sitting in "Discovered — currently not indexed"**: Google knows those URLs and has chosen not to spend crawl budget on them. Internal linking is the cheapest signal that moves that number, and `/about`, `/how-we-work` and `/services` were reachable only from the nav.
+
+Worse, the footer — on every page — pointed **`About` at `#about`** and `Why Compass` at `#why-compass`, home-page anchors rather than the real pages. And because the footer rendered `item.href` raw, both anchors were **dead links on every page except the home page**: nothing on `/services` or a blog post to scroll to.
+
+Three fixes, no new copy in either language:
+
+- **`About` now points at `/about`**, and **`How We Work` is added** pointing at `/how-we-work`. Labels reuse the approved nav strings, Arabic included (`عن الشركة`, `طريقة عملنا`). They point at the English pages because there is no Arabic counterpart — the same compromise the nav already makes with the same two labels.
+- **The footer's Services column heading is now the link to `/services`.** Using the heading avoids inventing an "All services" string that would have no approved Arabic, and every page gains a footer link to the hub.
+- **`#why-compass` is prefixed off-home** — `/#why-compass` when the reader is not on the home page, as `Nav` already does with the same anchor.
+
+**The home page links to the hub through its services eyebrow.** `SERVICES` is now a link, which is decent anchor text and needs no new string. The desktop heading block is `pointer-events-none` so the orbital dial behind it stays interactive, so the link sets `pointer-events-auto` on itself. **Verified by actually clicking it** in a real browser, not by reading the computed style: the click lands on `/services`.
+
+### Changed — 2026-08-23 (Breadcrumbs reflect the hub)
+
+**Decision 091 — `Home → Services → [Service]` on all eight service pages:**
+Every service page declared `Home → [Service]`, skipping a level that did not exist when they were built. Now that `/services` does exist, the trail matches the structure, which is what `BreadcrumbList` is for and what feeds breadcrumb rich results.
+
+Mechanical edit to seven `jsonLd` blocks: `Services` inserted at position 2, the service itself moved to position 3. `digital-marketing` already carried the `Services` level and was left alone. The Arabic service pages carry no JSON-LD at all, so they were untouched.
+
+**Six of the seven nearly slipped through.** A first pass changed only `ai-workflows`; the rest have CRLF line endings, so the `\n` in the pattern never matched, and the run then died in its own summary loop before reporting that. Re-run tolerant of `\r?\n` and idempotent, with all eight trails verified afterwards by parsing what the page actually renders rather than trusting the edit.
+
+Also widens the `/services` hero eyebrow from `max-w-[560px]` to `720px`. Seen on a real screen for the first time in this session: at desktop width the old constraint wrapped `· AI AUTOMATION` onto a second line on its own.
+
+
 ### Changed — 2026-08-23 (The sitemap viewer becomes a tree)
 
 **Decision 089 — the viewer shows structure, not a list:**
