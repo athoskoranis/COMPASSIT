@@ -62,7 +62,7 @@ The nav `Services` control has to stay a toggle, so it cannot double as a link t
 
 **The footer services column was left alone.** It is built from `tr.services.items`, so it renders in Arabic on `/ar` — and an `All services` entry there would either put an English label in the Arabic footer or send an Arabic reader to an English-only page. Neither is worth the extra entry point.
 
-**`app/sitemap.ts` gains the hub at priority 0.9**, above the 0.8 of the pages beneath it. The sitemap is now **32 URLs**, up from the 31 recorded as submitted.
+**`app/sitemap.ts` gains the hub at priority 0.9**, above the 0.8 of the pages beneath it. The sitemap is now **33 URLs**: the 31 recorded as submitted, plus the ninth blog post the publisher added on 21 August, plus the hub.
 
 
 ### Added — 2026-08-18 (Client proof section, and a handover document)

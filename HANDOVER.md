@@ -201,9 +201,10 @@ covers the blog only.
 
 Recorded so nobody re-opens them:
 
-- **Sitemap submission.** Done. Submitted at 31 URLs; now 32 with the services
-  index, including the ten Arabic routes. A resubmission is not required — the
-  sitemap is fetched, not pushed.
+- **Sitemap submission.** Done. Submitted at 31 URLs; now 33 — the ninth blog
+  post the publisher added on 21 August, and the services index — including the
+  ten Arabic routes. A resubmission is not required: the sitemap is fetched, not
+  pushed, and every new post arrives the same way.
 - **Blog images.** The 19MB in `/public/images/blog` is repository weight only.
   Every reference goes through `next/image`; the heaviest file is served as 112KB
   of WebP.
