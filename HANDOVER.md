@@ -178,23 +178,6 @@ prose was invented. See Decision 083.
 
 ---
 
-## 08 — OG images on `/about` and `/how-we-work`
-
-**Blocking:** nothing. Two pages share as bare links.
-
-Next's root `app/opengraph-image.tsx` does **not** cascade into child route
-segments — the same limitation that put item 04 on this list. Confirmed by
-inspection: `/` and all eight `/services/*` pages emit an `og:image`;
-`/about` and `/how-we-work` emit no image meta tag at all.
-
-`/services` had the same gap and got `app/services/opengraph-image.tsx` when it
-was built, following the sibling service pages. The fix for the other two is the
-same file, roughly 30 lines each, no assets required — it renders from
-`next/og`. Not done here because it sits outside the services index.
-
-Check any new top-level route for this before shipping it. `npm run check:og`
-covers the blog only.
-
 ---
 
 ## Not outstanding
@@ -211,3 +194,6 @@ Recorded so nobody re-opens them:
 - **`www` redirect.** `308`, path-preserving, single hop. Correct as-is.
 - **Contact email discrepancy.** Five specification files said `asahli@`, the site
   said `info@`. Aligned to `info@`, confirmed as intended.
+- **OG images.** Every top-level route declares one as of 23 August. Next's root
+  `opengraph-image` does not cascade into child segments, so check any new route
+  before shipping it — `npm run check:og` covers the blog only.
