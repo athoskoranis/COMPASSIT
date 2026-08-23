@@ -21,6 +21,19 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-23 (The sitemap viewer becomes a tree)
+
+**Decision 089 — the viewer shows structure, not a list:**
+A flat 33-row table answers "what URLs exist" but not "what shape is this site", which is the only reason to read a sitemap by eye. The stylesheet now nests: home at the root, the six one-segment sections beneath it, and every deeper URL hanging off the section its path starts with.
+
+**The nesting is derived, not declared.** A section is any URL whose path has one segment; its children are every URL whose path starts with that section plus a slash; and a remaining slash in what is left indents one level further, which is what puts the eight `/ar/services/*` routes a step deeper than `/ar/contact`. Nothing is hardcoded, so a new route lands in the right place without touching the stylesheet. XSLT 1.0 has no grouping construct, so depth is counted by subtracting the slash-stripped string length from the original.
+
+**The row-number column is gone.** With children grouped under their section, document order and visual order diverge — the blog index is 14th in the XML but its nine posts are 25th through 33rd, so the numbers ran 14, 25–33, 15, 16–24. A column that implies sequence while showing something else is worse than no column; the header already carries the count, now with the section count beside it.
+
+Paths are shown relative to their parent — `cybersecurity` under `/services` rather than the full URL a fourth time — with the absolute URL on the link's `title` and `href`. Section rows are Paper rather than Signal Cyan and carry a top border, so a section and its children read as one block.
+
+Verified: 33 rows, 6 sections, five columns and five cells in every row, connectors and indents correct at every level (`/services` children at 22px, `/ar/services/*` at 44px), no parser error, no page overflow at 375px where the table scrolls in its own container. **The XML is byte-identical** — diffed against the pre-stylesheet output with the instruction line stripped. This is presentation only.
+
 ### Fixed — 2026-08-23 (OG images for /about and /how-we-work)
 
 **Decision 088 — the last two pages that shared as bare links:**

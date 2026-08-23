@@ -6,6 +6,16 @@
  * media type, and a static .xsl file can be served as octet-stream depending
  * on the host. XSLT 1.0 because that is what browsers implement.
  *
+ * Presents the sitemap as a tree rather than a flat list, because the point of
+ * reading a sitemap by eye is seeing the shape of the site — which pages hang
+ * off which, and where a section is thinner than expected. The nesting is
+ * derived from the URLs themselves: a section is a one-segment path, and its
+ * children are every URL whose path starts with it. Nothing is hardcoded, so a
+ * new route appears in the right place on its own.
+ *
+ * XSLT 1.0 has no grouping construct, so depth is counted the long way round:
+ * string-length minus string-length of the same string with slashes stripped.
+ *
  * Palette and typefaces are the DESIGN.md tokens — Ink, Paper, Signal Cyan,
  * Archivo and JetBrains Mono — so an inspection surface still looks like the
  * site it describes.
@@ -20,6 +30,8 @@ const stylesheet = `<?xml version="1.0" encoding="UTF-8"?>
   exclude-result-prefixes="s xhtml">
 
   <xsl:output method="html" encoding="UTF-8" indent="yes" />
+
+  <xsl:variable name="base" select="'https://compass-its.com'" />
 
   <xsl:template match="/">
     <html lang="en">
@@ -64,17 +76,27 @@ const stylesheet = `<?xml version="1.0" encoding="UTF-8"?>
             white-space: nowrap;
           }
           tbody td {
-            padding: 14px 16px 14px 0;
-            border-bottom: 1px solid rgba(244,242,236,0.08);
-            vertical-align: top;
+            padding: 10px 16px 10px 0;
+            border-bottom: 1px solid rgba(244,242,236,0.06);
+            vertical-align: middle;
           }
           tbody tr:hover td { background: rgba(244,242,236,0.03); }
-          .n {
+          /* A section head and its children read as one block. */
+          tbody tr.section td { border-top: 1px solid rgba(244,242,236,0.10); }
+          tbody tr.section .tree a { color: #F4F2EC; font-weight: 500; }
+          tbody tr.section:hover .tree a { color: #2BB3E6; }
+          .tree { white-space: nowrap; }
+          .indent {
+            display: inline-block;
             font-family: 'JetBrains Mono', 'Courier New', monospace;
-            font-size: 12px; color: rgba(244,242,236,0.3);
           }
-          a { color: #2BB3E6; text-decoration: none; word-break: break-all; }
+          .branch { color: rgba(244,242,236,0.28); margin-right: 8px; }
+          a { color: #2BB3E6; text-decoration: none; }
           a:hover { text-decoration: underline; text-underline-offset: 4px; }
+          .root a {
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            color: #F4F2EC;
+          }
           .meta {
             font-family: 'JetBrains Mono', 'Courier New', monospace;
             font-size: 12px; color: rgba(244,242,236,0.45); white-space: nowrap;
@@ -85,7 +107,7 @@ const stylesheet = `<?xml version="1.0" encoding="UTF-8"?>
             font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
             color: rgba(244,242,236,0.55);
             border: 1px solid rgba(244,242,236,0.16);
-            border-radius: 6px; padding: 2px 7px; margin: 0 4px 4px 0;
+            border-radius: 6px; padding: 2px 7px; margin: 0 4px 2px 0;
           }
           .dash { color: rgba(244,242,236,0.2); }
           .scroll { overflow-x: auto; }
@@ -104,15 +126,15 @@ const stylesheet = `<?xml version="1.0" encoding="UTF-8"?>
             Search engines read the underlying XML directly and ignore this presentation.
           </p>
           <p class="count">
-            <xsl:value-of select="count(s:urlset/s:url)" /> URLs
+            <xsl:value-of select="count(s:urlset/s:url)" /> URLs ·
+            <xsl:value-of select="count(s:urlset/s:url[string-length(substring-after(s:loc, $base)) - string-length(translate(substring-after(s:loc, $base), '/', '')) = 1])" /> sections
           </p>
 
           <div class="scroll">
             <table>
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>URL</th>
+                  <th>Path</th>
                   <th>Alternates</th>
                   <th>Last modified</th>
                   <th>Frequency</th>
@@ -120,11 +142,41 @@ const stylesheet = `<?xml version="1.0" encoding="UTF-8"?>
                 </tr>
               </thead>
               <tbody>
-                <xsl:for-each select="s:urlset/s:url">
-                  <tr>
-                    <td class="n"><xsl:value-of select="position()" /></td>
+
+                <!-- The home page: the one URL with nothing after the origin. -->
+                <xsl:for-each select="s:urlset/s:url[substring-after(s:loc, $base) = '']">
+                  <tr class="root">
+                    <td class="tree">
+                      <a href="{s:loc}" title="{s:loc}">/</a>
+                    </td>
                     <td>
-                      <a href="{s:loc}"><xsl:value-of select="s:loc" /></a>
+                      <xsl:for-each select="xhtml:link">
+                        <span class="chip"><xsl:value-of select="@hreflang" /></span>
+                      </xsl:for-each>
+                    </td>
+                    <td class="meta"><xsl:value-of select="substring(s:lastmod, 1, 10)" /></td>
+                    <td class="meta"><xsl:value-of select="s:changefreq" /></td>
+                    <td class="meta"><xsl:value-of select="s:priority" /></td>
+                  </tr>
+                </xsl:for-each>
+
+                <!-- Sections: one path segment. Everything deeper hangs off one of
+                     these by prefix, so the tree needs no hardcoded structure. -->
+                <xsl:for-each select="s:urlset/s:url[string-length(substring-after(s:loc, $base)) - string-length(translate(substring-after(s:loc, $base), '/', '')) = 1]">
+                  <xsl:variable name="path" select="substring-after(s:loc, $base)" />
+                  <xsl:variable name="lastSection" select="position() = last()" />
+
+                  <tr class="section">
+                    <td class="tree">
+                      <span class="indent">
+                        <span class="branch">
+                          <xsl:choose>
+                            <xsl:when test="$lastSection">└─</xsl:when>
+                            <xsl:otherwise>├─</xsl:otherwise>
+                          </xsl:choose>
+                        </span>
+                      </span>
+                      <a href="{s:loc}" title="{s:loc}"><xsl:value-of select="$path" /></a>
                     </td>
                     <td>
                       <xsl:choose>
@@ -140,7 +192,42 @@ const stylesheet = `<?xml version="1.0" encoding="UTF-8"?>
                     <td class="meta"><xsl:value-of select="s:changefreq" /></td>
                     <td class="meta"><xsl:value-of select="s:priority" /></td>
                   </tr>
+
+                  <!-- Children of this section, in document order. -->
+                  <xsl:for-each select="/s:urlset/s:url[starts-with(substring-after(s:loc, $base), concat($path, '/'))]">
+                    <xsl:variable name="rest" select="substring-after(substring-after(s:loc, $base), concat($path, '/'))" />
+                    <!-- A remaining slash means another level down, as with
+                         /ar/services/cybersecurity under /ar. -->
+                    <xsl:variable name="deeper" select="string-length($rest) - string-length(translate($rest, '/', ''))" />
+                    <tr>
+                        <td class="tree">
+                        <span class="indent" style="padding-left: {22 + $deeper * 22}px">
+                          <span class="branch">
+                            <xsl:choose>
+                              <xsl:when test="position() = last()">└─</xsl:when>
+                              <xsl:otherwise>├─</xsl:otherwise>
+                            </xsl:choose>
+                          </span>
+                        </span>
+                        <a href="{s:loc}" title="{s:loc}"><xsl:value-of select="$rest" /></a>
+                      </td>
+                      <td>
+                        <xsl:choose>
+                          <xsl:when test="xhtml:link">
+                            <xsl:for-each select="xhtml:link">
+                              <span class="chip"><xsl:value-of select="@hreflang" /></span>
+                            </xsl:for-each>
+                          </xsl:when>
+                          <xsl:otherwise><span class="dash">—</span></xsl:otherwise>
+                        </xsl:choose>
+                      </td>
+                      <td class="meta"><xsl:value-of select="substring(s:lastmod, 1, 10)" /></td>
+                      <td class="meta"><xsl:value-of select="s:changefreq" /></td>
+                      <td class="meta"><xsl:value-of select="s:priority" /></td>
+                    </tr>
+                  </xsl:for-each>
                 </xsl:for-each>
+
               </tbody>
             </table>
           </div>
