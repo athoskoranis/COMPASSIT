@@ -4,7 +4,7 @@ import { AR_ROUTES, alternatesFor } from '@/lib/locale'
 export const BASE = 'https://compass-its.com'
 
 // Bump when the copy on the static pages changes. See the note in sitemapEntries().
-const CONTENT_UPDATED = '2026-08-18'
+const CONTENT_UPDATED = '2026-08-23'
 
 // alternatesFor() returns site-relative paths because page metadata resolves
 // them against metadataBase. A sitemap has no such base, so xhtml:link entries
@@ -43,8 +43,11 @@ export function sitemapEntries(): MetadataRoute.Sitemap {
   // date of the build. lastModified: new Date() meant every deploy told Google
   // that the home page, contact page and all eight service pages had been
   // modified -- which trains it to ignore the signal entirely. Bump this when
-  // page copy changes; 2026-08-18 is when titles and meta descriptions were
-  // reset from SEO.md across every one of these routes.
+  // page copy changes. 2026-08-23 is when /services was built, /about and
+  // /how-we-work gained OG images, and the service pages' breadcrumbs gained
+  // the Services level. The previous value predated /services existing at
+  // all, so the sitemap was reporting a modification date for a page that
+  // had not been written yet.
   const contentUpdated = new Date(CONTENT_UPDATED)
 
   // The blog index genuinely does change whenever a post lands, and that date is
