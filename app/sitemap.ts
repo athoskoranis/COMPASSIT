@@ -81,6 +81,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
       alternates: { languages: absolute(alternatesFor('/contact')) },
     },
+    {
+      // The services hub. No Arabic counterpart: /ar has the eight service
+      // pages but no index, so alternatesFor() correctly returns nothing here.
+      url: `${BASE}/services`,
+      lastModified: contentUpdated,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
     ...services.map((slug) => ({
       url: `${BASE}/services/${slug}`,
       lastModified: contentUpdated,

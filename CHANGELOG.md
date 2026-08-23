@@ -21,6 +21,50 @@
 
 ## [Unreleased]
 
+### Added — 2026-08-21 (The services index)
+
+**Decision 083 — `/services` built from approved strings, because CONTENT.md has none for it:**
+`SITEMAP.md` has declared this route since launch and the site did not have it. The eight service pages existed only as a nav dropdown, with no hub above them.
+
+`HANDOVER.md` recorded the route as "buildable now" on the grounds that `CONTENT.md` has copy for it. **It does not.** The block headed `## IT Services Page (/services)` at `CONTENT.md:160` is the copy for `/services/it-services` — "The IT team behind your IT team", the 30-day diagnostic callout, the four stats — and it was spent there when that page was built. There is no prose in `CONTENT.md` for an index.
+
+So nothing on this page is newly written, per the copy rule in `CLAUDE.md`:
+
+- **Heading** — `One partner, end-to-end.` from `t.en.services.heading`, the home page's services heading, with `end-to-end.` carrying the page's single Signal Cyan highlight.
+- **Intro** — the meta description from `SEO.md:118`, verbatim.
+- **Eyebrow** — `NETWORK · CLOUD · SECURITY · DEVELOPMENT · DIGITAL MARKETING · AI AUTOMATION`, the service-line eyebrow `SITEMAP.md:62` specifies for this page. It wraps to three lines at 375px, which is the cost of using the specified string rather than a shorter invented one.
+- **Cards** — title, description and category from `t.en.services.items`, already rendering on the home page and in the footer. CTA is `See [service name]` per `SITEMAP.md:61`, built from `t.en.services.seeLabel`.
+- **Close** — `<ContactCTA />`, as on `/about` and `/how-we-work`.
+
+**Eight cards, not nine.** `SITEMAP.md` declares `/services/custom-solutions` among the sub-pages. It has no copy and no route, so it is absent from the grid rather than linked to a 404. The comment above the `services` array says to add it when the page exists.
+
+**The grid sits on Paper.** Hero on Ink, grid on Paper, contact on Ink — the rhythm `/how-we-work` established. Cards use `border-ink/[0.12]` on `bg-ink/[0.02]`, lifting to `border-signal/50`, and the small mono CTA is the same `text-signal` treatment the blog index cards already use on Paper.
+
+**Slugs and icons pair with `t.en.services.items` by index** — the contract `ServicesOverview.tsx` and `Footer.tsx` already rely on. The page is a server component, so it imports `t` directly rather than through `LanguageContext`.
+
+**The `ItemList` schema is generated from the same array as the grid,** so it cannot claim a count the page does not render. That is the drift that put six posts in the blog index schema when there were eight. `CollectionPage` and a two-level `BreadcrumbList` alongside it; `SEO.md` specifies no schema for this route, so the shape follows the `AboutPage` precedent.
+
+**No Arabic counterpart.** `/ar` has the eight service pages but no index, and there is no approved Arabic copy for one. `alternatesFor('/services')` returns nothing, so no hreflang is emitted and the sitemap entry carries no alternates — correct rather than pointing an Arabic reader at English.
+
+### Added — 2026-08-21 (An OG image for the services hub)
+
+**Decision 084 — the root `opengraph-image` does not cascade into child segments:**
+Confirmed by inspection, not assumption: `/about`, `/how-we-work` and the new `/services` all rendered with **no `og:image` meta tag at all**, while `/` and every `/services/*` page carry theirs. Next's root file-convention image reaches the root route only.
+
+`app/services/opengraph-image.tsx` follows the sibling service pages exactly — Ink field, Signal Cyan radial blob, mono eyebrow, title, brand line, service lines, Signal Cyan base rule. Verified serving `200 image/png`, 56 KB.
+
+**This is the same defect class as the eight blog posts in `HANDOVER.md` item 04, and `/about` and `/how-we-work` still have it.** Both were built on 18 August and neither declares an image. Not fixed here — outside the services index — and now recorded in `HANDOVER.md` as item 08.
+
+### Changed — 2026-08-21 (Routes into the hub)
+
+**Decision 085 — `All services` heads both nav dropdowns:**
+The nav `Services` control has to stay a toggle, so it cannot double as a link to `/services`. `All services` is prepended to `serviceLinks` in `components/layout/Nav.tsx`, which feeds both the desktop dropdown and the mobile accordion from one array.
+
+**The footer services column was left alone.** It is built from `tr.services.items`, so it renders in Arabic on `/ar` — and an `All services` entry there would either put an English label in the Arabic footer or send an Arabic reader to an English-only page. Neither is worth the extra entry point.
+
+**`app/sitemap.ts` gains the hub at priority 0.9**, above the 0.8 of the pages beneath it. The sitemap is now **33 URLs**: the 31 recorded as submitted, plus the ninth blog post the publisher added on 21 August, plus the hub.
+
+
 ### Added — 2026-08-18 (Client proof section, and a handover document)
 
 **Decision 082 — Option N built, rendering nothing until the assets exist:**
