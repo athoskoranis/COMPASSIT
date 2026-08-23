@@ -21,6 +21,21 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-08-23 (OG images for /about and /how-we-work)
+
+**Decision 088 — the last two pages that shared as bare links:**
+Closes the gap Decision 084 found and `HANDOVER.md` item 08 recorded. Next's root `app/opengraph-image.tsx` does not cascade into child route segments, so `/about` and `/how-we-work` emitted no image meta tag at all — every share of either page on every social surface was a bare link. `/services` was fixed when it was built; these are the remaining two.
+
+Structure follows the service pages exactly: Ink field, Signal Cyan radial blob, mono eyebrow, 64px title, brand line, supporting line, Signal Cyan base rule. Copy is each page's own approved strings, nothing new written:
+
+- **`/about`** — `Who we are.` from the page h1, and `Founded 2025 · 10+ Professionals · 20+ Clients served · 10+ Projects delivered` from the stats table in `CONTENT.md`.
+- **`/how-we-work`** — `Six steps, nothing skipped.` from the page h1, and `Discovery · Strategy · Creativity · Execution · Optimisation · Reporting`, the six step names.
+
+**Both images were rendered and looked at**, not just checked for a 200 — the first visual verification in this run of work, since PNGs can be opened directly where a browser screenshot was unavailable. Layout matches `/services/cybersecurity` element for element. `/about/opengraph-image` serves 52 KB, `/how-we-work/opengraph-image` 58 KB, both `200 image/png`, and both pages now emit `og:image`.
+
+**Every top-level route now declares one.** Worth checking for any new one: the root file does not reach it.
+
+
 ### Added — 2026-08-23 (A readable sitemap)
 
 **Decision 086 — the sitemap moves to a route handler, so it can carry a stylesheet:**
