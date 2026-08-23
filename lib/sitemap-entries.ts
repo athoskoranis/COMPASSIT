@@ -1,9 +1,9 @@
 import { MetadataRoute } from 'next'
 import { AR_ROUTES, alternatesFor } from '@/lib/locale'
 
-const BASE = 'https://compass-its.com'
+export const BASE = 'https://compass-its.com'
 
-// Bump when the copy on the static pages changes. See the note in sitemap().
+// Bump when the copy on the static pages changes. See the note in sitemapEntries().
 const CONTENT_UPDATED = '2026-08-18'
 
 // alternatesFor() returns site-relative paths because page metadata resolves
@@ -38,7 +38,7 @@ const posts = [
   { slug: 'ai-workflow-automation-gcc-businesses', published: '2026-06-01' },
 ]
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export function sitemapEntries(): MetadataRoute.Sitemap {
   // Static pages report the date their content last actually changed, not the
   // date of the build. lastModified: new Date() meant every deploy told Google
   // that the home page, contact page and all eight service pages had been
