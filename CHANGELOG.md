@@ -21,6 +21,43 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-27 (Service copy against the Humanizer patterns)
+
+**Decision 092 — 13 strings rewritten, and the em dashes deliberately kept:**
+Ran the 35 "Signs of AI writing" patterns from `blader/humanizer` across every prose surface on the site. The audit mattered more than the edit: **597 of the ~650 hits were em dashes**, and acting on those would have been a brand rewrite rather than a cleanup.
+
+**Em dashes stay.** Humanizer §14 says to remove them "unless the writer's sample uses them — in that case, match the sample's rate." This site has a sample: 64 em dashes in the client-approved `CONTENT.md`, and `VOICE.md:110` uses one in its own **approved** example (`30-day diagnostic — risk register, system map, quick wins — before we propose anything long-term`). Applying §14 here would have contradicted the skill's own rule.
+
+**What the audit actually found.** The AI-writing was concentrated in one file — `lib/serviceTranslations.ts`, the long-form service copy, which reads like agency SEO writing rather than the rest of the site. It was already violating the project's own spec: `VOICE.md:109` lists *"We offer comprehensive end-to-end managed IT solutions"* as a we-don't-say, and line 156 shipped *"provides comprehensive end-to-end IT services and IT solutions."* So this is compliance work, not an override of the `CLAUDE.md` rule that copy comes from `CONTENT.md`.
+
+Thirteen strings rewritten, every claim and keyword kept, nothing invented:
+
+| Pattern | Was | Now |
+|---|---|---|
+| §07, §17 | `Comprehensive Cyber Security Consulting Services Qatar, Saudi Arabia, UAE` | `Cyber security consulting in Qatar, Saudi Arabia, and the UAE` |
+| §07, §17 | `Comprehensive Digital Marketing Services for Businesses in Qatar and the GCC` | `Digital marketing services for businesses in Qatar and the GCC` |
+| VOICE.md:109, §05 | `As a leading IT services company in Qatar … comprehensive end-to-end IT services … backed by up-to-date knowledge and expertise in the latest IT technologies` | `Compass IT Solutions provides IT services and IT solutions to businesses in Qatar and across the GCC.` |
+| §10, §07 | `As the leading IT support company … comprehensive, reliable, and future-ready … designed to empower your business with technology and peace of mind` | `We provide IT support to businesses in Qatar and across the GCC, including complete IT setup. Once it is running, we keep it running.` |
+| §07 | `unlock its true potential … how to utilize AI` | `We help you decide where AI fits in your business and what it should do there.` |
+| §07 | `Leverage our AI consulting services to help you harness the potential of…` | `Our AI consultants build a roadmap for adopting the AI technologies that fit your business…` |
+| §01, §07 | `We understand the vital role that technology plays…and we are committed to` | `Your business runs on this technology. We take on the IT problems that get in the way of it` |
+| §07 | `trusted IT supplier … comprehensive selection … advanced security systems from globally recognized brands` | `We supply genuine hardware and software in Qatar: servers, laptops, networking devices, printers, and security systems from the major brands.` |
+| §24 | `vital to ensure that any potential threats or issues are tackled well in advance and possible system bottlenecks eliminated beforehand` | `Monitoring them and keeping them maintained is how threats and bottlenecks get caught early.` |
+| §23 | `in order to keep your business goals at primary focus` | `to keep your business goals in focus` |
+
+Keyword nouns were preserved in both headings, because those pages are the ones earning non-brand impressions. What went is the puffery around them: `leading`, `Comprehensive`, `trusted`, `advanced`, `globally recognized`.
+
+**§19 also caught a real typographic bug.** `translations.ts:86` opened its pull quote with a **closing** curly mark — `”Go-live is a checkpoint…”` — a backwards quotation mark on the live home page. Both quotes are now straight.
+
+**What was left alone, deliberately:**
+- **`CONTENT.md` and the other specs.** They are the source of truth, and the approved copy in them is already clean by these standards.
+- **The nine blog posts.** Notable, because they are bot-written: their only hits were `highest-leverage item` and `doors look unlocked`, both concrete and correct.
+- **`In this article` ×9** — a table-of-contents label, not prose announcing a point. A regex hit, not a §28 violation.
+- **`competitive landscape` ×2** — standard business vocabulary in context, not the §07 tell.
+
+**The Arabic now diverges.** `lib/serviceTranslations.ts` is bilingual and only the English was rewritten. The Arabic still carries the same marketing-speak: **الرائدة (leading) ×5 and شامل/الشاملة (comprehensive) ×13**. Rewriting Arabic prose is exactly what `HANDOVER.md` item 02 is waiting on a native speaker for, so it was not attempted. Item 02 now records this.
+
+
 ### Fixed — 2026-08-23 (Internal links to the pages Google has not crawled)
 
 **Decision 090 — the three newest pages had almost no internal links:**

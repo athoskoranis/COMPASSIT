@@ -69,6 +69,14 @@ The source strings are approved. **The trimming and joining are not native work.
 They should be read by an Arabic speaker before being treated as final. The
 relevant section is `## Arabic Pages` in `SEO.md`, which carries the same warning.
 
+A third thing, added 27 August: the English service copy in
+`lib/serviceTranslations.ts` was rewritten against the Humanizer patterns and
+the site's own `VOICE.md`, and **the Arabic in that file was not**. The two
+languages now say different things in about a dozen places — the Arabic still
+carries الرائدة (leading) five times and شامل/الشاملة (comprehensive) thirteen
+times, claims the English no longer makes. Whoever reviews the Arabic should
+bring it in line rather than translating the old English back.
+
 Two specific things to check: whether the mixed-script titles read naturally
 (`خدمات الأمن السيبراني في قطر ودول الخليج · Compass ITS`), and whether the
 Arabic-Indic phone digits are the right convention for the audience.
