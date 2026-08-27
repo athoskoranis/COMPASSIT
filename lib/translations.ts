@@ -83,11 +83,11 @@ export const t = {
         { number: '05', heading: 'Cloud-native capability',      body: 'Whether AWS, Azure, or hybrid environments — we architect for redundancy, performance, and security from the ground up.' },
         { number: '06', heading: 'Full-stack delivery',          body: 'Network infrastructure to web development to digital marketing — one partner, end-to-end accountability, no handoff gaps.' },
       ],
-      quote: '”Go-live is a checkpoint, not a finish line.”',
+      quote: '"Go-live is a checkpoint, not a finish line."',
       quoteAttr: '/ the compass commitment',
     },
     callout: {
-      quote: '“Go-live is a checkpoint, not a finish line.”',
+      quote: '"Go-live is a checkpoint, not a finish line."',
       attr: '/ engagement model · compass-its',
     },
     contact: {

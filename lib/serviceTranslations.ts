@@ -44,7 +44,7 @@ const cybersecurity: Record<Lang, ServicePageData> = {
     sections: [
       {
         eyebrow: 'OUR SERVICES',
-        heading: 'Comprehensive Cyber Security Consulting Services Qatar, Saudi Arabia, UAE',
+        heading: 'Cyber security consulting in Qatar, Saudi Arabia, and the UAE',
         intro: 'Compass IT Solutions offers full-scale cybersecurity consultant services in Qatar, GCC in line with your intended business vision. One of the leading cybersecurity companies in Qatar, Saudi Arabia, UAE — our services enable organizations to evolve from reactive defenses to proactive cyber resilience.',
         items: [
           { title: 'Risk Assessment', description: 'Identifying loopholes and other vulnerabilities in your IT system helps you evaluate potential impacts on data integrity, confidentiality, and availability. By implementing the appropriate countermeasures under our advice, the risks and possible consequences of any breach can be minimized.' },
@@ -55,7 +55,7 @@ const cybersecurity: Record<Lang, ServicePageData> = {
           { title: 'Business Continuity Planning', description: 'Imagine discovering a significant data breach or a natural disaster when you woke up the following day. Such disruptions will have a significant effect on your company. For the benefit of your business, you must not give up; instead, you must get up and get back into shape.' },
           { title: 'Vulnerability Assessment & Penetration Testing (VAPT)', description: 'Businesses can remain resolute in the face of lawful cyberattacks thanks to Vulnerability and penetration testing. This test will identify the weak points in every piece of technology you own, including computers, servers, firewalls, and networks. Any business, regardless of size, must use VAPT to find its weak points.' },
           { title: 'ISO Compliance', description: "We help you become compliant with various ISO certifications and obtain them. The International Standards Organization, or ISO, is a separate entity that develops the standards for the group. A standard is the effectiveness, safety, and caliber of a business's goods or services." },
-          { title: 'Data Privacy and Security', description: 'Organizations nowadays place a higher priority on evolving customer privacy expectations, stakeholder profitability demands, and tighter privacy rules. Consequently, there is a growing focus on personal data, and companies have to navigate a complicated landscape of regulatory, reputational, and data privacy risks.' },
+          { title: 'Data Privacy and Security', description: 'Privacy rules are tightening and customers expect more control over their data. Holding personal information now carries regulatory, reputational, and privacy risk at the same time.' },
         ],
       },
     ],
@@ -153,7 +153,7 @@ const itServices: Record<Lang, ServicePageData> = {
     hero: {
       eyebrow: 'IT SERVICES · QATAR · GCC',
       title: 'Best IT Service Company In Qatar-GCC',
-      subtitle: 'As a leading IT services company in Qatar, Compass IT Solutions provides comprehensive end-to-end IT services and IT solutions to businesses across the GCC — backed by up-to-date knowledge and expertise in the latest IT technologies.',
+      subtitle: 'Compass IT Solutions provides IT services and IT solutions to businesses in Qatar and across the GCC.',
       primaryCta: 'Contact us',
     },
     sections: [
@@ -164,7 +164,7 @@ const itServices: Record<Lang, ServicePageData> = {
         items: [
           { title: 'Managed IT Support', description: 'Compass IT Solutions is a trusted and reputable managed IT Support Company in Qatar. We help your business grow to the highest level without IT obstacles, addressing every challenge that hinders your growth.' },
           { title: 'Onsite & Remote IT Support', description: "Contact us for reliable onsite and remote IT support solutions tailored to meet your business needs in Qatar. Our IT support is prompt and readily available — simply submit a request, and we'll get back to you without delay." },
-          { title: 'IT Hardware & Software Supply', description: 'As a trusted IT supplier in Qatar, Compass IT Solutions provides a comprehensive selection of genuine hardware and software solutions, including servers, laptops, networking devices, printers, and advanced security systems from globally recognized brands.' },
+          { title: 'IT Hardware & Software Supply', description: 'We supply genuine hardware and software in Qatar: servers, laptops, networking devices, printers, and security systems from the major brands.' },
           { title: 'Laptop & Computer Support', description: 'We serve our clients with the best onsite IT solutions, IT services, and IT support along with laptop services and computer support services tailored to meet your business needs.' },
           { title: 'IT AMC (Annual Maintenance Contracts)', description: 'Our Annual Maintenance Contracts ensure your IT infrastructure stays in peak condition year-round. We provide proactive monitoring, scheduled maintenance, and rapid response support under one fixed annual agreement.' },
           { title: 'IT Network Solutions', description: 'From startups to large enterprises, we deliver cost-effective and scalable IT solutions that match your specific requirements — including complete IT network solutions and infrastructure setup.' },
@@ -174,14 +174,14 @@ const itServices: Record<Lang, ServicePageData> = {
     whyUs: {
       eyebrow: 'WHY COMPASS ITS',
       heading: 'What Makes Our IT Services and IT Support The Best In the GCC',
-      intro: 'As the leading IT support company in Qatar, we deliver comprehensive, reliable, and future-ready IT solutions to businesses across the GCC. We specialize in complete IT setup services designed to empower your business with technology and peace of mind.',
+      intro: 'We provide IT support to businesses in Qatar and across the GCC, including complete IT setup. Once it is running, we keep it running.',
       points: [
         "Our IT support in Qatar is prompt and readily available — simply submit a request, and we'll get back to you without delay",
         'On-site IT support service in Qatar — while you focus on your core priorities, we handle your tech issues, ensuring your business runs smoothly without interruptions',
         'Our team of IT experts in Qatar undergoes rigorous training and certification to guarantee top-tier IT services',
         'Our fully equipped and up-to-date 24/7 support team can tackle any technical challenge that a company in Qatar or all over the GCC presents',
         'Fast delivery, expert technical assistance, and tailor-made IT packages that help your business operate efficiently and securely',
-        'We understand the vital role that technology plays in your business development and achievements, and we are committed to addressing your IT concerns with trusted solutions',
+        'Your business runs on this technology. We take on the IT problems that get in the way of it',
       ],
     },
   },
@@ -340,9 +340,9 @@ const aiWorkflows: Record<Lang, ServicePageData> = {
       {
         eyebrow: 'OUR OFFERINGS',
         heading: 'Stay One Step Ahead Of Your Competition With Compass IT Solutions AI Services',
-        intro: 'At Compass IT Solutions, we bring innovative integration and orchestration of robotic, intelligent, and autonomous capabilities to make your business stand out. We provide end-to-end AI development and consulting services to clients in and around the GCC.',
+        intro: 'We integrate and orchestrate robotic, intelligent, and autonomous systems. We provide AI development and consulting services to clients in and around the GCC.',
         items: [
-          { title: 'AI Consulting Services', description: 'Leverage our AI consulting services to help you harness the potential of artificial intelligence aligned towards maximizing your business ROI as well as the productivity of your employees. Our AI consultants establish a roadmap to adopt AI technologies best suited for your business.' },
+          { title: 'AI Consulting Services', description: 'Our AI consultants build a roadmap for adopting the AI technologies that fit your business, aimed at your return on investment and the productivity of your team.' },
           { title: 'AI as a Service', description: 'We do not propose an AI strategy plan without knowing your business needs, your future goals, and room for improvement. After diving deep into your current systems, we discuss various high-tech solutions that can ease your business challenges.' },
           { title: 'AI Development Services', description: "Our AI specialists at Compass IT Solutions help retool your existing systems and enhance your business capabilities. Whether it's a simple chatbot or sales and marketing operations automation through machine learning — our custom AI Development services help your business reach a new level." },
           { title: 'AI Chatbots', description: 'Integration of AI-powered chatbots into your CRM improves your business relationships with your customers and prospective clients. Proven AI intelligence gives a more solution-driven approach leading to quick responses.' },
@@ -356,7 +356,7 @@ const aiWorkflows: Record<Lang, ServicePageData> = {
     whyUs: {
       eyebrow: 'WHY COMPASS ITS',
       heading: 'What Makes Compass IT Solutions the Best Option for AI Services',
-      intro: 'AI solutions make your business unlock its true potential and we at Compass IT Solutions, help you strategize on how to utilize AI to give its maximum benefits to your business.',
+      intro: 'We help you decide where AI fits in your business and what it should do there.',
       points: [
         'Complete AI Consulting Services — outstanding and knowledgeable staff to integrate AI solutions into your business setup without interfering with business continuity',
         'AI Engineers with certification — rely on the knowledge and skills of certified and specialized AI experts',
@@ -424,7 +424,7 @@ const cloudSolutions: Record<Lang, ServicePageData> = {
         heading: 'Our Cloud Development Process',
         items: [
           { title: 'Plan', description: 'We discuss your project idea and requirements to understand what exactly you want. Our team works to understand your current systems, future goals, and the room for improvement before recommending any cloud strategy.' },
-          { title: 'Design', description: 'We create mockups and workflows that are perfect to give you an app-like feel. Our cloud solutions experts design multiple deployment models in order to keep your business goals at primary focus.' },
+          { title: 'Design', description: 'We create mockups and workflows that are perfect to give you an app-like feel. Our cloud solutions experts design several deployment models to keep your business goals in focus.' },
           { title: 'Develop & Testing', description: "We have employed brilliant developers, coders and testers who deliver a bug-free application. Once the development is finished, everything needs to be fully tested before it touches your production environment." },
           { title: 'Deployment Testing', description: 'We use a streamlined deployment and testing flow that consists of three phases — pre-deploy, deploy and post-deploy — helping us improve quality and eradicate issues at every step.' },
           { title: 'Optimization', description: "Whether you've recently migrated to the cloud, or you've been operating there for a while now, our team helps you understand exactly where your cloud spend goes and what drives your costs, maximising your ROI." },
@@ -456,7 +456,7 @@ const cloudSolutions: Record<Lang, ServicePageData> = {
         'We provide end-to-end cloud computing services to clients in and around the GCC — for startups, enterprises, global brands, and government organisations',
         'Our unparalleled attention to minute details while making your enterprise cloud compliant gives lower operational cost and capping scalability options for a secured future',
         'Portability, Efficiency and Security are the pillars of business operations — we help your business achieve all three through cloud migration',
-        'Comprehensive business solutions with extensive automation, self-service capabilities, outstanding security, and infrastructure optimization for better performance and cost savings',
+        'Business solutions with automation, self-service, strong security, and infrastructure tuned for performance and cost',
       ],
     },
   },
@@ -529,7 +529,7 @@ const networkInfrastructure: Record<Lang, ServicePageData> = {
         items: [
           { title: 'Routers, Switches & Wireless Devices', description: "It is easy to overlook the importance of these devices while setting up your office network. Estimating the usage and deciding the number of routers needed for sharing a common IP or placing switches to accurately connect multiple devices is easier said than done. Our team of experts are fully equipped to plan out these solutions for you in no time." },
           { title: 'Network Security', description: "Your customers today are short of time and need everything now — this means there's no room for downtime due to security issues or network failures. We at Compass IT Solutions have just what you need to protect your systems from every imaginable threat so you can work stress free everyday." },
-          { title: 'Network Monitoring Devices', description: 'Simply using high quality devices does not guarantee a smooth running network. Monitoring the added devices and keeping them well maintained is vital to ensure that any potential threats or issues are tackled well in advance and possible system bottlenecks eliminated beforehand.' },
+          { title: 'Network Monitoring Devices', description: 'Good devices alone do not make a network run well. Monitoring them and keeping them maintained is how threats and bottlenecks get caught early.' },
         ],
       },
       {
@@ -733,7 +733,7 @@ const digitalMarketing: Record<Lang, ServicePageData> = {
     sections: [
       {
         eyebrow: 'OUR SERVICES',
-        heading: 'Comprehensive Digital Marketing Services for Businesses in Qatar and the GCC',
+        heading: 'Digital marketing services for businesses in Qatar and the GCC',
         intro: 'Compass IT Solutions is a full-service digital marketing agency in Qatar, building programmes that compound over time — not campaigns that spike and fade. Whether you need SEO to rank on Google in Doha, Google Ads to drive immediate leads, or social media marketing to build your brand across the GCC, our team manages every channel under one integrated strategy measured against real business outcomes.',
         items: [
           { title: 'Search Engine Optimisation (SEO) Qatar', description: 'Technical SEO, on-page optimisation, content strategy, and authority building — structured to move your rankings on Google Qatar and drive qualified organic traffic. Every recommendation is grounded in data: keyword opportunity in the Qatar and GCC market, competitive gap analysis, and crawl health audits. We target the search terms your customers in Doha actually use.' },
