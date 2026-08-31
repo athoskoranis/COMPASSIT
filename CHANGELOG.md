@@ -21,6 +21,66 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-27 (Readability, the second half of the SEO brief)
+
+**Decision 095 — eleven descriptions rewritten, and one that was simply wrong:**
+The brief asked for two things. Density was Decisions 093 and 094; this is the other one: *"the content is difficult for the users and crawlers to read… we can simplify the choice of words."*
+
+**The other pages were measured first and are clean.** Home 3 geo, `/services` 0, `/about` 3, `/how-we-work` 0, `/contact` 2. `/blog` reads 14, but that is nine post titles like `Cloud Migration Services Qatar` aggregated onto one index — each post's own keyword, not repetition to edit out. No work needed outside the service pages.
+
+**One outright spec violation.** `webDevelopment` shipped *"Drawing on compelling design and cutting edge development"* — `CLAUDE.md` bans `cutting-edge` by name. Now: *"Our developers build bespoke online stores designed to turn visitors into repeat customers."*
+
+**One description was factually wrong**, which the density pass had walked past:
+
+> **Was:** "The International Standards Organization, or ISO, is a separate entity that develops the standards for the group. A standard is the effectiveness, safety, and caliber of a business's goods or services."
+>
+> **Now:** "An ISO standard sets out what good practice looks like for the quality, safety, and reliability of what you sell."
+
+ISO is not "a separate entity that develops the standards for the group", and a standard is not "the effectiveness, safety, and caliber" of anything. That sentence had been live on the cybersecurity page.
+
+**One broke a VOICE.md rule.** Business Continuity Planning opened *"Imagine discovering a significant data breach or a natural disaster when you woke up the following day… you must not give up; instead, you must get up and get back into shape."* `VOICE.md:87` rules out exactly this — its we-don't-say example is *"Your network is one outage away from disaster."* It now describes the service: *"The plan decides in advance what comes back first, who does it, and how long each step should take, so the decisions are already made when it happens."*
+
+**The rest were passive, subject-less, or jargon-heavy** — `pertinent`, `efficacy`, `comprehend`, `repercussions`, `caliber`, all gone, along with `stress free everyday`, `our team of experts are`, and `in no time`. Sentences that opened *"A procedure that assesses…"* or *"Protecting an organization's data… requires…"* now open with `We`.
+
+Eleven descriptions across cybersecurity (8), network-infrastructure (2), and web-development (1). Every claim survives; nothing new is asserted. Density is unchanged and still inside every cap, so this did not undo Decision 094.
+
+**English only**, as before.
+
+
+### Changed — 2026-08-27 (Keyword density: the remaining seven pages)
+
+**Decision 094 — the pilot treatment applied to every service page:**
+Same rules as Decision 093, same file, 49 further edits. Every page is now inside the caps `npm run check:density` enforces.
+
+| Page | geo | brand | target phrase |
+|---|---|---|---|
+| digital-marketing | 57 → **6** | 8 → **0** | 4 → **2** |
+| it-services | 20 → **4** | 3 → **0** | 12 → **2** |
+| cybersecurity | 23 → **5** | 8 → **0** | 3 → **1** |
+| cloud-solutions | 6 → **4** | 10 → **0** | 4 → **2** |
+| ai-workflows | 7 → **5** | 7 → **0** | 5 → **2** |
+| network-infrastructure | 6 → **4** | 2 → **0** | 6 → **3** |
+| web-development | 4 → **4** | 4 → **0** | 4 → **3** |
+| app-development | 7 → **4** | 3 → **0** | 6 → **4** |
+
+Counts are within `<main>`. Brand reads zero everywhere because the name now appears only in the nav, the footer, and the `WHY COMPASS ITS` section eyebrow, which the counter does not match — the entity is still on every page, just not repeated through the prose.
+
+**Every H1 is untouched**, as agreed. What changed was the body: `Compass IT Solutions` as the subject of nine consecutive cloud service descriptions became `we`; `Best IT Support Company In Qatar, GCC` as a section heading became `What we cover`; `Why Businesses in Qatar Choose Compass IT Solutions for App Development` became `Why Businesses Choose Us`.
+
+**Two caps were raised during the work, both for the same reason** — the counter was flagging text that should stay:
+
+- **Geo cap 6.** The H1 and the eyebrow above it carry two geo terms each by design. Six leaves the one-to-two body mentions the brief asked for.
+- **Target-phrase cap 5.** Beyond those two slots, service cards are named after the service. The app page's cards are `iOS App Development` and `Android App Development`; that is what they are called, not repetition to edit out. `app-development` sits at 4 and cannot go lower without renaming real services.
+
+**Counting fixes found while measuring:** the counter now reads `<main>` only, because the footer's address and copyright legitimately spend four geo mentions on every page, and it is word-bounded, because `Qatari` was being counted as a mention of Qatar.
+
+**A few pieces of prose were rewritten rather than trimmed**, where removing the geo term left a sentence that made no sense. The cybersecurity subtitle — `Information system auditing is getting more popular around the globe and is now the auditing focus. A leading provider of information audits with numerous extra benefits is Compass IT Solutions.` — became `Information system audits have become a core part of security assurance. We run them, and we help you act on what they find.` Claims kept, sentence order fixed.
+
+Every rewritten page was read end to end after the edits, because 49 automated replacements is exactly the kind of change that produces a grammatical break three paragraphs down. One was found and fixed: `improve efficiency while keeping downtime and cost down` → `while reducing downtime and cost`.
+
+**English only.** The Arabic in the same file is unchanged and diverges further, as `HANDOVER.md` item 02 records.
+
+
 ### Changed — 2026-08-27 (Keyword density: the digital-marketing pilot)
 
 **Decision 093 — a density checker, and one page rewritten against it:**

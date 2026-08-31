@@ -32,12 +32,17 @@
 const live = process.argv.includes('--live')
 const BASE = live ? 'https://compass-its.com' : 'http://localhost:3001'
 
-// Caps count <main> only. The geo cap is six because a page spends four of it
-// in slots that should keep it: the H1 ("Digital Marketing Agency in Qatar,
-// GCC") and the eyebrow above it ("DIGITAL MARKETING · QATAR · GCC") are two
-// each. That leaves the one-to-two body mentions the brief asked for.
+// Caps count <main> only, and allow for the slots that should keep the phrase.
+// The geo cap is six because a page spends four of it in the H1 ("Digital
+// Marketing Agency in Qatar, GCC") and the eyebrow above it ("DIGITAL
+// MARKETING · QATAR · GCC"), two each. That leaves the one-to-two body
+// mentions the brief asked for.
+//
+// The target-phrase cap is five for the same reason, plus service names: the
+// app page's cards are called "iOS App Development" and "Android App
+// Development", which is what they are, not repetition to be edited out.
 const GEO = ['Qatar', 'Doha', 'GCC', 'Saudi Arabia', 'UAE']
-const CAPS = { geo: 6, brand: 3, phrase: 3 }
+const CAPS = { geo: 6, brand: 3, phrase: 5 }
 
 const PAGES = [
   { slug: 'digital-marketing', phrase: 'digital marketing services' },
