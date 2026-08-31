@@ -21,6 +21,32 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-27 (Readability, the second half of the SEO brief)
+
+**Decision 095 — eleven descriptions rewritten, and one that was simply wrong:**
+The brief asked for two things. Density was Decisions 093 and 094; this is the other one: *"the content is difficult for the users and crawlers to read… we can simplify the choice of words."*
+
+**The other pages were measured first and are clean.** Home 3 geo, `/services` 0, `/about` 3, `/how-we-work` 0, `/contact` 2. `/blog` reads 14, but that is nine post titles like `Cloud Migration Services Qatar` aggregated onto one index — each post's own keyword, not repetition to edit out. No work needed outside the service pages.
+
+**One outright spec violation.** `webDevelopment` shipped *"Drawing on compelling design and cutting edge development"* — `CLAUDE.md` bans `cutting-edge` by name. Now: *"Our developers build bespoke online stores designed to turn visitors into repeat customers."*
+
+**One description was factually wrong**, which the density pass had walked past:
+
+> **Was:** "The International Standards Organization, or ISO, is a separate entity that develops the standards for the group. A standard is the effectiveness, safety, and caliber of a business's goods or services."
+>
+> **Now:** "An ISO standard sets out what good practice looks like for the quality, safety, and reliability of what you sell."
+
+ISO is not "a separate entity that develops the standards for the group", and a standard is not "the effectiveness, safety, and caliber" of anything. That sentence had been live on the cybersecurity page.
+
+**One broke a VOICE.md rule.** Business Continuity Planning opened *"Imagine discovering a significant data breach or a natural disaster when you woke up the following day… you must not give up; instead, you must get up and get back into shape."* `VOICE.md:87` rules out exactly this — its we-don't-say example is *"Your network is one outage away from disaster."* It now describes the service: *"The plan decides in advance what comes back first, who does it, and how long each step should take, so the decisions are already made when it happens."*
+
+**The rest were passive, subject-less, or jargon-heavy** — `pertinent`, `efficacy`, `comprehend`, `repercussions`, `caliber`, all gone, along with `stress free everyday`, `our team of experts are`, and `in no time`. Sentences that opened *"A procedure that assesses…"* or *"Protecting an organization's data… requires…"* now open with `We`.
+
+Eleven descriptions across cybersecurity (8), network-infrastructure (2), and web-development (1). Every claim survives; nothing new is asserted. Density is unchanged and still inside every cap, so this did not undo Decision 094.
+
+**English only**, as before.
+
+
 ### Changed — 2026-08-27 (Keyword density: the remaining seven pages)
 
 **Decision 094 — the pilot treatment applied to every service page:**
