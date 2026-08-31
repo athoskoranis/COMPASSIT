@@ -21,6 +21,40 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-27 (Keyword density: the remaining seven pages)
+
+**Decision 094 — the pilot treatment applied to every service page:**
+Same rules as Decision 093, same file, 49 further edits. Every page is now inside the caps `npm run check:density` enforces.
+
+| Page | geo | brand | target phrase |
+|---|---|---|---|
+| digital-marketing | 57 → **6** | 8 → **0** | 4 → **2** |
+| it-services | 20 → **4** | 3 → **0** | 12 → **2** |
+| cybersecurity | 23 → **5** | 8 → **0** | 3 → **1** |
+| cloud-solutions | 6 → **4** | 10 → **0** | 4 → **2** |
+| ai-workflows | 7 → **5** | 7 → **0** | 5 → **2** |
+| network-infrastructure | 6 → **4** | 2 → **0** | 6 → **3** |
+| web-development | 4 → **4** | 4 → **0** | 4 → **3** |
+| app-development | 7 → **4** | 3 → **0** | 6 → **4** |
+
+Counts are within `<main>`. Brand reads zero everywhere because the name now appears only in the nav, the footer, and the `WHY COMPASS ITS` section eyebrow, which the counter does not match — the entity is still on every page, just not repeated through the prose.
+
+**Every H1 is untouched**, as agreed. What changed was the body: `Compass IT Solutions` as the subject of nine consecutive cloud service descriptions became `we`; `Best IT Support Company In Qatar, GCC` as a section heading became `What we cover`; `Why Businesses in Qatar Choose Compass IT Solutions for App Development` became `Why Businesses Choose Us`.
+
+**Two caps were raised during the work, both for the same reason** — the counter was flagging text that should stay:
+
+- **Geo cap 6.** The H1 and the eyebrow above it carry two geo terms each by design. Six leaves the one-to-two body mentions the brief asked for.
+- **Target-phrase cap 5.** Beyond those two slots, service cards are named after the service. The app page's cards are `iOS App Development` and `Android App Development`; that is what they are called, not repetition to edit out. `app-development` sits at 4 and cannot go lower without renaming real services.
+
+**Counting fixes found while measuring:** the counter now reads `<main>` only, because the footer's address and copyright legitimately spend four geo mentions on every page, and it is word-bounded, because `Qatari` was being counted as a mention of Qatar.
+
+**A few pieces of prose were rewritten rather than trimmed**, where removing the geo term left a sentence that made no sense. The cybersecurity subtitle — `Information system auditing is getting more popular around the globe and is now the auditing focus. A leading provider of information audits with numerous extra benefits is Compass IT Solutions.` — became `Information system audits have become a core part of security assurance. We run them, and we help you act on what they find.` Claims kept, sentence order fixed.
+
+Every rewritten page was read end to end after the edits, because 49 automated replacements is exactly the kind of change that produces a grammatical break three paragraphs down. One was found and fixed: `improve efficiency while keeping downtime and cost down` → `while reducing downtime and cost`.
+
+**English only.** The Arabic in the same file is unchanged and diverges further, as `HANDOVER.md` item 02 records.
+
+
 ### Changed — 2026-08-27 (Keyword density: the digital-marketing pilot)
 
 **Decision 093 — a density checker, and one page rewritten against it:**
