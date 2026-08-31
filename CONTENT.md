@@ -327,6 +327,60 @@ Eval suites, drift monitoring, and a steady pace of small improvements after go-
 
 ---
 
+## Custom Solutions Page (`/services/custom-solutions`)
+
+### Heading
+Custom Solutions
+
+### Subheading (Signal Cyan)
+For the part nobody sells off the shelf.
+
+### Body
+Some problems do not have a product. When the workflow is yours alone, or the systems that need to talk to each other were never designed to, the answer is something built. We build web platforms, internal tools, and data products — then hand them over documented, so they outlast the engagement.
+
+### Four key stats
+
+| Stat | Label |
+|---|---|
+| Documented | Handover |
+| Full runbooks | Operations |
+| 30-day support | Post-launch |
+| Project or retained | Engagement |
+
+### Process (4 phases, 8 steps)
+
+**01 / SCOPE**
+- Problem definition — What the tool has to do, who uses it, and what it replaces.
+- Success measures — Agreed before the first line is written, so "done" is not a matter of opinion.
+
+**02 / DESIGN**
+- Data model — Entities, relationships, and where the source of truth lives.
+- Workflow and interface — Screens mapped to the job, reviewed with the people who will use them.
+
+**03 / BUILD**
+- Development — Built in sprints with a working version at the end of each.
+- Integrations — Connections to the systems you already run, with the failure cases handled.
+
+**04 / HAND OVER**
+- Documentation and runbooks — How it works, how to operate it, what to do when it breaks.
+- Training and support — Your team walked through it, then a 30-day window while it settles.
+
+### Callout
+"If it only runs while we are in the room, it is not finished. Every build is handed over with the documentation to run it without us."
+
+**Source label:**
+/ handover standard · compass-its
+
+### What we build
+Internal tools · Client portals · Booking and scheduling systems · Data dashboards · System integrations · Workflow automation
+
+### Stack (JetBrains Mono)
+NEXT.JS · REACT · TYPESCRIPT
+NODE · POSTGRES · VERCEL
+REST · GRAPHQL · AWS
+
+---
+
 ## Digital Marketing Page (`/services/digital-marketing`)
 
 ### Heading

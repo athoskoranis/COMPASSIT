@@ -165,9 +165,16 @@ going somewhere unmonitored, everything else in this document is academic.
 **Blocking:** nothing. One route left of the two this item used to carry.
 
 `SITEMAP.md` declares `/services/custom-solutions` among the service sub-pages.
-`CONTENT.md` has **no copy** for it. It needs writing before it can be built —
-and until it is, the services index deliberately shows eight cards rather than
-nine, because a ninth linking to a 404 is worse than an absence.
+**The copy now exists** — written 27 August at the client's request and sitting in
+`CONTENT.md` under `## Custom Solutions Page`. It is the one block in that file
+not supplied by the client, so it wants a read before it is built: the claims it
+makes are `30-day support`, `full runbooks`, `documented handover`, and
+`project or retained` engagement, all carried over from what the neighbouring
+service pages already promise.
+
+Once it is approved, building it is mechanical. Until then the services index
+deliberately shows eight cards rather than nine, because a ninth linking to a
+404 is worse than an absence.
 
 Whoever writes it should follow the shape of the other eight blocks in
 `CONTENT.md`: heading, Signal Cyan subheading, body, a Why Compass callout with

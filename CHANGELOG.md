@@ -21,6 +21,22 @@
 
 ## [Unreleased]
 
+### Added — 2026-08-27 (Custom Solutions copy)
+
+**Decision 096 — the one block of copy in `CONTENT.md` the client did not supply:**
+`SITEMAP.md` has declared `/services/custom-solutions` since launch and `CONTENT.md` had nothing for it, which is why the services index ships eight cards rather than nine. Written at the client's request, which is the authorisation — `CLAUDE.md` otherwise forbids inventing copy, and that rule still stands for everything else.
+
+Written against what was already approved rather than from scratch. `SEO.md:249` fixes the title tag, the meta description (`Bespoke web platforms, internal tools, and data analytics products… Built, tested, documented, and handed over with full runbooks`) and the primary keyword, so the copy elaborates those promises instead of inventing new ones. Structure mirrors the Website Development block, which is the nearest sibling: heading, Signal Cyan subheading, body, four stats, a four-phase process, callout with a mono source label, what-we-build list, and a stack line.
+
+**Nothing claimed that the site does not already claim elsewhere.** `30-day support` and `project or retained` are carried over from the web development, app development and IT services pages. `Full runbooks` and `documented handover` come from `SEO.md`'s own description. The stack line reuses the web development stack, because it is the same team.
+
+Checked against the specs before committing: **0 geo mentions** (the H1 and eyebrow will carry those when the page is built, leaving the body clear under the Decision 094 caps), 0 `CLAUDE.md` banned words, 0 exclamation marks, no `Learn more` or `Get started`. 339 words.
+
+The subheading is `For the part nobody sells off the shelf.` and the callout is `If it only runs while we are in the room, it is not finished.` — both written to the `VOICE.md` register rather than the agency register the service pages arrived in.
+
+**Not built.** This is copy only. `HANDOVER.md` item 07 now says the copy exists, names the four claims it makes, and asks for a read before the page is built, since it is the one block in `CONTENT.md` that did not come from the client.
+
+
 ### Changed — 2026-08-27 (Readability, the second half of the SEO brief)
 
 **Decision 095 — eleven descriptions rewritten, and one that was simply wrong:**
