@@ -21,6 +21,37 @@
 
 ## [Unreleased]
 
+### Changed — 2026-08-27 (Keyword density: the digital-marketing pilot)
+
+**Decision 093 — a density checker, and one page rewritten against it:**
+The SEO specialist reported keyword repetition across the service pages. Their counts were verified against the live pages and were accurate: `/services/digital-marketing` said "in Qatar" 26 times and named Qatar 39 times; `/services/it-services` said "IT support" 12 times and "in Qatar" 12 times; `ai-workflows` named the company 9 times.
+
+**The repetition was structural, not scattered.** The geographic term was appended to every sub-service card title — `Search Engine Optimisation (SEO) Qatar`, `Social Media Marketing Qatar`, `B2B Digital Marketing Qatar` — and then repeated inside each card's description. Eight cards cost sixteen mentions before the body copy said anything.
+
+**Two corrections to the brief, both recorded so the next reader has them:**
+
+- This is keyword **stuffing**, not **cannibalization**. Cannibalization is separate pages competing for one query; `SEO.md` declares fourteen distinct primary keywords with no duplicates, so at the spec level there is none. The observation was right, the label was not, and the fix is the same either way.
+- It is **not** what is blocking indexing. Search Console reports 8 indexed and 29 not, and **22 of those are "Discovered — currently not indexed", meaning Google has never crawled them.** A page Google has not fetched cannot have been judged for stuffing. Only 2 pages sit in "Crawled — currently not indexed", which is where content-quality judgments land. Worth fixing for readability and conversion; not expected to move the indexed count on its own.
+
+**`scripts/check-keyword-density.mjs`, wired to `npm run check:density`.** Counts geo terms, the brand name, and each page's target phrase against caps, from the rendered page rather than the source, because the source splits one sentence across template strings. Two measurement decisions matter: it counts **`<main>` only**, since the footer's address and copyright legitimately spend four geo mentions on every page; and it is **word-bounded**, so the demonym `Qatari` is not counted as a mention of Qatar. `--live` runs it against production.
+
+The geo cap is **6**, not the brief's 2, because four are spent in slots that should keep them: the H1 (`Digital Marketing Agency in Qatar, GCC`) and the eyebrow above it are two each. That leaves the one-to-two body mentions the brief asked for.
+
+**The pilot, `/services/digital-marketing`:**
+
+| Measure | Before | After |
+|---|---|---|
+| Geo terms in `<main>` | 57 | **6** |
+| Brand name | 8 | **0** (the `WHY COMPASS ITS` eyebrow still carries it) |
+| "digital marketing services" | 4 | **2** |
+
+34 edits. The H1 is untouched, as agreed. Geo came off all four card titles and out of every description; the FAQ keeps it on one question only — `How much does digital marketing cost in Qatar?` — because that is how people actually search it. Every claim, service item, and certification survives. Em dashes were left alone, per Decision 092.
+
+**English only.** The Arabic in the same block was not touched and now diverges further, which `HANDOVER.md` item 02 already records.
+
+Seven pages remain: it-services, cybersecurity, cloud-solutions, ai-workflows, network-infrastructure, web-development, app-development. They wait on sign-off for this one, since the pilot exists to settle the style before it is repeated.
+
+
 ### Changed — 2026-08-27 (Service copy against the Humanizer patterns)
 
 **Decision 092 — 13 strings rewritten, and the em dashes deliberately kept:**

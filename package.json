@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
-    "check:og": "node scripts/ensure-blog-og.mjs --check"
+    "check:og": "node scripts/ensure-blog-og.mjs --check",
+    "check:density": "node scripts/check-keyword-density.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
