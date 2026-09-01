@@ -21,6 +21,20 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-09-01 (Who the decade belongs to)
+
+**Decision 100 — the web development intro claimed ten years for an eight-year-old company:**
+Exposed by Decision 099. The intro read *"For over 10 years we have been delivering engaging website solutions"* — against a 2018 founding that overstates by about two years. Client confirmed the decade is the **team's** experience, not the company's, which is both true and a normal way to say it.
+
+**English** now reads *"For over 10 years **our team** has been delivering…"*. Same credential, accurate subject.
+
+**Arabic needed a different answer.** The same sentence existed there and credited the decade to the company by name: `على مدار أكثر من 10 سنوات، قدمت كومباس آي تي سولوشنز…`. Moving it to the team requires changing the verb agreement — `قدمت` (feminine, agreeing with the company) to `قدّم` (agreeing with `فريقنا`) — which is Arabic prose composition, and `HANDOVER.md` item 02 exists precisely because nobody native has reviewed the Arabic on this site.
+
+So the duration clause was **deleted** rather than rewritten: `قدمت كومباس آي تي سولوشنز حلول مواقع إلكترونية جذابة…`. That is a deletion, not composition — the remaining sentence is verb-initial and already agrees with its own subject. The Arabic is now accurate but has lost the credential the English keeps. Item 02 records the exact sentence and the one-line change needed to restore it.
+
+This is the third claim this week that only came to light because the profile was finally read: the address, the founding year, and now the decade.
+
+
 ### Fixed — 2026-09-01 (Founding year: 2025 → 2018)
 
 **Decision 099 — the site and the Business Profile disagreed by seven years:**
