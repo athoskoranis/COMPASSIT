@@ -12,7 +12,7 @@
 **Tagline:** Wired right. Kept running.
 **Industry:** Managed IT Services · Network · Cloud · Cybersecurity · Development
 **Headquartered:** Museum Park St, Doha, Qatar
-**Founded:** 2025
+**Founded:** 2018
 **Website:** compass-its.com
 
 **Visual personality:** Dark, precise, technical — but legible and direct. The aesthetic reads like a senior infrastructure engineer's dashboard: functional, zero decoration, high-contrast, with one live signal colour (cyan) marking everything that is active.

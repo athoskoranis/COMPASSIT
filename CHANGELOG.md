@@ -21,6 +21,28 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-09-01 (Founding year: 2025 → 2018)
+
+**Decision 099 — the site and the Business Profile disagreed by seven years:**
+Found while reading the profile to answer the category question. The profile description opens *"Since 2018, we have built the infrastructure ambitious teams run on"*. The site said **2025** in thirteen places, including `foundingDate` in the Organization schema — an entity signal Google uses to reconcile which "Compass IT Solutions" this is, and there are at least six other businesses trading under some variant of that name. Client confirmed **2018** is correct.
+
+Changed in both languages and in the specs:
+
+| | |
+|---|---|
+| `app/layout.tsx` | `foundingDate: '2018'` |
+| `app/about/page.tsx` | meta description, the `Year founded` stat, and the body sentence |
+| `app/about/opengraph-image.tsx` | `Founded 2018 · 10+ Professionals · …` |
+| `lib/translations.ts` | the home page stats bar, **English and Arabic** |
+| `BRAND.md`, `CONTENT.md` ×3, `DESIGN.md`, `SEO.md` ×2 | the same claim in the specs |
+
+**The Arabic changed here, and that is fine.** The founding year is stored as a Latin numeral against the label `تأسست` in both languages, so this was a digit change rather than Arabic prose. It does not add to the en/ar divergence in `HANDOVER.md` item 02.
+
+Verified on the rendered pages: `"foundingDate":"2018"` in the schema, `2018` in the stats bar on `/` and `/ar`, and `Founded in 2018` on `/about`. No founding-related `2025` remains anywhere.
+
+**One claim this exposes and does not fix.** `lib/serviceTranslations.ts` opens the web development section with *"For over 10 years we have been delivering engaging website solutions"*. Against a 2018 founding that is eight years, so the sentence still overstates by about two. It was far more wrong before — under a 2025 founding it claimed a decade of work from a one-year-old company — but it is not right now either. Left alone deliberately: the team's experience may genuinely predate the company, which is a legitimate framing, and only the client can say. Flagged to them.
+
+
 ### Fixed — 2026-09-01 (The address the site publishes)
 
 **Decision 098 — NAP consistency was broken, and `HANDOVER.md` said it was fine:**

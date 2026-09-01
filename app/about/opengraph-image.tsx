@@ -23,7 +23,7 @@ export default function OGImage() {
           Compass IT Solutions
         </div>
         <div style={{ display: 'flex', fontSize: 18, color: 'rgba(244,242,236,0.35)', letterSpacing: '0.04em' }}>
-          Founded 2025 · 10+ Professionals · 20+ Clients served · 10+ Projects delivered
+          Founded 2018 · 10+ Professionals · 20+ Clients served · 10+ Projects delivered
         </div>
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 4, background: 'linear-gradient(90deg, #2BB3E6 0%, rgba(43,179,230,0.3) 60%, transparent 100%)' }} />
       </div>

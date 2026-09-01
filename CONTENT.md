@@ -26,7 +26,7 @@ NETWORK · CLOUD · CONTINUITY
 ### Key stats (for hero, about, and footer)
 | Stat | Label |
 |---|---|
-| 2025 | Founded |
+| 2018 | Founded |
 | 10+ | Professionals |
 | 20+ | Clients served |
 | 10+ | Projects delivered |
@@ -140,7 +140,7 @@ Who we are.
 
 Compass IT Solutions builds the quiet infrastructure that lets ambitious teams move without friction — wired right the first time, kept running for the long haul.
 
-Founded in 2025, we are a managed IT services provider specialising in network infrastructure, cloud solutions, and cybersecurity. We serve ambitious organisations across Qatar and the region — delivering technology that works reliably in the background, so your people can focus on the work that matters.
+Founded in 2018, we are a managed IT services provider specialising in network infrastructure, cloud solutions, and cybersecurity. We serve ambitious organisations across Qatar and the region — delivering technology that works reliably in the background, so your people can focus on the work that matters.
 
 We don't disappear after deployment. Every engagement begins with understanding your environment and ends only when the system is documented, stable, and performing exactly as promised.
 
@@ -148,7 +148,7 @@ We don't disappear after deployment. Every engagement begins with understanding 
 
 | Stat | Label |
 |---|---|
-| 2025 | Year founded |
+| 2018 | Year founded |
 | 10+ | Professionals |
 | 20+ | Clients served |
 | 10+ | Projects delivered |

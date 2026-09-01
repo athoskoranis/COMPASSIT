@@ -142,7 +142,7 @@ const jsonLd = {
       currenciesAccepted: 'QAR',
       priceRange: '$$',
       sameAs: ['https://instagram.com/compass.its'],
-      foundingDate: '2025',
+      foundingDate: '2018',
     },
     {
       '@id': 'https://compass-its.com/#website',
