@@ -19,6 +19,7 @@ const serviceLinks = [
   { label: 'App Development', href: '/services/app-development' },
   { label: 'AI Workflows',    href: '/services/ai-workflows' },
   { label: 'Digital Marketing', href: '/services/digital-marketing' },
+  { label: 'Custom Solutions', href: '/services/custom-solutions' },
 ]
 
 function useScroll(threshold: number) {

@@ -21,6 +21,40 @@
 
 ## [Unreleased]
 
+### Added — 2026-08-27 (The Custom Solutions page)
+
+**Decision 097 — the ninth service page, built English-only:**
+`SITEMAP.md` declared `/services/custom-solutions` from launch; Decision 096 wrote the copy; this builds it. The services grid now shows nine cards instead of eight, and `HANDOVER.md` item 07 is closed.
+
+**It does not read `lib/serviceTranslations.ts`, and that is deliberate.** That file is typed `Record<Lang, ServicePageData>`, so adding an entry would require an Arabic block. There is no Arabic for this route and none can be written here, so the only way to satisfy the type would be to put the English text in the `ar` slot — a lie in the data that would render English to an Arabic reader if the route ever existed. Instead the page holds its own copy and composes `ServiceHero`, `ServiceSubServices` and `ServiceWhyUs` directly, which take plain props. That is the pattern `/about`, `/how-we-work` and `/services` already use.
+
+**The ninth card, without disturbing the other eight.** `app/services/page.tsx` built its grid by pairing slugs with `t.en.services.items` by index. That array also feeds the home page orbital dial and the footer, in both languages, so adding a ninth entry there would have put a card on the home page and an untranslated string in the Arabic footer. The eight still map from translations; Custom Solutions is appended as a literal with its own title, description and `BESPOKE` category, taken from `CONTENT.md`.
+
+Also wired: the nav dropdown, and `lib/sitemap-entries.ts` — where it sits outside the `AR_ROUTES` list, so `alternatesFor()` returns nothing and the entry emits no hreflang. **The sitemap is now 34 URLs.**
+
+Schema is `Service` plus a three-level `BreadcrumbList` (`Home → Services → Custom Solutions`). No `FAQPage`, because the copy has no FAQ block. An OG image follows the sibling pattern.
+
+**The H1 is `Custom Solutions` with no geographic term**, unlike the other eight, whose H1s read `… in Qatar, GCC`. The title tag from `SEO.md` carries the geo instead. That is a deliberate consequence of Decisions 093 and 094: the page measures **2 geo, 0 brand, 2 target phrase**, the lowest on the site, and the checker now covers all nine pages.
+
+Verified: route 200, OG image `200 image/png`, nine cards on the hub, breadcrumb and Service schema parse, sitemap entry present with zero alternates, build clean, and the page viewed in a browser at both the hero and the card grid.
+
+
+### Added — 2026-08-27 (Custom Solutions copy)
+
+**Decision 096 — the one block of copy in `CONTENT.md` the client did not supply:**
+`SITEMAP.md` has declared `/services/custom-solutions` since launch and `CONTENT.md` had nothing for it, which is why the services index ships eight cards rather than nine. Written at the client's request, which is the authorisation — `CLAUDE.md` otherwise forbids inventing copy, and that rule still stands for everything else.
+
+Written against what was already approved rather than from scratch. `SEO.md:249` fixes the title tag, the meta description (`Bespoke web platforms, internal tools, and data analytics products… Built, tested, documented, and handed over with full runbooks`) and the primary keyword, so the copy elaborates those promises instead of inventing new ones. Structure mirrors the Website Development block, which is the nearest sibling: heading, Signal Cyan subheading, body, four stats, a four-phase process, callout with a mono source label, what-we-build list, and a stack line.
+
+**Nothing claimed that the site does not already claim elsewhere.** `30-day support` and `project or retained` are carried over from the web development, app development and IT services pages. `Full runbooks` and `documented handover` come from `SEO.md`'s own description. The stack line reuses the web development stack, because it is the same team.
+
+Checked against the specs before committing: **0 geo mentions** (the H1 and eyebrow will carry those when the page is built, leaving the body clear under the Decision 094 caps), 0 `CLAUDE.md` banned words, 0 exclamation marks, no `Learn more` or `Get started`. 339 words.
+
+The subheading is `For the part nobody sells off the shelf.` and the callout is `If it only runs while we are in the room, it is not finished.` — both written to the `VOICE.md` register rather than the agency register the service pages arrived in.
+
+**Not built.** This is copy only. `HANDOVER.md` item 07 now says the copy exists, names the four claims it makes, and asks for a read before the page is built, since it is the one block in `CONTENT.md` that did not come from the client.
+
+
 ### Changed — 2026-08-27 (Readability, the second half of the SEO brief)
 
 **Decision 095 — eleven descriptions rewritten, and one that was simply wrong:**

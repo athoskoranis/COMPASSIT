@@ -160,32 +160,6 @@ going somewhere unmonitored, everything else in this document is academic.
 
 ---
 
-## 07 — Custom Solutions page
-
-**Blocking:** nothing. One route left of the two this item used to carry.
-
-`SITEMAP.md` declares `/services/custom-solutions` among the service sub-pages.
-`CONTENT.md` has **no copy** for it. It needs writing before it can be built —
-and until it is, the services index deliberately shows eight cards rather than
-nine, because a ninth linking to a 404 is worse than an absence.
-
-Whoever writes it should follow the shape of the other eight blocks in
-`CONTENT.md`: heading, Signal Cyan subheading, body, a Why Compass callout with
-a mono source label, four key stats, and a capability table. Add the slug to the
-`services` array in `app/services/page.tsx`, `app/sitemap.ts`,
-`components/layout/Nav.tsx` and `components/layout/Footer.tsx`, and a card
-appears in the grid.
-
-**`/services` is done** — built 21 August. Note for the record that this item
-previously said `CONTENT.md` had copy for it. It did not: the block headed
-`## IT Services Page (/services)` is the copy for `/services/it-services` and
-was spent there. The index was assembled from strings already approved
-elsewhere — the home page's services heading, the meta description in `SEO.md`,
-and the eight card titles and descriptions in `lib/translations.ts` — so no new
-prose was invented. See Decision 083.
-
----
-
 ---
 
 ## Not outstanding
@@ -202,6 +176,11 @@ Recorded so nobody re-opens them:
 - **`www` redirect.** `308`, path-preserving, single hop. Correct as-is.
 - **Contact email discrepancy.** Five specification files said `asahli@`, the site
   said `info@`. Aligned to `info@`, confirmed as intended.
+- **Custom Solutions.** Copy written and page built 27 August. The copy is the
+  one block in `CONTENT.md` that did not come from the client, so it is worth a
+  read: it commits to a documented handover, full runbooks, a 30-day support
+  window, and project or retained engagement. All four are already promised on
+  neighbouring service pages. English-only, like `/about` and `/how-we-work`.
 - **OG images.** Every top-level route declares one as of 23 August. Next's root
   `opengraph-image` does not cascade into child segments, so check any new route
   before shipping it — `npm run check:og` covers the blog only.
