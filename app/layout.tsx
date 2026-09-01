@@ -86,17 +86,17 @@ const jsonLd = {
         'Managed IT services provider specialising in network infrastructure, cloud solutions, and cybersecurity. Based in Doha, Qatar.',
       address: {
         '@type': 'PostalAddress',
-        streetAddress: 'West Bay',
+        streetAddress: 'Museum Park St',
         addressLocality: 'Doha',
         addressRegion: 'Ad Dawhah',
         addressCountry: 'QA',
       },
       geo: {
         '@type': 'GeoCoordinates',
-        latitude: 25.3209,
-        longitude: 51.5295,
+        latitude: 25.2896241,
+        longitude: 51.5431226,
       },
-      hasMap: 'https://maps.google.com/?q=West+Bay,+Doha,+Qatar',
+      hasMap: 'https://www.google.com/maps/place/Compass+IT+Solutions/@25.2896241,51.5431226,16z/data=!4m6!3m5!1s0x3e45c5fbdbcc7b3f:0x6efd0a359a47c968!8m2!3d25.2896241!4d51.5431226!16s%2Fg%2F11zbrn2b92',
       telephone: '+974-5149-0825',
       email: 'info@compass-its.com',
       // Two channels on two different numbers. The phone line and the WhatsApp

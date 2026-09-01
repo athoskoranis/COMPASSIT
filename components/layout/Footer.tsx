@@ -46,7 +46,7 @@ export default function Footer() {
   const contactInfo: ContactItem[] = [
     { Icon: Mail,   iconProps: { size: 15, className: 'text-signal flex-shrink-0' }, text: 'info@compass-its.com', href: 'mailto:info@compass-its.com' },
     { Icon: Phone,  iconProps: { size: 15, className: 'text-signal flex-shrink-0' }, text: '+974 5149 0825', href: 'tel:+97451490825' },
-    { Icon: MapPin, iconProps: { size: 15, className: 'text-signal flex-shrink-0' }, text: 'West Bay, Doha, Qatar' },
+    { Icon: MapPin, iconProps: { size: 15, className: 'text-signal flex-shrink-0' }, text: 'Museum Park St, Doha, Qatar' },
   ]
 
   return (

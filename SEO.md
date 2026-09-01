@@ -67,8 +67,9 @@ IT solutions Doha · MSP Qatar · network infrastructure Qatar · cloud services
   "description": "Managed IT services provider specialising in network infrastructure, cloud solutions, and cybersecurity. Based in Doha, Qatar.",
   "address": {
     "@type": "PostalAddress",
+    "streetAddress": "Museum Park St",
     "addressLocality": "Doha",
-    "addressRegion": "West Bay",
+    "addressRegion": "Ad Dawhah",
     "addressCountry": "QA"
   },
   "contactPoint": {

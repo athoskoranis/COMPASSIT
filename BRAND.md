@@ -223,7 +223,7 @@ The brand extends the circuit-board mark into a working status vocabulary. Use t
 | Email (brand) | brand@compass-its.com |
 | Phone | +974 5149 0825 |
 | Social handle | @compass.its |
-| Location | West Bay, Doha, Qatar |
+| Location | Museum Park St, Doha, Qatar |
 | Founded | 2025 |
 | Services | Network · Cloud · Continuity |
 

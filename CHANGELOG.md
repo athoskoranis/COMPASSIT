@@ -21,6 +21,35 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-09-01 (The address the site publishes)
+
+**Decision 098 — NAP consistency was broken, and `HANDOVER.md` said it was fine:**
+The Google Business Profile was seen for the first time on 1 September. It gives the address as **Museum Park St**. The site's text and structured data said **West Bay**. Item 05 of the handover asserted that the site, the schema and the profile "all currently agree" — that was wrong, and it had been repeated to the client several times.
+
+**The site also contradicted itself.** `app/layout.tsx` published `geo` coordinates of 25.3209, 51.5295 — West Bay — while the map embedded in the footer and on the contact page pinned **25.2896241, 51.5431226**, which is Museum Park St and matches the profile. Two locations about **3.7 km apart**, served from the same page: the structured data said one thing and the map said the other.
+
+Name/Address/Phone consistency is one of the few signals that genuinely drives local ranking, and this site is trying to rank locally. The phone number was consistent throughout; only the address was not.
+
+Client confirmed Museum Park St. Everything is now aligned to it and to the coordinates the profile and the maps already used:
+
+| | Was | Now |
+|---|---|---|
+| `app/layout.tsx` `streetAddress` | `West Bay` | `Museum Park St` |
+| `app/layout.tsx` `geo` | 25.3209, 51.5295 | **25.2896241, 51.5431226** |
+| `app/layout.tsx` `hasMap` | a `?q=West+Bay` search link | the Compass IT Solutions place URL the rest of the site links to |
+| Footer, contact page, copyright line | `West Bay, Doha, Qatar` | `Museum Park St, Doha, Qatar` |
+| `BRAND.md`, `CONTENT.md`, `DESIGN.md` | `West Bay` | `Museum Park St` |
+| `SEO.md` | `"addressRegion": "West Bay"` | `"streetAddress": "Museum Park St"`, `"addressRegion": "Ad Dawhah"` |
+
+`SEO.md` had a second defect worth naming: it put a **street name in `addressRegion`** and declared no `streetAddress` at all. The implementation had already diverged from it, using `Ad Dawhah` correctly. The spec now matches what ships.
+
+**No Arabic change.** The Arabic copyright line carries only `الدوحة، قطر` with no street, so this correction did not widen the en/ar gap.
+
+Verified on the rendered page: `PostalAddress` reads `Museum Park St / Doha / Ad Dawhah / QA`, `GeoCoordinates` matches the map iframe exactly, and no occurrence of `West Bay` remains anywhere in the repository outside this changelog.
+
+**Also recorded, not code:** the profile carries **10 five-star reviews and 291 customer interactions**. Item 01 has been describing the site as having no social proof at all, which is true of the site but not of the business. Item 01 now says so, and warns against marking those ratings up as `AggregateRating` — self-serving review markup is against Google's rich-result rules. The profile's primary category is also **Software company**, which is unlikely to be right for a managed IT services provider; that is now noted in item 05.
+
+
 ### Added — 2026-08-27 (The Custom Solutions page)
 
 **Decision 097 — the ninth service page, built English-only:**

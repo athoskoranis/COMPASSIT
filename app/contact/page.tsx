@@ -76,7 +76,7 @@ export default function ContactPage() {
           />
         </div>
         <p className="font-archivo text-[13px] text-paper/40 mt-3">
-          West Bay, Doha, Qatar — <a
+          Museum Park St, Doha, Qatar — <a
             href="https://www.google.com/maps/place/Compass+IT+Solutions/@25.2896241,51.5431226,16z/data=!4m6!3m5!1s0x3e45c5fbdbcc7b3f:0x6efd0a359a47c968!8m2!3d25.2896241!4d51.5431226!16s%2Fg%2F11zbrn2b92"
             target="_blank"
             rel="noopener noreferrer"

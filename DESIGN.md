@@ -11,7 +11,7 @@
 **Brand name:** Compass IT Solutions
 **Tagline:** Wired right. Kept running.
 **Industry:** Managed IT Services · Network · Cloud · Cybersecurity · Development
-**Headquartered:** West Bay, Doha, Qatar
+**Headquartered:** Museum Park St, Doha, Qatar
 **Founded:** 2025
 **Website:** compass-its.com
 

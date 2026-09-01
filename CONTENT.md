@@ -21,7 +21,7 @@ NETWORK · CLOUD · CONTINUITY
 - **Website:** compass-its.com
 - **Social:** @compass.its
 - **Brand enquiries:** brand@compass-its.com
-- **Location:** West Bay, Doha, Qatar
+- **Location:** Museum Park St, Doha, Qatar
 
 ### Key stats (for hero, about, and footer)
 | Stat | Label |
@@ -496,7 +496,7 @@ About · How We Work · Contact
 Privacy Policy · Cookie Policy
 
 ### Bottom line
-© 2026 Compass IT Solutions. All rights reserved. · West Bay, Doha, Qatar
+© 2026 Compass IT Solutions. All rights reserved. · Museum Park St, Doha, Qatar
 
 ### Brand badge (JetBrains Mono, small)
 BRAND V1.0 · APRIL 2026 · BRAND@COMPASS-ITS.COM
