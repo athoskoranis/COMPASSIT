@@ -224,7 +224,7 @@ The brand extends the circuit-board mark into a working status vocabulary. Use t
 | Phone | +974 5149 0825 |
 | Social handle | @compass.its |
 | Location | Museum Park St, Doha, Qatar |
-| Founded | 2025 |
+| Founded | 2018 |
 | Services | Network · Cloud · Continuity |
 
 ---

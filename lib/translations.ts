@@ -48,7 +48,7 @@ export const t = {
       eyebrow: 'BY THE NUMBERS',
       heading: 'Quiet infrastructure. Measurable outcomes.',
       items: [
-        { value: '2025', label: 'Founded' },
+        { value: '2018', label: 'Founded' },
         { value: '10+',  label: 'Professionals' },
         { value: '20+',  label: 'Clients served' },
         { value: '10+',  label: 'Projects delivered' },
@@ -183,7 +183,7 @@ export const t = {
       eyebrow: 'بالأرقام',
       heading: 'بنية تحتية هادئة. نتائج قابلة للقياس.',
       items: [
-        { value: '2025', label: 'تأسست'          },
+        { value: '2018', label: 'تأسست'          },
         { value: '10+',  label: 'متخصص'           },
         { value: '20+',  label: 'عميل خدمناهم'   },
         { value: '10+',  label: 'مشروع مُنجز'    },

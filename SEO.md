@@ -81,7 +81,7 @@ IT solutions Doha · MSP Qatar · network infrastructure Qatar · cloud services
   "sameAs": [
     "https://instagram.com/compass.its"
   ],
-  "foundingDate": "2025"
+  "foundingDate": "2018"
 }
 ```
 
@@ -93,7 +93,7 @@ IT solutions Doha · MSP Qatar · network infrastructure Qatar · cloud services
 Who We Are — Compass IT Solutions
 
 **Meta description (156 chars):**
-Founded in 2025, Compass IT Solutions is a managed IT services provider based in Doha, Qatar. Network infrastructure, cloud, cybersecurity, and development.
+Founded in 2018, Compass IT Solutions is a managed IT services provider based in Doha, Qatar. Network infrastructure, cloud, cybersecurity, and development.
 
 **Primary keyword:**
 Compass IT Solutions about

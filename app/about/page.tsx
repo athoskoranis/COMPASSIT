@@ -10,13 +10,13 @@ import ContactCTA from '@/components/sections/ContactCTA'
 export const metadata: Metadata = {
   title: { absolute: 'Who We Are — Compass IT Solutions' },
   description:
-    'Founded in 2025, Compass IT Solutions is a managed IT services provider based in Doha, Qatar. Network infrastructure, cloud, cybersecurity, and development.',
+    'Founded in 2018, Compass IT Solutions is a managed IT services provider based in Doha, Qatar. Network infrastructure, cloud, cybersecurity, and development.',
   alternates: { canonical: '/about' },
   openGraph: { url: '/about' },
 }
 
 const stats = [
-  { value: '2025', label: 'Year founded' },
+  { value: '2018', label: 'Year founded' },
   { value: '10+', label: 'Professionals' },
   { value: '20+', label: 'Clients served' },
   { value: '10+', label: 'Projects delivered' },
@@ -63,7 +63,7 @@ export default function AboutPage() {
                 without friction — wired right the first time, kept running for the long haul.
               </p>
               <p className="font-barlow text-body-l text-paper/60 leading-relaxed">
-                Founded in 2025, we are a managed IT services provider specialising in network
+                Founded in 2018, we are a managed IT services provider specialising in network
                 infrastructure, cloud solutions, and cybersecurity. We serve ambitious organisations
                 across Qatar and the region — delivering technology that works reliably in the
                 background, so your people can focus on the work that matters.
