@@ -85,6 +85,16 @@ carries الرائدة (leading) five times and شامل/الشاملة (compreh
 times, claims the English no longer makes. Whoever reviews the Arabic should
 bring it in line rather than translating the old English back.
 
+A specific sentence to restore, added 1 September: the web development intro
+in `lib/serviceTranslations.ts` claimed a decade of work for a company founded
+in 2018. The English now credits the decade to the team — `For over 10 years
+our team has been delivering…`. The Arabic said the same thing of the company
+by name (`على مدار أكثر من 10 سنوات، قدمت كومباس آي تي سولوشنز…`), and moving
+it to the team needs a verb-agreement change (`قدمت` → `قدّم`), which is prose
+composition. Rather than guess, the duration clause was deleted, leaving an
+accurate sentence that has simply lost the credential. Restoring the team
+framing in Arabic is a one-line job for whoever reviews this.
+
 Two specific things to check: whether the mixed-script titles read naturally
 (`خدمات الأمن السيبراني في قطر ودول الخليج · Compass ITS`), and whether the
 Arabic-Indic phone digits are the right convention for the audience.

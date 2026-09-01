@@ -238,7 +238,7 @@ const webDevelopment: Record<Lang, ServicePageData> = {
       {
         eyebrow: 'OUR SERVICES',
         heading: 'Come to us for all your Web Design & Development projects',
-        intro: 'For over 10 years we have been delivering engaging website solutions for leading organizations across various industries. Our website development experts deliver impactful web solutions from mobile web development to responsive designs, custom e-commerce and intranet experiences.',
+        intro: 'For over 10 years our team has been delivering engaging website solutions for leading organizations across various industries. Our website development experts deliver impactful web solutions from mobile web development to responsive designs, custom e-commerce and intranet experiences.',
         items: [
           { title: 'Custom Website Designing', description: 'Our experienced web developers specialise in building lead-generating websites that accommodate the latest technologies, thus allowing businesses to always stay ahead of the digital curve and stand out from the rest.' },
           { title: 'Prototyping & UI', description: 'We conceptualize and develop websites based on detailed wire-framing, UX-driven design and close collaboration so we can develop a powerful platform that establishes your credibility and drives home your brand message.' },
@@ -286,7 +286,7 @@ const webDevelopment: Record<Lang, ServicePageData> = {
       {
         eyebrow: 'خدماتنا',
         heading: 'تعامل معنا لجميع مشاريع تصميم وتطوير المواقع الإلكترونية',
-        intro: 'على مدار أكثر من 10 سنوات، قدمت كومباس آي تي سولوشنز حلول مواقع إلكترونية جذابة للمؤسسات الرائدة في مختلف الصناعات. خبراؤنا في تطوير المواقع يقدمون حلولاً رقمية مؤثرة من تطوير المواقع للجوال إلى التصاميم المتجاوبة ومتاجر التجارة الإلكترونية.',
+        intro: 'قدمت كومباس آي تي سولوشنز حلول مواقع إلكترونية جذابة للمؤسسات الرائدة في مختلف الصناعات. خبراؤنا في تطوير المواقع يقدمون حلولاً رقمية مؤثرة من تطوير المواقع للجوال إلى التصاميم المتجاوبة ومتاجر التجارة الإلكترونية.',
         items: [
           { title: 'تصميم المواقع المخصصة', description: 'يتخصص مطورو الويب لدينا في بناء مواقع إلكترونية تولّد العملاء المحتملين وتواكب أحدث التقنيات، مما يتيح للشركات البقاء دائماً في طليعة التحول الرقمي والتميز عن المنافسين.' },
           { title: 'النماذج الأولية وتصميم واجهة المستخدم', description: 'نبتكر ونطور المواقع الإلكترونية استناداً إلى التخطيط السلكي التفصيلي وتصميم تجربة المستخدم والتعاون الوثيق، لبناء منصة قوية تعزز مصداقيتك وتوصل رسالة علامتك التجارية بفاعلية.' },
