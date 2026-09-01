@@ -122,7 +122,7 @@ export const t = {
       companyLabel: 'Company',
       contactLabel: 'Contact Us',
       whatsappText: 'WhatsApp',
-      copyright: '© 2026 Compass IT Solutions. All rights reserved. · West Bay, Doha, Qatar',
+      copyright: '© 2026 Compass IT Solutions. All rights reserved. · Museum Park St, Doha, Qatar',
       brandLine: 'BRAND V1.0 · MAY 2026 · BRAND@COMPASS-ITS.COM',
       company: [
         // /about and /how-we-work are real pages. These pointed at home-page

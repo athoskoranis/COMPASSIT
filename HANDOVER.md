@@ -13,6 +13,14 @@
 **Blocking:** the client proof section on the home page. Built, mounted, and
 rendering nothing until this arrives.
 
+**There are 10 five-star Google reviews on the Business Profile**, seen 1
+September alongside 291 customer interactions. The proof exists — it is just not
+on the site. Quoting those reviewers by name, with their permission, is the
+fastest way to fill the section below and cheaper than collecting new references.
+One caution: do **not** mark those ratings up as `AggregateRating` schema.
+Self-serving review markup for your own business is against Google's rich-result
+rules and risks a manual action. Quote them as content instead.
+
 The site currently carries **no client name, no logo and no quote anywhere**.
 `20+ clients served` in the stats bar is the only social proof on it. For a
 managed services provider selling to CTOs and operations directors, that is
@@ -140,9 +148,26 @@ to **+1 971 506 0879**.
 
 **Do not change the primary phone.** It should stay `+974 5149 0825`. Local ranking
 leans on Name/Address/Phone consistency across the site, the schema and the
-profile, and all three currently agree. A `+1` number as the primary phone on a
-Doha listing would break that and read as a mismatch to buyers looking for a local
-provider.
+profile. A `+1` number as the primary phone on a Doha listing would break that and
+read as a mismatch to buyers looking for a local provider.
+
+**The address did not agree, and this document previously said it did.** Corrected
+1 September, after the profile was seen for the first time. The profile says
+Museum Park St; the site's text and schema said West Bay; and the site's own
+embedded map pinned 25.2896241, 51.5431226 — Museum Park St — so the site
+contradicted itself as well as the profile, by about 3.7 km. The client confirmed
+Museum Park St, and the site, schema, coordinates and specs are now aligned to it.
+If the address changes again, the places to change are `app/layout.tsx`
+(streetAddress, geo, hasMap), `components/layout/Footer.tsx`,
+`app/contact/page.tsx`, the copyright line in `lib/translations.ts`, and
+`BRAND.md`, `CONTENT.md`, `DESIGN.md` and `SEO.md`.
+
+**Two things still open on the profile.** The primary category is **Software
+company**, which is unlikely to be right for a managed IT services provider —
+category is one of the strongest local ranking signals, and the non-brand queries
+this site already gets (`it companies near me`) map to Computer support and
+services or IT consultant. And Profile Strength is not complete; Google is
+prompting for the missing fields.
 
 ---
 
