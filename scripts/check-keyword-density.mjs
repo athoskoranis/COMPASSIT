@@ -53,6 +53,7 @@ const PAGES = [
   { slug: 'network-infrastructure', phrase: 'network infrastructure solutions' },
   { slug: 'web-development', phrase: 'web development' },
   { slug: 'app-development', phrase: 'app development' },
+  { slug: 'custom-solutions', phrase: 'custom solutions' },
 ]
 
 const BRAND = 'Compass IT Solutions'

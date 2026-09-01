@@ -21,6 +21,24 @@
 
 ## [Unreleased]
 
+### Added — 2026-08-27 (The Custom Solutions page)
+
+**Decision 097 — the ninth service page, built English-only:**
+`SITEMAP.md` declared `/services/custom-solutions` from launch; Decision 096 wrote the copy; this builds it. The services grid now shows nine cards instead of eight, and `HANDOVER.md` item 07 is closed.
+
+**It does not read `lib/serviceTranslations.ts`, and that is deliberate.** That file is typed `Record<Lang, ServicePageData>`, so adding an entry would require an Arabic block. There is no Arabic for this route and none can be written here, so the only way to satisfy the type would be to put the English text in the `ar` slot — a lie in the data that would render English to an Arabic reader if the route ever existed. Instead the page holds its own copy and composes `ServiceHero`, `ServiceSubServices` and `ServiceWhyUs` directly, which take plain props. That is the pattern `/about`, `/how-we-work` and `/services` already use.
+
+**The ninth card, without disturbing the other eight.** `app/services/page.tsx` built its grid by pairing slugs with `t.en.services.items` by index. That array also feeds the home page orbital dial and the footer, in both languages, so adding a ninth entry there would have put a card on the home page and an untranslated string in the Arabic footer. The eight still map from translations; Custom Solutions is appended as a literal with its own title, description and `BESPOKE` category, taken from `CONTENT.md`.
+
+Also wired: the nav dropdown, and `lib/sitemap-entries.ts` — where it sits outside the `AR_ROUTES` list, so `alternatesFor()` returns nothing and the entry emits no hreflang. **The sitemap is now 34 URLs.**
+
+Schema is `Service` plus a three-level `BreadcrumbList` (`Home → Services → Custom Solutions`). No `FAQPage`, because the copy has no FAQ block. An OG image follows the sibling pattern.
+
+**The H1 is `Custom Solutions` with no geographic term**, unlike the other eight, whose H1s read `… in Qatar, GCC`. The title tag from `SEO.md` carries the geo instead. That is a deliberate consequence of Decisions 093 and 094: the page measures **2 geo, 0 brand, 2 target phrase**, the lowest on the site, and the checker now covers all nine pages.
+
+Verified: route 200, OG image `200 image/png`, nine cards on the hub, breadcrumb and Service schema parse, sitemap entry present with zero alternates, build clean, and the page viewed in a browser at both the hero and the card grid.
+
+
 ### Added — 2026-08-27 (Custom Solutions copy)
 
 **Decision 096 — the one block of copy in `CONTENT.md` the client did not supply:**

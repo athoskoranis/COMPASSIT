@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Monitor, Wifi, Cloud, Shield, Globe, Smartphone, Cpu, TrendingUp } from 'lucide-react'
+import { Monitor, Wifi, Cloud, Shield, Globe, Smartphone, Cpu, TrendingUp, Wrench } from 'lucide-react'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
 import Button from '@/components/ui/Button'
 import ContactCTA from '@/components/sections/ContactCTA'
@@ -22,23 +22,34 @@ export const metadata: Metadata = {
 }
 
 // Slugs and icons pair with t.en.services.items by index, the same contract
-// ServicesOverview and the footer already rely on. SITEMAP.md declares nine
-// sub-pages; /services/custom-solutions has no copy and no route, so it is
-// absent rather than linked to a 404. Add it here when the page exists.
+// ServicesOverview and the footer already rely on.
 const services = [
-  { slug: 'it-services',            icon: Monitor    },
-  { slug: 'network-infrastructure', icon: Wifi       },
-  { slug: 'cloud-solutions',        icon: Cloud      },
-  { slug: 'cybersecurity',          icon: Shield     },
-  { slug: 'web-development',        icon: Globe      },
-  { slug: 'app-development',        icon: Smartphone },
-  { slug: 'ai-workflows',           icon: Cpu        },
-  { slug: 'digital-marketing',      icon: TrendingUp },
-].map((meta, i) => ({
-  ...meta,
-  href: `/services/${meta.slug}`,
-  ...t.en.services.items[i],
-}))
+  ...[
+    { slug: 'it-services',            icon: Monitor    },
+    { slug: 'network-infrastructure', icon: Wifi       },
+    { slug: 'cloud-solutions',        icon: Cloud      },
+    { slug: 'cybersecurity',          icon: Shield     },
+    { slug: 'web-development',        icon: Globe      },
+    { slug: 'app-development',        icon: Smartphone },
+    { slug: 'ai-workflows',           icon: Cpu        },
+    { slug: 'digital-marketing',      icon: TrendingUp },
+  ].map((meta, i) => ({
+    ...meta,
+    href: `/services/${meta.slug}`,
+    ...t.en.services.items[i],
+  })),
+  // Custom Solutions is not in t.services.items, and should not be: that array
+  // also feeds the home page dial and the footer, in both languages, and this
+  // route is English-only. Its card copy comes straight from CONTENT.md.
+  {
+    slug: 'custom-solutions',
+    icon: Wrench,
+    href: '/services/custom-solutions',
+    category: 'BESPOKE',
+    title: 'Custom Solutions',
+    description: 'For the part nobody sells off the shelf.',
+  },
+]
 
 // Generated from the same array as the grid, so the ItemList cannot claim a
 // count the page does not render — the drift that put six posts in the blog

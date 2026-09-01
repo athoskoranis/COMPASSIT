@@ -22,6 +22,8 @@ const services = [
   'app-development',
   'ai-workflows',
   'digital-marketing',
+  // English-only: no /ar counterpart, so alternatesFor() returns nothing for it.
+  'custom-solutions',
 ]
 
 // Article dates are fixed, not build-time — a post that hasn't changed
