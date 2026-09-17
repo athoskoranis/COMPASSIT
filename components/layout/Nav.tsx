@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/context/LanguageContext'
 import { toArabic, toEnglish } from '@/lib/locale'
+import { isUsRoute } from '@/lib/us'
 
 const serviceLinks = [
   // The hub first, then the eight pages under it. Both dropdowns are the only
@@ -79,6 +80,14 @@ export default function Nav() {
   const dropdownRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
   const isHome = pathname === '/'
+
+  // No language switcher on the US practice. toArabic() falls back to the Arabic
+  // home page for any route with no Arabic counterpart — a reasonable compromise
+  // for a Qatar blog post, but on /us it sends a Portland reader to the Arabic
+  // Qatar home page with no way back. The US practice is English only and has no
+  // Arabic counterpart to offer, so the control is hidden rather than pointed
+  // somewhere wrong.
+  const showLangToggle = !isUsRoute(pathname)
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -189,13 +198,15 @@ export default function Nav() {
 
           {/* A link between two real URLs, not a state flip. hrefLang tells a
               crawler what sits on the other side. */}
-          <Link
-            href={lang === 'ar' ? toEnglish(pathname) : toArabic(pathname)}
-            hrefLang={lang === 'ar' ? 'en' : 'ar'}
-            className="font-jetbrains text-[11px] text-paper/50 hover:text-signal transition-colors px-2.5 py-1 border border-paper/15 hover:border-signal/40 rounded-lg"
-          >
-            {tr.nav.langToggle}
-          </Link>
+          {showLangToggle && (
+            <Link
+              href={lang === 'ar' ? toEnglish(pathname) : toArabic(pathname)}
+              hrefLang={lang === 'ar' ? 'en' : 'ar'}
+              className="font-jetbrains text-[11px] text-paper/50 hover:text-signal transition-colors px-2.5 py-1 border border-paper/15 hover:border-signal/40 rounded-lg"
+            >
+              {tr.nav.langToggle}
+            </Link>
+          )}
 
           <Link
             href={isHome ? '#contact' : '/contact'}
@@ -269,14 +280,16 @@ export default function Nav() {
             </Link>
 
             <div className="pt-4 border-t border-paper/10 flex flex-col gap-3">
-              <Link
-                href={lang === 'ar' ? toEnglish(pathname) : toArabic(pathname)}
-                hrefLang={lang === 'ar' ? 'en' : 'ar'}
-                onClick={() => setMobileOpen(false)}
-                className="font-jetbrains text-[12px] text-paper/50 hover:text-signal transition-colors px-3 py-2 border border-paper/15 hover:border-signal/40 rounded-lg text-start"
-              >
-                {tr.nav.langToggle}
-              </Link>
+              {showLangToggle && (
+                <Link
+                  href={lang === 'ar' ? toEnglish(pathname) : toArabic(pathname)}
+                  hrefLang={lang === 'ar' ? 'en' : 'ar'}
+                  onClick={() => setMobileOpen(false)}
+                  className="font-jetbrains text-[12px] text-paper/50 hover:text-signal transition-colors px-3 py-2 border border-paper/15 hover:border-signal/40 rounded-lg text-start"
+                >
+                  {tr.nav.langToggle}
+                </Link>
+              )}
               <Link
                 href={isHome ? '#contact' : '/contact'}
                 onClick={() => setMobileOpen(false)}
