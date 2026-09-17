@@ -313,6 +313,40 @@ The one exception is the Open Graph image. The bot writes an `openGraph` block w
 
 ---
 
+### US Practice — POS Analytics `/us`
+
+**Title tag (68 chars):**
+POS Analytics & Restaurant Reporting — Portland, Oregon · Compass ITS
+
+**Meta description (159 chars):**
+Custom reporting built on your point-of-sale data. Prime cost, labor by daypart, and item-level margin for restaurants, bars and retail across Portland and Oregon.
+
+**Primary keyword:**
+restaurant POS reporting Portland Oregon
+
+**Secondary:**
+prime cost reporting · restaurant analytics Oregon · POS dashboard integration · multi-location restaurant reporting
+
+**Schema:** `Service`, with `provider` pointing at `#us-practice` — **not** `#organization`. The
+Oregon entity is declared in `app/us/layout.tsx` and appears only once `lib/us.ts` holds a real
+identity, so the reference dangles until the entity is formed. That is deliberate: naming the Doha
+entity as the provider of a Portland service would be a wrong statement about the business, and it
+would attach Gulf contact data to a US service. Plus `BreadcrumbList`, two levels.
+
+**hreflang:** none, deliberately. hreflang marks the same content aimed at different regions, and
+this page has no Gulf counterpart — the service does not exist in Qatar. A self-referencing
+canonical is the whole of the correct answer. `alternatesFor()` is not called for this route.
+
+**Title length note:** 68 characters, over the 60-character rule in Global SEO Rules above. The
+rule is written for a single-region site. This title has to carry both the service and the region
+or it competes with the Gulf pages for the wrong queries, and Google truncates the display rather
+than the indexed value. Deliberate exception, logged as Decision 105.
+
+**Spelling:** American on this page and in its `CONTENT.md` section — `labor`, not `labour`. See the
+note at the top of the US Practice section in `CONTENT.md`.
+
+---
+
 ### Contact `/contact`
 
 **Title tag (35 chars):**

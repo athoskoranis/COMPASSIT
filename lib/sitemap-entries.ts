@@ -6,6 +6,12 @@ export const BASE = 'https://compass-its.com'
 // Bump when the copy on the static pages changes. See the note in sitemapEntries().
 const CONTENT_UPDATED = '2026-08-23'
 
+// The US practice page is dated separately. It was built long after the rest and
+// will change on its own schedule while the practice launches, so folding it into
+// CONTENT_UPDATED would either backdate it or tell Google that ten Gulf pages
+// changed every time a US price moved.
+const US_UPDATED = '2026-09-17'
+
 // alternatesFor() returns site-relative paths because page metadata resolves
 // them against metadataBase. A sitemap has no such base, so xhtml:link entries
 // must be absolute.
@@ -85,6 +91,16 @@ export function sitemapEntries(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.9,
       alternates: { languages: absolute(alternatesFor('/contact')) },
+    },
+    {
+      // The US practice. No alternates: hreflang marks the same content aimed at
+      // different regions, and this page has no Gulf counterpart to point at --
+      // the service does not exist in Qatar. A self-referencing canonical is the
+      // whole of the correct answer, so alternatesFor() is not called here.
+      url: `${BASE}/us`,
+      lastModified: new Date(US_UPDATED),
+      changeFrequency: 'monthly',
+      priority: 0.8,
     },
     {
       // The services hub. No Arabic counterpart: /ar has the eight service

@@ -21,6 +21,40 @@
 
 ## [Unreleased]
 
+### Added — 2026-09-17 (The /us practice page)
+
+**Decision 105 — one page, built from CONTENT.md and the site's own service pattern:**
+Decision 103 left `/us` with a layout and no page; Decision 104 wrote the copy. This builds the page. The developer handover named in the service handover's artifact list was not available, so the structure follows the existing service pages — hero, stats, problem section, pricing, callout, coverage, why us, contact — which is the defensible choice and not a guess at a document nobody has read.
+
+`/us` is now a real route: static, 6.36 kB, with its own OG image.
+
+**Three shared components could not be reused, each for the same reason.** `CalloutBlock`, `ContactCTA` and `StatsBar` all read their copy from `lib/translations.ts`, which is the Gulf content in two languages. On a Portland page they would have rendered Doha figures and a Gulf service picker:
+
+| Component | What was done instead |
+|---|---|
+| `StatsBar` | Inline stat row, four US figures |
+| `CalloutBlock` | Inline callout, same markup and tokens |
+| `ContactCTA` | New `UsContact` — its service list asks which POS and how many locations, rather than offering a Portland operator a choice between Network Infrastructure and Cybersecurity |
+
+`ServiceHero`, `ServiceSubServices` and `ServiceWhyUs` all take their copy as props, so they were reused as they are. `ServiceHero` gained one optional prop, `ctaHref`, defaulting to `/contact` so every existing page is unchanged.
+
+**Every call to action stays on the page.** `/contact` is headed by a Doha address, so sending a Portland reader there would undo the reason `/us` has its own footer. `UsContact` posts to the same `/api/contact` endpoint, so enquiries land in the same mailbox — which is still `SMTP_USER`, and still unconfirmed as somewhere anyone reads. The endpoint's payload is fixed, so the POS and location count are composed into `message` and `services` carries a single `POS Analytics — US practice` label. Without that the subject line reads `New enquiry from <name>` and a Portland enquiry is indistinguishable from a Doha one in the inbox.
+
+**The `Service` node names `#us-practice` as its provider, not `#organization`.** That reference dangles until `lib/us.ts` holds a real entity. A dangling provider is a soft failure Google tolerates; naming the Doha entity as the provider of a Portland service would be a wrong statement about the business and would attach Gulf contact data to a US service in the knowledge graph.
+
+**No hreflang on this route, deliberately.** hreflang marks the same content aimed at different regions. This page has no Gulf counterpart — the service does not exist in Qatar — so there is nothing to point at, and a non-reciprocal annotation is one Google ignores at best. `alternatesFor()` is not called for it, in the page or in the sitemap.
+
+**Two layout defects found by looking at the page rather than the markup.** The stat row first mixed single digits with phrases like `Setup + monthly`, which wrapped to three lines beside a one-character neighbour; the figures are now number-plus-terse-label per the pattern guide in `VOICE.md`. And `Tier 2 — Custom Metrics` wraps where the other two tier names do not, dropping its price about 24px below its neighbours — a fixed header height on large screens aligns all three, and collapses on mobile where the cards stack.
+
+**Specs updated in step:** `SITEMAP.md` gains the route, records that it is deliberately absent from the main navigation, and notes that every CTA stays on the page. `SEO.md` gains the title, description and keywords. `lib/sitemap-entries.ts` gains the route on its own `US_UPDATED` date, so a US price change does not tell Google that ten Gulf pages were modified.
+
+**One documented exception.** The title tag is 68 characters against the 60-character rule in the Global SEO Rules. The rule was written for a single-region site; this title has to carry both the service and the region or it competes with the Gulf pages for the wrong queries. Noted in `SEO.md` beside the entry.
+
+**Verified:** `tsc --noEmit` and `next build` clean, `/us` static with its OG image route present, sitemap at 35 URLs with `/us` carrying no alternates, no Doha address, phone, map, WhatsApp link or language control in the rendered page, and the pricing row aligned at desktop and stacked at 375px. The only Gulf data on the page is the sitewide `#organization` JSON-LD.
+
+**Still blocked:** the entity, which keeps `lib/us.ts` empty and `#us-practice` unemitted, and the contact mailbox. The four copy decisions from Decision 104 are now visible on a real page and cheaper to judge.
+
+
 ### Added — 2026-09-17 (US practice copy in CONTENT.md)
 
 **Decision 104 — written from the service handover, not supplied by the client:**

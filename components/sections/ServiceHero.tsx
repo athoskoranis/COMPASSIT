@@ -7,6 +7,13 @@ interface ServiceHeroProps {
   subtitle: string
   primaryCta?: string
   secondaryCta?: string
+  /**
+   * Where both buttons point. Defaults to the Qatar contact page, which is
+   * right for every service page. /us overrides it: that page carries its own
+   * contact block, and sending a Portland reader to a contact page headed by a
+   * Doha address undoes the point of the US practice having its own footer.
+   */
+  ctaHref?: string
 }
 
 export default function ServiceHero({
@@ -15,6 +22,7 @@ export default function ServiceHero({
   subtitle,
   primaryCta = 'Start a conversation',
   secondaryCta,
+  ctaHref = '/contact',
 }: ServiceHeroProps) {
   return (
     <section className="pt-[54px] relative z-[1] overflow-hidden">
@@ -30,9 +38,9 @@ export default function ServiceHero({
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4">
-          <Button href="/contact" variant="primary">{primaryCta}</Button>
+          <Button href={ctaHref} variant="primary">{primaryCta}</Button>
           {secondaryCta && (
-            <Button href="/contact" variant="ghost">{secondaryCta}</Button>
+            <Button href={ctaHref} variant="ghost">{secondaryCta}</Button>
           )}
         </div>
       </div>
