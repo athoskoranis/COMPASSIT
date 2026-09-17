@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Hero from '@/components/sections/Hero'
 import BrandPillars from '@/components/sections/BrandPillars'
 import ClientProof from '@/components/sections/ClientProof'
+import GoogleReviews from '@/components/sections/GoogleReviews'
 import ServicesOverview from '@/components/sections/ServicesOverview'
 import StatsBar from '@/components/sections/StatsBar'
 import WhyCompass from '@/components/sections/WhyCompass'
@@ -31,6 +32,11 @@ export default function HomePage() {
       <ClientProof />
       <ServicesOverview />
       <StatsBar />
+      {/* Sits after the stats because it is the only social proof on the page
+          that a visitor can verify for themselves. ClientProof above is still
+          empty and still waiting on request 01 — these are Google reviews, not
+          named client references, and they do not replace them. */}
+      <GoogleReviews />
       <WhyCompass />
       <ContactCTA />
     </main>

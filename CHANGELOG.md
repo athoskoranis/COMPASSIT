@@ -21,6 +21,49 @@
 
 ## [Unreleased]
 
+### Added — 2026-09-08 (Google reviews on the home page)
+
+**Decision 101 — three reviews as content, with the rating linked to its source:**
+The Business Profile carries 5.0 from 10 reviews. Read all ten before building anything, because the count is more impressive than the contents: six are warm but non-specific — *"a great time working with these gentlemen"*, *"Exceptional team"*, *"Excellent service and professional team"* — which is exactly what `HANDOVER.md` request 01 calls **not useful**. One is anonymous, one has no text, and all ten were left within the same month.
+
+Three say something concrete, and those are the three that shipped:
+
+| Reviewer | Quote |
+|---|---|
+| Alex K (Local Guide, 56 reviews) | "Redesigned our entire security infrastructure very promptly and professionally as per our requirements." |
+| Sami Khouri (Local Guide, 20 reviews) | "Compass was the only one that could assist us in the right direction." |
+| Abdul Sami | "The team provided exceptional support, and the website was delivered with a fantastic design and impressive performance scores." |
+
+**The rating is a link to the listing.** That is the design idea: a number on our own page proves nothing, a number that goes somewhere is checkable in one click. `5.0 ★★★★★ · 10 Google reviews →` opens the place page.
+
+**Quotes are verbatim, and every trim is recorded.** `lib/reviews.ts` keeps a `trimmedFrom` field holding what each reviewer actually wrote, so the edit is auditable rather than a matter of trust. Alex K lost a trailing *"Highly recommended!!"*; Abdul Sami lost a leading *"Absolutely outstanding work!"* and a trailing sentence; Sami Khouri's is one complete clause from the middle of a longer review, which also avoids reproducing a typo in the surrounding sentence. Nothing was reworded.
+
+**No `Review` or `AggregateRating` schema, deliberately.** Reviews of your own business gathered from a third-party surface are self-serving review markup: against Google's structured data policy and a manual-action risk. Verified: zero matches for either type in the rendered page. The rating is displayed as content and linked instead.
+
+**No third-party widget.** Elfsight, Trustindex and the rest cost a subscription, add a script to a page that ships around 325KB in total, and render client-side — so the quotes would not be in the HTML a crawler reads. This is static markup: confirmed present in the server response, no JavaScript, no added geo or brand terms, so the Decision 094 density caps are unaffected.
+
+**`lib/clients.ts` and `ClientProof` are untouched and still empty.** A Google review gives a display name and nothing else, while `ClientReference` wants a name, a role and a company. Filling that in would have meant inventing job titles. These sit in their own file and their own section, and **request 01 is still open** — named client references with a role and a company are a different and stronger thing.
+
+Two layout fixes found by looking at it rather than reading the markup: `mt-auto` pins each attribution to the card bottom so the three align across quotes of different lengths, and the per-card `Google review` suffix was dropped from the credential line — the section heading already says it, and removing it keeps every caption to one line so the three dividers line up.
+
+Verified at 375px: one column, no page overflow. The link carries `target="_blank"` with `rel="noopener noreferrer"`.
+
+**Redesigned before merge — 17 September, to a client reference.** The first build put the three quotes in an equal-weight row across the page, which gave the section no anchor and buried the rating. It is now two columns: a summary panel on the left carrying the eyebrow, the heading, `5.0`, the star row, the review count and the link, and the three reviews stacked on the right, each with an initial avatar, the name, the credential line and its own stars. The panel stretches to the height of the review stack with the link pinned to its base, so the columns square off instead of leaving a ragged gap under the shorter one. Copy is unchanged — both strings were already approved — and `lib/reviews.ts` was not touched.
+
+**Two `DESIGN.md` rules were overridden, on the client's instruction.** Recorded here because the code now contradicts the spec, and whoever reads `DESIGN.md` next should find the exception rather than "correct" it:
+
+| Rule | What ships | Why |
+|---|---|---|
+| Beacon Amber is for advisories and time-bound notices, **never decorative** | Both star rows are Beacon Amber | Gold stars are the universal shorthand for a rating; in Signal Cyan the row did not read as one. Beacon `#E8A33D` was used rather than Google's own `#FBBC05`, so the exception stays inside the six-colour palette |
+| Only the six palette colours | The Google "G", in its four official colours | It attributes the rating to its source, which is what Google's brand terms permit the mark for. Unmodified, inline, 14px, and `aria-hidden` because the sentence beside it already says Google |
+
+Those four Google hexes are the only off-palette values on the site, and this is the only decorative use of Beacon. Both were the client's call, taken after the palette rules were put to them.
+
+**One thing the reference has that this does not:** a supporting sentence between the review count and the link. No approved copy exists for it and `CLAUDE.md` forbids inventing any, so the slot was left empty rather than filled. It drops in as a single paragraph whenever a line is written into `CONTENT.md`.
+
+Verified after the redesign: `tsc --noEmit` clean, no raw hex outside the Google mark, 375px stacks to one column with no horizontal overflow, and the panel squares off with the review stack at desktop width.
+
+
 ### Fixed — 2026-09-01 (Who the decade belongs to)
 
 **Decision 100 — the web development intro claimed ten years for an eight-year-old company:**
