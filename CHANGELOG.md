@@ -21,6 +21,35 @@
 
 ## [Unreleased]
 
+### Added — 2026-09-17 (US practice scaffold under /us)
+
+**Decision 103 — the US practice is a path on this domain, and the Doha entity is left alone:**
+The POS analytics service line launches into Portland, Oregon. The domain question — separate US domain or a path here — was settled as `/us/` on compass-its.com, which inherits the domain's age, its backlinks and the existing Search Console property. Architecture recorded in `compass-its-us-architecture-addendum.md`.
+
+That puts a US service line inside a codebase where every page declares a Doha address, a Qatari phone and a Gulf service area. Three things were built to stop it contradicting itself.
+
+**`lib/us.ts` — route detection and the Oregon identity, deliberately empty.** The entity does not exist yet: name, address and phone are blocked on formation and a name conflict check. `hasUsIdentity()` is all-or-nothing, because a partial address is still a wrong address in structured data. Nothing renders until it is filled. Same pattern and same reason as `lib/clients.ts`.
+
+**`app/us/layout.tsx` — a second entity, not an edit to the first.** `#us-practice` carries the Oregon address, a US `areaServed` and `currenciesAccepted: USD`, with `parentOrganization` pointing at `#organization`. The root entity is untouched. Decision 098 corrected a 3.7km address contradiction in that node and `HANDOVER.md` item 05 records that NAP consistency is one of the few signals genuinely driving local ranking here — adding an Oregon address to it would have undone that. Two `LocalBusiness` nodes on one domain is an ordinary multi-location pattern; distinct `@id` values and `parentOrganization` are what make it read as a branch rather than a contradiction.
+
+**A judgement call, recorded so nobody reconciles it later.** `#organization` still lists `areaServed` as Doha, Qatar, Saudi Arabia and the UAE, and a code comment beside it says declaring markets you do not cover misrepresents the business. The group now serves the US too. The parent was left describing the Gulf business, with the branch carrying its own `areaServed`, because widening the parent dilutes the local signal Decision 098 paid for. Arguable either way — it is a decision, not an oversight.
+
+**The footer had four Doha leaks, not one.** Only the first was obvious from reading the markup:
+
+| Leak | Fix |
+|---|---|
+| Contact block — address, `+974` phone, `info@` | Column not rendered on `/us`. It also holds the Qatar WhatsApp account and the Compass socials, so hiding it with CSS would have left all of that in a US page's markup |
+| Copyright line ending `· Museum Park St, Doha, Qatar` | Clause before the separator only. No new copy written — `CONTENT.md` still owns the string |
+| **Embedded map pinning Museum Park St** | Not rendered on `/us`. Found by looking at the page, not by grepping it — an iframe matches no text search, and a map of Doha is the loudest Doha signal in the footer because it reads before any text does |
+| Language switcher offering Arabic | Hidden under `/us` — see below |
+
+**The language switcher would have stranded US visitors.** `toArabic()` falls back to the Arabic home page for any route with no Arabic counterpart, which a code comment defends as better than a dead link. Reasonable for a Qatar blog post. On `/us` it would send a Portland reader to the Arabic Qatar home page — wrong country, wrong language, wrong business, no way back. The control is suppressed rather than pointed somewhere wrong.
+
+Verified against a temporary page that was deleted before commit: no Doha address, `+974` number, WhatsApp link, social link, map or language control in the `/us` markup. The only Gulf data left there is the sitewide `#organization` JSON-LD, which is the parent entity and correct. `/`, `/ar` and `/about` keep all of it unchanged. `tsc --noEmit` and `next build` both clean.
+
+**Not built, and blocked:** pages and copy. `CLAUDE.md` forbids inventing copy and no US strings exist in `CONTENT.md`. `/us` has a layout and no page, so no route is generated and nothing is reachable. Sitemap entries wait on the pages; the identity waits on the entity.
+
+
 ### Fixed — 2026-09-17 (Two spec lines the founding-year correction missed)
 
 **Decision 102 — spec drift left behind by Decisions 098–100:**

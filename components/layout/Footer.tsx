@@ -5,6 +5,7 @@ import { Mail, MapPin, Phone } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { TextHoverEffect, FooterBackgroundGradient } from '@/components/ui/hover-footer'
 import { useLanguage } from '@/context/LanguageContext'
+import { isUsRoute, usIdentity, hasUsIdentity } from '@/lib/us'
 
 function WhatsAppIcon() {
   return (
@@ -26,6 +27,7 @@ export default function Footer() {
   const { tr } = useLanguage()
   const pathname = usePathname()
   const isHome = pathname === '/'
+  const isUs = isUsRoute(pathname)
 
   const serviceHrefs = [
     '/services/it-services',
@@ -43,11 +45,38 @@ export default function Footer() {
     href: serviceHrefs[i] ?? '/contact',
   }))
 
-  const contactInfo: ContactItem[] = [
-    { Icon: Mail,   iconProps: { size: 15, className: 'text-signal flex-shrink-0' }, text: 'info@compass-its.com', href: 'mailto:info@compass-its.com' },
-    { Icon: Phone,  iconProps: { size: 15, className: 'text-signal flex-shrink-0' }, text: '+974 5149 0825', href: 'tel:+97451490825' },
-    { Icon: MapPin, iconProps: { size: 15, className: 'text-signal flex-shrink-0' }, text: 'Museum Park St, Doha, Qatar' },
+  // The US practice does not publish the Doha contact block. A Portland reader
+  // who reaches the footer and finds a Qatari address before reading anything
+  // about the Oregon practice gets the Gulf connection in the worst possible
+  // order — the brand frame positions it deliberately, in "how we work", rather
+  // than springing it in the chrome.
+  //
+  // Until the Oregon entity exists, /us shows no contact block at all rather
+  // than falling back to Doha. See lib/us.ts.
+  const iconClass = { size: 15, className: 'text-signal flex-shrink-0' }
+
+  const qatarContact: ContactItem[] = [
+    { Icon: Mail,   iconProps: iconClass, text: 'info@compass-its.com', href: 'mailto:info@compass-its.com' },
+    { Icon: Phone,  iconProps: iconClass, text: '+974 5149 0825', href: 'tel:+97451490825' },
+    { Icon: MapPin, iconProps: iconClass, text: 'Museum Park St, Doha, Qatar' },
   ]
+
+  const usContact: ContactItem[] = hasUsIdentity()
+    ? [
+        { Icon: Mail,   iconProps: iconClass, text: usIdentity.email, href: `mailto:${usIdentity.email}` },
+        { Icon: Phone,  iconProps: iconClass, text: usIdentity.telephone, href: `tel:${usIdentity.telephone.replace(/[^+\d]/g, '')}` },
+        { Icon: MapPin, iconProps: iconClass, text: `${usIdentity.streetAddress}, ${usIdentity.addressLocality}, ${usIdentity.addressRegion}` },
+      ]
+    : []
+
+  const contactInfo: ContactItem[] = isUs ? usContact : qatarContact
+
+  // The approved copyright string ends "· Museum Park St, Doha, Qatar", which is
+  // the same Doha leak as the contact block. Taking the clause before the
+  // separator drops the address without writing any new copy — CONTENT.md still
+  // owns the string, this only stops publishing the half of it that is wrong for
+  // Oregon. A US address goes back in once the entity exists.
+  const copyrightWithoutAddress = tr.footer.copyright.split(' · ')[0]
 
   return (
     <footer
@@ -76,28 +105,35 @@ export default function Footer() {
             <p className="font-archivo text-[14px] text-paper/50 leading-relaxed mb-5">
               {tr.footer.tagline}
             </p>
-            {/* Map */}
-            <div className="relative rounded-xl overflow-hidden h-[130px] border border-paper/[0.08]">
-              <iframe
-                src="https://maps.google.com/maps?q=25.2896241,51.5431226&z=16&output=embed"
-                width="100%"
-                height="100%"
-                style={{
-                  border: 0,
-                  filter: 'grayscale(1) invert(1) hue-rotate(180deg) brightness(0.85)',
-                }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-              <a
-                href="https://www.google.com/maps/place/Compass+IT+Solutions/@25.2896241,51.5431226,16z/data=!4m6!3m5!1s0x3e45c5fbdbcc7b3f:0x6efd0a359a47c968!8m2!3d25.2896241!4d51.5431226!16s%2Fg%2F11zbrn2b92"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute inset-0"
-                aria-label="View Compass IT Solutions on Google Maps"
-              />
-            </div>
+            {/* Map. Not rendered on /us at all, rather than hidden with CSS — it
+                pins Museum Park St, and a map of Doha is the loudest Doha signal
+                in the footer, louder than the address line, because it reads
+                before any text does. Omitting it also keeps the Doha place link
+                out of the markup a crawler reads on a US page. A US map goes
+                here once there is an Oregon address to pin. */}
+            {!isUs && (
+              <div className="relative rounded-xl overflow-hidden h-[130px] border border-paper/[0.08]">
+                <iframe
+                  src="https://maps.google.com/maps?q=25.2896241,51.5431226&z=16&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{
+                    border: 0,
+                    filter: 'grayscale(1) invert(1) hue-rotate(180deg) brightness(0.85)',
+                  }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+                <a
+                  href="https://www.google.com/maps/place/Compass+IT+Solutions/@25.2896241,51.5431226,16z/data=!4m6!3m5!1s0x3e45c5fbdbcc7b3f:0x6efd0a359a47c968!8m2!3d25.2896241!4d51.5431226!16s%2Fg%2F11zbrn2b92"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute inset-0"
+                  aria-label="View Compass IT Solutions on Google Maps"
+                />
+              </div>
+            )}
           </div>
 
           {/* Services */}
@@ -146,7 +182,12 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Contact. Not rendered at all when there is nothing to show, which is
+              what /us does until the Oregon entity exists. The column also holds
+              the Qatar WhatsApp account and the Compass social links, so hiding
+              it with CSS would leave all of that in the markup of a US page —
+              invisible to a reader, still there for a crawler. */}
+          {contactInfo.length > 0 && (
           <div>
             <p className="font-jetbrains text-[10px] text-paper/30 uppercase tracking-eyebrow mb-5">
               {tr.footer.contactLabel}
@@ -231,12 +272,13 @@ export default function Footer() {
               </a>
             </div>
           </div>
+          )}
         </div>
 
         {/* Bottom bar */}
         <div className="pt-6 pb-2 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <p className="font-archivo text-[13px] text-paper/30">
-            {tr.footer.copyright}
+            {isUs ? copyrightWithoutAddress : tr.footer.copyright}
           </p>
           <p className="font-jetbrains text-[10px] text-paper/20 uppercase tracking-eyebrow">
             {tr.footer.brandLine}
