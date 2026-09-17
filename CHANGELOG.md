@@ -21,6 +21,31 @@
 
 ## [Unreleased]
 
+### Added — 2026-09-17 (US practice copy in CONTENT.md)
+
+**Decision 104 — written from the service handover, not supplied by the client:**
+`/us` had a layout and no copy, and `CLAUDE.md` forbids inventing any, so the practice could not be built. This writes the copy. It is adapted from the POS analytics service handover of September 2026 — positioning, tier scopes, pricing bands, platform coverage — recast against `VOICE.md`, which is a different job from the pricing sheet it came from.
+
+**This is the second block in `CONTENT.md` that did not come from the client**, after Custom Solutions, and it is flagged as such at the top of the section. It needs a read, not a proofread.
+
+**Four things in it are decisions rather than wording**, listed in the section header so they are not mistaken for copy to tidy:
+
+1. Whether the price bands appear publicly at all, or stay in the sent pricing sheet. They are published here on the handover's own logic — the $99 floor exists to filter the buyer looking for a $30 do-it-yourself dashboard, and a price on the page does that filtering before a call rather than during one.
+2. Whether the personal credentials under *Who builds this* — Portland State, the Oregon senior living operator, the Port of Portland — are stated that plainly.
+3. Whether the Gulf team paragraph sits on this page or only on `/how-we-work`. The handover says position the Gulf operation rather than conceal it, and says it belongs in "how we work", not the header. It is on the page but low, which is a reading of that instruction and not the only one.
+4. The contact line, which has no destination until the US inbox exists.
+
+**American spelling, deliberately.** The rest of `CONTENT.md` is British — `specialising`, `organisations`. This section says `labor`. It addresses Oregon operators, and a British spelling in a US pitch reads as what it is. Noted in the section header so nobody normalises it to match the file.
+
+**Foodics is excluded.** Section 5 of the service handover says keep it in the platform list and out of US-facing marketing, because it is a MENA and Gulf platform. The published lists carry 12 self-serve and 10 partner-gated platforms, and the copy's "22 platforms" claim was counted against them rather than asserted.
+
+**Checked mechanically before commit:** no exclamation marks, none of the words `VOICE.md` bans outright, no "Learn more", "Click here" or "Get started" in any call to action, and the platform count matches the lists beneath it.
+
+`npm run check:density` does not apply yet — it reads rendered pages, and `/us` still has none.
+
+**Not done:** the pages themselves, `SITEMAP.md` and `SEO.md` entries for the `/us` routes, and per-route `opengraph-image.tsx`. Copy existing does not unblock the build on its own; the dev handover and the entity are still outstanding.
+
+
 ### Added — 2026-09-17 (US practice scaffold under /us)
 
 **Decision 103 — the US practice is a path on this domain, and the Doha entity is left alone:**
