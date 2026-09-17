@@ -48,6 +48,21 @@ Two layout fixes found by looking at it rather than reading the markup: `mt-auto
 
 Verified at 375px: one column, no page overflow. The link carries `target="_blank"` with `rel="noopener noreferrer"`.
 
+**Redesigned before merge — 17 September, to a client reference.** The first build put the three quotes in an equal-weight row across the page, which gave the section no anchor and buried the rating. It is now two columns: a summary panel on the left carrying the eyebrow, the heading, `5.0`, the star row, the review count and the link, and the three reviews stacked on the right, each with an initial avatar, the name, the credential line and its own stars. The panel stretches to the height of the review stack with the link pinned to its base, so the columns square off instead of leaving a ragged gap under the shorter one. Copy is unchanged — both strings were already approved — and `lib/reviews.ts` was not touched.
+
+**Two `DESIGN.md` rules were overridden, on the client's instruction.** Recorded here because the code now contradicts the spec, and whoever reads `DESIGN.md` next should find the exception rather than "correct" it:
+
+| Rule | What ships | Why |
+|---|---|---|
+| Beacon Amber is for advisories and time-bound notices, **never decorative** | Both star rows are Beacon Amber | Gold stars are the universal shorthand for a rating; in Signal Cyan the row did not read as one. Beacon `#E8A33D` was used rather than Google's own `#FBBC05`, so the exception stays inside the six-colour palette |
+| Only the six palette colours | The Google "G", in its four official colours | It attributes the rating to its source, which is what Google's brand terms permit the mark for. Unmodified, inline, 14px, and `aria-hidden` because the sentence beside it already says Google |
+
+Those four Google hexes are the only off-palette values on the site, and this is the only decorative use of Beacon. Both were the client's call, taken after the palette rules were put to them.
+
+**One thing the reference has that this does not:** a supporting sentence between the review count and the link. No approved copy exists for it and `CLAUDE.md` forbids inventing any, so the slot was left empty rather than filled. It drops in as a single paragraph whenever a line is written into `CONTENT.md`.
+
+Verified after the redesign: `tsc --noEmit` clean, no raw hex outside the Google mark, 375px stacks to one column with no horizontal overflow, and the panel squares off with the review stack at desktop width.
+
 
 ### Fixed — 2026-09-01 (Who the decade belongs to)
 
