@@ -47,7 +47,7 @@ compass-its.com/
 | Title tag | Who We Are — Compass IT Solutions |
 | Nav label | About |
 | Primary CTA | "Get in touch" → `/contact` |
-| Key sections | Who we are · Stats (2025 / 10+ / 20+ / 10+) · Three pillars · Doha location |
+| Key sections | Who we are · Stats (2018 / 10+ / 20+ / 10+) · Three pillars · Doha location |
 
 ---
 

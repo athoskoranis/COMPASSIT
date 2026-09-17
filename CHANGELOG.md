@@ -21,6 +21,19 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-09-17 (Two spec lines the founding-year correction missed)
+
+**Decision 102 — spec drift left behind by Decisions 098–100:**
+The founding year was corrected 2025 → 2018 across the site and most specs on 1 September. Two lines were missed, both spec-only — nothing renders from either, so no user-facing claim was wrong.
+
+| | Was | Now |
+|---|---|---|
+| `SITEMAP.md` About row | `Stats (2025 / 10+ / 20+ / 10+)` | `Stats (2018 / 10+ / 20+ / 10+)` |
+| `DESIGN.md` Stat Blocks | `2025 · 30+ engineers · 50+ clients` | `2018 · 10+ professionals · 20+ clients` |
+
+The `DESIGN.md` line also illustrated the stat block with **30+ engineers and 50+ clients**. Those are not wrong, they are the brand package cover figures — `CONTENT.md` records them as aspirational or regional and directs the live site to use the company profile figures (`10+` professionals, `20+` clients) until the client confirms which set to display. `app/about/page.tsx` has shipped the profile figures since the page was built. The example now uses the shipping numbers, so a reader building a stat block from the spec sees what is actually on the site. The open question of which set to publish is unchanged and still sits with the client.
+
+
 ### Added — 2026-09-08 (Google reviews on the home page)
 
 **Decision 101 — three reviews as content, with the rating linked to its source:**
