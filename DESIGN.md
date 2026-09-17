@@ -352,7 +352,7 @@ Below the callout quote, display the source in JetBrains Mono at 12px, Signal Cy
 
 ### Stat Blocks
 
-Used for company figures (2025 · 30+ engineers · 50+ clients):
+Used for company figures (2018 · 10+ professionals · 20+ clients):
 
 ```css
 /* Number */
