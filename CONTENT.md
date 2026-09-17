@@ -448,6 +448,133 @@ Scheduled transparent reports tied to your KPIs — quantitative metrics, conver
 
 ---
 
+## US Practice — Point-of-Sale Analytics (`/us`)
+
+> **This copy did not come from the client.** It was written from the POS analytics
+> service handover (September 2026) against `VOICE.md`, which puts it in the same
+> position as the Custom Solutions block above — worth reading before it ships
+> rather than proofreading after.
+>
+> **Spelling is American here, deliberately.** The rest of this file is British
+> (`specialising`, `organisations`). This section says `labor`, not `labour`,
+> because it addresses Oregon operators. Do not normalise it to match the file.
+>
+> **Four things need a decision rather than an edit:**
+> 1. Whether the price bands appear publicly at all, or only in the sent pricing sheet.
+> 2. Whether the personal credentials under *Who builds this* are stated this plainly.
+> 3. Whether the Gulf team paragraph belongs on this page or only on `/how-we-work`.
+> 4. The contact line, which has no destination until the US inbox exists.
+>
+> Nothing here is live. `/us` has a layout and no pages.
+
+### Heading
+Point-of-Sale Analytics
+
+### Subheading (Signal Cyan)
+The numbers your POS won't show you.
+
+### Body
+Every point-of-sale (POS) system ships with a dashboard, and they all tell you what you sold. Very few tell you what it cost you to sell it. We build reporting on top of the POS you already run — prime cost, labor against sales by daypart, margin by item, and the staffing signal underneath both. We read profit and loss statements for a living, and we build the reports we would want to read.
+
+### Four key stats
+
+| Stat | Label |
+|---|---|
+| 22 platforms | Supported |
+| 3 tiers | Single site to five |
+| Setup plus monthly | Pricing |
+| Portland, Oregon | Based |
+
+### Section heading — the gap
+Your POS counts sales. It doesn't count cost.
+
+### Section body
+Sales reporting answers one question: what went out the door. It leaves the questions that decide whether the month works — what the food and labor cost together, which items earn their place on the menu, which hours are overstaffed and which are quietly losing you covers. Those numbers exist. They sit across the POS, the invoices and the schedule, and nothing joins them up.
+
+That is the report we build.
+
+### Tiers
+
+**Tier 1 — Standard**
+One location, the standard measure set.
+$1,000 to $1,500 setup · $99 to $149 per month
+
+Sales by day and daypart · Revenue by hour · Item and category mix · Payment type breakdown · Employee sales · Order type split
+
+**Tier 2 — Custom Metrics**
+One location, with the logic your business actually runs on.
+$2,000 to $3,500 setup · $199 to $299 per month
+
+Everything in Tier 1, plus: labor cost as a percentage of sales by daypart · Prime cost · Item-level margin against your entered costs · Tip pool and distribution logic · Custom key performance indicator (KPI) definitions · Scheduled email or WhatsApp reports
+
+**Tier 3 — Multi-Location**
+Two to five sites, read as one business.
+$3,500 to $6,000 setup · $150 to $250 per site, per month
+
+Everything in Tier 2, plus: cross-location roll-up · Site-versus-site benchmarking · Group-level profit and loss view · Per-site user permissions · Consolidated exports
+
+### Add-ons
+
+| Item | Price |
+|---|---|
+| Additional data source — accounting, scheduling, delivery apps | $400 to $900 setup |
+| Additional location beyond five | $500 setup · $125 per month |
+| Partner-gated POS onboarding | $500 to $1,500 setup |
+| New report or measure after launch | $250 to $600 |
+| Development and consulting | $120 to $150 per hour |
+| Annual prepay | Two months free |
+
+### Section heading — pricing rationale
+Why there's a monthly.
+
+### Section body
+Point-of-sale vendors change their plans and their interfaces, and when they do, a report that ran yesterday stops running today. Someone has to notice and fix it before you open. That is what the monthly covers — hosting, the connection to your POS, and the repairs nobody can schedule in advance.
+
+We don't sell this as a one-time build, because a one-time build breaks and then it's nobody's job.
+
+### Platform coverage
+
+**Connect directly, inside the standard tiers**
+Square · Clover · Lightspeed Retail · Lightspeed Restaurant · Shopify POS · Revel Systems · Epos Now · Loyverse · Zettle by PayPal · SumUp · Erply · Odoo POS
+
+**Vendor approval required — onboarding fee, two to six weeks**
+Toast · SpotOn · TouchBistro · PAR Brink · Oracle Simphony · Oracle MICROS · NCR Voyix and Aloha · Lavu · GoTab · Heartland Restaurant
+
+**Running something else?** If it exports on a schedule or holds its data somewhere we can reach, we can usually work with it. Ask, and we'll tell you either way.
+
+### Who builds this
+A finance degree from Portland State, financial reporting for an Oregon senior living operator, and a stretch at the Port of Portland — then a technology firm. The reports come from someone who has had to explain a variance to a board, not from a template.
+
+### How we work
+Our build team runs nine hours ahead of Oregon. You send a change at the end of service, and it is usually waiting when you open. That is also why this costs less than a US agency for the same output, and we would rather say so here than have you find out later.
+
+### Callout
+"Sales reporting tells you what left the kitchen. It takes a second system to tell you what it cost to put it there."
+
+**Source label:**
+/ practice note · compass-its
+
+### CTAs
+
+| Placement | Label | Destination |
+|---|---|---|
+| Primary | See a live dashboard | Scheduling link — pending |
+| Secondary | Read the pricing sheet | Pricing sheet PDF |
+| Platform section | Check your POS | `/us#platforms` |
+| Closing | Send your numbers question | Contact form |
+
+### Contact microcopy
+
+| Situation | Copy |
+|---|---|
+| Form intro | Tell us which POS you run and how many locations. That is enough for us to say whether this works for you. |
+| Field empty | Add your name before we send this. |
+| Invalid email | Check the email address — something looks off. |
+| Submission success | Message sent. We'll be in touch within one business day. |
+| No API available | Your POS may not have an open connection. Ask us — there is usually another way in. |
+
+---
+
 ## Contact Page (`/contact`)
 
 ### Heading
