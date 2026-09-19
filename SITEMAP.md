@@ -21,7 +21,8 @@ compass-its.com/
 │   ├── /services/custom-solutions          Custom Solutions
 │   └── /services/digital-marketing         Digital Marketing
 ├── /how-we-work                How We Work (engagement model + ongoing support)
-└── /contact                    Contact
+├── /contact                    Contact
+└── /us                         US practice — POS Analytics (Portland, Oregon)
 ```
 
 ---
@@ -48,6 +49,28 @@ compass-its.com/
 | Nav label | About |
 | Primary CTA | "Get in touch" → `/contact` |
 | Key sections | Who we are · Stats (2018 / 10+ / 20+ / 10+) · Three pillars · Doha location |
+
+---
+
+### US Practice — POS Analytics `/us`
+
+| Property | Value |
+|---|---|
+| Title tag | POS Analytics & Restaurant Reporting — Portland, Oregon · Compass ITS |
+| Nav label | **None.** Not linked from the main navigation |
+| Primary CTA | "See a live dashboard" → `#contact` |
+| Secondary CTA | "Check your POS" → `#contact` |
+| Key sections | Hero · Stats · The gap · Pricing tiers and add-ons · Callout · Platform coverage · Why us · Contact |
+| Language | English only. No `/ar` counterpart, and the language switcher is suppressed on this route |
+
+**Deliberately absent from the main nav.** A Portland point-of-sale service in front of every Doha
+CTO is a nav item that means nothing to the primary audience. Acquisition comes from search, the
+Google Business Profile carrying the Oregon address, and direct outreach. Revisit if the practice
+becomes a material share of revenue.
+
+**Every call to action stays on the page.** `/contact` is headed by a Doha address, so sending a
+Portland reader there undoes the reason `/us` has its own footer. The page carries its own contact
+block instead, posting to the same endpoint.
 
 ---
 
