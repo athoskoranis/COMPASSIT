@@ -21,6 +21,57 @@
 
 ## [Unreleased]
 
+### Changed — 2026-09-19 (The dashboard preview is now an application)
+
+**Decision 107 — a frame, a working shell, and arrows:**
+Decision 106 shipped three tabbed panels of charts. They read as page sections with charts in
+them, which undersold the thing being sold: a reader could not tell whether they were being shown
+a product or a brochure.
+
+**The views now sit inside a browser frame,** `components/ui/MockWindow.tsx` — chrome only, holding
+no dashboard logic. Inside it is an application shell: a sidebar, an app header with the screen's
+name, and a date range control. The point of the frame is to make a reader stop reading the website
+and start reading a screen.
+
+**The window dots are Paper at low opacity, not red/amber/green.** Those three would put two
+off-palette hues on the page for decoration, and Beacon is a status colour here — a fake close
+button is not a status.
+
+**The date range control actually changes the figures.** Today, 7 days and 30 days each carry their
+own numbers across all three screens. It is the smallest piece of real behaviour that makes the
+frame read as an application rather than a picture of one: a reader who clicks a control and sees
+nothing move has been shown a screenshot.
+
+**The three screens now differ in layout, not just in data,** which is what the section claims:
+
+| Screen | Shape |
+|---|---|
+| Daily service | Four KPI tiles over a column chart, with a server leaderboard beside it |
+| Custom metrics | A ring gauge against target, paired with item margin bars and cost tiles |
+| Multi-location | A trend line with the peak directly labelled, over a sortable-looking site table |
+
+Three populations of the same grid would have quietly contradicted the heading. The sidebar items
+change per screen for the same reason — the sections a group operator needs are not the ones a
+single site needs.
+
+**Arrows, plus the names.** The arrows carry the "there are more of these" signal a row of tabs does
+not, and a counter reads `1 / 3`. The names stay for going straight to one.
+
+**Everything in it is still invented and still labelled.** `CONTENT.md` now records the mock chrome
+as well — the addresses, the sync badge, the sidebar items — with a note that
+`reports.compass-its.com` does not resolve and should be changed first if a real reporting host is
+ever stood up at a different name. The Portland neighbourhoods are real places but not real clients,
+and the staff names belong to nobody.
+
+**Charts follow the same rules as before:** single-hue Signal at varying opacity, never a colour per
+series; values and labels in Paper text tokens; one direct label on the trend peak rather than a
+number on every point; `<title>` on the marks so a hover reports the figure.
+
+Verified: `tsc --noEmit` clean, the range control changes every figure on all three screens, the
+arrows and the names both cycle, and the whole frame holds at 375px — the sidebar drops away and
+the site table scrolls horizontally rather than stretching the page.
+
+
 ### Added — 2026-09-19 (Dashboard preview, nav link, centred contact)
 
 **Decision 106 — three changes to `/us`, all at the client's direction:**

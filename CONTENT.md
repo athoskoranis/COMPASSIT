@@ -516,6 +516,36 @@ Tier 3 rolls the sites up and sets them against each other, so a site drifting f
 ### Dashboard preview — disclaimer (required, do not remove)
 Example views · illustrative figures, not a client's data
 
+### Dashboard preview — mock application chrome
+
+The three views sit inside a browser frame with a working application shell. Every string in
+that chrome is invented and none of it resolves to anything.
+
+| Element | Value |
+|---|---|
+| Address, view 1 | `reports.compass-its.com/pearl-district` |
+| Address, view 2 | `reports.compass-its.com/cost-control` |
+| Address, view 3 | `reports.compass-its.com/group` |
+| Sync badge | Synced 2 min ago |
+| Sidebar, view 1 | Overview · Service · Labor · Items · Exports |
+| Sidebar, view 2 | Overview · Prime cost · Margin · Tips · Definitions |
+| Sidebar, view 3 | Group · Sites · Benchmarks · Roll-up · Permissions |
+| Date ranges | Today · 7 days · 30 days |
+
+> **`reports.compass-its.com` does not exist.** It is a plausible host shown inside a picture of
+> a browser, which is ordinary for a product mock. If a real reporting host is ever stood up at
+> a different address, change these first — a screenshot advertising the wrong hostname is the
+> kind of error nobody notices until a client types it.
+
+> **The sidebar items differ per view on purpose.** The sections a group operator needs are not
+> the ones a single site needs, so the navigation changing between screens is the section's own
+> argument made in miniature. Keep them different.
+
+> **The server names in view 1 and the site names in view 3 are invented.** Pearl District,
+> Alberta, Division and Hawthorne are real Portland neighbourhoods but not real clients, and no
+> business trades under those names here. The staff names belong to nobody.
+
+
 > **Every figure in that section is invented and must stay labelled as such.** The site
 > carries no client data and no client permission to show any. The disclaimer line above
 > is the reason the section is allowed to exist at all — it is the same rule that keeps
