@@ -529,6 +529,30 @@ Example builds · illustrative figures, not a client's data
 > and Hawthorne are real places but not real clients, and no business trades under those names here.
 > The staff names belong to nobody.
 
+### Dashboard preview — every screen states a conclusion
+
+Each of the five carries a panel that names a finding and attaches money to it — *Needs a decision*,
+*Worth reading*, *Do this today*, *Exceptions*, *anomalies*. That panel is the reason the section
+exists.
+
+A chart of what happened is what the point-of-sale system already gives away free. Nobody pays
+$1,000 and a monthly retainer to be shown their own sales by hour. They pay to be told that labor
+ran 2.8% over budget and all of it was Thursday and Sunday evening, that it cost $536, and what to
+do about it. **If a redesign ever drops those panels, it has removed the argument for the price.**
+
+Every figure in them is invented, including the dollar amounts. They are written to be the *shape*
+of a real finding — specific, dated, costed — not a claim about any business.
+
+**The window frame is Compass; the software inside it is not.** The chrome uses Ink, Paper, the
+JetBrains address line, the standard radius and the `.raised` shadow, and it is identical across all
+five. Only the contents change. Five differently coloured browsers read as five screenshots rather
+than one page showing five products.
+
+**The viewport is a fixed height above the `md` breakpoint** so the window does not resize as a
+reader cycles. A frame that grows and shrinks looks unstable and drags the rest of the page with it.
+Each dashboard fills the height rather than being cropped by it; below `md` the height releases,
+because a fixed viewport on a phone means scrolling inside a scroll.
+
 ### Dashboard preview — why these ignore the design system
 
 `DESIGN.md` does not apply inside the window frame, on purpose. Five dashboards in Ink and Signal

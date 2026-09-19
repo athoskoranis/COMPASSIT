@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
-import MockWindow, { WindowTheme } from '@/components/ui/MockWindow'
+import MockWindow from '@/components/ui/MockWindow'
 
 /**
  * Five example dashboards, each designed as if it came from a different company.
@@ -130,13 +130,70 @@ type Dash = {
   style: string
   address: string
   badge: string
-  chrome: WindowTheme
   render: (r: Range) => React.ReactNode
 }
 
 const SANS = 'ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif'
 const MONO = 'ui-monospace, SFMono-Regular, Menlo, monospace'
 const SERIF = 'Georgia, Cambria, Times New Roman, serif'
+
+/**
+ * Every dashboard carries at least one panel that states a conclusion with money
+ * attached, not just a chart. That is the whole difference between this and the
+ * reporting the POS already ships free: an owner does not pay a retainer to be
+ * shown what happened, they pay to be told what it cost and what to do about it.
+ */
+
+function Delta({ v, good, mono }: { v: string; good: boolean; mono?: boolean }) {
+  return (
+    <span style={{ fontSize: 10.5, color: good ? '#34C48A' : '#E8735A', fontFamily: mono ? MONO : 'inherit' }}>
+      {v}
+    </span>
+  )
+}
+
+/** A finding: what happened, what it costs, what to do. */
+function Finding({
+  text, amount, tone, muted, accent,
+}: { text: string; amount: string; tone: 'good' | 'bad' | 'flat'; muted: string; accent: string }) {
+  const c = tone === 'good' ? '#34C48A' : tone === 'bad' ? '#E8735A' : accent
+  return (
+    <div style={{ display: 'flex', gap: 9, alignItems: 'flex-start', marginBottom: 9 }}>
+      <span style={{ width: 3, alignSelf: 'stretch', background: c, borderRadius: 2, flexShrink: 0, marginTop: 2 }} />
+      <div style={{ minWidth: 0, flex: 1 }}>
+        <p style={{ margin: 0, fontSize: 11.5, lineHeight: 1.45, color: muted }}>{text}</p>
+        <p style={{ margin: '3px 0 0', fontSize: 11.5, fontWeight: 600, color: c }}>{amount}</p>
+      </div>
+    </div>
+  )
+}
+
+/** Prime cost split as one stacked bar — food, labor, headroom to target. */
+function StackBar({ food, labor, target, colors }: { food: number; labor: number; target: number; colors: [string, string, string] }) {
+  const used = food + labor
+  const head = Math.max(target - used, 0)
+  const over = Math.max(used - target, 0)
+  return (
+    <div>
+      <div style={{ display: 'flex', height: 12, borderRadius: 3, overflow: 'hidden', gap: 2 }}>
+        <span style={{ width: `${food}%`, background: colors[0] }} />
+        <span style={{ width: `${labor}%`, background: colors[1] }} />
+        {head > 0 && <span style={{ width: `${head}%`, background: colors[2] }} />}
+      </div>
+      <div style={{ display: 'flex', gap: 12, marginTop: 7, flexWrap: 'wrap' }}>
+        {[['Food', food, colors[0]], ['Labor', labor, colors[1]]].map(([l, v, c]) => (
+          <span key={l as string} style={{ fontSize: 10, display: 'inline-flex', alignItems: 'center', gap: 5 }}>
+            <span style={{ width: 7, height: 7, borderRadius: 2, background: c as string }} />
+            {l} {v}%
+          </span>
+        ))}
+        <span style={{ fontSize: 10, marginInlineStart: 'auto', opacity: 0.7 }}>
+          {over > 0 ? `${over.toFixed(1)}pt over target` : `${head.toFixed(1)}pt under target`}
+        </span>
+      </div>
+    </div>
+  )
+}
 
 const DASHBOARDS: Dash[] = [
   // 1 ── Neon violet, modern SaaS
@@ -146,48 +203,71 @@ const DASHBOARDS: Dash[] = [
     style: 'Neon violet · modern SaaS',
     address: 'app.aurorapos.io/venue/9812',
     badge: 'LIVE',
-    chrome: {
-      bar: '#1A1333', border: '#2C2352', pill: '#241B45', pillBorder: '#372B63',
-      text: '#A79CD4', dots: ['#6D5BC7', '#4C3F8F', '#372B63'], radius: 16, font: SANS,
-    },
     render: (r) => {
       const m = MULT[r]
       const series = [32, 38, 30, 45, 52, 71, 64, 58, 76, 88, 72, 91]
+      const card = { background: 'linear-gradient(160deg,#1E1738,#181230)', border: '1px solid #2C2352', borderRadius: 14, padding: 13 }
       return (
-        <div style={{ background: '#120E24', padding: 20, fontFamily: SANS, color: '#E9E4FF' }}>
-          <div className="flex items-center justify-between gap-3 mb-5 flex-wrap">
+        <div style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', background: '#120E24', padding: 18, fontFamily: SANS, color: '#E9E4FF' }}>
+          <div className="flex items-center justify-between gap-3 mb-3.5 flex-wrap">
             <div>
-              <p style={{ margin: 0, fontSize: 16, fontWeight: 600 }}>Evening service</p>
-              <p style={{ margin: '4px 0 0', fontSize: 11, color: '#8B7FC0' }}>Aurora POS · Venue 9812</p>
+              <p style={{ margin: 0, fontSize: 15, fontWeight: 600 }}>Evening service</p>
+              <p style={{ margin: '3px 0 0', fontSize: 10.5, color: '#8B7FC0' }}>Aurora POS · Venue 9812 · vs 4-week average</p>
             </div>
             <div className="flex gap-1.5">
-              {['Sales', 'Labor', 'Menu'].map((t, i) => (
-                <span key={t} style={{ fontSize: 11, padding: '5px 12px', borderRadius: 999, background: i === 0 ? '#6D5BC7' : '#1E1738', color: i === 0 ? '#fff' : '#8B7FC0' }}>{t}</span>
+              {['Sales', 'Labor', 'Menu', 'Forecast'].map((t, i) => (
+                <span key={t} style={{ fontSize: 10.5, padding: '4px 11px', borderRadius: 999, background: i === 0 ? '#6D5BC7' : '#1E1738', color: i === 0 ? '#fff' : '#8B7FC0' }}>{t}</span>
               ))}
             </div>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 mb-3">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 mb-2.5">
             {[
-              { k: 'Revenue', v: money(9120 * m), s: [30, 42, 38, 55, 61, 72], c: '#A78BFA' },
-              { k: 'Covers', v: Math.round(238 * m).toLocaleString(), s: [40, 36, 48, 44, 60, 66], c: '#22D3EE' },
-              { k: 'Avg spend', v: `$${wobble(38.4, r, 1.2)}`, s: [52, 48, 55, 50, 58, 62], c: '#F472B6' },
+              { k: 'Revenue', v: money(9120 * m), d: '+6.1% vs fcst', g: true, s: [30, 42, 38, 55, 61, 72], c: '#A78BFA' },
+              { k: 'Covers', v: Math.round(238 * m).toLocaleString(), d: '-3.4% vs fcst', g: false, s: [40, 36, 48, 44, 38, 36], c: '#22D3EE' },
+              { k: 'Avg spend', v: `$${wobble(38.4, r, 1.2)}`, d: '+$2.10', g: true, s: [52, 48, 55, 50, 58, 62], c: '#F472B6' },
+              { k: 'Prime cost', v: `${wobble(61, r, 1)}%`, d: '3.0pt over', g: false, s: [58, 59, 60, 61, 61, 62], c: '#FBBF24' },
             ].map((x) => (
-              <div key={x.k} style={{ background: 'linear-gradient(160deg,#1E1738,#181230)', border: '1px solid #2C2352', borderRadius: 14, padding: 14 }}>
-                <p style={{ margin: 0, fontSize: 10, letterSpacing: '0.08em', color: '#8B7FC0', textTransform: 'uppercase' }}>{x.k}</p>
-                <p style={{ margin: '8px 0 6px', fontSize: 24, fontWeight: 600 }}>{x.v}</p>
-                <Spark pts={x.s} color={x.c} />
+              <div key={x.k} style={card}>
+                <p style={{ margin: 0, fontSize: 9.5, letterSpacing: '0.08em', color: '#8B7FC0', textTransform: 'uppercase' }}>{x.k}</p>
+                <p style={{ margin: '6px 0 3px', fontSize: 21, fontWeight: 600 }}>{x.v}</p>
+                <div className="flex items-end justify-between gap-2">
+                  <Delta v={x.d} good={x.g} />
+                  <Spark pts={x.s} color={x.c} h={22} />
+                </div>
               </div>
             ))}
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-3">
-            <div style={{ background: '#1A1333', border: '1px solid #2C2352', borderRadius: 14, padding: 14 }}>
-              <p style={{ margin: '0 0 10px', fontSize: 11, color: '#8B7FC0' }}>Revenue through service</p>
-              <Area pts={series} color="#A78BFA" fill="#8B5CF6" h={96} />
+          <div className="grid grid-cols-1 lg:grid-cols-[1.55fr_1fr] gap-2.5" style={{ flex: 1, minHeight: 0 }}>
+            <div style={{ ...card, display: 'flex', flexDirection: 'column' }}>
+              <div className="flex items-baseline justify-between mb-1.5">
+                <p style={{ margin: 0, fontSize: 10.5, color: '#8B7FC0' }}>Revenue through service</p>
+                <p style={{ margin: 0, fontSize: 10, color: '#6D5BC7' }}>peak 19:00 · $8,970</p>
+              </div>
+              <div style={{ flex: 1, display: 'flex', alignItems: 'center', minHeight: 0 }}>
+                <Area pts={series} color="#A78BFA" fill="#8B5CF6" h={96} />
+              </div>
+              <div style={{ borderTop: '1px solid #2C2352', paddingTop: 10, marginTop: 6 }}>
+                <StackBar food={33.2} labor={27.8} target={58} colors={['#A78BFA', '#22D3EE', '#241B45']} />
+              </div>
             </div>
-            <div style={{ background: '#1A1333', border: '1px solid #2C2352', borderRadius: 14, padding: 14, color: '#E9E4FF' }} className="flex flex-col items-center justify-center">
-              <Donut pct={wobble(64, r, 3)} color="#22D3EE" track="#241B45" label={`${wobble(64, r, 3)}%`} sub="PRIME COST" />
+
+            <div style={{ ...card, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+              <p style={{ margin: '0 0 10px', fontSize: 9.5, letterSpacing: '0.08em', color: '#8B7FC0', textTransform: 'uppercase' }}>
+                Needs a decision
+              </p>
+              <div style={{ overflow: 'hidden', flex: 1 }}>
+                <Finding tone="bad" muted="#C9C0EC" accent="#A78BFA"
+                  text="Bar covers down 14% on Tue and Wed only. Kitchen covers flat."
+                  amount="−$780 / week" />
+                <Finding tone="bad" muted="#C9C0EC" accent="#A78BFA"
+                  text="Section 12–16 turning 22% slower after 20:00 since the 6 Sep layout change."
+                  amount="≈ 9 covers a night" />
+                <Finding tone="good" muted="#C9C0EC" accent="#A78BFA"
+                  text="Set menu lifted average spend $2.10 without hurting covers."
+                  amount="+$1,340 / week" />
+              </div>
             </div>
           </div>
         </div>
@@ -202,66 +282,98 @@ const DASHBOARDS: Dash[] = [
     style: 'Light corporate · accounting BI',
     address: 'ledger-reporting.com/reports/weekly',
     badge: 'WK 38',
-    chrome: {
-      bar: '#E8E6DF', border: '#CFCCC1', pill: '#FFFFFF', pillBorder: '#CFCCC1',
-      text: '#6B6759', dots: ['#B9B5A7', '#C9C5B8', '#D6D3C7'], radius: 4, font: SANS,
-    },
     render: (r) => {
       const m = MULT[r]
-      const rows = [
-        ['Food sales', 41200, 62.1],
-        ['Beverage', 18600, 28.0],
-        ['Retail', 4100, 6.2],
-        ['Other', 2450, 3.7],
-      ] as [string, number, number][]
+      const pl: [string, number, number, boolean][] = [
+        ['Net sales', 66350, 3.2, true],
+        ['Cost of goods', -22180, -1.4, false],
+        ['Gross profit', 44170, 2.1, true],
+        ['Labor', -19120, -2.8, false],
+        ['Overheads', -11340, 0.4, true],
+        ['EBITDA', 13710, 5.6, true],
+      ]
+      const pane = { background: '#FFFFFF', border: '1px solid #DEDBD1', borderRadius: 3 }
       return (
-        <div style={{ background: '#F4F3EF', padding: 22, fontFamily: SANS, color: '#2A2822' }}>
-          <p style={{ margin: 0, fontSize: 10, color: '#8A8577', letterSpacing: '0.06em' }}>REPORTS / REVENUE / WEEKLY SUMMARY</p>
-          <h4 style={{ margin: '8px 0 18px', fontFamily: SERIF, fontSize: 21, fontWeight: 400 }}>Revenue by category</h4>
+        <div style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', background: '#F4F3EF', padding: 18, fontFamily: SANS, color: '#2A2822' }}>
+          <div className="flex items-baseline justify-between flex-wrap gap-2 mb-3">
+            <div>
+              <p style={{ margin: 0, fontSize: 9.5, color: '#8A8577', letterSpacing: '0.06em' }}>REPORTS / PERIOD SUMMARY</p>
+              <h4 style={{ margin: '5px 0 0', fontFamily: SERIF, fontSize: 19, fontWeight: 400 }}>Trading summary</h4>
+            </div>
+            <p style={{ margin: 0, fontSize: 10.5, color: '#6B6759', fontFamily: SERIF }}>
+              Prepared {RANGES.find((x) => x.key === r)?.label.toLowerCase()} · against budget
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-5">
-            {/* Scrolls rather than clipping: four columns plus a sparkline does
-                not fit 375px, and a trend column cut in half reads as broken. */}
-            <div style={{ background: '#FFFFFF', border: '1px solid #DEDBD1', borderRadius: 3, overflowX: 'auto' }}>
-              <table style={{ width: '100%', minWidth: 380, borderCollapse: 'collapse', fontSize: 12 }}>
+          <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-3" style={{ flex: 1, minHeight: 0 }}>
+            <div style={{ ...pane, overflowX: 'auto', display: 'flex', flexDirection: 'column' }}>
+              <table style={{ width: '100%', minWidth: 360, borderCollapse: 'collapse', fontSize: 11.5 }}>
                 <thead>
                   <tr style={{ background: '#FAF9F6' }}>
-                    {['Category', 'Amount', 'Share', 'Trend'].map((h) => (
-                      <th key={h} style={{ textAlign: h === 'Category' ? 'start' : 'end', padding: '9px 12px', fontSize: 9.5, letterSpacing: '0.07em', color: '#8A8577', fontWeight: 600, borderBottom: '1px solid #DEDBD1' }}>
+                    {['Line', 'Actual', 'Budget', 'Var'].map((h, i) => (
+                      <th key={h} style={{ textAlign: i === 0 ? 'start' : 'end', padding: '8px 11px', fontSize: 9, letterSpacing: '0.07em', color: '#8A8577', fontWeight: 600, borderBottom: '1px solid #DEDBD1' }}>
                         {h.toUpperCase()}
                       </th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {rows.map(([label, amt, share], i) => (
-                    <tr key={label} style={{ borderBottom: i < rows.length - 1 ? '1px solid #EFEDE6' : 'none' }}>
-                      <td style={{ padding: '9px 12px', fontFamily: SERIF }}>{label}</td>
-                      <td style={{ padding: '9px 12px', textAlign: 'end', fontVariantNumeric: 'tabular-nums' }}>{money(amt * m)}</td>
-                      <td style={{ padding: '9px 12px', textAlign: 'end', color: '#6B6759', fontVariantNumeric: 'tabular-nums' }}>{share}%</td>
-                      <td style={{ padding: '4px 12px', textAlign: 'end', color: '#1F4E79' }}>
-                        <span className="inline-block align-middle"><Spark pts={[30, 34, 31, 38, 36, 42].map((v) => v + i * 3)} color="#1F4E79" h={20} /></span>
-                      </td>
-                    </tr>
-                  ))}
+                  {pl.map(([label, amt, varr, good], i) => {
+                    const total = label === 'Gross profit' || label === 'EBITDA'
+                    return (
+                      <tr key={label} style={{ borderBottom: '1px solid #EFEDE6', background: total ? '#FBFAF7' : undefined }}>
+                        <td style={{ padding: '7px 11px', fontFamily: SERIF, fontWeight: total ? 600 : 400 }}>{label}</td>
+                        <td style={{ padding: '7px 11px', textAlign: 'end', fontVariantNumeric: 'tabular-nums', fontWeight: total ? 600 : 400 }}>
+                          {amt < 0 ? `(${money(Math.abs(amt) * m).slice(1)})` : money(amt * m)}
+                        </td>
+                        <td style={{ padding: '7px 11px', textAlign: 'end', color: '#8A8577', fontVariantNumeric: 'tabular-nums' }}>
+                          {money(Math.abs(amt) * m * 0.98)}
+                        </td>
+                        <td style={{ padding: '7px 11px', textAlign: 'end', fontVariantNumeric: 'tabular-nums' }}>
+                          <Delta v={`${varr > 0 ? '+' : ''}${varr}%`} good={good} />
+                        </td>
+                      </tr>
+                    )
+                  })}
                 </tbody>
-                <tfoot>
-                  <tr style={{ background: '#FAF9F6', borderTop: '2px solid #CFCCC1' }}>
-                    <td style={{ padding: '9px 12px', fontWeight: 600, fontFamily: SERIF }}>Total</td>
-                    <td style={{ padding: '9px 12px', textAlign: 'end', fontWeight: 600, fontVariantNumeric: 'tabular-nums' }}>{money(66350 * m)}</td>
-                    <td style={{ padding: '9px 12px', textAlign: 'end', color: '#6B6759' }}>100%</td>
-                    <td />
-                  </tr>
-                </tfoot>
               </table>
+
+              <div style={{ borderTop: '1px solid #DEDBD1', padding: '10px 11px', marginTop: 'auto', background: '#FBFAF7' }}>
+                <p style={{ margin: 0, fontSize: 9, letterSpacing: '0.07em', color: '#8A8577', fontWeight: 600 }}>DAILY RECEIPTS</p>
+                <div style={{ color: '#1F4E79', marginTop: 6 }}>
+                  <Cols pts={[42, 48, 44, 57, 78, 92, 61]} labels={['M', 'T', 'W', 'T', 'F', 'S', 'S']} color="#1F4E79" radius={1} h={68} />
+                </div>
+              </div>
             </div>
 
-            <div style={{ background: '#FFFFFF', border: '1px solid #DEDBD1', borderRadius: 3, padding: 14, color: '#1F4E79' }}>
-              <p style={{ margin: '0 0 12px', fontSize: 9.5, letterSpacing: '0.07em', color: '#8A8577', fontWeight: 600 }}>DAILY RECEIPTS</p>
-              <Cols pts={[42, 48, 44, 57, 78, 92, 61]} labels={['M', 'T', 'W', 'T', 'F', 'S', 'S']} color="#1F4E79" radius={1} h={116} />
-              <p style={{ margin: '14px 0 0', fontSize: 11, color: '#6B6759', fontFamily: SERIF }}>
-                Variance to budget <strong style={{ color: '#1F4E79' }}>+{wobble(3.2, r, 1.4)}%</strong>
-              </p>
+            <div className="flex flex-col gap-3" style={{ minHeight: 0 }}>
+              <div style={{ ...pane, padding: 13 }}>
+                <p style={{ margin: '0 0 9px', fontSize: 9, letterSpacing: '0.07em', color: '#8A8577', fontWeight: 600 }}>WORTH READING</p>
+                <Finding tone="bad" muted="#4A473E" accent="#1F4E79"
+                  text="Labor ran 2.8% over budget, all of it Thursday and Sunday evening."
+                  amount="$536 over" />
+                <Finding tone="bad" muted="#4A473E" accent="#1F4E79"
+                  text="Beef cost per kilo up 9% since 12 Sep. Menu price unchanged."
+                  amount="−1.6pt gross margin" />
+                <Finding tone="good" muted="#4A473E" accent="#1F4E79"
+                  text="Beverage mix up to 28% of sales, the highest this quarter."
+                  amount="+$1,180 gross profit" />
+              </div>
+
+              <div style={{ ...pane, padding: 13, flex: 1, minHeight: 0 }}>
+                <p style={{ margin: '0 0 9px', fontSize: 9, letterSpacing: '0.07em', color: '#8A8577', fontWeight: 600 }}>RECONCILIATION</p>
+                {[
+                  ['Card settlements', 'Matched', true],
+                  ['Cash declared vs counted', '−$18.40', false],
+                  ['Voids over $50', '4 events', false],
+                  ['Unclosed tabs', 'None', true],
+                ].map(([k, v, ok]) => (
+                  <div key={k as string} className="flex items-baseline justify-between gap-3" style={{ padding: '6px 0', borderBottom: '1px solid #EFEDE6' }}>
+                    <span style={{ fontSize: 11.5, fontFamily: SERIF, color: '#4A473E' }}>{k}</span>
+                    <span style={{ fontSize: 11, color: ok ? '#2F7D57' : '#A2503C', fontVariantNumeric: 'tabular-nums' }}>{v}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -276,54 +388,75 @@ const DASHBOARDS: Dash[] = [
     style: 'Warm coral · consumer app',
     address: 'citrus.app/kitchen/today',
     badge: 'AUTO-REFRESH',
-    chrome: {
-      bar: '#FFEFE2', border: '#F6D9C4', pill: '#FFFFFF', pillBorder: '#F6D9C4',
-      text: '#B4643C', dots: ['#FF8A5B', '#FFB627', '#FFD79A'], radius: 22, font: SANS,
-    },
     render: (r) => {
       const m = MULT[r]
+      const pane = { background: '#fff', borderRadius: 18, padding: 15, border: '1px solid #F6E3D3' }
       return (
-        <div style={{ background: '#FFF8F1', padding: 22, fontFamily: SANS, color: '#3D2418' }}>
-          <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
+        <div style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', background: '#FFF8F1', padding: 18, fontFamily: SANS, color: '#3D2418' }}>
+          <div className="flex items-center justify-between flex-wrap gap-3 mb-3">
             <div className="flex gap-2">
               {['Kitchen', 'Front', 'Delivery'].map((t, i) => (
-                <span key={t} style={{ fontSize: 12, fontWeight: 600, padding: '7px 16px', borderRadius: 999, background: i === 0 ? '#F2622E' : '#FFEFE2', color: i === 0 ? '#fff' : '#B4643C' }}>{t}</span>
+                <span key={t} style={{ fontSize: 11.5, fontWeight: 600, padding: '6px 14px', borderRadius: 999, background: i === 0 ? '#F2622E' : '#FFEFE2', color: i === 0 ? '#fff' : '#B4643C' }}>{t}</span>
               ))}
             </div>
-            <span style={{ fontSize: 11, color: '#B4643C' }}>Updated just now</span>
+            <span style={{ fontSize: 10.5, color: '#B4643C' }}>Updated just now</span>
           </div>
 
-          <div style={{ background: 'linear-gradient(135deg,#F2622E,#FFB627)', borderRadius: 22, padding: '22px 24px', color: '#fff', marginBottom: 14 }}>
-            <p style={{ margin: 0, fontSize: 12, opacity: 0.9 }}>Sales today</p>
-            <p style={{ margin: '6px 0 0', fontSize: 40, fontWeight: 700, letterSpacing: '-0.02em' }}>{money(7840 * m)}</p>
-            <p style={{ margin: '8px 0 0', fontSize: 12, opacity: 0.92 }}>
-              {wobble(12.4, r, 4)}% ahead of the same period last month
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-3">
-            <div style={{ background: '#fff', borderRadius: 20, padding: 18, border: '1px solid #F6E3D3' }}>
-              <p style={{ margin: '0 0 14px', fontSize: 13, fontWeight: 700 }}>Top sellers</p>
+          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-3 mb-3">
+            <div style={{ background: 'linear-gradient(135deg,#F2622E,#FFB627)', borderRadius: 18, padding: '16px 18px', color: '#fff' }}>
+              <p style={{ margin: 0, fontSize: 11.5, opacity: 0.92 }}>Sales today</p>
+              <p style={{ margin: '4px 0 0', fontSize: 32, fontWeight: 700, letterSpacing: '-0.02em' }}>{money(7840 * m)}</p>
+              <p style={{ margin: '6px 0 0', fontSize: 11.5, opacity: 0.94 }}>
+                {wobble(12.4, r, 4)}% ahead of the same period last month
+              </p>
+            </div>
+            <div className="grid grid-cols-3 gap-2.5">
               {[
-                ['Smash burger', 88], ['Loaded fries', 71], ['Chicken bowl', 54], ['Iced matcha', 37],
-              ].map(([label, v]) => (
-                <div key={label as string} className="flex items-center gap-3 mb-3">
-                  <span style={{ fontSize: 12, width: 104, color: '#6B4A38' }}>{label}</span>
-                  <span style={{ flex: 1, height: 12, background: '#FFEFE2', borderRadius: 999, overflow: 'hidden' }}>
-                    <span style={{ display: 'block', height: '100%', width: `${v}%`, borderRadius: 999, background: 'linear-gradient(90deg,#FFB627,#F2622E)' }} />
-                  </span>
-                  <span style={{ fontSize: 12, fontWeight: 700, width: 30, textAlign: 'right' }}>{v}</span>
+                ['Tickets', Math.round(184 * m).toLocaleString(), '+9%', true],
+                ['Avg time', `${wobble(11.2, r, 1.1)}m`, '−1.4m', true],
+                ['Refires', String(Math.max(1, Math.round(3 * (r === '1d' ? 1 : r === '7d' ? 5 : 19)))), '+2', false],
+              ].map(([k, v, d, g]) => (
+                <div key={k as string} style={{ ...pane, padding: 12 }}>
+                  <p style={{ margin: 0, fontSize: 10, color: '#B4643C' }}>{k}</p>
+                  <p style={{ margin: '5px 0 3px', fontSize: 19, fontWeight: 700 }}>{v}</p>
+                  <Delta v={d as string} good={g as boolean} />
                 </div>
               ))}
             </div>
+          </div>
 
-            <div style={{ background: '#fff', borderRadius: 20, padding: 18, border: '1px solid #F6E3D3', color: '#3D2418' }} className="flex items-center justify-around">
-              <Donut pct={wobble(72, r, 5)} color="#F2622E" track="#FFEFE2" label={`${wobble(72, r, 5)}%`} sub="KITCHEN ON TIME" />
-              <div>
-                <p style={{ margin: 0, fontSize: 11, color: '#B4643C' }}>Avg ticket time</p>
-                <p style={{ margin: '4px 0 14px', fontSize: 22, fontWeight: 700 }}>{wobble(11.2, r, 1.1)} min</p>
-                <p style={{ margin: 0, fontSize: 11, color: '#B4643C' }}>Refires</p>
-                <p style={{ margin: '4px 0 0', fontSize: 22, fontWeight: 700 }}>{Math.max(1, Math.round(3 * (r === '1d' ? 1 : r === '7d' ? 5 : 19)))}</p>
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.05fr] gap-3" style={{ flex: 1, minHeight: 0 }}>
+            <div style={{ ...pane, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+              <p style={{ margin: '0 0 11px', fontSize: 12.5, fontWeight: 700 }}>Best sellers by profit, not volume</p>
+              {[
+                ['Smash burger', 88, '$4.90'], ['Iced matcha', 74, '$3.80'],
+                ['Loaded fries', 62, '$2.40'], ['Chicken bowl', 47, '$3.10'],
+              ].map(([label, v, per]) => (
+                <div key={label as string} className="flex items-center gap-2.5 mb-2.5">
+                  <span style={{ fontSize: 11.5, width: 92, color: '#6B4A38' }}>{label}</span>
+                  <span style={{ flex: 1, height: 10, background: '#FFEFE2', borderRadius: 999, overflow: 'hidden' }}>
+                    <span style={{ display: 'block', height: '100%', width: `${v}%`, borderRadius: 999, background: 'linear-gradient(90deg,#FFB627,#F2622E)' }} />
+                  </span>
+                  <span style={{ fontSize: 11, fontWeight: 700, width: 38, textAlign: 'right' }}>{per}</span>
+                </div>
+              ))}
+              <p style={{ margin: 'auto 0 0', fontSize: 10.5, color: '#B4643C', paddingTop: 8, borderTop: '1px solid #F6E3D3' }}>
+                Profit per item sold, after entered food cost
+              </p>
+            </div>
+
+            <div style={{ ...pane, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+              <p style={{ margin: '0 0 11px', fontSize: 12.5, fontWeight: 700 }}>Do this today</p>
+              <div style={{ flex: 1, overflow: 'hidden' }}>
+                <Finding tone="bad" muted="#6B4A38" accent="#F2622E"
+                  text="Every refire after 19:30 came off the grill station. Same two shifts."
+                  amount="14 covers remade this week" />
+                <Finding tone="good" muted="#6B4A38" accent="#F2622E"
+                  text="Thursday demand has beaten prep three weeks running. Prep 20% more chicken."
+                  amount="≈ $310 of missed sales" />
+                <Finding tone="flat" muted="#6B4A38" accent="#F2622E"
+                  text="Matcha earns $3.80 a cup and sells half as often as fries. It is under-pushed."
+                  amount="+$540 / week if matched" />
               </div>
             </div>
           </div>
@@ -339,58 +472,74 @@ const DASHBOARDS: Dash[] = [
     style: 'Monospace · operations console',
     address: 'trm.internal:8443/ops',
     badge: 'SESSION 04',
-    chrome: {
-      bar: '#080D12', border: '#16232E', pill: '#0B1319', pillBorder: '#1B2B38',
-      text: '#3F8F6B', dots: ['#1E7A52', '#155C3D', '#0F3F2A'], radius: 3, font: MONO,
-    },
     render: (r) => {
       const m = MULT[r]
-      const rows = [
+      const rows: [string, number, number, string][] = [
         ['PEARL', 88, 58.1, 'OK'],
         ['ALBRT', 64, 60.4, 'OK'],
         ['DIVSN', 58, 61.7, 'WATCH'],
         ['HWTHN', 39, 64.9, 'ALERT'],
-      ] as [string, number, number, string][]
+      ]
       const bar = (v: number) => '█'.repeat(Math.round(v / 7)).padEnd(13, '·')
+      const pane = { border: '1px solid #16232E', background: '#070C11', padding: 11 }
+      const statusColor = (s: string) => (s === 'OK' ? '#22FF88' : s === 'WATCH' ? '#E3C34F' : '#FF6B5B')
       return (
-        <div style={{ background: '#04070A', padding: 18, fontFamily: MONO, color: '#7FE3B5', fontSize: 12 }}>
-          <div style={{ borderBottom: '1px solid #16232E', paddingBottom: 10, marginBottom: 14 }} className="flex justify-between flex-wrap gap-2">
+        <div style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', background: '#04070A', padding: 16, fontFamily: MONO, color: '#7FE3B5', fontSize: 11.5 }}>
+          <div style={{ borderBottom: '1px solid #16232E', paddingBottom: 9, marginBottom: 11 }} className="flex justify-between flex-wrap gap-2">
             <span style={{ color: '#22FF88' }}>OPS://group/all-sites</span>
-            <span style={{ color: '#3F8F6B' }}>{RANGES.find((x) => x.key === r)?.label.toUpperCase()} · 4 NODES</span>
+            <span style={{ color: '#3F8F6B' }}>{RANGES.find((x) => x.key === r)?.label.toUpperCase()} · 4 NODES · 1 ALERT</span>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 mb-2.5">
             {[
-              ['NET', money(66350 * m)], ['PRIME', `${wobble(61.0, r, 1)}%`],
-              ['LABOR', `${wobble(28.9, r, 1)}%`], ['COVERS', Math.round(1180 * m).toLocaleString()],
-            ].map(([k, v]) => (
-              <div key={k} style={{ border: '1px solid #16232E', padding: '10px 12px', background: '#070C11' }}>
-                <p style={{ margin: 0, fontSize: 9, color: '#3F8F6B', letterSpacing: '0.12em' }}>{k}</p>
-                <p style={{ margin: '6px 0 0', fontSize: 18, color: '#22FF88' }}>{v}</p>
+              ['NET', money(66350 * m), '+3.2%', true], ['PRIME', `${wobble(61.0, r, 1)}%`, '+3.0pt', false],
+              ['LABOR', `${wobble(28.9, r, 1)}%`, '+0.9pt', false], ['COVERS', Math.round(1180 * m).toLocaleString(), '-1.1%', false],
+            ].map(([k, v, d, g]) => (
+              <div key={k as string} style={{ ...pane, padding: '9px 11px' }}>
+                <p style={{ margin: 0, fontSize: 8.5, color: '#3F8F6B', letterSpacing: '0.12em' }}>{k}</p>
+                <p style={{ margin: '5px 0 3px', fontSize: 16, color: '#22FF88' }}>{v}</p>
+                <Delta v={d as string} good={g as boolean} mono />
               </div>
             ))}
           </div>
 
-          <div style={{ border: '1px solid #16232E', background: '#070C11', padding: 12, marginBottom: 12, overflowX: 'auto' }}>
-            <pre style={{ margin: 0, fontSize: 11, lineHeight: 1.75, color: '#7FE3B5' }}>
-{`SITE   SALES-IDX      PRIME    STATUS
-`}
-{rows.map(([site, v, prime, status]) =>
-`${site}  ${bar(v)}  ${String(prime).padStart(5)}%   ${status}\n`
-).join('')}
-            </pre>
-          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-2.5" style={{ flex: 1, minHeight: 0 }}>
+            <div style={{ ...pane, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+              <p style={{ margin: '0 0 8px', fontSize: 8.5, color: '#3F8F6B', letterSpacing: '0.12em' }}>NODE STATUS</p>
+              <div style={{ overflowX: 'auto' }}>
+                <pre style={{ margin: 0, fontSize: 10.5, lineHeight: 1.85, color: '#7FE3B5' }}>
+{'SITE   SALES-IDX      PRIME  LABOR\n'}
+{rows.map(([site, v, prime]) => `${site}  ${bar(v)}  ${String(prime).padStart(5)}%  ${(prime / 2.1).toFixed(1)}%\n`).join('')}
+                </pre>
+              </div>
+              <div style={{ marginTop: 'auto', paddingTop: 9, borderTop: '1px solid #16232E', display: 'flex', gap: 14, flexWrap: 'wrap' }}>
+                {rows.map(([site, , , st]) => (
+                  <span key={site} style={{ fontSize: 10, color: statusColor(st) }}>{site} {st}</span>
+                ))}
+              </div>
+            </div>
 
-          <div style={{ border: '1px solid #16232E', background: '#070C11', padding: 12 }} className="text-current">
-            <p style={{ margin: '0 0 8px', fontSize: 9, color: '#3F8F6B', letterSpacing: '0.12em' }}>THROUGHPUT / HR</p>
-            <div style={{ color: '#22FF88' }}>
-              <Cols pts={[18, 42, 55, 31, 14, 12, 28, 61, 88, 79, 47, 22]} color="#22FF88" radius={0} h={80} />
+            <div style={{ ...pane, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+              <p style={{ margin: '0 0 9px', fontSize: 8.5, color: '#3F8F6B', letterSpacing: '0.12em' }}>EXCEPTIONS — ACTION REQUIRED</p>
+              <div style={{ flex: 1, overflow: 'hidden' }}>
+                {[
+                  ['19:42', 'HWTHN prime 64.9% — 6.9pt over group', '$1,240/wk', '#FF6B5B'],
+                  ['18:05', 'DIVSN labor breached 32% for 3rd shift running', '$380/wk', '#E3C34F'],
+                  ['14:20', 'Void > $50 ×4, all one till, all pre-close', 'review', '#E3C34F'],
+                  ['09:12', 'PEARL beat forecast 5 days straight', 'raise fcst', '#22FF88'],
+                ].map(([t, msg, amt, c]) => (
+                  <div key={t} style={{ display: 'flex', gap: 9, padding: '5px 0', borderBottom: '1px solid #0F1A22' }}>
+                    <span style={{ fontSize: 10, color: '#2E6B4E', flexShrink: 0 }}>{t}</span>
+                    <span style={{ fontSize: 10.5, color: '#7FE3B5', lineHeight: 1.4, flex: 1, minWidth: 0 }}>{msg}</span>
+                    <span style={{ fontSize: 10, color: c, flexShrink: 0 }}>{amt}</span>
+                  </div>
+                ))}
+              </div>
+              <p style={{ margin: '8px 0 0', fontSize: 9.5, color: '#2E6B4E' }}>
+                {'>'} watch --interval 60s <span style={{ background: '#22FF88', color: '#04070A' }}>&nbsp;</span>
+              </p>
             </div>
           </div>
-
-          <p style={{ margin: '12px 0 0', fontSize: 10, color: '#2E6B4E' }}>
-            {'>'} watch --interval 60s <span style={{ background: '#22FF88', color: '#04070A' }}>&nbsp;</span>
-          </p>
         </div>
       )
     },
@@ -403,54 +552,71 @@ const DASHBOARDS: Dash[] = [
     style: 'Dense grid · engineering console',
     address: 'meridian.grid/boards/retail-ops',
     badge: '30s REFRESH',
-    chrome: {
-      bar: '#0E1729', border: '#1C2A44', pill: '#111C31', pillBorder: '#22334F',
-      text: '#7C90B3', dots: ['#3B82F6', '#1E4E8C', '#15304F'], radius: 6, font: SANS,
-    },
     render: (r) => {
       const m = MULT[r]
-      const panel = { background: '#111A2E', border: '1px solid #1C2A44', borderRadius: 6, padding: 12 }
+      const panel = { background: '#111A2E', border: '1px solid #1C2A44', borderRadius: 6, padding: 11 }
       return (
-        <div style={{ background: '#0B1220', padding: 16, fontFamily: SANS, color: '#D6E0F0' }}>
-          <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
-            <p style={{ margin: 0, fontSize: 12, color: '#7C90B3' }}>boards / retail-ops / <span style={{ color: '#D6E0F0' }}>overview</span></p>
-            <span style={{ fontSize: 10, color: '#F59E0B', border: '1px solid #4A3518', background: '#231a0c', padding: '3px 8px', borderRadius: 4 }}>
-              2 ALERTS
+        <div style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', background: '#0B1220', padding: 14, fontFamily: SANS, color: '#D6E0F0' }}>
+          <div className="flex items-center justify-between flex-wrap gap-2 mb-2.5">
+            <p style={{ margin: 0, fontSize: 11.5, color: '#7C90B3' }}>boards / retail-ops / <span style={{ color: '#D6E0F0' }}>overview</span></p>
+            <span style={{ fontSize: 9.5, color: '#F59E0B', border: '1px solid #4A3518', background: '#231a0c', padding: '3px 8px', borderRadius: 4 }}>
+              2 ALERTS FIRING
             </span>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 mb-2.5">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-2">
             {[
-              ['net_sales', money(66350 * m), '#3B82F6'],
-              ['prime_cost', `${wobble(61.0, r, 1)}%`, '#F59E0B'],
-              ['labor_pct', `${wobble(28.9, r, 1)}%`, '#3B82F6'],
-              ['void_rate', `${wobble(1.4, r, 0.4)}%`, '#EF4444'],
-            ].map(([k, v, c]) => (
-              <div key={k} style={panel}>
-                <p style={{ margin: 0, fontSize: 9.5, color: '#7C90B3', fontFamily: MONO }}>{k}</p>
-                <p style={{ margin: '7px 0 0', fontSize: 19, color: c as string, fontFamily: MONO }}>{v}</p>
+              ['net_sales', money(66350 * m), '#3B82F6', '+3.2%', true],
+              ['prime_cost', `${wobble(61.0, r, 1)}%`, '#F59E0B', '+3.0pt', false],
+              ['labor_pct', `${wobble(28.9, r, 1)}%`, '#3B82F6', '+0.9pt', false],
+              ['void_rate', `${wobble(1.4, r, 0.4)}%`, '#EF4444', '2.1σ', false],
+            ].map(([k, v, c, d, g]) => (
+              <div key={k as string} style={panel}>
+                <p style={{ margin: 0, fontSize: 9, color: '#7C90B3', fontFamily: MONO }}>{k}</p>
+                <p style={{ margin: '5px 0 3px', fontSize: 17, color: c as string, fontFamily: MONO }}>{v}</p>
+                <Delta v={d as string} good={g as boolean} mono />
               </div>
             ))}
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-2.5">
-            <div style={{ ...panel, gridColumn: 'span 2' }} className="lg:col-span-2">
-              <p style={{ margin: '0 0 10px', fontSize: 9.5, color: '#7C90B3', fontFamily: MONO }}>sales_by_hour</p>
-              <div style={{ color: '#7C90B3' }}>
-                <Cols pts={[18, 42, 55, 31, 14, 12, 28, 61, 88, 79, 47, 22]} labels={['11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22']} color="#3B82F6" radius={2} h={122} />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-2" style={{ flex: 1, minHeight: 0 }}>
+            <div style={{ ...panel, display: 'flex', flexDirection: 'column', minHeight: 0 }} className="lg:col-span-2">
+              <p style={{ margin: '0 0 8px', fontSize: 9, color: '#7C90B3', fontFamily: MONO }}>sales_by_hour · actual vs forecast</p>
+              <div style={{ color: '#7C90B3', flex: 1, display: 'flex', alignItems: 'center', minHeight: 0 }}>
+                <Cols pts={[18, 42, 55, 31, 14, 12, 28, 61, 88, 79, 47, 22]} labels={['11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22']} color="#3B82F6" radius={2} h={112} />
+              </div>
+              <div style={{ borderTop: '1px solid #1C2A44', paddingTop: 8, marginTop: 6, display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+                {[['peak', '19:00'], ['vs fcst', '+6.1%'], ['slowest', '16:00'], ['labor gap', '18 hrs']].map(([k, v]) => (
+                  <span key={k} style={{ fontSize: 9.5, fontFamily: MONO, color: '#7C90B3' }}>
+                    {k}=<span style={{ color: '#D6E0F0' }}>{v}</span>
+                  </span>
+                ))}
               </div>
             </div>
-            <div style={panel}>
-              <p style={{ margin: '0 0 10px', fontSize: 9.5, color: '#7C90B3', fontFamily: MONO }}>margin_by_item</p>
-              {[['burger', 71], ['fries', 64], ['pasta', 52], ['steak', 34]].map(([k, v]) => (
-                <div key={k as string} className="flex items-center gap-2 mb-2.5">
-                  <span style={{ fontSize: 10, fontFamily: MONO, color: '#9FB0CC', width: 46 }}>{k}</span>
-                  <span style={{ flex: 1, height: 6, background: '#16233A', borderRadius: 2, overflow: 'hidden' }}>
-                    <span style={{ display: 'block', height: '100%', width: `${v}%`, background: '#3B82F6' }} />
-                  </span>
-                  <span style={{ fontSize: 10, fontFamily: MONO, color: '#7C90B3', width: 26, textAlign: 'right' }}>{v}%</span>
-                </div>
-              ))}
+
+            <div className="flex flex-col gap-2" style={{ minHeight: 0 }}>
+              <div style={panel}>
+                <p style={{ margin: '0 0 8px', fontSize: 9, color: '#7C90B3', fontFamily: MONO }}>margin_by_item</p>
+                {[['burger', 71], ['fries', 64], ['pasta', 52], ['steak', 34]].map(([k, v]) => (
+                  <div key={k as string} className="flex items-center gap-2 mb-2">
+                    <span style={{ fontSize: 9.5, fontFamily: MONO, color: '#9FB0CC', width: 42 }}>{k}</span>
+                    <span style={{ flex: 1, height: 5, background: '#16233A', borderRadius: 2, overflow: 'hidden' }}>
+                      <span style={{ display: 'block', height: '100%', width: `${v}%`, background: (v as number) < 40 ? '#F59E0B' : '#3B82F6' }} />
+                    </span>
+                    <span style={{ fontSize: 9.5, fontFamily: MONO, color: '#7C90B3', width: 24, textAlign: 'right' }}>{v}%</span>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ ...panel, flex: 1, minHeight: 0, overflow: 'hidden' }}>
+                <p style={{ margin: '0 0 8px', fontSize: 9, color: '#7C90B3', fontFamily: MONO }}>anomalies</p>
+                <Finding tone="bad" muted="#9FB0CC" accent="#3B82F6"
+                  text="labor_pct over threshold 14:00–16:00, 9 days of 14."
+                  amount="$412 / week" />
+                <Finding tone="bad" muted="#9FB0CC" accent="#3B82F6"
+                  text="steak margin −6.2pt since supplier change on 12 Sep."
+                  amount="$1,840 annualised" />
+              </div>
             </div>
           </div>
         </div>
@@ -542,7 +708,7 @@ export default function UsDashboardPreview({
           </div>
         </div>
 
-        <MockWindow address={d.address} badge={d.badge} theme={d.chrome}>
+        <MockWindow address={d.address} badge={d.badge}>
           {d.render(range)}
         </MockWindow>
 

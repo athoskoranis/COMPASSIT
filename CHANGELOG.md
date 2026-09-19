@@ -21,6 +21,50 @@
 
 ## [Unreleased]
 
+### Changed — 2026-09-19 (The dashboards now state conclusions, and the frame is ours again)
+
+**Decision 109 — three corrections to the preview:**
+
+**1. The frame is Compass again, and identical across all five.** Decision 108 themed the browser
+chrome per dashboard, which was a step too far: five differently coloured browsers read as five
+screenshots rather than one page showing five products, and the chrome competed with the thing it
+was framing. The window now uses Ink, Paper, the JetBrains address line and the `.raised` shadow on
+every screen. The exception stays where it belongs — inside the viewport.
+
+**2. The viewport is a fixed height above `md`,** so the window no longer resizes as a reader
+cycles. A frame that grows and shrinks looks unstable and drags the page around it. Each dashboard
+fills the height with flex rather than being cropped, which also exposed that Ledger had been half
+empty — it now carries a reconciliation panel and a receipts chart in the space it was wasting.
+
+**3. Every screen now states a conclusion with money attached.** This was the substantive problem:
+the dashboards showed what happened, which is what the point-of-sale system already gives away free.
+Nobody pays $1,000 and a retainer to be shown their own sales by hour.
+
+Each of the five gained a findings panel — *Needs a decision*, *Worth reading*, *Do this today*,
+*Exceptions*, *anomalies* — written in the shape of a real finding: specific, dated, costed.
+
+| Screen | Example finding |
+|---|---|
+| Aurora | Bar covers down 14% on Tue and Wed only, kitchen flat — −$780/week |
+| Ledger | Labor 2.8% over budget, all of it Thursday and Sunday evening — $536 over |
+| Citrus | Every refire after 19:30 came off the grill station, same two shifts |
+| Terminal | HWTHN prime 6.9pt over group — $1,240/week |
+| Meridian | steak margin −6.2pt since the 12 Sep supplier change — $1,840 annualised |
+
+The rest of each screen got denser to match: deltas against forecast rather than bare numbers, a
+prime-cost split against target, a full profit and loss with budget variance, profit-per-item
+instead of units sold, a timestamped exceptions log, and threshold breaches with sigma.
+
+`CONTENT.md` records the principle, because a later redesign that drops those panels has removed the
+argument for the price without noticing.
+
+**Still invented, including the dollar amounts.** They are written to be the shape of a real finding,
+not a claim about any business, and the disclaimer under the frame is unchanged.
+
+Verified: `tsc --noEmit` clean, all five fill the fixed viewport without clipping, the range control
+still drives every figure, and each holds at 375px where the height releases and the panels stack.
+
+
 ### Changed — 2026-09-19 (Five dashboards, each from a different company)
 
 **Decision 108 — the design system stops at the window border:**
