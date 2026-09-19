@@ -195,6 +195,98 @@ function StackBar({ food, labor, target, colors }: { food: number; labor: number
   )
 }
 
+
+/**
+ * A product mark for each mock dashboard.
+ *
+ * Invented brands for invented companies. None of these is a real product, none
+ * resembles a real mark, and none is a Compass logo — putting ours in the corner
+ * would say we built the software rather than the reporting inside it.
+ *
+ * Each is drawn to its own product's character: the gradient badge, the ruled
+ * ledger page, the citrus wheel, the prompt, the meridian line.
+ */
+
+function LogoAurora() {
+  return (
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7 }}>
+      <svg width="19" height="19" viewBox="0 0 24 24" aria-hidden>
+        <defs>
+          <linearGradient id="auroraMark" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#A78BFA" />
+            <stop offset="100%" stopColor="#22D3EE" />
+          </linearGradient>
+        </defs>
+        <rect x="1" y="1" width="22" height="22" rx="7" fill="url(#auroraMark)" />
+        <path d="M6.5 15.5c2.2-5.5 8.8-5.5 11 0" fill="none" stroke="#120E24" strokeWidth="2.1" strokeLinecap="round" />
+        <circle cx="12" cy="8.4" r="1.5" fill="#120E24" />
+      </svg>
+      <span style={{ fontSize: 13, fontWeight: 700, letterSpacing: '-0.01em' }}>aurora</span>
+    </span>
+  )
+}
+
+function LogoLedger() {
+  return (
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden>
+        <rect x="2.5" y="2" width="19" height="20" rx="2" fill="none" stroke="#1F4E79" strokeWidth="1.7" />
+        <path d="M8 2v20" stroke="#1F4E79" strokeWidth="1.2" />
+        <path d="M11 8h7M11 12h7M11 16h4" stroke="#1F4E79" strokeWidth="1.2" strokeLinecap="round" />
+      </svg>
+      <span style={{ fontFamily: SERIF, fontSize: 14, color: '#1F4E79', letterSpacing: '0.02em' }}>Ledger</span>
+    </span>
+  )
+}
+
+function LogoCitrus() {
+  return (
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7 }}>
+      <svg width="19" height="19" viewBox="0 0 24 24" aria-hidden>
+        <defs>
+          <linearGradient id="citrusMark" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#FFB627" />
+            <stop offset="100%" stopColor="#F2622E" />
+          </linearGradient>
+        </defs>
+        <circle cx="12" cy="12" r="10.5" fill="url(#citrusMark)" />
+        <g stroke="#FFF8F1" strokeWidth="1.5" strokeLinecap="round">
+          <path d="M12 12V3.5M12 12l7.4 4.3M12 12L4.6 16.3" />
+        </g>
+        <circle cx="12" cy="12" r="1.7" fill="#FFF8F1" />
+      </svg>
+      <span style={{ fontSize: 14, fontWeight: 800, letterSpacing: '-0.02em', color: '#F2622E' }}>citrus</span>
+    </span>
+  )
+}
+
+function LogoTerminal() {
+  return (
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7 }}>
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden>
+        <rect x="1.5" y="3.5" width="21" height="17" rx="2" fill="none" stroke="#22FF88" strokeWidth="1.6" />
+        <path d="M6 9.5l3.2 2.5L6 14.5" fill="none" stroke="#22FF88" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M12.5 15h5.5" stroke="#22FF88" strokeWidth="1.8" strokeLinecap="round" />
+      </svg>
+      <span style={{ fontFamily: MONO, fontSize: 12.5, color: '#22FF88', letterSpacing: '0.08em' }}>TRM-1</span>
+    </span>
+  )
+}
+
+function LogoMeridian() {
+  return (
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7 }}>
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden>
+        <circle cx="12" cy="12" r="9.5" fill="none" stroke="#3B82F6" strokeWidth="1.6" />
+        <ellipse cx="12" cy="12" rx="4.2" ry="9.5" fill="none" stroke="#3B82F6" strokeWidth="1.2" opacity="0.7" />
+        <path d="M12 2.5v19" stroke="#3B82F6" strokeWidth="1.2" opacity="0.5" />
+        <circle cx="12" cy="7.4" r="1.6" fill="#F59E0B" />
+      </svg>
+      <span style={{ fontFamily: MONO, fontSize: 12.5, color: '#D6E0F0', letterSpacing: '0.04em' }}>meridian</span>
+    </span>
+  )
+}
+
 const DASHBOARDS: Dash[] = [
   // 1 ── Neon violet, modern SaaS
   {
@@ -211,8 +303,9 @@ const DASHBOARDS: Dash[] = [
         <div style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', background: '#120E24', padding: 18, fontFamily: SANS, color: '#E9E4FF' }}>
           <div className="flex items-center justify-between gap-3 mb-3.5 flex-wrap">
             <div>
-              <p style={{ margin: 0, fontSize: 15, fontWeight: 600 }}>Evening service</p>
-              <p style={{ margin: '3px 0 0', fontSize: 10.5, color: '#8B7FC0' }}>Aurora POS · Venue 9812 · vs 4-week average</p>
+              <LogoAurora />
+              <p style={{ margin: '7px 0 0', fontSize: 15, fontWeight: 600 }}>Evening service</p>
+              <p style={{ margin: '3px 0 0', fontSize: 10.5, color: '#8B7FC0' }}>Venue 9812 · vs 4-week average</p>
             </div>
             <div className="flex gap-1.5">
               {['Sales', 'Labor', 'Menu', 'Forecast'].map((t, i) => (
@@ -303,8 +396,9 @@ const DASHBOARDS: Dash[] = [
         <div style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', background: '#F4F3EF', padding: 18, fontFamily: SANS, color: '#2A2822' }}>
           <div className="flex items-baseline justify-between flex-wrap gap-2 mb-3">
             <div>
-              <p style={{ margin: 0, fontSize: 9.5, color: '#8A8577', letterSpacing: '0.06em' }}>REPORTS / PERIOD SUMMARY</p>
-              <h4 style={{ margin: '5px 0 0', fontFamily: SERIF, fontSize: 19, fontWeight: 400 }}>Trading summary</h4>
+              <LogoLedger />
+              <p style={{ margin: '7px 0 0', fontSize: 9.5, color: '#8A8577', letterSpacing: '0.06em' }}>REPORTS / PERIOD SUMMARY</p>
+              <h4 style={{ margin: '4px 0 0', fontFamily: SERIF, fontSize: 19, fontWeight: 400 }}>Trading summary</h4>
             </div>
             <p style={{ margin: 0, fontSize: 10.5, color: '#6B6759', fontFamily: SERIF }}>
               Prepared {RANGES.find((x) => x.key === r)?.label.toLowerCase()} · against budget
@@ -406,7 +500,8 @@ const DASHBOARDS: Dash[] = [
       return (
         <div style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', background: '#FFF8F1', padding: 18, fontFamily: SANS, color: '#3D2418' }}>
           <div className="flex items-center justify-between flex-wrap gap-3 mb-3">
-            <div className="flex gap-2">
+            <div className="flex items-center gap-3 flex-wrap">
+              <LogoCitrus />
               {['Kitchen', 'Front', 'Delivery'].map((t, i) => (
                 <span key={t} style={{ fontSize: 11.5, fontWeight: 600, padding: '6px 14px', borderRadius: 999, background: i === 0 ? '#F2622E' : '#FFEFE2', color: i === 0 ? '#fff' : '#B4643C' }}>{t}</span>
               ))}
@@ -504,7 +599,10 @@ const DASHBOARDS: Dash[] = [
       return (
         <div style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', background: '#04070A', padding: 16, fontFamily: MONO, color: '#7FE3B5', fontSize: 11.5 }}>
           <div style={{ borderBottom: '1px solid #16232E', paddingBottom: 9, marginBottom: 11 }} className="flex justify-between flex-wrap gap-2">
-            <span style={{ color: '#22FF88' }}>OPS://group/all-sites</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+              <LogoTerminal />
+              <span style={{ color: '#3F8F6B' }}>OPS://group/all-sites</span>
+            </span>
             <span style={{ color: '#3F8F6B' }}>{RANGES.find((x) => x.key === r)?.label.toUpperCase()} · 4 NODES · 1 ALERT</span>
           </div>
 
@@ -586,7 +684,10 @@ const DASHBOARDS: Dash[] = [
       return (
         <div style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', background: '#0B1220', padding: 14, fontFamily: SANS, color: '#D6E0F0' }}>
           <div className="flex items-center justify-between flex-wrap gap-2 mb-2.5">
-            <p style={{ margin: 0, fontSize: 11.5, color: '#7C90B3' }}>boards / retail-ops / <span style={{ color: '#D6E0F0' }}>overview</span></p>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 11, flexWrap: 'wrap' }}>
+              <LogoMeridian />
+              <span style={{ fontSize: 11.5, color: '#7C90B3' }}>boards / retail-ops / <span style={{ color: '#D6E0F0' }}>overview</span></span>
+            </span>
             <span style={{ fontSize: 9.5, color: '#F59E0B', border: '1px solid #4A3518', background: '#231a0c', padding: '3px 8px', borderRadius: 4 }}>
               2 ALERTS FIRING
             </span>

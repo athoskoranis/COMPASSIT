@@ -21,6 +21,27 @@
 
 ## [Unreleased]
 
+### Added — 2026-09-19 (A product mark on each mock dashboard)
+
+**Decision 111 — five products, five logos:**
+The dashboards were five distinct products with no branding on any of them, which is the one thing
+every real application has in that corner. Each now carries its own mark, top-left, drawn to its own
+character: a gradient badge for Aurora, a ruled ledger page for Ledger, a citrus wheel for Citrus, a
+prompt in a box for Terminal, a globe with a meridian line for Meridian.
+
+**None of them is a Compass mark, and `CONTENT.md` records that none should become one.** Putting
+ours in that corner would say we built the software rather than the reporting inside it, which
+inverts the whole point of the section.
+
+Drawn as inline SVG rather than files: they are 18–19px, five of them, and a request each for a mark
+that exists only inside a mock is not worth the bytes.
+
+Aurora's subtitle lost its now-redundant `Aurora POS` prefix, since the wordmark sits directly above
+it.
+
+Verified: `tsc --noEmit` clean, all five render and cycle.
+
+
 ### Changed — 2026-09-19 (Each dashboard leads with a recommendation)
 
 **Decision 110 — the instruction goes first, not in a side panel:**

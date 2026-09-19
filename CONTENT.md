@@ -529,6 +529,24 @@ Example builds · illustrative figures, not a client's data
 > and Hawthorne are real places but not real clients, and no business trades under those names here.
 > The staff names belong to nobody.
 
+### Dashboard preview — the product marks
+
+Each of the five carries its own logo in the top-left of the screen, because five products from five
+companies would each have one.
+
+| Screen | Mark | Wordmark |
+|---|---|---|
+| Aurora | Gradient badge, violet to cyan, with an arc and a dot | `aurora`, bold lowercase sans |
+| Ledger | Ruled ledger page in outline | `Ledger`, Georgia |
+| Citrus | Citrus wheel with segment lines | `citrus`, heavy lowercase sans |
+| Terminal | A prompt in a bordered box | `TRM-1`, monospace |
+| Meridian | A globe with a meridian line and an amber marker | `meridian`, monospace |
+
+> **None of these is a Compass logo, and none should become one.** Putting our mark in that corner
+> would say we built the software rather than the reporting inside it, which is the opposite of what
+> the section is for. They are invented brands for invented companies, drawn so that none resembles
+> a real product.
+
 ### Dashboard preview — the lead recommendation on each screen
 
 Each of the five opens with a recommendation banner, above the figures. It is the first thing on
