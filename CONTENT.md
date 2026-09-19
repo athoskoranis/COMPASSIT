@@ -529,6 +529,29 @@ Example builds · illustrative figures, not a client's data
 > and Hawthorne are real places but not real clients, and no business trades under those names here.
 > The staff names belong to nobody.
 
+### Dashboard preview — the lead recommendation on each screen
+
+Each of the five opens with a recommendation banner, above the figures. It is the first thing on
+the screen because it is the thing being sold: an instruction, the one-line reason, and the money.
+
+| Screen | Label | Recommendation | Amount |
+|---|---|---|---|
+| Aurora | Recommended | Drop two bar shifts on Tuesday and Wednesday. | +$780 / wk |
+| Ledger | Recommendation | Reprice the beef dishes before the next order goes in. | 1.6pt of gross margin |
+| Citrus | Do this first | Put a second hand on grill from 19:30. | 14 covers remade |
+| Terminal | Action | HWTHN — pull prime cost back to group mean. | $1,240 / wk if unchanged |
+| Meridian | recommended_action | Cut 18 labor hours from the 14:00–16:00 block. | +$412 / wk |
+
+**Each is written as an instruction, not an observation.** "Bar covers are down 14%" is a fact the
+point-of-sale system could have produced on its own. "Drop two bar shifts on Tuesday and Wednesday"
+is the thing an owner is paying for, and the sentence under it exists only to show the working.
+
+**The banner never repeats a finding from the panel below it.** The lead takes the strongest item
+and the panel carries the rest, so a reader is not told the same thing twice on one screen.
+
+**Below `sm` the banner stacks** — label, instruction, reason, amount — rather than squeezing three
+columns into 375px.
+
 ### Dashboard preview — every screen states a conclusion
 
 Each of the five carries a panel that names a finding and attaches money to it — *Needs a decision*,

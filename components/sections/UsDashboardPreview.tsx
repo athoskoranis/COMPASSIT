@@ -221,6 +221,15 @@ const DASHBOARDS: Dash[] = [
             </div>
           </div>
 
+          <div className="flex flex-col sm:flex-row sm:items-center gap-x-3.5 gap-y-1.5" style={{ background: 'linear-gradient(120deg,#2A1F5C,#1B1440)', border: '1px solid #4C3F8F', borderRadius: 14, padding: '11px 15px', marginBottom: 10 }}>
+            <span style={{ fontSize: 8.5, letterSpacing: '0.12em', color: '#A78BFA', textTransform: 'uppercase', border: '1px solid #4C3F8F', borderRadius: 999, padding: '3px 9px', whiteSpace: 'nowrap', alignSelf: 'flex-start' }}>Recommended</span>
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <p style={{ margin: 0, fontSize: 13, fontWeight: 600 }}>Drop two bar shifts on Tuesday and Wednesday.</p>
+              <p style={{ margin: '2px 0 0', fontSize: 10.5, color: '#A79CD4' }}>Bar covers are down 14% on those nights only. Kitchen covers are flat, so the sales are not moving elsewhere.</p>
+            </div>
+            <span style={{ fontSize: 14, fontWeight: 700, color: '#34C48A', whiteSpace: 'nowrap' }}>+$780 / wk</span>
+          </div>
+
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 mb-2.5">
             {[
               { k: 'Revenue', v: money(9120 * m), d: '+6.1% vs fcst', g: true, s: [30, 42, 38, 55, 61, 72], c: '#A78BFA' },
@@ -258,9 +267,6 @@ const DASHBOARDS: Dash[] = [
                 Needs a decision
               </p>
               <div style={{ overflow: 'hidden', flex: 1 }}>
-                <Finding tone="bad" muted="#C9C0EC" accent="#A78BFA"
-                  text="Bar covers down 14% on Tue and Wed only. Kitchen covers flat."
-                  amount="−$780 / week" />
                 <Finding tone="bad" muted="#C9C0EC" accent="#A78BFA"
                   text="Section 12–16 turning 22% slower after 20:00 since the 6 Sep layout change."
                   amount="≈ 9 covers a night" />
@@ -303,6 +309,15 @@ const DASHBOARDS: Dash[] = [
             <p style={{ margin: 0, fontSize: 10.5, color: '#6B6759', fontFamily: SERIF }}>
               Prepared {RANGES.find((x) => x.key === r)?.label.toLowerCase()} · against budget
             </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row sm:items-baseline gap-x-3.5 gap-y-1.5" style={{ background: '#FFFFFF', border: '1px solid #DEDBD1', borderInlineStart: '3px solid #1F4E79', borderRadius: 3, padding: '10px 14px', marginBottom: 11 }}>
+            <span style={{ fontSize: 8.5, letterSpacing: '0.07em', color: '#8A8577', fontWeight: 600, whiteSpace: 'nowrap' }}>RECOMMENDATION</span>
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <p style={{ margin: 0, fontFamily: SERIF, fontSize: 13.5 }}>Reprice the beef dishes before the next order goes in.</p>
+              <p style={{ margin: '2px 0 0', fontSize: 10.5, color: '#6B6759' }}>Supplier cost per kilo rose 9% on 12 Sep. Menu price has not moved since.</p>
+            </div>
+            <span style={{ fontSize: 12.5, fontWeight: 700, color: '#A2503C', whiteSpace: 'nowrap' }}>1.6pt of gross margin</span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-3" style={{ flex: 1, minHeight: 0 }}>
@@ -352,9 +367,6 @@ const DASHBOARDS: Dash[] = [
                 <Finding tone="bad" muted="#4A473E" accent="#1F4E79"
                   text="Labor ran 2.8% over budget, all of it Thursday and Sunday evening."
                   amount="$536 over" />
-                <Finding tone="bad" muted="#4A473E" accent="#1F4E79"
-                  text="Beef cost per kilo up 9% since 12 Sep. Menu price unchanged."
-                  amount="−1.6pt gross margin" />
                 <Finding tone="good" muted="#4A473E" accent="#1F4E79"
                   text="Beverage mix up to 28% of sales, the highest this quarter."
                   amount="+$1,180 gross profit" />
@@ -400,6 +412,15 @@ const DASHBOARDS: Dash[] = [
               ))}
             </div>
             <span style={{ fontSize: 10.5, color: '#B4643C' }}>Updated just now</span>
+          </div>
+
+          <div className="flex flex-col sm:flex-row sm:items-center gap-x-3.5 gap-y-1.5" style={{ background: '#fff', border: '2px solid #F2622E', borderRadius: 18, padding: '11px 15px', marginBottom: 11 }}>
+            <span style={{ fontSize: 9.5, fontWeight: 700, color: '#fff', background: '#F2622E', borderRadius: 999, padding: '4px 11px', whiteSpace: 'nowrap', alignSelf: 'flex-start' }}>DO THIS FIRST</span>
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <p style={{ margin: 0, fontSize: 13, fontWeight: 700 }}>Put a second hand on grill from 19:30.</p>
+              <p style={{ margin: '2px 0 0', fontSize: 10.5, color: '#B4643C' }}>Every refire this week came off that station, on the same two shifts.</p>
+            </div>
+            <span style={{ fontSize: 12.5, fontWeight: 700, color: '#F2622E', whiteSpace: 'nowrap' }}>14 covers remade</span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-3 mb-3">
@@ -448,9 +469,6 @@ const DASHBOARDS: Dash[] = [
             <div style={{ ...pane, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
               <p style={{ margin: '0 0 11px', fontSize: 12.5, fontWeight: 700 }}>Do this today</p>
               <div style={{ flex: 1, overflow: 'hidden' }}>
-                <Finding tone="bad" muted="#6B4A38" accent="#F2622E"
-                  text="Every refire after 19:30 came off the grill station. Same two shifts."
-                  amount="14 covers remade this week" />
                 <Finding tone="good" muted="#6B4A38" accent="#F2622E"
                   text="Thursday demand has beaten prep three weeks running. Prep 20% more chicken."
                   amount="≈ $310 of missed sales" />
@@ -490,6 +508,17 @@ const DASHBOARDS: Dash[] = [
             <span style={{ color: '#3F8F6B' }}>{RANGES.find((x) => x.key === r)?.label.toUpperCase()} · 4 NODES · 1 ALERT</span>
           </div>
 
+          <div style={{ border: '1px solid #22FF88', background: '#06110C', padding: '9px 12px', marginBottom: 10 }}>
+            <p style={{ margin: 0, fontSize: 10 }}>
+              <span style={{ background: '#22FF88', color: '#04070A', padding: '1px 6px', marginInlineEnd: 8 }}>ACTION</span>
+              <span style={{ color: '#22FF88' }}>HWTHN — PULL PRIME COST BACK TO GROUP MEAN</span>
+            </p>
+            <p style={{ margin: '6px 0 0', fontSize: 10.5, color: '#7FE3B5', lineHeight: 1.5 }}>
+              6.9pt above group for 11 consecutive days. Largest single variance in the estate.
+            </p>
+            <p style={{ margin: '4px 0 0', fontSize: 10.5, color: '#FF6B5B' }}>COST IF UNCHANGED: $1,240/WK</p>
+          </div>
+
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 mb-2.5">
             {[
               ['NET', money(66350 * m), '+3.2%', true], ['PRIME', `${wobble(61.0, r, 1)}%`, '+3.0pt', false],
@@ -523,7 +552,6 @@ const DASHBOARDS: Dash[] = [
               <p style={{ margin: '0 0 9px', fontSize: 8.5, color: '#3F8F6B', letterSpacing: '0.12em' }}>EXCEPTIONS — ACTION REQUIRED</p>
               <div style={{ flex: 1, overflow: 'hidden' }}>
                 {[
-                  ['19:42', 'HWTHN prime 64.9% — 6.9pt over group', '$1,240/wk', '#FF6B5B'],
                   ['18:05', 'DIVSN labor breached 32% for 3rd shift running', '$380/wk', '#E3C34F'],
                   ['14:20', 'Void > $50 ×4, all one till, all pre-close', 'review', '#E3C34F'],
                   ['09:12', 'PEARL beat forecast 5 days straight', 'raise fcst', '#22FF88'],
@@ -562,6 +590,15 @@ const DASHBOARDS: Dash[] = [
             <span style={{ fontSize: 9.5, color: '#F59E0B', border: '1px solid #4A3518', background: '#231a0c', padding: '3px 8px', borderRadius: 4 }}>
               2 ALERTS FIRING
             </span>
+          </div>
+
+          <div className="flex flex-col sm:flex-row sm:items-center gap-x-3.5 gap-y-1.5" style={{ background: '#111A2E', border: '1px solid #1C2A44', borderInlineStart: '3px solid #F59E0B', borderRadius: 6, padding: '10px 13px', marginBottom: 8 }}>
+            <span style={{ fontSize: 9, fontFamily: MONO, color: '#F59E0B', whiteSpace: 'nowrap' }}>recommended_action</span>
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <p style={{ margin: 0, fontSize: 12.5, fontWeight: 600 }}>Cut 18 labor hours from the 14:00–16:00 block.</p>
+              <p style={{ margin: '2px 0 0', fontSize: 10, color: '#7C90B3', fontFamily: MONO }}>labor_pct over threshold 9 of last 14 days · sales_by_hour flat across the window</p>
+            </div>
+            <span style={{ fontSize: 12.5, fontFamily: MONO, color: '#34C48A', whiteSpace: 'nowrap' }}>+$412/wk</span>
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-2">
@@ -610,9 +647,6 @@ const DASHBOARDS: Dash[] = [
 
               <div style={{ ...panel, flex: 1, minHeight: 0, overflow: 'hidden' }}>
                 <p style={{ margin: '0 0 8px', fontSize: 9, color: '#7C90B3', fontFamily: MONO }}>anomalies</p>
-                <Finding tone="bad" muted="#9FB0CC" accent="#3B82F6"
-                  text="labor_pct over threshold 14:00–16:00, 9 days of 14."
-                  amount="$412 / week" />
                 <Finding tone="bad" muted="#9FB0CC" accent="#3B82F6"
                   text="steak margin −6.2pt since supplier change on 12 Sep."
                   amount="$1,840 annualised" />

@@ -21,6 +21,41 @@
 
 ## [Unreleased]
 
+### Changed — 2026-09-19 (Each dashboard leads with a recommendation)
+
+**Decision 110 — the instruction goes first, not in a side panel:**
+Decision 109 gave every screen a findings panel, but it sat beside or below the charts. A reader
+scanning the section still met the numbers first and had to work down to the part that justifies the
+price.
+
+Each of the five now opens with a recommendation banner above the figures, in its own visual
+language — a pill and gradient on Aurora, a serif note with a blue rule on Ledger, an outlined coral
+callout on Citrus, an inverse `ACTION` block on Terminal, an amber-ruled `recommended_action` row on
+Meridian.
+
+**They are written as instructions, not observations.** *Bar covers are down 14%* is something the
+point-of-sale system could produce by itself. *Drop two bar shifts on Tuesday and Wednesday* is the
+thing being paid for, and the line under it exists only to show the working.
+
+| Screen | Lead |
+|---|---|
+| Aurora | Drop two bar shifts on Tuesday and Wednesday — +$780/wk |
+| Ledger | Reprice the beef dishes before the next order goes in — 1.6pt of gross margin |
+| Citrus | Put a second hand on grill from 19:30 — 14 covers remade |
+| Terminal | HWTHN, pull prime cost back to group mean — $1,240/wk if unchanged |
+| Meridian | Cut 18 labor hours from the 14:00–16:00 block — +$412/wk |
+
+**Each lead's finding was removed from the panel below it,** so no screen states the same thing
+twice. The panels keep the remaining items.
+
+Two things caught before commit: three unicode escapes reached the file as literal `\u2014` text
+rather than characters, which would have rendered as backslash-u in the markup, and the banners
+squeezed three columns into 375px on a phone. They now stack below `sm`.
+
+Verified: `tsc --noEmit` clean, all five leads render and none duplicates its panel, and the banners
+stack on mobile.
+
+
 ### Changed — 2026-09-19 (The dashboards now state conclusions, and the frame is ours again)
 
 **Decision 109 — three corrections to the preview:**
