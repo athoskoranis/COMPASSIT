@@ -476,41 +476,51 @@ The numbers your POS won't show you.
 ### Body
 Every point-of-sale (POS) system ships with a dashboard, and they all tell you what you sold. Very few tell you what it cost you to sell it. We build reporting on top of the POS you already run — prime cost, labor against sales by daypart, margin by item, and the staffing signal underneath both. We read profit and loss statements for a living, and we build the reports we would want to read.
 
-### One point of prime cost — the figure under the hero
+### What 1% is worth — the figure under the hero
 
 Replaced a four-cell stat row (22 platforms · 3 tiers · setup plus monthly · Portland, Oregon). Those
 were facts about us in the strongest slot on the page, a location is not a statistic, and a visitor
 scrolling past had no reason to stop for any of them.
 
 **Eyebrow**
-RUN YOUR OWN NUMBERS
+WHAT 1% IS WORTH
 
 **Heading**
-One point of prime cost, on your sales.
+Trim 1% off your costs. This is what you keep.
 
 **Body**
-Prime cost is food and labor together, measured against sales. It is the number that decides whether a month works, and it is the one your POS does not calculate. Move the slider to what you turn over.
+Food and labor are most of what you spend, and most of what quietly moves. Slide across to what you take in a month and see what 1% of it comes to.
 
 **Slider label**
-Your sales, per month
+Your takings, before costs
 
-**Derived figures** — computed, never written
-| Figure | Sum |
-|---|---|
-| One point of prime cost is worth | 1% of the monthly figure |
-| Over a year | × 12 |
-| What Tier 1 costs | the monthly figure divided by $99 |
+**The three steps**, left to right on desktop, stacked on a phone, with a chevron between each:
+
+| Step | Label | Shows |
+|---|---|---|
+| 01 | What you take | The slider, the figure the reader sets, and four presets |
+| 02 | 1% of that is | 1% of the monthly figure, and the same again × 12 for the year |
+| 03 | What we charge | $99 a month, and how many times larger step 02 is |
 
 **Footnote (required, do not remove)**
-That is arithmetic on your own number, not a promise. Finding the point is the work. Being able to see where it sits is what the reporting is for.
+This is maths on the number you just set, not a promise. Our job is putting those costs in front of you, so a 1% saving is something you can go and find.
+
+> **Say 1%, never "a point of prime cost".** The first version used the industry term, which is
+> correct and unreadable: it asks a reader to know the phrase, then translate a point into a
+> percentage, before they can care about the figure. Anyone who had to do that had already scrolled.
+> Name food and labor, not the ratio.
 
 > **This section must never promise a saving.** It multiplies a number the reader supplies and sets
 > it beside a published price. That is why it is persuasive and also why it is honest — nobody can
-> guarantee they will find an operator a point of prime cost, and a page that implies otherwise is
-> making a results claim. The footnote is the safeguard and is marked required.
+> guarantee they will find an operator 1%, and a page that implies otherwise is making a results
+> claim. The footnote is the safeguard.
 >
-> The ratio does the selling on its own: at $80,000 a month, one point is $800 against a $99 tier.
-> No adjective needed, which suits `VOICE.md` better than any adjective would.
+> The ratio does the selling on its own: at $80,000 a month, 1% is $800 against a $99 tier. No
+> adjective needed, which suits `VOICE.md` better than any adjective would.
+
+> **The order is the argument.** What you take, what 1% of it is, what we charge — numbered, with
+> chevrons between. A two-column split left the reader to assemble that themselves. Step 03 carries
+> the Signal border because it is the one that lands.
 
 ### Section heading — the gap
 Your POS counts sales. It doesn't count cost.

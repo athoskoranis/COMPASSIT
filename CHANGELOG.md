@@ -21,6 +21,35 @@
 
 ## [Unreleased]
 
+### Changed — 2026-09-19 (Plainer words and a guided order for the 1% figure)
+
+**Decision 113 — the jargon went, and the layout now carries the argument:**
+
+**"One point of prime cost" became "1%".** The term was correct and unreadable. It asks a reader to
+know an industry phrase, then translate *a point* into a percentage, before they can care about the
+number — and a small business owner who has to do that has already scrolled. The heading is now
+*Trim 1% off your costs. This is what you keep*, and the body names food and labor rather than
+naming the ratio.
+
+**The panel became three numbered steps** instead of a two-column split: `01 What you take` →
+`02 1% of that is` → `03 What we charge`, with chevrons between, reading left to right on desktop
+and top to bottom on a phone. The argument always had that order; the layout now carries it rather
+than leaving a reader to assemble it. Step 03 takes the Signal border because it is the one that
+lands.
+
+**Contrast was raised throughout.** Labels sat at `text-paper/40` and the footnote at `/45`, which
+is roughly 3.4:1 and 4.0:1 on Ink — both under the 4.5:1 that `CLAUDE.md` requires. They are now
+`/55` and `/65`, and the body moved from 16px to 17px.
+
+Three smaller fixes found by looking at it at a narrow desktop width rather than a wide one: the
+unit moved below each figure, because *$100,000 a month* broke between *a* and *month* once the
+column narrowed; the presets were tightened so all four sit on one row; and the slider label reads
+*Your takings, before costs* rather than *Your sales, per month*.
+
+Verified: `tsc --noEmit` clean, the figures move with slider and presets, the steps read in order at
+1440px and stack with the chevron rotated at 375px.
+
+
 ### Changed — 2026-09-19 (The stat row became the reader's own arithmetic)
 
 **Decision 112 — the slot under the hero now argues the price:**

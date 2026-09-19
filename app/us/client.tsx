@@ -118,11 +118,11 @@ export default function UsPageClient() {
           Those were facts about us in the strongest slot on the page, and a
           location is not a statistic. This is the reader's own arithmetic. */}
       <UsOnePoint
-        eyebrow="RUN YOUR OWN NUMBERS"
-        heading="One point of prime cost, on your sales."
-        intro="Prime cost is food and labor together, measured against sales. It is the number that decides whether a month works, and it is the one your POS does not calculate. Move the slider to what you turn over."
-        sliderLabel="Your sales, per month"
-        footnote="That is arithmetic on your own number, not a promise. Finding the point is the work. Being able to see where it sits is what the reporting is for."
+        eyebrow="WHAT 1% IS WORTH"
+        heading="Trim 1% off your costs. This is what you keep."
+        intro="Food and labor are most of what you spend, and most of what quietly moves. Slide across to what you take in a month and see what 1% of it comes to."
+        sliderLabel="Your takings, before costs"
+        footnote="This is maths on the number you just set, not a promise. Our job is putting those costs in front of you, so a 1% saving is something you can go and find."
       />
 
       <ServiceSubServices
