@@ -102,19 +102,26 @@ export default function UsContact({
   return (
     <section id="contact" className="py-20 lg:py-28 relative z-[1]">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-20">
-        <div className="max-w-[640px]">
-          <EyebrowLabel className="mb-5 block">{eyebrow}</EyebrowLabel>
+        {/* Centred. This is the last thing on the page and the only ask on it,
+            so it sits in the middle of the column rather than hanging off the
+            left edge under a full-width section above it. The header is centred;
+            the fields are not, because a centred label over a full-width input
+            reads as a mistake. */}
+        <div className="max-w-[640px] mx-auto">
+          <div className="text-center">
+            <EyebrowLabel className="mb-5 block">{eyebrow}</EyebrowLabel>
 
-          <h2 className="font-archivo font-semibold text-paper tracking-[-0.03em] text-[32px] md:text-[44px] leading-none mb-6">
-            {heading}
-          </h2>
+            <h2 className="font-archivo font-semibold text-paper tracking-[-0.03em] text-[32px] md:text-[44px] leading-none mb-6">
+              {heading}
+            </h2>
 
-          <p className="font-barlow text-[17px] text-paper/60 mb-10 leading-relaxed">
-            {intro}
-          </p>
+            <p className="font-barlow text-[17px] text-paper/60 mb-10 leading-relaxed">
+              {intro}
+            </p>
+          </div>
 
           {submitted ? (
-            <p className="font-barlow text-[17px] text-signal m-0">
+            <p className="font-barlow text-[17px] text-signal m-0 text-center">
               Message sent. We&rsquo;ll be in touch within one business day.
             </p>
           ) : (
@@ -225,7 +232,7 @@ export default function UsContact({
               <button
                 type="submit"
                 disabled={loading}
-                className="self-start inline-flex items-center justify-center leading-none font-archivo text-[15px] font-medium uppercase tracking-cta liquid-fill px-7 py-[14px] rounded-xl disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-signal focus:ring-offset-2 focus:ring-offset-transparent"
+                className="self-center inline-flex items-center justify-center leading-none font-archivo text-[15px] font-medium uppercase tracking-cta liquid-fill px-7 py-[14px] rounded-xl disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-signal focus:ring-offset-2 focus:ring-offset-transparent"
               >
                 {loading ? 'One moment' : 'Send your message'}
               </button>

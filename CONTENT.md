@@ -493,6 +493,36 @@ Sales reporting answers one question: what went out the door. It leaves the ques
 
 That is the report we build.
 
+### Section heading — dashboard preview
+Your dashboard, not a template.
+
+### Section body — dashboard preview
+Three configurations of the same service, from a single site to a group of five. The panels are not fixed — we build the measures your business is actually run on, and the layout follows them.
+
+### Dashboard preview — the three example views
+
+**Tab 1 · Daily service**
+*One location, the shift you just finished.*
+The view a single-site operator opens at close. Revenue by hour against who was on, with the two numbers that decide the week sitting above it.
+
+**Tab 2 · Custom metrics**
+*The measures your business runs on.*
+Tier 2 is where the panels stop being standard. Item-level margin against the costs you enter, labor split the way your dayparts actually fall, and any measure you can define.
+
+**Tab 3 · Multi-location**
+*Four sites, read as one business.*
+Tier 3 rolls the sites up and sets them against each other, so a site drifting from the group shows as a number rather than a feeling.
+
+### Dashboard preview — disclaimer (required, do not remove)
+Example views · illustrative figures, not a client's data
+
+> **Every figure in that section is invented and must stay labelled as such.** The site
+> carries no client data and no client permission to show any. The disclaimer line above
+> is the reason the section is allowed to exist at all — it is the same rule that keeps
+> `ClientProof` empty rather than filled with a plausible quote. If real dashboards are
+> ever shown, they need written permission and the figures anonymised, and the label
+> changes to say so.
+
 ### Tiers
 
 **Tier 1 — Standard**

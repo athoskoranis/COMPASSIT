@@ -21,6 +21,50 @@
 
 ## [Unreleased]
 
+### Added — 2026-09-19 (Dashboard preview, nav link, centred contact)
+
+**Decision 106 — three changes to `/us`, all at the client's direction:**
+
+**1. The US practice is in the main nav.** Decision 105 deliberately left it out: a Portland
+point-of-sale service in front of every Doha CTO is a nav item that means nothing to the primary
+audience. The client decided otherwise, and it ships as `POS Analytics` between Blog and the CTA.
+
+Hidden on `/ar`. The page is English and Oregon-only with no Arabic counterpart, so offering it in
+the Arabic nav would send a Doha reader to a Portland page in a language that route does not serve.
+Blog is linked from both and is also English-only, but an untranslated article is a smaller
+surprise than a different country. `SITEMAP.md` records both the change and the position it
+replaced, so the reasoning survives if the link is ever reconsidered.
+
+**2. A dashboard preview section, `components/sections/UsDashboardPreview.tsx`.** The page described
+a service nobody could picture. Three tabbed example views — daily service, custom metrics,
+multi-location — sitting between the problem and the price, so a reader who has just been told what
+their POS omits sees the answer before being asked what it costs.
+
+**The tabs are the argument, not decoration.** The section's claim is that the panels are built
+around the business rather than issued as a template, and three configurations of the same service
+is how you demonstrate that rather than assert it.
+
+**Every figure in it is invented, and the section says so on the page.** The disclaimer reads
+*Example views · illustrative figures, not a client's data*, and `CONTENT.md` marks it required.
+This site has no client data and no permission to show any — the same rule that keeps `ClientProof`
+empty rather than filled with a plausible quote. A dashboard of invented numbers presented as a
+real client report would be exactly the thing that file exists to prevent.
+
+**Charts are single-hue Signal at varying opacity, not a colour per series.** That is the correct
+encoding for magnitude, and it is also the only option inside the six-colour palette — a colour per
+bar would have meant inventing hexes `DESIGN.md` does not carry. Values and labels wear the Paper
+text tokens, never the mark colour. Bars carry rounded tops anchored flat to the baseline with 2px
+of surface between fills, and each one has a `<title>` so a hover reports the figure.
+
+**3. The contact block is centred.** It is the last thing on the page and the only ask on it, so it
+sat oddly hanging off the left edge under full-width sections. The header is centred and the fields
+are not: a centred label over a full-width input reads as a mistake.
+
+Verified: `tsc --noEmit` clean, all three tabs switch and render, nav link present on `/` and `/us`
+and absent on `/ar`, and the whole section holds at 375px — the twelve-bar hourly chart included,
+which was the one at risk.
+
+
 ### Added — 2026-09-17 (The /us practice page)
 
 **Decision 105 — one page, built from CONTENT.md and the site's own service pattern:**

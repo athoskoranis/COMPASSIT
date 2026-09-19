@@ -89,6 +89,13 @@ export default function Nav() {
   // somewhere wrong.
   const showLangToggle = !isUsRoute(pathname)
 
+  // The US practice in the main nav, on the English routes only. The page is
+  // English and Oregon-only, with no Arabic counterpart, so offering it in the
+  // Arabic nav would send a Doha reader to a Portland page in a language the
+  // route does not serve. Blog is linked from both and is also English-only,
+  // but an untranslated article is a smaller surprise than a different country.
+  const showUsLink = lang === 'en'
+
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
@@ -196,6 +203,16 @@ export default function Nav() {
             Blog
           </Link>
 
+          {showUsLink && (
+            <Link
+              href="/us"
+              className={`font-archivo text-[14px] transition-all duration-300 ease-out ${isUsRoute(pathname) ? 'text-signal' : 'text-paper/70 hover:text-signal'}`}
+              style={{ padding: floating ? '0 4px' : '0 8px' }}
+            >
+              POS Analytics
+            </Link>
+          )}
+
           {/* A link between two real URLs, not a state flip. hrefLang tells a
               crawler what sits on the other side. */}
           {showLangToggle && (
@@ -278,6 +295,16 @@ export default function Nav() {
             >
               Blog
             </Link>
+
+            {showUsLink && (
+              <Link
+                href="/us"
+                onClick={() => setMobileOpen(false)}
+                className={`font-archivo text-[17px] transition-colors ${isUsRoute(pathname) ? 'text-signal' : 'text-paper/80 hover:text-signal'}`}
+              >
+                POS Analytics
+              </Link>
+            )}
 
             <div className="pt-4 border-t border-paper/10 flex flex-col gap-3">
               {showLangToggle && (
