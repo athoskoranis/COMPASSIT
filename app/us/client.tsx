@@ -2,6 +2,7 @@
 import ServiceHero from '@/components/sections/ServiceHero'
 import ServiceSubServices from '@/components/sections/ServiceSubServices'
 import ServiceWhyUs from '@/components/sections/ServiceWhyUs'
+import UsDashboardPreview from '@/components/sections/UsDashboardPreview'
 import UsTiers from '@/components/sections/UsTiers'
 import UsPlatforms from '@/components/sections/UsPlatforms'
 import UsContact from '@/components/sections/UsContact'
@@ -151,6 +152,16 @@ export default function UsPageClient() {
           { title: 'Item-level margin', description: 'Measured against the costs you enter, so the menu can be read by what it earns rather than by what it sells.' },
           { title: 'Staffing signal', description: 'Revenue by hour set against who was on, which is the same data your schedule should be built from.' },
         ]}
+      />
+
+      {/* Sits between the problem and the price. A reader who has just been told
+          what their POS omits should see what the answer looks like before being
+          asked what it costs. */}
+      <UsDashboardPreview
+        eyebrow="WHAT YOU SEE"
+        heading="Your dashboard, not a template."
+        intro="Three configurations of the same service, from a single site to a group of five. The panels are not fixed — we build the measures your business is actually run on, and the layout follows them."
+        disclaimer="Example views · illustrative figures, not a client's data"
       />
 
       <UsTiers
