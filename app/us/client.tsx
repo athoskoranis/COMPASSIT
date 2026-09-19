@@ -160,8 +160,8 @@ export default function UsPageClient() {
       <UsDashboardPreview
         eyebrow="WHAT YOU SEE"
         heading="Your dashboard, not a template."
-        intro="Three configurations of the same service, from a single site to a group of five. The panels are not fixed — we build the measures your business is actually run on, and the layout follows them."
-        disclaimer="Example views · illustrative figures, not a client's data"
+        intro="Five builds, five businesses, five different screens. We do not ship one layout with your logo on it — the measures, the density and the look all follow how you actually run, which is why none of these resemble each other."
+        disclaimer="Example builds · illustrative figures, not a client's data"
       />
 
       <UsTiers

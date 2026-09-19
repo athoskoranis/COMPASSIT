@@ -1,29 +1,31 @@
 'use client'
 import { useState } from 'react'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
-import MockWindow from '@/components/ui/MockWindow'
+import MockWindow, { WindowTheme } from '@/components/ui/MockWindow'
 
 /**
- * Example dashboard views for the US practice, shown inside a browser frame.
+ * Five example dashboards, each designed as if it came from a different company.
  *
- * Every figure here is invented, and the section says so on the page. This site
- * carries no client data and no permission to show any — the same rule that
- * keeps ClientProof empty rather than filled with a plausible quote. A dashboard
- * of invented numbers presented as a real client report would be that mistake
- * with more digits.
+ * ── Why this ignores DESIGN.md ──────────────────────────────────────────────
  *
- * The three views differ in *layout*, not just in data. That is deliberate: the
- * section claims the panels are built around the business rather than issued as
- * a template, and three differently-shaped screens demonstrate that where three
- * populations of the same grid would quietly contradict it.
+ * Everything inside the window frame is deliberately outside the Compass design
+ * system: other palettes, other fonts, other corner radii, other densities.
  *
- * The date range control changes the figures. It is the smallest piece of real
- * behaviour that makes the frame read as an application rather than a picture of
- * one — a reader who clicks it and sees nothing move has been shown a screenshot.
+ * That is the point rather than an oversight. The frame is a window into the
+ * reporting a client ends up with, and dashboards built in Ink and Signal would
+ * read as five screenshots of one Compass product — which is the opposite of
+ * what the section claims. The variety IS the argument: the work is shaped to
+ * the business, so five businesses get five different screens.
  *
- * Charts are single-hue Signal at varying opacity, never a colour per series.
- * That is the right encoding for magnitude and it is also the only option inside
- * the six-colour palette. Values and labels wear the Paper text tokens.
+ * Logged as Decision 108. The exception stops at the window border — the section
+ * heading, the copy, the cycle controls and the disclaimer are all Compass
+ * tokens, because those are the site speaking rather than the product.
+ *
+ * ── Everything here is invented ─────────────────────────────────────────────
+ *
+ * No client data, no client permission, no real hosts. The disclaimer under the
+ * frame says so and CONTENT.md marks it required. The same rule keeps
+ * ClientProof empty rather than filled with a plausible quote.
  */
 
 type Range = '1d' | '7d' | '30d'
@@ -32,39 +34,71 @@ const RANGES: { key: Range; label: string }[] = [
   { key: '7d', label: '7 days' },
   { key: '30d', label: '30 days' },
 ]
+const MULT: Record<Range, number> = { '1d': 1, '7d': 6.4, '30d': 26.5 }
 
-type Bar = { label: string; value: number; hint: string }
+const money = (n: number) =>
+  n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(2)}M` : n >= 1000 ? `$${(n / 1000).toFixed(1)}k` : `$${Math.round(n)}`
 
-// ── Charts ──────────────────────────────────────────────────────────────────
+/** Small deterministic wobble so each range looks measured rather than scaled. */
+const wobble = (base: number, r: Range, spread = 1.8) =>
+  +(base + (r === '1d' ? -spread : r === '30d' ? spread : 0)).toFixed(1)
 
-/** Bar with rounded top corners, base anchored flat to the axis. */
-function barPath(x: number, y: number, w: number, baseline: number, r = 3) {
-  const radius = Math.min(r, w / 2, Math.max(baseline - y, 0))
-  return `M${x},${baseline} L${x},${y + radius} Q${x},${y} ${x + radius},${y} L${x + w - radius},${y} Q${x + w},${y} ${x + w},${y + radius} L${x + w},${baseline} Z`
+// ── Generic chart primitives, coloured by whoever calls them ────────────────
+
+function Area({ pts, color, fill, h = 90 }: { pts: number[]; color: string; fill: string; h?: number }) {
+  const W = 300
+  const max = Math.max(...pts) * 1.15
+  const min = Math.min(...pts) * 0.8
+  const x = (i: number) => (i * W) / (pts.length - 1)
+  const y = (v: number) => h - ((v - min) / (max - min)) * (h - 10) - 4
+  const line = pts.map((p, i) => `${i ? 'L' : 'M'}${x(i)},${y(p)}`).join(' ')
+  const id = `g${color.replace(/[^a-z0-9]/gi, '')}`
+  return (
+    <svg viewBox={`0 0 ${W} ${h}`} className="w-full h-auto" aria-hidden>
+      <defs>
+        <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={fill} stopOpacity="0.45" />
+          <stop offset="100%" stopColor={fill} stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      <path d={`${line} L${W},${h} L0,${h} Z`} fill={`url(#${id})`} />
+      <path d={line} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
 }
 
-function ColumnChart({ data, height = 150 }: { data: Bar[]; height?: number }) {
-  const max = Math.max(...data.map((d) => d.value))
-  const W = 520
-  const baseline = height - 22
-  const step = W / data.length
-  const barW = step - 6
-
+function Spark({ pts, color, h = 28 }: { pts: number[]; color: string; h?: number }) {
+  const W = 90
+  const max = Math.max(...pts)
+  const min = Math.min(...pts)
+  const d = pts
+    .map((p, i) => `${i ? 'L' : 'M'}${(i * W) / (pts.length - 1)},${h - ((p - min) / (max - min || 1)) * (h - 6) - 3}`)
+    .join(' ')
   return (
-    <svg viewBox={`0 0 ${W} ${height}`} className="w-full h-auto" role="img" aria-label="Revenue by hour">
-      <line x1="0" y1={baseline} x2={W} y2={baseline} stroke="rgba(244,242,236,0.14)" strokeWidth="1" />
-      {data.map((d, i) => {
-        const h = (d.value / max) * (baseline - 8)
-        const x = i * step + 3
-        const y = baseline - h
+    <svg viewBox={`0 0 ${W} ${h}`} width={W} height={h} aria-hidden>
+      <path d={d} fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function Cols({ pts, labels, color, h = 108, radius = 3 }: { pts: number[]; labels?: string[]; color: string; h?: number; radius?: number }) {
+  const W = 300
+  const max = Math.max(...pts)
+  const step = W / pts.length
+  const bw = step - 4
+  const base = labels ? h - 14 : h
+  return (
+    <svg viewBox={`0 0 ${W} ${h}`} className="w-full h-auto" aria-hidden>
+      {pts.map((p, i) => {
+        const bh = (p / max) * (base - 4)
         return (
-          <g key={d.label}>
-            <path d={barPath(x, y, barW, baseline)} fill="#2BB3E6" fillOpacity={0.35 + (d.value / max) * 0.55}>
-              <title>{d.hint}</title>
-            </path>
-            <text x={x + barW / 2} y={baseline + 15} textAnchor="middle" fill="rgba(244,242,236,0.38)" fontSize="9" fontFamily="monospace">
-              {d.label}
-            </text>
+          <g key={i}>
+            <rect x={i * step + 2} y={base - bh} width={bw} height={bh} rx={radius} fill={color} opacity={0.4 + (p / max) * 0.6} />
+            {labels && (
+              <text x={i * step + 2 + bw / 2} y={h - 2} textAnchor="middle" fontSize="7" fill="currentColor" opacity="0.5">
+                {labels[i]}
+              </text>
+            )}
           </g>
         )
       })}
@@ -72,355 +106,356 @@ function ColumnChart({ data, height = 150 }: { data: Bar[]; height?: number }) {
   )
 }
 
-function TrendChart({ data }: { data: Bar[] }) {
-  const W = 520
-  const H = 170
-  const pad = { t: 12, b: 24, l: 4, r: 4 }
-  const max = Math.max(...data.map((d) => d.value)) * 1.12
-  const min = Math.min(...data.map((d) => d.value)) * 0.85
-  const x = (i: number) => pad.l + (i * (W - pad.l - pad.r)) / (data.length - 1)
-  const y = (v: number) => pad.t + (1 - (v - min) / (max - min)) * (H - pad.t - pad.b)
-
-  const line = data.map((d, i) => `${i === 0 ? 'M' : 'L'}${x(i)},${y(d.value)}`).join(' ')
-  const area = `${line} L${x(data.length - 1)},${H - pad.b} L${x(0)},${H - pad.b} Z`
-  const peak = data.reduce((a, b) => (b.value > a.value ? b : a))
-  const peakIndex = data.indexOf(peak)
-
+function Donut({ pct, color, track, label, sub }: { pct: number; color: string; track: string; label: string; sub?: string }) {
+  const r = 38
+  const c = 2 * Math.PI * r
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto" role="img" aria-label="Sales trend">
-      <defs>
-        <linearGradient id="trendFill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#2BB3E6" stopOpacity="0.28" />
-          <stop offset="100%" stopColor="#2BB3E6" stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      <line x1="0" y1={H - pad.b} x2={W} y2={H - pad.b} stroke="rgba(244,242,236,0.14)" strokeWidth="1" />
-      <path d={area} fill="url(#trendFill)" />
-      <path d={line} fill="none" stroke="#2BB3E6" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
-      {/* One direct label, on the peak. Never a number on every point. */}
-      <circle cx={x(peakIndex)} cy={y(peak.value)} r="4.5" fill="#0B0E10" stroke="#2BB3E6" strokeWidth="2" />
-      <text x={x(peakIndex)} y={y(peak.value) - 12} textAnchor="middle" fill="rgba(244,242,236,0.75)" fontSize="10" fontFamily="monospace">
-        {peak.hint}
-      </text>
-      {data.map((d, i) => (
-        <g key={d.label}>
-          <circle cx={x(i)} cy={y(d.value)} r="9" fill="transparent">
-            <title>{`${d.label} — ${d.hint}`}</title>
-          </circle>
-          {i % Math.ceil(data.length / 7) === 0 && (
-            <text x={x(i)} y={H - pad.b + 15} textAnchor="middle" fill="rgba(244,242,236,0.38)" fontSize="9" fontFamily="monospace">
-              {d.label}
-            </text>
-          )}
-        </g>
-      ))}
+    <svg viewBox="0 0 100 100" className="w-[104px] h-[104px]" aria-hidden>
+      <circle cx="50" cy="50" r={r} fill="none" stroke={track} strokeWidth="10" />
+      <circle
+        cx="50" cy="50" r={r} fill="none" stroke={color} strokeWidth="10" strokeLinecap="round"
+        strokeDasharray={`${(pct / 100) * c} ${c}`} transform="rotate(-90 50 50)"
+      />
+      <text x="50" y="49" textAnchor="middle" fontSize="19" fill="currentColor" fontWeight="600">{label}</text>
+      {sub && <text x="50" y="64" textAnchor="middle" fontSize="7" fill="currentColor" opacity="0.55">{sub}</text>}
     </svg>
   )
 }
 
-function RingGauge({ value, target, label }: { value: number; target: number; label: string }) {
-  const r = 46
-  const c = 2 * Math.PI * r
-  const pct = Math.min(value / 100, 1)
-  return (
-    <div className="flex flex-col items-center justify-center h-full py-2">
-      <svg viewBox="0 0 120 120" className="w-[124px] h-[124px]" role="img" aria-label={`${label}: ${value}%`}>
-        <circle cx="60" cy="60" r={r} fill="none" stroke="rgba(244,242,236,0.08)" strokeWidth="9" />
-        <circle
-          cx="60" cy="60" r={r} fill="none" stroke="#2BB3E6" strokeWidth="9" strokeLinecap="round"
-          strokeDasharray={`${pct * c} ${c}`} transform="rotate(-90 60 60)"
-        />
-        <text x="60" y="58" textAnchor="middle" fill="#F4F2EC" fontSize="24" fontFamily="sans-serif" fontWeight="300">
-          {value}%
-        </text>
-        <text x="60" y="76" textAnchor="middle" fill="rgba(244,242,236,0.40)" fontSize="9" fontFamily="monospace">
-          TARGET {target}%
-        </text>
-      </svg>
-      <p className="font-jetbrains text-[10px] text-paper/40 uppercase tracking-eyebrow mt-3 m-0">{label}</p>
-    </div>
-  )
+// ── The five dashboards ─────────────────────────────────────────────────────
+
+type Dash = {
+  key: string
+  name: string
+  style: string
+  address: string
+  badge: string
+  chrome: WindowTheme
+  render: (r: Range) => React.ReactNode
 }
 
-function RowBars({ data, unit }: { data: Bar[]; unit: string }) {
-  const max = Math.max(...data.map((d) => d.value))
-  return (
-    <ul className="flex flex-col gap-3 m-0 p-0 list-none">
-      {data.map((d) => (
-        <li key={d.label} className="flex items-center gap-3" title={d.hint}>
-          <span className="font-barlow text-[13px] text-paper/60 w-[76px] shrink-0 truncate">{d.label}</span>
-          <span className="flex-1 h-[9px] rounded-sm bg-paper/[0.06] overflow-hidden">
-            <span className="block h-full rounded-sm bg-signal" style={{ width: `${(d.value / max) * 100}%`, opacity: 0.4 + (d.value / max) * 0.5 }} />
-          </span>
-          <span className="font-jetbrains text-[11px] text-paper/50 w-[46px] text-right shrink-0">
-            {d.value}{unit}
-          </span>
-        </li>
-      ))}
-    </ul>
-  )
-}
+const SANS = 'ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif'
+const MONO = 'ui-monospace, SFMono-Regular, Menlo, monospace'
+const SERIF = 'Georgia, Cambria, Times New Roman, serif'
 
-// ── Panel furniture ─────────────────────────────────────────────────────────
-
-function Panel({ title, action, children, className = '' }: { title: string; action?: string; children: React.ReactNode; className?: string }) {
-  return (
-    <div className={`rounded-lg border border-paper/[0.08] bg-paper/[0.02] p-4 ${className}`}>
-      <div className="flex items-center justify-between gap-3 mb-4">
-        <p className="font-jetbrains text-[10px] text-paper/40 uppercase tracking-eyebrow m-0">{title}</p>
-        {action && <span className="font-jetbrains text-[9px] text-paper/25 uppercase tracking-eyebrow">{action}</span>}
-      </div>
-      {children}
-    </div>
-  )
-}
-
-function Kpi({ value, label, delta }: { value: string; label: string; delta?: string }) {
-  return (
-    <div className="rounded-lg border border-paper/[0.08] bg-paper/[0.03] px-4 py-3.5">
-      <p className="font-archivo font-light text-paper text-[26px] leading-none tracking-[-0.02em] m-0">{value}</p>
-      <div className="flex items-baseline gap-2 mt-2.5">
-        <p className="font-jetbrains text-[9px] text-paper/40 uppercase tracking-eyebrow m-0">{label}</p>
-        {delta && <span className="font-jetbrains text-[9px] text-signal m-0">{delta}</span>}
-      </div>
-    </div>
-  )
-}
-
-// ── Mock data, by range ─────────────────────────────────────────────────────
-
-const HOURS = ['11a', '12p', '1p', '2p', '3p', '4p', '5p', '6p', '7p', '8p', '9p', '10p']
-const hourly = (vals: number[], scale: number): Bar[] =>
-  HOURS.map((h, i) => ({ label: h, value: vals[i], hint: `${h} — $${(vals[i] * scale).toLocaleString()}` }))
-
-const DAILY: Record<Range, { kpis: { value: string; label: string; delta?: string }[]; bars: Bar[]; staff: Bar[] }> = {
-  '1d': {
-    kpis: [
-      { value: '$8.4k', label: 'Net sales', delta: '+6.1%' },
-      { value: '27.9%', label: 'Labor of sales' },
-      { value: '60.4%', label: 'Prime cost' },
-      { value: '$37.20', label: 'Average check' },
-    ],
-    bars: hourly([18, 42, 55, 31, 14, 12, 28, 61, 88, 79, 47, 22], 102),
-    staff: [
-      { label: 'M. Reyes', value: 92, hint: 'M. Reyes — $2,140 in sales' },
-      { label: 'J. Okafor', value: 74, hint: 'J. Okafor — $1,720 in sales' },
-      { label: 'T. Lindqvist', value: 58, hint: 'T. Lindqvist — $1,350 in sales' },
-      { label: 'A. Duarte', value: 41, hint: 'A. Duarte — $950 in sales' },
-    ],
-  },
-  '7d': {
-    kpis: [
-      { value: '$49.6k', label: 'Net sales', delta: '+3.4%' },
-      { value: '28.4%', label: 'Labor of sales' },
-      { value: '61.2%', label: 'Prime cost' },
-      { value: '$38.10', label: 'Average check' },
-    ],
-    bars: hourly([22, 48, 61, 34, 17, 13, 31, 66, 94, 83, 52, 25], 604),
-    staff: [
-      { label: 'M. Reyes', value: 88, hint: 'M. Reyes — $12,480 in sales' },
-      { label: 'J. Okafor', value: 79, hint: 'J. Okafor — $11,200 in sales' },
-      { label: 'T. Lindqvist', value: 61, hint: 'T. Lindqvist — $8,640 in sales' },
-      { label: 'A. Duarte', value: 47, hint: 'A. Duarte — $6,670 in sales' },
-    ],
-  },
-  '30d': {
-    kpis: [
-      { value: '$211k', label: 'Net sales', delta: '+8.9%' },
-      { value: '29.1%', label: 'Labor of sales' },
-      { value: '62.0%', label: 'Prime cost' },
-      { value: '$36.80', label: 'Average check' },
-    ],
-    bars: hourly([25, 51, 58, 37, 19, 16, 34, 69, 91, 86, 55, 29], 2410),
-    staff: [
-      { label: 'M. Reyes', value: 84, hint: 'M. Reyes — $52,900 in sales' },
-      { label: 'J. Okafor', value: 81, hint: 'J. Okafor — $51,000 in sales' },
-      { label: 'T. Lindqvist', value: 66, hint: 'T. Lindqvist — $41,500 in sales' },
-      { label: 'A. Duarte', value: 52, hint: 'A. Duarte — $32,700 in sales' },
-    ],
-  },
-}
-
-const MARGIN: Record<Range, Bar[]> = {
-  '1d': [
-    { label: 'Burger', value: 73, hint: 'Burger — 73% margin' },
-    { label: 'Fries', value: 66, hint: 'Fries — 66% margin' },
-    { label: 'Pasta', value: 54, hint: 'Pasta — 54% margin' },
-    { label: 'Steak', value: 36, hint: 'Steak — 36% margin' },
-    { label: 'Specials', value: 24, hint: 'Specials — 24% margin' },
-  ],
-  '7d': [
-    { label: 'Burger', value: 71, hint: 'Burger — 71% margin' },
-    { label: 'Fries', value: 64, hint: 'Fries — 64% margin' },
-    { label: 'Pasta', value: 52, hint: 'Pasta — 52% margin' },
-    { label: 'Steak', value: 34, hint: 'Steak — 34% margin' },
-    { label: 'Specials', value: 21, hint: 'Specials — 21% margin' },
-  ],
-  '30d': [
-    { label: 'Burger', value: 69, hint: 'Burger — 69% margin' },
-    { label: 'Fries', value: 63, hint: 'Fries — 63% margin' },
-    { label: 'Pasta', value: 49, hint: 'Pasta — 49% margin' },
-    { label: 'Steak', value: 31, hint: 'Steak — 31% margin' },
-    { label: 'Specials', value: 18, hint: 'Specials — 18% margin' },
-  ],
-}
-
-const PRIME: Record<Range, number> = { '1d': 60, '7d': 61, '30d': 62 }
-const LABOR: Record<Range, { lunch: string; dinner: string; tips: string; flagged: string }> = {
-  '1d': { lunch: '21.4%', dinner: '30.9%', tips: '$610', flagged: '4' },
-  '7d': { lunch: '22.1%', dinner: '31.8%', tips: '$4,120', flagged: '18' },
-  '30d': { lunch: '23.0%', dinner: '32.6%', tips: '$17,340', flagged: '61' },
-}
-
-const SITE_ROWS: Record<Range, { site: string; sales: string; prime: string; labor: string; vs: string; bar: number }[]> = {
-  '1d': [
-    { site: 'Pearl District', sales: '$11.9k', prime: '58.1%', labor: '26.9%', vs: '+5.2%', bar: 88 },
-    { site: 'Alberta', sales: '$9.2k', prime: '60.4%', labor: '28.8%', vs: '+1.1%', bar: 68 },
-    { site: 'Division', sales: '$8.4k', prime: '61.7%', labor: '29.6%', vs: '-0.8%', bar: 62 },
-    { site: 'Hawthorne', sales: '$5.6k', prime: '64.9%', labor: '33.1%', vs: '-7.4%', bar: 41 },
-  ],
-  '7d': [
-    { site: 'Pearl District', sales: '$82.4k', prime: '58.6%', labor: '27.2%', vs: '+4.2%', bar: 82 },
-    { site: 'Alberta', sales: '$64.1k', prime: '60.1%', labor: '28.5%', vs: '+0.9%', bar: 64 },
-    { site: 'Division', sales: '$58.3k', prime: '61.4%', labor: '29.9%', vs: '-1.2%', bar: 58 },
-    { site: 'Hawthorne', sales: '$39.7k', prime: '65.2%', labor: '33.4%', vs: '-6.7%', bar: 39 },
-  ],
-  '30d': [
-    { site: 'Pearl District', sales: '$344k', prime: '59.2%', labor: '27.9%', vs: '+3.6%', bar: 79 },
-    { site: 'Alberta', sales: '$271k', prime: '60.8%', labor: '29.0%', vs: '+0.4%', bar: 62 },
-    { site: 'Division', sales: '$249k', prime: '62.0%', labor: '30.4%', vs: '-1.9%', bar: 57 },
-    { site: 'Hawthorne', sales: '$168k', prime: '66.0%', labor: '34.0%', vs: '-8.1%', bar: 38 },
-  ],
-}
-
-const TREND: Record<Range, Bar[]> = {
-  '1d': ['6a', '9a', '12p', '3p', '6p', '9p', '12a'].map((l, i) => {
-    const v = [4, 12, 34, 22, 61, 48, 14][i]
-    return { label: l, value: v, hint: `$${(v * 210).toLocaleString()}` }
-  }),
-  '7d': ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((l, i) => {
-    const v = [28, 31, 36, 44, 68, 79, 52][i]
-    return { label: l, value: v, hint: `$${(v * 620).toLocaleString()}` }
-  }),
-  '30d': Array.from({ length: 15 }, (_, i) => {
-    const v = [30, 34, 31, 39, 46, 71, 58, 33, 37, 35, 42, 49, 76, 64, 41][i]
-    return { label: `${i * 2 + 1}`, value: v, hint: `$${(v * 1180).toLocaleString()}` }
-  }),
-}
-
-// ── The three screens ───────────────────────────────────────────────────────
-
-const VIEWS = [
+const DASHBOARDS: Dash[] = [
+  // 1 ── Neon violet, modern SaaS
   {
-    key: 'service',
-    tab: 'Daily service',
-    title: 'Service — Pearl District',
-    address: 'reports.compass-its.com/pearl-district',
-    nav: ['Overview', 'Service', 'Labor', 'Items', 'Exports'],
-    activeNav: 'Service',
-    heading: 'One location, the shift you just finished.',
-    body: 'The view a single-site operator opens at close. Revenue by hour against who was on, with the two numbers that decide the week sitting above it.',
-    render: (r: Range) => {
-      const d = DAILY[r]
-      return (
-        <div className="flex flex-col gap-4">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-            {d.kpis.map((k) => <Kpi key={k.label} {...k} />)}
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-[1.9fr_1fr] gap-3">
-            <Panel title="Revenue by hour" action="Hover for detail">
-              <ColumnChart data={d.bars} />
-            </Panel>
-            <Panel title="Sales by server">
-              <RowBars data={d.staff} unit="" />
-            </Panel>
-          </div>
-        </div>
-      )
+    key: 'aurora',
+    name: 'Aurora',
+    style: 'Neon violet · modern SaaS',
+    address: 'app.aurorapos.io/venue/9812',
+    badge: 'LIVE',
+    chrome: {
+      bar: '#1A1333', border: '#2C2352', pill: '#241B45', pillBorder: '#372B63',
+      text: '#A79CD4', dots: ['#6D5BC7', '#4C3F8F', '#372B63'], radius: 16, font: SANS,
     },
-  },
-  {
-    key: 'custom',
-    tab: 'Custom metrics',
-    title: 'Cost control — custom',
-    address: 'reports.compass-its.com/cost-control',
-    nav: ['Overview', 'Prime cost', 'Margin', 'Tips', 'Definitions'],
-    activeNav: 'Prime cost',
-    heading: 'The measures your business runs on.',
-    body: 'Tier 2 is where the panels stop being standard. Item-level margin against the costs you enter, labor split the way your dayparts actually fall, and any measure you can define.',
-    render: (r: Range) => {
-      const l = LABOR[r]
+    render: (r) => {
+      const m = MULT[r]
+      const series = [32, 38, 30, 45, 52, 71, 64, 58, 76, 88, 72, 91]
       return (
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.35fr] gap-3">
-          <div className="flex flex-col gap-3">
-            <Panel title="Prime cost vs target">
-              <RingGauge value={PRIME[r]} target={58} label="Food plus labor" />
-            </Panel>
-            <div className="grid grid-cols-2 gap-3">
-              <Kpi value={l.lunch} label="Labor · lunch" />
-              <Kpi value={l.dinner} label="Labor · dinner" />
+        <div style={{ background: '#120E24', padding: 20, fontFamily: SANS, color: '#E9E4FF' }}>
+          <div className="flex items-center justify-between gap-3 mb-5 flex-wrap">
+            <div>
+              <p style={{ margin: 0, fontSize: 16, fontWeight: 600 }}>Evening service</p>
+              <p style={{ margin: '4px 0 0', fontSize: 11, color: '#8B7FC0' }}>Aurora POS · Venue 9812</p>
+            </div>
+            <div className="flex gap-1.5">
+              {['Sales', 'Labor', 'Menu'].map((t, i) => (
+                <span key={t} style={{ fontSize: 11, padding: '5px 12px', borderRadius: 999, background: i === 0 ? '#6D5BC7' : '#1E1738', color: i === 0 ? '#fff' : '#8B7FC0' }}>{t}</span>
+              ))}
             </div>
           </div>
-          <div className="flex flex-col gap-3">
-            <Panel title="Margin by item" action="Against entered costs">
-              <RowBars data={MARGIN[r]} unit="%" />
-            </Panel>
-            <div className="grid grid-cols-2 gap-3">
-              <Kpi value={l.tips} label="Tip pool" />
-              <Kpi value={l.flagged} label="Items below target" />
+
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 mb-3">
+            {[
+              { k: 'Revenue', v: money(9120 * m), s: [30, 42, 38, 55, 61, 72], c: '#A78BFA' },
+              { k: 'Covers', v: Math.round(238 * m).toLocaleString(), s: [40, 36, 48, 44, 60, 66], c: '#22D3EE' },
+              { k: 'Avg spend', v: `$${wobble(38.4, r, 1.2)}`, s: [52, 48, 55, 50, 58, 62], c: '#F472B6' },
+            ].map((x) => (
+              <div key={x.k} style={{ background: 'linear-gradient(160deg,#1E1738,#181230)', border: '1px solid #2C2352', borderRadius: 14, padding: 14 }}>
+                <p style={{ margin: 0, fontSize: 10, letterSpacing: '0.08em', color: '#8B7FC0', textTransform: 'uppercase' }}>{x.k}</p>
+                <p style={{ margin: '8px 0 6px', fontSize: 24, fontWeight: 600 }}>{x.v}</p>
+                <Spark pts={x.s} color={x.c} />
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-3">
+            <div style={{ background: '#1A1333', border: '1px solid #2C2352', borderRadius: 14, padding: 14 }}>
+              <p style={{ margin: '0 0 10px', fontSize: 11, color: '#8B7FC0' }}>Revenue through service</p>
+              <Area pts={series} color="#A78BFA" fill="#8B5CF6" h={96} />
+            </div>
+            <div style={{ background: '#1A1333', border: '1px solid #2C2352', borderRadius: 14, padding: 14, color: '#E9E4FF' }} className="flex flex-col items-center justify-center">
+              <Donut pct={wobble(64, r, 3)} color="#22D3EE" track="#241B45" label={`${wobble(64, r, 3)}%`} sub="PRIME COST" />
             </div>
           </div>
         </div>
       )
     },
   },
+
+  // 2 ── Light corporate BI
   {
-    key: 'group',
-    tab: 'Multi-location',
-    title: 'Group — four sites',
-    address: 'reports.compass-its.com/group',
-    nav: ['Group', 'Sites', 'Benchmarks', 'Roll-up', 'Permissions'],
-    activeNav: 'Sites',
-    heading: 'Four sites, read as one business.',
-    body: 'Tier 3 rolls the sites up and sets them against each other, so a site drifting from the group shows as a number rather than a feeling.',
-    render: (r: Range) => (
-      <div className="flex flex-col gap-3">
-        <Panel title="Group sales trend" action="Peak labelled">
-          <TrendChart data={TREND[r]} />
-        </Panel>
-        <Panel title="Site comparison" action="Sorted by net sales">
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[460px] border-collapse">
-              <thead>
-                <tr>
-                  {['Site', 'Net sales', 'Prime', 'Labor', 'vs group'].map((h) => (
-                    <th key={h} className="text-start font-jetbrains text-[9px] text-paper/30 uppercase tracking-eyebrow font-medium pb-3">
-                      {h}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {SITE_ROWS[r].map((row) => (
-                  <tr key={row.site} className="border-t border-paper/[0.06]">
-                    <td className="py-2.5 pe-3">
-                      <div className="flex items-center gap-2.5">
-                        <span aria-hidden className="h-[6px] rounded-sm bg-signal shrink-0" style={{ width: `${Math.max(row.bar * 0.34, 8)}px`, opacity: 0.4 + row.bar / 220 }} />
-                        <span className="font-barlow text-[13px] text-paper/75 whitespace-nowrap">{row.site}</span>
-                      </div>
-                    </td>
-                    <td className="py-2.5 pe-3 font-jetbrains text-[11px] text-paper/65">{row.sales}</td>
-                    <td className="py-2.5 pe-3 font-jetbrains text-[11px] text-paper/50">{row.prime}</td>
-                    <td className="py-2.5 pe-3 font-jetbrains text-[11px] text-paper/50">{row.labor}</td>
-                    <td className="py-2.5 font-jetbrains text-[11px] text-paper/65">{row.vs}</td>
+    key: 'ledger',
+    name: 'Ledger',
+    style: 'Light corporate · accounting BI',
+    address: 'ledger-reporting.com/reports/weekly',
+    badge: 'WK 38',
+    chrome: {
+      bar: '#E8E6DF', border: '#CFCCC1', pill: '#FFFFFF', pillBorder: '#CFCCC1',
+      text: '#6B6759', dots: ['#B9B5A7', '#C9C5B8', '#D6D3C7'], radius: 4, font: SANS,
+    },
+    render: (r) => {
+      const m = MULT[r]
+      const rows = [
+        ['Food sales', 41200, 62.1],
+        ['Beverage', 18600, 28.0],
+        ['Retail', 4100, 6.2],
+        ['Other', 2450, 3.7],
+      ] as [string, number, number][]
+      return (
+        <div style={{ background: '#F4F3EF', padding: 22, fontFamily: SANS, color: '#2A2822' }}>
+          <p style={{ margin: 0, fontSize: 10, color: '#8A8577', letterSpacing: '0.06em' }}>REPORTS / REVENUE / WEEKLY SUMMARY</p>
+          <h4 style={{ margin: '8px 0 18px', fontFamily: SERIF, fontSize: 21, fontWeight: 400 }}>Revenue by category</h4>
+
+          <div className="grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-5">
+            {/* Scrolls rather than clipping: four columns plus a sparkline does
+                not fit 375px, and a trend column cut in half reads as broken. */}
+            <div style={{ background: '#FFFFFF', border: '1px solid #DEDBD1', borderRadius: 3, overflowX: 'auto' }}>
+              <table style={{ width: '100%', minWidth: 380, borderCollapse: 'collapse', fontSize: 12 }}>
+                <thead>
+                  <tr style={{ background: '#FAF9F6' }}>
+                    {['Category', 'Amount', 'Share', 'Trend'].map((h) => (
+                      <th key={h} style={{ textAlign: h === 'Category' ? 'start' : 'end', padding: '9px 12px', fontSize: 9.5, letterSpacing: '0.07em', color: '#8A8577', fontWeight: 600, borderBottom: '1px solid #DEDBD1' }}>
+                        {h.toUpperCase()}
+                      </th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {rows.map(([label, amt, share], i) => (
+                    <tr key={label} style={{ borderBottom: i < rows.length - 1 ? '1px solid #EFEDE6' : 'none' }}>
+                      <td style={{ padding: '9px 12px', fontFamily: SERIF }}>{label}</td>
+                      <td style={{ padding: '9px 12px', textAlign: 'end', fontVariantNumeric: 'tabular-nums' }}>{money(amt * m)}</td>
+                      <td style={{ padding: '9px 12px', textAlign: 'end', color: '#6B6759', fontVariantNumeric: 'tabular-nums' }}>{share}%</td>
+                      <td style={{ padding: '4px 12px', textAlign: 'end', color: '#1F4E79' }}>
+                        <span className="inline-block align-middle"><Spark pts={[30, 34, 31, 38, 36, 42].map((v) => v + i * 3)} color="#1F4E79" h={20} /></span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot>
+                  <tr style={{ background: '#FAF9F6', borderTop: '2px solid #CFCCC1' }}>
+                    <td style={{ padding: '9px 12px', fontWeight: 600, fontFamily: SERIF }}>Total</td>
+                    <td style={{ padding: '9px 12px', textAlign: 'end', fontWeight: 600, fontVariantNumeric: 'tabular-nums' }}>{money(66350 * m)}</td>
+                    <td style={{ padding: '9px 12px', textAlign: 'end', color: '#6B6759' }}>100%</td>
+                    <td />
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+
+            <div style={{ background: '#FFFFFF', border: '1px solid #DEDBD1', borderRadius: 3, padding: 14, color: '#1F4E79' }}>
+              <p style={{ margin: '0 0 12px', fontSize: 9.5, letterSpacing: '0.07em', color: '#8A8577', fontWeight: 600 }}>DAILY RECEIPTS</p>
+              <Cols pts={[42, 48, 44, 57, 78, 92, 61]} labels={['M', 'T', 'W', 'T', 'F', 'S', 'S']} color="#1F4E79" radius={1} h={116} />
+              <p style={{ margin: '14px 0 0', fontSize: 11, color: '#6B6759', fontFamily: SERIF }}>
+                Variance to budget <strong style={{ color: '#1F4E79' }}>+{wobble(3.2, r, 1.4)}%</strong>
+              </p>
+            </div>
           </div>
-        </Panel>
-      </div>
-    ),
+        </div>
+      )
+    },
+  },
+
+  // 3 ── Warm, rounded, consumer-app
+  {
+    key: 'citrus',
+    name: 'Citrus',
+    style: 'Warm coral · consumer app',
+    address: 'citrus.app/kitchen/today',
+    badge: 'AUTO-REFRESH',
+    chrome: {
+      bar: '#FFEFE2', border: '#F6D9C4', pill: '#FFFFFF', pillBorder: '#F6D9C4',
+      text: '#B4643C', dots: ['#FF8A5B', '#FFB627', '#FFD79A'], radius: 22, font: SANS,
+    },
+    render: (r) => {
+      const m = MULT[r]
+      return (
+        <div style={{ background: '#FFF8F1', padding: 22, fontFamily: SANS, color: '#3D2418' }}>
+          <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
+            <div className="flex gap-2">
+              {['Kitchen', 'Front', 'Delivery'].map((t, i) => (
+                <span key={t} style={{ fontSize: 12, fontWeight: 600, padding: '7px 16px', borderRadius: 999, background: i === 0 ? '#F2622E' : '#FFEFE2', color: i === 0 ? '#fff' : '#B4643C' }}>{t}</span>
+              ))}
+            </div>
+            <span style={{ fontSize: 11, color: '#B4643C' }}>Updated just now</span>
+          </div>
+
+          <div style={{ background: 'linear-gradient(135deg,#F2622E,#FFB627)', borderRadius: 22, padding: '22px 24px', color: '#fff', marginBottom: 14 }}>
+            <p style={{ margin: 0, fontSize: 12, opacity: 0.9 }}>Sales today</p>
+            <p style={{ margin: '6px 0 0', fontSize: 40, fontWeight: 700, letterSpacing: '-0.02em' }}>{money(7840 * m)}</p>
+            <p style={{ margin: '8px 0 0', fontSize: 12, opacity: 0.92 }}>
+              {wobble(12.4, r, 4)}% ahead of the same period last month
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-3">
+            <div style={{ background: '#fff', borderRadius: 20, padding: 18, border: '1px solid #F6E3D3' }}>
+              <p style={{ margin: '0 0 14px', fontSize: 13, fontWeight: 700 }}>Top sellers</p>
+              {[
+                ['Smash burger', 88], ['Loaded fries', 71], ['Chicken bowl', 54], ['Iced matcha', 37],
+              ].map(([label, v]) => (
+                <div key={label as string} className="flex items-center gap-3 mb-3">
+                  <span style={{ fontSize: 12, width: 104, color: '#6B4A38' }}>{label}</span>
+                  <span style={{ flex: 1, height: 12, background: '#FFEFE2', borderRadius: 999, overflow: 'hidden' }}>
+                    <span style={{ display: 'block', height: '100%', width: `${v}%`, borderRadius: 999, background: 'linear-gradient(90deg,#FFB627,#F2622E)' }} />
+                  </span>
+                  <span style={{ fontSize: 12, fontWeight: 700, width: 30, textAlign: 'right' }}>{v}</span>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ background: '#fff', borderRadius: 20, padding: 18, border: '1px solid #F6E3D3', color: '#3D2418' }} className="flex items-center justify-around">
+              <Donut pct={wobble(72, r, 5)} color="#F2622E" track="#FFEFE2" label={`${wobble(72, r, 5)}%`} sub="KITCHEN ON TIME" />
+              <div>
+                <p style={{ margin: 0, fontSize: 11, color: '#B4643C' }}>Avg ticket time</p>
+                <p style={{ margin: '4px 0 14px', fontSize: 22, fontWeight: 700 }}>{wobble(11.2, r, 1.1)} min</p>
+                <p style={{ margin: 0, fontSize: 11, color: '#B4643C' }}>Refires</p>
+                <p style={{ margin: '4px 0 0', fontSize: 22, fontWeight: 700 }}>{Math.max(1, Math.round(3 * (r === '1d' ? 1 : r === '7d' ? 5 : 19)))}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+  },
+
+  // 4 ── Data terminal
+  {
+    key: 'terminal',
+    name: 'Terminal',
+    style: 'Monospace · operations console',
+    address: 'trm.internal:8443/ops',
+    badge: 'SESSION 04',
+    chrome: {
+      bar: '#080D12', border: '#16232E', pill: '#0B1319', pillBorder: '#1B2B38',
+      text: '#3F8F6B', dots: ['#1E7A52', '#155C3D', '#0F3F2A'], radius: 3, font: MONO,
+    },
+    render: (r) => {
+      const m = MULT[r]
+      const rows = [
+        ['PEARL', 88, 58.1, 'OK'],
+        ['ALBRT', 64, 60.4, 'OK'],
+        ['DIVSN', 58, 61.7, 'WATCH'],
+        ['HWTHN', 39, 64.9, 'ALERT'],
+      ] as [string, number, number, string][]
+      const bar = (v: number) => '█'.repeat(Math.round(v / 7)).padEnd(13, '·')
+      return (
+        <div style={{ background: '#04070A', padding: 18, fontFamily: MONO, color: '#7FE3B5', fontSize: 12 }}>
+          <div style={{ borderBottom: '1px solid #16232E', paddingBottom: 10, marginBottom: 14 }} className="flex justify-between flex-wrap gap-2">
+            <span style={{ color: '#22FF88' }}>OPS://group/all-sites</span>
+            <span style={{ color: '#3F8F6B' }}>{RANGES.find((x) => x.key === r)?.label.toUpperCase()} · 4 NODES</span>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+            {[
+              ['NET', money(66350 * m)], ['PRIME', `${wobble(61.0, r, 1)}%`],
+              ['LABOR', `${wobble(28.9, r, 1)}%`], ['COVERS', Math.round(1180 * m).toLocaleString()],
+            ].map(([k, v]) => (
+              <div key={k} style={{ border: '1px solid #16232E', padding: '10px 12px', background: '#070C11' }}>
+                <p style={{ margin: 0, fontSize: 9, color: '#3F8F6B', letterSpacing: '0.12em' }}>{k}</p>
+                <p style={{ margin: '6px 0 0', fontSize: 18, color: '#22FF88' }}>{v}</p>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ border: '1px solid #16232E', background: '#070C11', padding: 12, marginBottom: 12, overflowX: 'auto' }}>
+            <pre style={{ margin: 0, fontSize: 11, lineHeight: 1.75, color: '#7FE3B5' }}>
+{`SITE   SALES-IDX      PRIME    STATUS
+`}
+{rows.map(([site, v, prime, status]) =>
+`${site}  ${bar(v)}  ${String(prime).padStart(5)}%   ${status}\n`
+).join('')}
+            </pre>
+          </div>
+
+          <div style={{ border: '1px solid #16232E', background: '#070C11', padding: 12 }} className="text-current">
+            <p style={{ margin: '0 0 8px', fontSize: 9, color: '#3F8F6B', letterSpacing: '0.12em' }}>THROUGHPUT / HR</p>
+            <div style={{ color: '#22FF88' }}>
+              <Cols pts={[18, 42, 55, 31, 14, 12, 28, 61, 88, 79, 47, 22]} color="#22FF88" radius={0} h={80} />
+            </div>
+          </div>
+
+          <p style={{ margin: '12px 0 0', fontSize: 10, color: '#2E6B4E' }}>
+            {'>'} watch --interval 60s <span style={{ background: '#22FF88', color: '#04070A' }}>&nbsp;</span>
+          </p>
+        </div>
+      )
+    },
+  },
+
+  // 5 ── Dense engineering grid
+  {
+    key: 'meridian',
+    name: 'Meridian',
+    style: 'Dense grid · engineering console',
+    address: 'meridian.grid/boards/retail-ops',
+    badge: '30s REFRESH',
+    chrome: {
+      bar: '#0E1729', border: '#1C2A44', pill: '#111C31', pillBorder: '#22334F',
+      text: '#7C90B3', dots: ['#3B82F6', '#1E4E8C', '#15304F'], radius: 6, font: SANS,
+    },
+    render: (r) => {
+      const m = MULT[r]
+      const panel = { background: '#111A2E', border: '1px solid #1C2A44', borderRadius: 6, padding: 12 }
+      return (
+        <div style={{ background: '#0B1220', padding: 16, fontFamily: SANS, color: '#D6E0F0' }}>
+          <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
+            <p style={{ margin: 0, fontSize: 12, color: '#7C90B3' }}>boards / retail-ops / <span style={{ color: '#D6E0F0' }}>overview</span></p>
+            <span style={{ fontSize: 10, color: '#F59E0B', border: '1px solid #4A3518', background: '#231a0c', padding: '3px 8px', borderRadius: 4 }}>
+              2 ALERTS
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 mb-2.5">
+            {[
+              ['net_sales', money(66350 * m), '#3B82F6'],
+              ['prime_cost', `${wobble(61.0, r, 1)}%`, '#F59E0B'],
+              ['labor_pct', `${wobble(28.9, r, 1)}%`, '#3B82F6'],
+              ['void_rate', `${wobble(1.4, r, 0.4)}%`, '#EF4444'],
+            ].map(([k, v, c]) => (
+              <div key={k} style={panel}>
+                <p style={{ margin: 0, fontSize: 9.5, color: '#7C90B3', fontFamily: MONO }}>{k}</p>
+                <p style={{ margin: '7px 0 0', fontSize: 19, color: c as string, fontFamily: MONO }}>{v}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-2.5">
+            <div style={{ ...panel, gridColumn: 'span 2' }} className="lg:col-span-2">
+              <p style={{ margin: '0 0 10px', fontSize: 9.5, color: '#7C90B3', fontFamily: MONO }}>sales_by_hour</p>
+              <div style={{ color: '#7C90B3' }}>
+                <Cols pts={[18, 42, 55, 31, 14, 12, 28, 61, 88, 79, 47, 22]} labels={['11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22']} color="#3B82F6" radius={2} h={122} />
+              </div>
+            </div>
+            <div style={panel}>
+              <p style={{ margin: '0 0 10px', fontSize: 9.5, color: '#7C90B3', fontFamily: MONO }}>margin_by_item</p>
+              {[['burger', 71], ['fries', 64], ['pasta', 52], ['steak', 34]].map(([k, v]) => (
+                <div key={k as string} className="flex items-center gap-2 mb-2.5">
+                  <span style={{ fontSize: 10, fontFamily: MONO, color: '#9FB0CC', width: 46 }}>{k}</span>
+                  <span style={{ flex: 1, height: 6, background: '#16233A', borderRadius: 2, overflow: 'hidden' }}>
+                    <span style={{ display: 'block', height: '100%', width: `${v}%`, background: '#3B82F6' }} />
+                  </span>
+                  <span style={{ fontSize: 10, fontFamily: MONO, color: '#7C90B3', width: 26, textAlign: 'right' }}>{v}%</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )
+    },
   },
 ]
 
@@ -439,9 +474,8 @@ export default function UsDashboardPreview({
 }) {
   const [index, setIndex] = useState(0)
   const [range, setRange] = useState<Range>('7d')
-  const view = VIEWS[index]
-
-  const go = (delta: number) => setIndex((i) => (i + delta + VIEWS.length) % VIEWS.length)
+  const d = DASHBOARDS[index]
+  const go = (delta: number) => setIndex((i) => (i + delta + DASHBOARDS.length) % DASHBOARDS.length)
 
   return (
     <section id="dashboards" className="py-20 lg:py-28 relative z-[1]">
@@ -456,35 +490,26 @@ export default function UsDashboardPreview({
           {intro}
         </p>
 
-        {/* Cycle control. Arrows for moving through, names for going straight to
-            one — the arrows carry the "there are more of these" signal that a
-            row of tabs alone does not. */}
         <div className="flex flex-wrap items-center gap-3 mb-6">
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => go(-1)}
-              aria-label="Previous dashboard"
-              className="w-9 h-9 rounded-lg border border-paper/[0.12] text-paper/60 hover:text-signal hover:border-signal/40 transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-signal focus:ring-offset-2 focus:ring-offset-transparent"
-            >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path d="M15 5l-7 7 7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-            <button
-              onClick={() => go(1)}
-              aria-label="Next dashboard"
-              className="w-9 h-9 rounded-lg border border-paper/[0.12] text-paper/60 hover:text-signal hover:border-signal/40 transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-signal focus:ring-offset-2 focus:ring-offset-transparent"
-            >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path d="M9 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
+            {[-1, 1].map((delta) => (
+              <button
+                key={delta}
+                onClick={() => go(delta)}
+                aria-label={delta < 0 ? 'Previous dashboard' : 'Next dashboard'}
+                className="w-9 h-9 rounded-lg border border-paper/[0.12] text-paper/60 hover:text-signal hover:border-signal/40 transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-signal focus:ring-offset-2 focus:ring-offset-transparent"
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <path d={delta < 0 ? 'M15 5l-7 7 7 7' : 'M9 5l7 7-7 7'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+            ))}
           </div>
 
           <div className="flex flex-wrap gap-2">
-            {VIEWS.map((v, i) => (
+            {DASHBOARDS.map((x, i) => (
               <button
-                key={v.key}
+                key={x.key}
                 onClick={() => setIndex(i)}
                 aria-current={i === index}
                 className={`font-archivo text-[13px] px-4 py-2 rounded-lg border transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-signal focus:ring-offset-2 focus:ring-offset-transparent ${
@@ -493,82 +518,44 @@ export default function UsDashboardPreview({
                     : 'border-paper/[0.12] text-paper/55 hover:text-paper hover:border-paper/25'
                 }`}
               >
-                {v.tab}
+                {x.name}
               </button>
             ))}
           </div>
 
-          <span className="font-jetbrains text-[10px] text-paper/30 uppercase tracking-eyebrow ms-auto">
-            {index + 1} / {VIEWS.length}
-          </span>
+          {/* Range control lives outside the frame: it drives all five, and each
+              dashboard styles its own chrome differently enough that a control
+              inside would have to be restyled five times to mean one thing. */}
+          <div className="flex items-center gap-1 rounded-lg border border-paper/[0.10] p-1 ms-auto">
+            {RANGES.map((x) => (
+              <button
+                key={x.key}
+                onClick={() => setRange(x.key)}
+                aria-pressed={range === x.key}
+                className={`font-jetbrains text-[10px] uppercase tracking-eyebrow px-2.5 py-1.5 rounded-md transition-colors ${
+                  range === x.key ? 'bg-signal/15 text-signal' : 'text-paper/40 hover:text-paper/70'
+                }`}
+              >
+                {x.label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <MockWindow address={view.address} badge="Synced 2 min ago">
-          <div className="flex">
-            {/* Sidebar. The items change per screen — the sections a group
-                operator needs are not the ones a single site needs, which is the
-                same argument the section is making in miniature. */}
-            <aside className="hidden md:flex flex-col gap-1 w-[164px] shrink-0 border-e border-paper/[0.08] bg-paper/[0.02] p-3">
-              <div className="flex items-center gap-2 px-2 pb-3 mb-1 border-b border-paper/[0.06]">
-                <span aria-hidden className="w-[18px] h-[18px] rounded bg-signal/25 border border-signal/40" />
-                <span className="font-archivo text-[12px] text-paper/70 truncate">Compass</span>
-              </div>
-              {view.nav.map((item) => (
-                <span
-                  key={item}
-                  className={`font-barlow text-[12.5px] rounded-md px-2.5 py-[7px] ${
-                    item === view.activeNav ? 'bg-signal/10 text-signal' : 'text-paper/45'
-                  }`}
-                >
-                  {item}
-                </span>
-              ))}
-            </aside>
-
-            <div className="flex-1 min-w-0 p-4 lg:p-5">
-              {/* App header: title left, working range control right. */}
-              <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-                <div className="min-w-0">
-                  <p className="font-archivo font-medium text-paper text-[15px] m-0 truncate">{view.title}</p>
-                  <p className="font-jetbrains text-[9px] text-paper/35 uppercase tracking-eyebrow mt-1.5 m-0">
-                    {RANGES.find((x) => x.key === range)?.label} · all dayparts
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-1 rounded-lg border border-paper/[0.10] p-1">
-                  {RANGES.map((x) => (
-                    <button
-                      key={x.key}
-                      onClick={() => setRange(x.key)}
-                      aria-pressed={range === x.key}
-                      className={`font-jetbrains text-[10px] uppercase tracking-eyebrow px-2.5 py-1.5 rounded-md transition-colors ${
-                        range === x.key ? 'bg-signal/15 text-signal' : 'text-paper/40 hover:text-paper/70'
-                      }`}
-                    >
-                      {x.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {view.render(range)}
-            </div>
-          </div>
+        <MockWindow address={d.address} badge={d.badge} theme={d.chrome}>
+          {d.render(range)}
         </MockWindow>
 
-        {/* The screen's own caption, outside the frame. */}
         <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mt-6">
-          <div className="max-w-[680px]">
-            <h3 className="font-archivo font-medium text-paper text-[19px] tracking-[-0.02em] m-0">
-              {view.heading}
-            </h3>
-            <p className="font-barlow text-[15px] text-paper/55 leading-relaxed mt-2 m-0">
-              {view.body}
-            </p>
-          </div>
+          <p className="font-jetbrains text-[11px] text-paper/45 uppercase tracking-eyebrow m-0">
+            {d.name} · {d.style}
+          </p>
+          <p className="font-jetbrains text-[10px] text-paper/30 uppercase tracking-eyebrow m-0">
+            {index + 1} / {DASHBOARDS.length}
+          </p>
         </div>
 
-        <p className="font-jetbrains text-[11px] text-paper/35 uppercase tracking-eyebrow mt-6 m-0">
+        <p className="font-jetbrains text-[11px] text-paper/35 uppercase tracking-eyebrow mt-5 m-0">
           {disclaimer}
         </p>
       </div>

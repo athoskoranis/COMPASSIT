@@ -497,61 +497,54 @@ That is the report we build.
 Your dashboard, not a template.
 
 ### Section body — dashboard preview
-Three configurations of the same service, from a single site to a group of five. The panels are not fixed — we build the measures your business is actually run on, and the layout follows them.
+Five builds, five businesses, five different screens. We do not ship one layout with your logo on it — the measures, the density and the look all follow how you actually run, which is why none of these resemble each other.
 
-### Dashboard preview — the three example views
+### Dashboard preview — the five example builds
 
-**Tab 1 · Daily service**
-*One location, the shift you just finished.*
-The view a single-site operator opens at close. Revenue by hour against who was on, with the two numbers that decide the week sitting above it.
+Each sits inside a browser frame and is designed as if it came from a different company. The caption under the frame reads `<Name> · <style>`.
 
-**Tab 2 · Custom metrics**
-*The measures your business runs on.*
-Tier 2 is where the panels stop being standard. Item-level margin against the costs you enter, labor split the way your dayparts actually fall, and any measure you can define.
-
-**Tab 3 · Multi-location**
-*Four sites, read as one business.*
-Tier 3 rolls the sites up and sets them against each other, so a site drifting from the group shows as a number rather than a feeling.
+| # | Name | Style caption | Mock address |
+|---|---|---|---|
+| 1 | Aurora | Neon violet · modern SaaS | `app.aurorapos.io/venue/9812` |
+| 2 | Ledger | Light corporate · accounting BI | `ledger-reporting.com/reports/weekly` |
+| 3 | Citrus | Warm coral · consumer app | `citrus.app/kitchen/today` |
+| 4 | Terminal | Monospace · operations console | `trm.internal:8443/ops` |
+| 5 | Meridian | Dense grid · engineering console | `meridian.grid/boards/retail-ops` |
 
 ### Dashboard preview — disclaimer (required, do not remove)
-Example views · illustrative figures, not a client's data
+Example builds · illustrative figures, not a client's data
 
-### Dashboard preview — mock application chrome
+> **Every figure, name and address in this section is invented and must stay labelled as such.**
+> The site carries no client data and no client permission to show any. The disclaimer line above
+> is the reason the section is allowed to exist at all — the same rule that keeps `ClientProof`
+> empty rather than filled with a plausible quote. If real dashboards are ever shown, they need
+> written permission and the figures anonymised, and the label changes to say so.
 
-The three views sit inside a browser frame with a working application shell. Every string in
-that chrome is invented and none of it resolves to anything.
+> **None of the five hosts resolve.** `aurorapos.io`, `ledger-reporting.com`, `citrus.app`,
+> `trm.internal` and `meridian.grid` are plausible addresses shown inside a picture of a browser,
+> which is ordinary for a product mock. They are also not Compass products — the frame is a window
+> into what a client ends up with, not a preview of software we sell.
 
-| Element | Value |
-|---|---|
-| Address, view 1 | `reports.compass-its.com/pearl-district` |
-| Address, view 2 | `reports.compass-its.com/cost-control` |
-| Address, view 3 | `reports.compass-its.com/group` |
-| Sync badge | Synced 2 min ago |
-| Sidebar, view 1 | Overview · Service · Labor · Items · Exports |
-| Sidebar, view 2 | Overview · Prime cost · Margin · Tips · Definitions |
-| Sidebar, view 3 | Group · Sites · Benchmarks · Roll-up · Permissions |
-| Date ranges | Today · 7 days · 30 days |
+> **The Portland neighbourhoods and staff names are invented.** Pearl District, Alberta, Division
+> and Hawthorne are real places but not real clients, and no business trades under those names here.
+> The staff names belong to nobody.
 
-> **`reports.compass-its.com` does not exist.** It is a plausible host shown inside a picture of
-> a browser, which is ordinary for a product mock. If a real reporting host is ever stood up at
-> a different address, change these first — a screenshot advertising the wrong hostname is the
-> kind of error nobody notices until a client types it.
+### Dashboard preview — why these ignore the design system
 
-> **The sidebar items differ per view on purpose.** The sections a group operator needs are not
-> the ones a single site needs, so the navigation changing between screens is the section's own
-> argument made in miniature. Keep them different.
+`DESIGN.md` does not apply inside the window frame, on purpose. Five dashboards in Ink and Signal
+would read as five screenshots of one Compass product, which is the opposite of what the section
+claims. The variety is the argument: the work is shaped to the business, so five businesses get
+five different screens.
 
-> **The server names in view 1 and the site names in view 3 are invented.** Pearl District,
-> Alberta, Division and Hawthorne are real Portland neighbourhoods but not real clients, and no
-> business trades under those names here. The staff names belong to nobody.
+**The exception stops at the window border.** The section heading, the copy, the cycle controls and
+the disclaimer are all Compass tokens, because those are the site speaking rather than the product.
+Logged as Decision 108.
 
-
-> **Every figure in that section is invented and must stay labelled as such.** The site
-> carries no client data and no client permission to show any. The disclaimer line above
-> is the reason the section is allowed to exist at all — it is the same rule that keeps
-> `ClientProof` empty rather than filled with a plausible quote. If real dashboards are
-> ever shown, they need written permission and the figures anonymised, and the label
-> changes to say so.
+### Dashboard preview — shared controls
+Arrows cycle through the five, the names jump straight to one, and a counter reads `1 / 5`.
+A date range control — Today · 7 days · 30 days — sits outside the frame and drives all five,
+because each dashboard styles its own chrome differently enough that a control inside would have to
+be restyled five times to mean one thing.
 
 ### Tiers
 

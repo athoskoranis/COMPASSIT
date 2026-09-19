@@ -21,6 +21,51 @@
 
 ## [Unreleased]
 
+### Changed — 2026-09-19 (Five dashboards, each from a different company)
+
+**Decision 108 — the design system stops at the window border:**
+Decision 107 put the preview inside a browser frame, but the three screens inside it were the three
+service tiers wearing Compass colours. That quietly argued the opposite of the heading: a reader saw
+one product in three states, not reporting shaped to a business.
+
+**There are now five dashboards, and each is designed as if it came from a different company:**
+
+| Name | Identity |
+|---|---|
+| Aurora | Neon violet on near-black, gradient area chart, pill filters — modern SaaS |
+| Ledger | Cream and white, Georgia headings, dense table with sparklines, 3px corners — accounting BI |
+| Citrus | Coral-to-amber gradient hero, 22px radii, chunky progress bars — consumer app |
+| Terminal | Green on black, monospace throughout, block-character bar strings, status column — operations console |
+| Meridian | Dark blue panel grid, monospace metric keys, alert pill — engineering console |
+
+**`DESIGN.md` is deliberately ignored inside the frame.** Other palettes, other fonts, other radii,
+other densities. Five dashboards in Ink and Signal would read as five screenshots of one Compass
+product. The variety is the argument the section is making, and it cannot be made in one palette.
+
+**The exception stops at the window border.** The heading, the copy, the cycle controls and the
+disclaimer all stay on Compass tokens, because those are the site speaking rather than the product.
+This is a scoped exception like the Beacon stars in Decision 101, not a general licence.
+
+`components/ui/MockWindow.tsx` was rewritten to take a `WindowTheme` — bar, border, pill, text, dots,
+radius and font are all passed in. A frame hard-coded to Ink and Signal would have made every screen
+look like ours no matter what sat inside it.
+
+**Everything is still invented and still labelled.** `CONTENT.md` now records all five, their style
+captions and their mock addresses, with notes that none of the five hosts resolve, that they are not
+Compass products, and that the Portland neighbourhoods are real places but not real clients.
+
+**The range control moved outside the frame.** It drives all five. Each dashboard styles its own
+chrome differently enough that a control inside would have to be restyled five times to mean one
+thing.
+
+Two defects found by looking at it on a phone rather than reading the markup: the Ledger table
+clipped its trend column at 375px and now scrolls, and the Terminal caption read
+*Terminal · Monospace · operations terminal*, which said terminal twice.
+
+Verified: `tsc --noEmit` clean, all five render and cycle by arrow and by name, the range control
+changes figures across all five, and each holds at 375px.
+
+
 ### Changed — 2026-09-19 (The dashboard preview is now an application)
 
 **Decision 107 — a frame, a working shell, and arrows:**
