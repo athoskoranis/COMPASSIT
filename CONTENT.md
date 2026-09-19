@@ -476,14 +476,41 @@ The numbers your POS won't show you.
 ### Body
 Every point-of-sale (POS) system ships with a dashboard, and they all tell you what you sold. Very few tell you what it cost you to sell it. We build reporting on top of the POS you already run — prime cost, labor against sales by daypart, margin by item, and the staffing signal underneath both. We read profit and loss statements for a living, and we build the reports we would want to read.
 
-### Four key stats
+### One point of prime cost — the figure under the hero
 
-| Stat | Label |
+Replaced a four-cell stat row (22 platforms · 3 tiers · setup plus monthly · Portland, Oregon). Those
+were facts about us in the strongest slot on the page, a location is not a statistic, and a visitor
+scrolling past had no reason to stop for any of them.
+
+**Eyebrow**
+RUN YOUR OWN NUMBERS
+
+**Heading**
+One point of prime cost, on your sales.
+
+**Body**
+Prime cost is food and labor together, measured against sales. It is the number that decides whether a month works, and it is the one your POS does not calculate. Move the slider to what you turn over.
+
+**Slider label**
+Your sales, per month
+
+**Derived figures** — computed, never written
+| Figure | Sum |
 |---|---|
-| 22 platforms | Supported |
-| 3 tiers | Single site to five |
-| Setup plus monthly | Pricing |
-| Portland, Oregon | Based |
+| One point of prime cost is worth | 1% of the monthly figure |
+| Over a year | × 12 |
+| What Tier 1 costs | the monthly figure divided by $99 |
+
+**Footnote (required, do not remove)**
+That is arithmetic on your own number, not a promise. Finding the point is the work. Being able to see where it sits is what the reporting is for.
+
+> **This section must never promise a saving.** It multiplies a number the reader supplies and sets
+> it beside a published price. That is why it is persuasive and also why it is honest — nobody can
+> guarantee they will find an operator a point of prime cost, and a page that implies otherwise is
+> making a results claim. The footnote is the safeguard and is marked required.
+>
+> The ratio does the selling on its own: at $80,000 a month, one point is $800 against a $99 tier.
+> No adjective needed, which suits `VOICE.md` better than any adjective would.
 
 ### Section heading — the gap
 Your POS counts sales. It doesn't count cost.

@@ -585,3 +585,70 @@ main > section:not(#hero) {
   #why-compass     { contain-intrinsic-size: auto 766px; }
   #contact         { contain-intrinsic-size: auto 975px; }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Range input for the /us prime-cost figure.
+
+   A native range control carries the browser's own blue and its own chrome,
+   which is the one place on this site a UA default would show through. Track
+   and thumb are rebuilt on Signal over Ink — both palette colours — with the
+   Ink ring around the thumb so it reads as lifted off the track rather than
+   sitting on it.
+   ───────────────────────────────────────────────────────────────────────── */
+.us-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 22px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.us-range:focus { outline: none; }
+
+.us-range::-webkit-slider-runnable-track {
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(244, 242, 236, 0.14);
+}
+
+.us-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #2bb3e6;
+  border: 3px solid #0b0e10;
+  box-shadow: 0 0 0 1px rgba(43, 179, 230, 0.5);
+  margin-top: -7.5px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.us-range:hover::-webkit-slider-thumb { transform: scale(1.12); }
+
+.us-range:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px rgba(43, 179, 230, 0.28);
+}
+
+/* Firefox fills the track up to the thumb natively, which Chrome will not. */
+.us-range::-moz-range-track {
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(244, 242, 236, 0.14);
+}
+
+.us-range::-moz-range-progress {
+  height: 3px;
+  border-radius: 999px;
+  background: #2bb3e6;
+}
+
+.us-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: #2bb3e6;
+  border: 3px solid #0b0e10;
+  box-shadow: 0 0 0 1px rgba(43, 179, 230, 0.5);
+}

@@ -3,6 +3,7 @@ import ServiceHero from '@/components/sections/ServiceHero'
 import ServiceSubServices from '@/components/sections/ServiceSubServices'
 import ServiceWhyUs from '@/components/sections/ServiceWhyUs'
 import UsDashboardPreview from '@/components/sections/UsDashboardPreview'
+import UsOnePoint from '@/components/sections/UsOnePoint'
 import UsTiers from '@/components/sections/UsTiers'
 import UsPlatforms from '@/components/sections/UsPlatforms'
 import UsContact from '@/components/sections/UsContact'
@@ -101,16 +102,6 @@ const platformGroups = [
   },
 ]
 
-// Number plus terse label, per the headline pattern guide in VOICE.md. The first
-// version mixed single digits with phrases like "Setup + monthly", which wrapped
-// to three lines beside a one-character neighbour and broke the row.
-const stats = [
-  { value: '22', label: 'Platforms supported' },
-  { value: '3', label: 'Pricing tiers' },
-  { value: '$99', label: 'From, per month' },
-  { value: 'Portland', label: 'Oregon' },
-]
-
 export default function UsPageClient() {
   return (
     <main>
@@ -123,24 +114,16 @@ export default function UsPageClient() {
         ctaHref="#contact"
       />
 
-      {/* Stats. Inline rather than StatsBar, which reads the Gulf figures from
-          the translations file. */}
-      <section className="relative z-[1] pb-4">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-20">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-paper/10 border border-paper/10 rounded-xl overflow-hidden">
-            {stats.map((stat) => (
-              <div key={stat.label} className="bg-ink px-6 py-8">
-                <p className="font-archivo font-light text-signal text-[34px] lg:text-[40px] leading-none tracking-[-0.03em] m-0">
-                  {stat.value}
-                </p>
-                <p className="font-jetbrains text-[10px] text-paper/40 uppercase tracking-eyebrow mt-4 m-0">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Replaced a four-cell stat row — platforms, tiers, from $99, Portland.
+          Those were facts about us in the strongest slot on the page, and a
+          location is not a statistic. This is the reader's own arithmetic. */}
+      <UsOnePoint
+        eyebrow="RUN YOUR OWN NUMBERS"
+        heading="One point of prime cost, on your sales."
+        intro="Prime cost is food and labor together, measured against sales. It is the number that decides whether a month works, and it is the one your POS does not calculate. Move the slider to what you turn over."
+        sliderLabel="Your sales, per month"
+        footnote="That is arithmetic on your own number, not a promise. Finding the point is the work. Being able to see where it sits is what the reporting is for."
+      />
 
       <ServiceSubServices
         eyebrow="THE GAP"

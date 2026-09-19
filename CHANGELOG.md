@@ -21,6 +21,37 @@
 
 ## [Unreleased]
 
+### Changed — 2026-09-19 (The stat row became the reader's own arithmetic)
+
+**Decision 112 — the slot under the hero now argues the price:**
+It held four cells: 22 platforms, 3 tiers, from $99, Portland. Facts about us, in the strongest slot
+on the page, and a location is not a statistic sitting beside three counts. A Portland operator
+scrolling past had no reason to stop for any of it.
+
+`components/sections/UsOnePoint.tsx` replaces it. Prime cost is food and labor against sales, so one
+point of it is one percent of revenue — the reader drags a slider to their own monthly sales and
+reads what a single point is worth, over a month, over a year, and as a multiple of what Tier 1
+costs. At $80,000 a month that is $800 against $99.
+
+**The argument makes itself, which is the point.** Nobody has to be persuaded of the ratio; they can
+see it in their own number. That suits `VOICE.md` better than any adjective would — lead with the
+answer, no fear-selling, no urgency language.
+
+**It deliberately does not promise a saving.** The section multiplies a figure the reader supplies
+and sets it beside a published price. Claiming we will find an operator a point would be a results
+guarantee nobody can make. The closing line says so — *arithmetic on your own number, not a
+promise* — and `CONTENT.md` marks it required, alongside a note that the section must never be
+rewritten into a savings claim.
+
+Presets at $25k, $50k, $100k and $250k for readers who will not drag anything.
+
+The native range control was rebuilt in `globals.css` on Signal over Ink. A stock range input is the
+one place a browser default would have shown through on this site, complete with the UA's own blue.
+
+Verified: `tsc --noEmit` clean, the figures move with both the slider and the presets, and the panel
+stacks at 375px with the slider full width.
+
+
 ### Added — 2026-09-19 (A product mark on each mock dashboard)
 
 **Decision 111 — five products, five logos:**
