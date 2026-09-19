@@ -118,11 +118,11 @@ export default function UsPageClient() {
           Those were facts about us in the strongest slot on the page, and a
           location is not a statistic. This is the reader's own arithmetic. */}
       <UsOnePoint
-        eyebrow="WHAT 1% IS WORTH"
-        heading="Trim 1% off your costs. This is what you keep."
-        intro="Food and labor are most of what you spend, and most of what quietly moves. Slide across to what you take in a month and see what 1% of it comes to."
-        sliderLabel="Your takings, before costs"
-        footnote="This is maths on the number you just set, not a promise. Our job is putting those costs in front of you, so a 1% saving is something you can go and find."
+        eyebrow="THE MATH"
+        heading="1% of your sales is worth more than we charge."
+        intro="Move the slider to what you sell in a month. If better numbers help you save or earn just 1% more, that is the middle figure — and the one on the right is what the reporting costs."
+        sliderLabel="Monthly sales"
+        footnote="We are not promising you that 1%. We are showing you how big it is, and what it costs to see where it is hiding."
       />
 
       <ServiceSubServices

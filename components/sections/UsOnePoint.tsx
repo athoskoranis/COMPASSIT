@@ -3,19 +3,27 @@ import { useState } from 'react'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
 
 /**
- * What 1% of the reader's takings is worth, walked through in three steps.
+ * What 1% of the reader's monthly sales is worth, in three steps.
  *
  * ── The wording ─────────────────────────────────────────────────────────────
  *
- * Deliberately plain. The first version said "one point of prime cost", which is
- * the correct term and the wrong words: it asks a reader to know an industry
- * phrase, then translate "a point" into a percentage, before they can care about
- * the figure. Anyone who had to do that had already scrolled. It says 1% now,
- * and names food and labor rather than naming the ratio.
+ * Two rewrites got here. The first said "one point of prime cost" — correct, and
+ * unreadable: it asks a reader to know an industry phrase, then translate a point
+ * into a percentage, before they can care about the figure.
+ *
+ * The second said "trim 1% off your costs", which was plain and *wrong*. The
+ * panel computes 1% of SALES, not 1% of costs, and those are different numbers.
+ * A reader cannot name that mismatch but can feel it, and a sum that does not
+ * follow from its own heading reads as confusing however simple the words are.
+ *
+ * It says 1% of sales throughout now, and the heading states the conclusion
+ * rather than an instruction: 1% of your sales is worth more than we charge.
+ * That claim holds at every point on the slider — the floor is $10,000 a month,
+ * where 1% is $100 against a $99 tier — which is why MIN is not lower.
  *
  * ── The three steps ─────────────────────────────────────────────────────────
  *
- * The argument has an order — what you take, what 1% of it is, what we charge —
+ * The argument has an order — what you sell, what 1% of it is, what we charge —
  * and the layout now carries that order instead of leaving a reader to assemble
  * it from a two-column split. Numbered, with chevrons between, reading left to
  * right on desktop and top to bottom on a phone. The last step is the one that
@@ -98,7 +106,7 @@ export default function UsOnePoint({
 
             {/* 01 — the reader's own number */}
             <div className="flex-1 min-w-0">
-              <StepLabel n="01">What you take</StepLabel>
+              <StepLabel n="01">What you sell</StepLabel>
 
               <label htmlFor="us-monthly-sales" className="font-barlow text-[14px] text-paper/60 block mb-3">
                 {sliderLabel}
@@ -156,7 +164,7 @@ export default function UsOnePoint({
 
             {/* 02 — the sum */}
             <div className="flex-1 min-w-0 lg:px-8 py-6 lg:py-0 border-y lg:border-y-0 border-paper/[0.08]">
-              <StepLabel n="02">1% of that is</StepLabel>
+              <StepLabel n="02">1% of that</StepLabel>
 
               <p className="font-archivo font-light text-signal text-[54px] md:text-[64px] leading-[0.95] tracking-[-0.045em] m-0">
                 {usd(perMonth)}
@@ -186,14 +194,14 @@ export default function UsOnePoint({
                 a month
               </p>
 
+              {/* One decimal below 10: at the bottom of the slider the multiple
+                  is 1.0, and a rounded "1×" would read as no difference at all. */}
               <div className="mt-7 rounded-lg border border-signal/30 bg-signal/[0.07] px-5 py-4">
                 <p className="font-archivo font-light text-paper text-[30px] leading-none tracking-[-0.03em] m-0">
-                  {multiple >= 1 ? `${Math.round(multiple)}×` : '—'}
+                  {multiple >= 10 ? Math.round(multiple) : multiple.toFixed(1)}×
                 </p>
                 <p className="font-barlow text-[14px] text-paper/70 leading-snug mt-2.5 m-0">
-                  {multiple >= 1
-                    ? 'bigger than what this costs you'
-                    : 'below what this costs at your size'}
+                  what we charge each month
                 </p>
               </div>
 

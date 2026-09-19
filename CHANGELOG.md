@@ -21,6 +21,37 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-09-19 (The 1% panel said one thing and calculated another)
+
+**Decision 114 — the heading did not agree with the sum:**
+Decision 113 replaced the jargon with plain words, and in doing so introduced a worse problem. The
+heading read *Trim 1% off your costs. This is what you keep*, while the panel computed **1% of
+sales**. Those are different numbers.
+
+A reader cannot name that mismatch, but they can feel it — which is exactly why the section still
+read as confusing after the words got simpler. The words were not the whole fault; the arithmetic
+did not follow from its own heading.
+
+**It is 1% of sales throughout now,** and the heading states the conclusion instead of issuing an
+instruction: *1% of your sales is worth more than we charge.* The body explains the sum in one
+sentence and points at the two figures by position.
+
+**The heading is a claim, and it holds at every point on the slider.** At the floor — $10,000 a
+month — 1% is $100 against a $99 tier. `CONTENT.md` records that `MIN` cannot go lower without
+rewording the heading, because at $9,000 the claim becomes false.
+
+**The multiple now shows a decimal below 10.** At the bottom of the range it is 1.0×, and a rounded
+`1× bigger` would have read as no difference at all.
+
+Smaller corrections in the same pass: step 01 reads *What you sell* rather than *What you take*, the
+slider is labelled *Monthly sales*, and the footnote says *math* rather than *maths* — British
+spelling had crept into a US-facing section, against the note at the top of the US block in
+`CONTENT.md`.
+
+Verified: `tsc --noEmit` clean, the three steps read as one sentence, and the figures move with both
+slider and presets.
+
+
 ### Changed — 2026-09-19 (Plainer words and a guided order for the 1% figure)
 
 **Decision 113 — the jargon went, and the layout now carries the argument:**

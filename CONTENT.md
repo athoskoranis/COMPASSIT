@@ -476,51 +476,55 @@ The numbers your POS won't show you.
 ### Body
 Every point-of-sale (POS) system ships with a dashboard, and they all tell you what you sold. Very few tell you what it cost you to sell it. We build reporting on top of the POS you already run — prime cost, labor against sales by daypart, margin by item, and the staffing signal underneath both. We read profit and loss statements for a living, and we build the reports we would want to read.
 
-### What 1% is worth — the figure under the hero
+### The math — the figure under the hero
 
 Replaced a four-cell stat row (22 platforms · 3 tiers · setup plus monthly · Portland, Oregon). Those
 were facts about us in the strongest slot on the page, a location is not a statistic, and a visitor
 scrolling past had no reason to stop for any of them.
 
 **Eyebrow**
-WHAT 1% IS WORTH
+THE MATH
 
 **Heading**
-Trim 1% off your costs. This is what you keep.
+1% of your sales is worth more than we charge.
 
 **Body**
-Food and labor are most of what you spend, and most of what quietly moves. Slide across to what you take in a month and see what 1% of it comes to.
+Move the slider to what you sell in a month. If better numbers help you save or earn just 1% more, that is the middle figure — and the one on the right is what the reporting costs.
 
 **Slider label**
-Your takings, before costs
+Monthly sales
 
 **The three steps**, left to right on desktop, stacked on a phone, with a chevron between each:
 
 | Step | Label | Shows |
 |---|---|---|
-| 01 | What you take | The slider, the figure the reader sets, and four presets |
-| 02 | 1% of that is | 1% of the monthly figure, and the same again × 12 for the year |
+| 01 | What you sell | The slider, the figure the reader sets, and four presets |
+| 02 | 1% of that | 1% of the monthly figure, and the same again × 12 for the year |
 | 03 | What we charge | $99 a month, and how many times larger step 02 is |
 
 **Footnote (required, do not remove)**
-This is maths on the number you just set, not a promise. Our job is putting those costs in front of you, so a 1% saving is something you can go and find.
+We are not promising you that 1%. We are showing you how big it is, and what it costs to see where it is hiding.
 
-> **Say 1%, never "a point of prime cost".** The first version used the industry term, which is
-> correct and unreadable: it asks a reader to know the phrase, then translate a point into a
-> percentage, before they can care about the figure. Anyone who had to do that had already scrolled.
-> Name food and labor, not the ratio.
+> **The sum must agree with the heading.** A previous version read *Trim 1% off your costs* while the
+> panel computed 1% of **sales**. Those are different numbers, and a reader who cannot name the
+> mismatch can still feel it — which is why that version read as confusing despite using plain words.
+> It is 1% of sales throughout now. If the heading is ever rewritten, check the arithmetic still
+> follows from it.
+
+> **Say 1%, never "a point of prime cost".** The original used the industry term, which is correct
+> and unreadable: it asks a reader to know the phrase, then translate a point into a percentage,
+> before they can care about the figure.
+
+> **The heading is a claim, and it holds.** At the bottom of the slider — $10,000 a month — 1% is
+> $100 against a $99 tier. That is why `MIN` is $10,000 and must not go lower without rewording the
+> heading.
 
 > **This section must never promise a saving.** It multiplies a number the reader supplies and sets
-> it beside a published price. That is why it is persuasive and also why it is honest — nobody can
-> guarantee they will find an operator 1%, and a page that implies otherwise is making a results
-> claim. The footnote is the safeguard.
->
-> The ratio does the selling on its own: at $80,000 a month, 1% is $800 against a $99 tier. No
-> adjective needed, which suits `VOICE.md` better than any adjective would.
+> it beside a published price. Nobody can guarantee they will find an operator 1%, and a page that
+> implies otherwise is making a results claim. The footnote is the safeguard.
 
-> **The order is the argument.** What you take, what 1% of it is, what we charge — numbered, with
-> chevrons between. A two-column split left the reader to assemble that themselves. Step 03 carries
-> the Signal border because it is the one that lands.
+> **The order is the argument.** What you sell, what 1% of it is, what we charge — numbered, with
+> chevrons between. Step 03 carries the Signal border because it is the one that lands.
 
 ### Section heading — the gap
 Your POS counts sales. It doesn't count cost.
