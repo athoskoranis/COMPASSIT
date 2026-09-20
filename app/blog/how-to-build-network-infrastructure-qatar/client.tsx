@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
 import ContactCTA from '@/components/sections/ContactCTA'
+import RelatedReading from '@/components/sections/RelatedReading'
+import { relatedPosts } from '@/lib/posts'
 
 const IMG_COMMS_ROOM = '/images/blog/how-to-build-network-infrastructure-qatar-1.jpg'
 const IMG_SITE_SURVEY = '/images/blog/how-to-build-network-infrastructure-qatar-2.jpg'
@@ -273,6 +275,7 @@ export default function NetworkInfrastructurePostClient() {
         </div>
       </article>
 
+      <RelatedReading posts={relatedPosts('how-to-build-network-infrastructure-qatar')} />
       <ContactCTA />
     </main>
   )

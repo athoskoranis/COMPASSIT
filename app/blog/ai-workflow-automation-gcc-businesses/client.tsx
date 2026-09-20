@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
 import ContactCTA from '@/components/sections/ContactCTA'
+import RelatedReading from '@/components/sections/RelatedReading'
+import { relatedPosts } from '@/lib/posts'
 
 const IMG_DASHBOARD = '/images/blog/blog1-workflow-dashboard.jpg'
 const IMG_WHITEBOARD = '/images/blog/blog1-whiteboard-meeting.jpg'
@@ -301,6 +303,7 @@ export default function BlogPostClient() {
         </div>
       </article>
 
+      <RelatedReading posts={relatedPosts('ai-workflow-automation-gcc-businesses')} />
       <ContactCTA />
     </main>
   )

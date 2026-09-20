@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
 import ContactCTA from '@/components/sections/ContactCTA'
+import RelatedReading from '@/components/sections/RelatedReading'
+import { relatedPosts } from '@/lib/posts'
 
 const IMG_MEETING = '/images/blog/blog5-ai-meeting-team.jpg'
 const IMG_LAPTOP = '/images/blog/blog5-ai-laptop-draft.jpg'
@@ -276,6 +278,7 @@ export default function GenAIPostClient() {
         </div>
       </article>
 
+      <RelatedReading posts={relatedPosts('generative-ai-consulting-qatar')} />
       <ContactCTA />
     </main>
   )

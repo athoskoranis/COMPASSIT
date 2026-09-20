@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
 import ContactCTA from '@/components/sections/ContactCTA'
+import RelatedReading from '@/components/sections/RelatedReading'
+import { relatedPosts } from '@/lib/posts'
 
 const IMG_RISK = '/images/blog/how-cyber-security-reduces-business-risks-1.jpg'
 const IMG_ACCESS = '/images/blog/how-cyber-security-reduces-business-risks-2.jpg'
@@ -284,6 +286,7 @@ export default function CyberSecurityRiskPostClient() {
         </div>
       </article>
 
+      <RelatedReading posts={relatedPosts('how-cyber-security-reduces-business-risks')} />
       <ContactCTA />
     </main>
   )

@@ -188,20 +188,43 @@ export default function Nav() {
               </svg>
             </button>
 
-            {servicesOpen && (
-              <div className="absolute top-full left-0 mt-2 w-56 bg-ink/95 backdrop-blur-sm border border-paper/[0.12] rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] py-2 z-50">
-                {serviceLinks.map((s) => (
-                  <Link
-                    key={s.href}
-                    href={localeHref(s.href, lang)}
-                    onClick={() => setServicesOpen(false)}
-                    className="block px-4 py-2.5 font-archivo text-[13px] text-paper/70 hover:text-signal hover:bg-paper/[0.05] transition-colors"
-                  >
-                    {s.label}
-                  </Link>
-                ))}
-              </div>
-            )}
+            {/* Always in the document, shown with CSS.
+
+                This was `{servicesOpen && (...)}`, so the ten service links
+                existed only after a click and never appeared in the server HTML
+                at all. A crawler fetching any page on the site saw a button
+                labelled "Services" and nothing behind it, which is why
+                /services/custom-solutions — listed here and nowhere else in the
+                chrome — had exactly one inbound link on the whole domain.
+
+                Mounted and hidden with opacity/visibility instead, so the links
+                ship in the HTML of every page while the menu still behaves the
+                same way. visibility:hidden already drops the links out of the
+                accessibility tree and the tab order while the menu is closed, so
+                nothing is offered to a screen reader or a keyboard that is not on
+                screen; aria-hidden states it outright.
+
+                The mobile menu below gets the same treatment for consistency,
+                though its links stay out of the HTML regardless — the whole
+                mobile panel is mounted only when the burger is open. The desktop
+                menu is what makes these links crawlable. */}
+            <div
+              aria-hidden={!servicesOpen}
+              className={`absolute top-full left-0 mt-2 w-56 bg-ink/95 backdrop-blur-sm border border-paper/[0.12] rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] py-2 z-50 transition-opacity duration-150 ${
+                servicesOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
+              }`}
+            >
+              {serviceLinks.map((s) => (
+                <Link
+                  key={s.href}
+                  href={localeHref(s.href, lang)}
+                  onClick={() => setServicesOpen(false)}
+                  className="block px-4 py-2.5 font-archivo text-[13px] text-paper/70 hover:text-signal hover:bg-paper/[0.05] transition-colors"
+                >
+                  {s.label}
+                </Link>
+              ))}
+            </div>
           </div>
 
           <Link
@@ -281,20 +304,25 @@ export default function Nav() {
                   <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
-              {mobileServicesOpen && (
-                <div className="mt-3 flex flex-col gap-3 pl-4 border-l border-paper/10">
-                  {serviceLinks.map((s) => (
-                    <Link
-                      key={s.href}
-                      href={localeHref(s.href, lang)}
-                      onClick={() => setMobileOpen(false)}
-                      className="font-archivo text-[15px] text-paper/60 hover:text-signal transition-colors"
-                    >
-                      {s.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
+              {/* Same reasoning as the desktop menu above: mounted always,
+                  hidden with CSS, so the links are in the HTML. */}
+              <div
+                aria-hidden={!mobileServicesOpen}
+                className={`mt-3 flex-col gap-3 pl-4 border-l border-paper/10 ${
+                  mobileServicesOpen ? 'flex' : 'hidden'
+                }`}
+              >
+                {serviceLinks.map((s) => (
+                  <Link
+                    key={s.href}
+                    href={localeHref(s.href, lang)}
+                    onClick={() => setMobileOpen(false)}
+                    className="font-archivo text-[15px] text-paper/60 hover:text-signal transition-colors"
+                  >
+                    {s.label}
+                  </Link>
+                ))}
+              </div>
             </div>
 
             <Link

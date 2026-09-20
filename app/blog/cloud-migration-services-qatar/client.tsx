@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
 import ContactCTA from '@/components/sections/ContactCTA'
+import RelatedReading from '@/components/sections/RelatedReading'
+import { relatedPosts } from '@/lib/posts'
 
 const IMG_DATACENTER = '/images/blog/blog4-cloud-datacenter.jpg'
 const IMG_TEAM = '/images/blog/blog4-cloud-migration-team.jpg'
@@ -275,6 +277,7 @@ export default function CloudMigrationPostClient() {
         </div>
       </article>
 
+      <RelatedReading posts={relatedPosts('cloud-migration-services-qatar')} />
       <ContactCTA />
     </main>
   )

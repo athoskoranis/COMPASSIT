@@ -21,6 +21,83 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-09-20 (Internal linking: the three weakest parts of the link graph)
+
+Follow-up to the audit above, which flagged these and did not fix them.
+
+**Decision 129 — the services menu existed only after a click:**
+
+The desktop dropdown was `{servicesOpen && (...)}`, so its ten links were mounted
+on click and appeared in no page's server HTML. A crawler fetching any page on
+the domain saw a button labelled "Services" with nothing behind it.
+
+That is why `/services/custom-solutions` had exactly **one** inbound link across
+the whole site: it is listed in the dropdown and nowhere else in the chrome — not
+in the footer's service list, which carries eight, and not in `ServicesOverview`,
+which carries the same eight.
+
+The panel is now mounted always and hidden with `opacity`/`visibility`. Verified
+in the browser that this costs nothing in accessibility: a link in the closed
+panel computes to `visibility: hidden`, and calling `.focus()` on it does not move
+`document.activeElement`, while a visible nav link does — so it is out of the tab
+order and out of the accessibility tree exactly as before, `aria-hidden` says so,
+and the menu opens and closes as it always did.
+
+The mobile panel got the same treatment for consistency, but its links stay out of
+the HTML either way because the whole mobile panel mounts only when the burger is
+open. The desktop menu is what makes these links crawlable.
+
+| | before | after |
+|---|---|---|
+| `/services/custom-solutions` | 1 inbound | **25** |
+| every other service page | 25 | 25 (unchanged) |
+
+**Decision 130 — nothing linked the blog posts:**
+
+Every post sat on one inbound link, from the index. No post linked another, and no
+service page linked the post covering its subject — so the pages that bring in the
+search traffic were the least supported pages on the site.
+
+`components/sections/RelatedReading.tsx` draws a row of posts; `lib/posts.ts`
+decides which. `relatedPosts()` takes same-category first and tops up with the
+newest remaining, because a category holds only two or three posts and relevance
+alone would leave some posts with one link and others with none. `postsForService()`
+names slugs explicitly per service rather than matching on category, so
+`/services/network-infrastructure` leads with the network build guide instead of
+whichever "IT SERVICES" post happens to sit first in the array.
+
+Four services — web development, app development, digital marketing and custom
+solutions — have no post that genuinely covers them. They are absent from the map
+and the section renders nothing on those pages. A "related" link that is not
+related is a worse signal than no link.
+
+| | before | after |
+|---|---|---|
+| post → post links | 0 | 3 per post |
+| service → post links | 0 | 2–3 on the five mapped services |
+| inbound links per post | 1 | 3–11 |
+
+**English only.** The blog has no Arabic edition and Arabic service pages reuse the
+English client, so without a language check a reader on `/ar/services/cybersecurity`
+would meet three English articles under an English heading mid-page. The component
+returns null on `/ar`; verified that page carries zero `/blog/` links.
+
+**One new copy string.** The eyebrow "Related reading" did not exist. It mirrors the
+"Related services" eyebrow every post has carried since launch, which is why it was
+written that way rather than as something new, but nobody has approved the words.
+Recorded in `CONTENT.md` under a heading marked **AWAITING SIGN-OFF**; it lives in
+one component and nowhere else. Every other string in the section — titles,
+categories, read times — already existed in `lib/posts.ts`.
+
+### Still outstanding
+
+Unchanged from the audit above, and not addressed here:
+
+- No Arabic share card; five English pages still have no Arabic counterpart.
+- `ServiceHero`'s contact CTA stays English on Arabic service pages.
+- 26.6MB of raw JPEGs in `public/images/`, reachable directly with no `Cache-Control`.
+
+
 ### Fixed — 2026-09-20 (Deep SEO audit: six defects found live, all six fixed)
 
 A full crawl of all 35 sitemap URLs against production, plus the code behind

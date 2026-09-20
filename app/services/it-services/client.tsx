@@ -6,6 +6,8 @@ import ServiceWhyUs from '@/components/sections/ServiceWhyUs'
 import ContactCTA from '@/components/sections/ContactCTA'
 import SectionImage from '@/components/ui/SectionImage'
 import { serviceData } from '@/lib/serviceTranslations'
+import RelatedReading from '@/components/sections/RelatedReading'
+import { postsForService } from '@/lib/posts'
 
 export default function ITServicesPageClient() {
   const { lang } = useLanguage()
@@ -28,6 +30,7 @@ export default function ITServicesPageClient() {
       </section>
 
       <ServiceWhyUs {...d.whyUs} />
+      <RelatedReading posts={postsForService('it-services')} />
       <ContactCTA />
     </main>
   )

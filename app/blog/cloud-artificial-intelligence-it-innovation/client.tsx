@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
 import ContactCTA from '@/components/sections/ContactCTA'
+import RelatedReading from '@/components/sections/RelatedReading'
+import { relatedPosts } from '@/lib/posts'
 
 const IMG_TEAM = '/images/blog/cloud-artificial-intelligence-it-innovation-1.jpg'
 const IMG_PLATFORM = '/images/blog/cloud-artificial-intelligence-it-innovation-2.jpg'
@@ -278,6 +280,7 @@ export default function CloudAIPostClient() {
         </div>
       </article>
 
+      <RelatedReading posts={relatedPosts('cloud-artificial-intelligence-it-innovation')} />
       <ContactCTA />
     </main>
   )

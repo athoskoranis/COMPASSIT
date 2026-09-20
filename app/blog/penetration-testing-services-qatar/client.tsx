@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
 import ContactCTA from '@/components/sections/ContactCTA'
+import RelatedReading from '@/components/sections/RelatedReading'
+import { relatedPosts } from '@/lib/posts'
 
 const IMG_MONITORS = '/images/blog/blog3-pentest-monitors.jpg'
 const IMG_REPORT = '/images/blog/blog3-pentest-report.jpg'
@@ -278,6 +280,7 @@ export default function PenTestPostClient() {
         </div>
       </article>
 
+      <RelatedReading posts={relatedPosts('penetration-testing-services-qatar')} />
       <ContactCTA />
     </main>
   )

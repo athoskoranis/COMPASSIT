@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
 import ContactCTA from '@/components/sections/ContactCTA'
+import RelatedReading from '@/components/sections/RelatedReading'
+import { relatedPosts } from '@/lib/posts'
 
 const IMG_TICKETING = '/images/blog/how-it-services-help-businesses-reduce-costs-1.jpg'
 const IMG_ASSETS = '/images/blog/how-it-services-help-businesses-reduce-costs-2.jpg'
@@ -275,6 +277,7 @@ export default function ITCostsPostClient() {
         </div>
       </article>
 
+      <RelatedReading posts={relatedPosts('how-it-services-help-businesses-reduce-costs')} />
       <ContactCTA />
     </main>
   )
