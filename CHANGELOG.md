@@ -21,6 +21,42 @@
 
 ## [Unreleased]
 
+### Changed — 2026-09-20 (The slot under the hero now gives a reason before a figure)
+
+**Decision 115 — a second account of the week, and the arithmetic moved to the price:**
+The slot under the hero has held three things now. A four-cell stat row, which was facts about us.
+Then the 1% arithmetic, which was a value calculation. Both argued worth before a reader had been
+given a reason to want the thing.
+
+`components/sections/UsSecondAccount.tsx` states the reason. An owner who was not in the building
+learns what happened from the people who were — normal, usually right, and always partial. The
+section sets three spoken accounts of a week beside what the same week recorded:
+
+| What you hear | What the week recorded |
+|---|---|
+| Friday was busy, we got slammed around seven | Peaked 19:00 on $8,970, 6% above forecast, because two of five tables were still turning from the 18:30 sitting |
+| Tuesday was quiet, nothing out of the ordinary | Lunch ran 18 labor hours above forecast, on nine of the last fourteen days |
+| The steak has been selling really well | It has, and it earns the least on the menu — margin fell 6.2 points after the 12 September supplier change |
+
+**The third pair is the argument.** Both statements are true. Only the numbers hold both at once.
+
+**The tone is the whole thing, and `CONTENT.md` now guards it.** The claim is that one account is
+partial, never that it is wrong, and the section must not nudge an owner toward suspecting their own
+team. Nobody holds fourteen shifts in their head; a closing manager knows the shift they worked.
+`VOICE.md` bans fear-selling and this is exactly the shape fear-selling would take here. The
+footnote carries it: *neither account is wrong, and you want both.*
+
+Static by design — a section whose point is quiet objectivity should not be the flashiest thing on
+the page.
+
+**The 1% arithmetic was not deleted, it moved,** to sit directly above the pricing tiers. *Is this
+worth it* is a question a reader asks when they see the number, not before they know what they are
+buying. It reads better there than it did as an opening claim.
+
+Verified: `tsc --noEmit` clean, the pairs align in two columns at 1400px and stack with their own
+labels below `lg`.
+
+
 ### Fixed — 2026-09-19 (The 1% panel said one thing and calculated another)
 
 **Decision 114 — the heading did not agree with the sum:**

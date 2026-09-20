@@ -4,6 +4,7 @@ import ServiceSubServices from '@/components/sections/ServiceSubServices'
 import ServiceWhyUs from '@/components/sections/ServiceWhyUs'
 import UsDashboardPreview from '@/components/sections/UsDashboardPreview'
 import UsOnePoint from '@/components/sections/UsOnePoint'
+import UsSecondAccount from '@/components/sections/UsSecondAccount'
 import UsTiers from '@/components/sections/UsTiers'
 import UsPlatforms from '@/components/sections/UsPlatforms'
 import UsContact from '@/components/sections/UsContact'
@@ -114,15 +115,17 @@ export default function UsPageClient() {
         ctaHref="#contact"
       />
 
-      {/* Replaced a four-cell stat row — platforms, tiers, from $99, Portland.
-          Those were facts about us in the strongest slot on the page, and a
-          location is not a statistic. This is the reader's own arithmetic. */}
-      <UsOnePoint
-        eyebrow="THE MATH"
-        heading="1% of your sales is worth more than we charge."
-        intro="Move the slider to what you sell in a month. If better numbers help you save or earn just 1% more, that is the middle figure — and the one on the right is what the reporting costs."
-        sliderLabel="Monthly sales"
-        footnote="We are not promising you that 1%. We are showing you how big it is, and what it costs to see where it is hiding."
+      {/* The slot under the hero. Held a four-cell stat row, then the 1%
+          arithmetic; both argued value before a reader had a reason to want it.
+          This states the reason: when you are not there, you get one account of
+          the week, and this is the other one. */}
+      <UsSecondAccount
+        eyebrow="WHEN YOU ARE NOT IN THE ROOM"
+        heading="A second account of the week."
+        intro="Most of what you know about a shift you missed comes from the people who worked it. That is usually right, and it is always partial — a closing manager knows their own Friday, not the Tuesday lunch they were off for. This is the other account, assembled from what the tills, the schedule and the invoices already recorded."
+        heardLabel="What you hear"
+        recordedLabel="What the week recorded"
+        footnote="Neither account is wrong, and you want both. Only one of them saw every shift — and where something moved, it says what moved, what it cost, and what to do next."
       />
 
       <ServiceSubServices
@@ -145,6 +148,16 @@ export default function UsPageClient() {
         heading="Your dashboard, not a template."
         intro="Five builds, five businesses, five different screens. We do not ship one layout with your logo on it — the measures, the density and the look all follow how you actually run, which is why none of these resemble each other."
         disclaimer="Example builds · illustrative figures, not a client's data"
+      />
+
+      {/* Sits against the price rather than under the hero. "Is this worth it"
+          is a question a reader asks when they see the number, not before. */}
+      <UsOnePoint
+        eyebrow="THE MATH"
+        heading="1% of your sales is worth more than we charge."
+        intro="Move the slider to what you sell in a month. If better numbers help you save or earn just 1% more, that is the middle figure — and the one on the right is what the reporting costs."
+        sliderLabel="Monthly sales"
+        footnote="We are not promising you that 1%. We are showing you how big it is, and what it costs to see where it is hiding."
       />
 
       <UsTiers

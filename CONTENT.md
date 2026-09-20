@@ -476,6 +476,52 @@ The numbers your POS won't show you.
 ### Body
 Every point-of-sale (POS) system ships with a dashboard, and they all tell you what you sold. Very few tell you what it cost you to sell it. We build reporting on top of the POS you already run — prime cost, labor against sales by daypart, margin by item, and the staffing signal underneath both. We read profit and loss statements for a living, and we build the reports we would want to read.
 
+### A second account of the week — the section under the hero
+
+The slot under the hero has held three things: a four-cell stat row, then the 1% arithmetic, now
+this. Both earlier versions argued value before a reader had been given a reason to want it. This
+states the reason.
+
+**Eyebrow**
+WHEN YOU ARE NOT IN THE ROOM
+
+**Heading**
+A second account of the week.
+
+**Body**
+Most of what you know about a shift you missed comes from the people who worked it. That is usually right, and it is always partial — a closing manager knows their own Friday, not the Tuesday lunch they were off for. This is the other account, assembled from what the tills, the schedule and the invoices already recorded.
+
+**Column headings**
+What you hear · What the week recorded
+
+**The three pairs** — the same event twice, aligned in rows
+
+| What you hear | What the week recorded |
+|---|---|
+| "Friday was busy. We got slammed around seven." | Friday peaked at 19:00 on $8,970, about 6% above forecast. The queue built because two of the five tables in section 12–16 were still turning from the 18:30 sitting. |
+| "Tuesday was quiet. Nothing out of the ordinary." | Tuesday lunch ran 18 labor hours above forecast, and has done on nine of the last fourteen days. Quiet is the pattern, not the exception. |
+| "The steak has been selling really well." | It has. It also earns the least of anything on the menu — margin fell 6.2 points after the supplier changed on 12 September, and the price has not moved since. |
+
+**Footnote (required, do not remove)**
+Neither account is wrong, and you want both. Only one of them saw every shift — and where something moved, it says what moved, what it cost, and what to do next.
+
+> **This section must never suggest the reader's staff are careless or dishonest.** The argument is
+> that one account is *partial*, not that it is wrong — nobody holds fourteen shifts in their head,
+> and a closing manager knows the shift they worked. A page that nudges an owner toward suspecting
+> their own team would be insulting and bad business, and `VOICE.md` bans fear-selling; this is the
+> shape fear-selling would take here.
+>
+> The footnote carries the tone and is the reason the section is allowed to make the comparison at
+> all. Keep it.
+
+> **The third pair is the one that works.** "The steak sells well" and "the steak earns least" are
+> both true, and only the numbers hold both at once. If the pairs are ever rewritten, keep one where
+> the spoken account is entirely correct and still incomplete — that is the whole argument in one
+> row.
+
+> **Rows, not two lists.** Aligned so the same event appears twice. Two independent columns would
+> leave the reader to pair them up, and the pairing is the point.
+
 ### The math — the figure under the hero
 
 Replaced a four-cell stat row (22 platforms · 3 tiers · setup plus monthly · Portland, Oregon). Those
