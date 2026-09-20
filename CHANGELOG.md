@@ -21,6 +21,41 @@
 
 ## [Unreleased]
 
+### Changed — 2026-09-20 (New blog index layout)
+
+**Decision 121 — an index that gave nine posts equal weight had not indexed them:**
+
+`/blog` was nine full-width horizontal cards stacked one under another. Each ran around 300px tall,
+so a reader saw roughly one post per screen and scrolled some three thousand pixels to reach the
+ninth — and every post carried identical prominence, so nothing marked the newest or the one worth
+opening first.
+
+**The newest post now leads at full width and the remaining eight sit three across.** Same nine
+posts, about a third of the height, with a hierarchy. The lead carries a `Latest` pill so the
+treatment reads as a deliberate choice rather than an accident of ordering.
+
+**The feature disappears when a filter is on.** Featuring the first of two results looks like a bug:
+the lead treatment means "start here, out of nine", and it stops meaning that at three. Filtered
+views are an even grid.
+
+**Grid cards clamp their excerpt to three lines and pin the meta row with `mt-auto`,** so three
+cards in a row square off and the dates align regardless of how long an excerpt runs.
+
+**What did not change, deliberately.** Filtering is still client state and still does not touch the
+URL — a `?category=` parameter would be crawlable, and nine posts would become five near-identical
+URLs competing with `/blog` itself. Every post is still server-rendered, so the `ItemList` schema in
+`page.tsx` and what a crawler sees are unaffected by which chip is active.
+
+**`priority` moved to the featured image** and the grid stays lazy. The featured image is now the
+largest element in view and therefore the LCP candidate; the old first card no longer exists.
+`sizes` was re-stated for both shapes — 720px for the lead, 400px for a grid card — so no breakpoint
+over-fetches.
+
+Verified: `tsc --noEmit` and `next build` clean, `/blog` is 4.05 kB, the lead renders with its
+badge, the grid renders three across, and filtering to a two-post category drops the feature and
+returns an even grid.
+
+
 ### Fixed — 2026-09-20 (Why Compass out of the footer, and a hero link that contradicted its own label)
 
 **Decision 120 — removing the footer entry surfaced a spec violation next to it:**
