@@ -128,6 +128,12 @@ Multiply the base unit (4px) for consistent rhythm:
 ### Grid
 
 - **Max content width:** 1280px
+
+> **One page runs wider.** `/blog` uses 1600px, on the client's instruction and logged as Decision
+> 122. Every other page is prose and panels, which a 1280px measure suits; the blog index is a card
+> grid, and at 1280px on a wide display it leaves roughly 310px of empty page down each side while
+> cramming the cards into three narrow columns. At 1600px it runs four across and eight posts make
+> two clean rows. This is a scoped exception, not a new default.
 - **Columns:** 12 (desktop) · 4 (mobile)
 - **Gutter:** 24px (desktop) · 16px (mobile)
 - **Margin:** 80px left/right (desktop) · 24px (mobile)

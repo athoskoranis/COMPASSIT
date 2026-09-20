@@ -8,6 +8,22 @@ import { posts } from '@/lib/posts'
 /**
  * Blog index: one featured post, then a grid.
  *
+ * ── Why this page is wider than 1280px ──────────────────────────────────────
+ *
+ * DESIGN.md sets max content width at 1280px and CLAUDE.md repeats it. This
+ * page runs to 1600px, on the client's instruction, and it is the only page
+ * that does.
+ *
+ * The reason it shows here and nowhere else: every other page is prose and
+ * panels, which a 1280px measure suits. This one is a card grid, and on a
+ * 1900px display a 1280px grid leaves roughly 310px of empty page down each
+ * side while the cards themselves are cramped to three narrow columns. The
+ * hero widens with it so the left edge of the heading still lines up with the
+ * left edge of the first card.
+ *
+ * Logged as Decision 122. It is a scoped exception, not a new default — do not
+ * carry it to other pages without the same argument.
+ *
  * It was nine full-width horizontal cards stacked one under another. Each was
  * around 300px tall, so a reader saw roughly one post per screen and had to
  * scroll three thousand pixels to reach the ninth — and every post carried
@@ -63,7 +79,7 @@ export default function BlogIndexClient() {
     <main>
       {/* Hero */}
       <section className="pt-[54px] relative z-[1] overflow-hidden">
-        <div className="max-w-content mx-auto px-6 lg:px-20 py-20 lg:py-28 relative z-10">
+        <div className="max-w-[1600px] mx-auto px-6 lg:px-20 py-20 lg:py-28 relative z-10">
           <EyebrowLabel className="mb-6 block">COMPASS ITS · BLOG</EyebrowLabel>
           <h1 className="font-archivo font-light text-paper leading-none tracking-[-0.04em] text-[44px] md:text-[60px] lg:text-[72px] max-w-[600px] mb-6">
             Thinking out loud.
@@ -76,7 +92,7 @@ export default function BlogIndexClient() {
 
       {/* Posts */}
       <section className="bg-paper py-16 lg:py-24 relative z-[1]">
-        <div className="max-w-content mx-auto px-6 lg:px-20">
+        <div className="max-w-[1600px] mx-auto px-6 lg:px-20">
 
           {/* Filter bar */}
           <div className="flex flex-wrap gap-3 mb-12" role="group" aria-label="Filter articles by category">
@@ -109,7 +125,7 @@ export default function BlogIndexClient() {
           {featured && (
             <Link
               href={`/blog/${featured.slug}`}
-              className="group bracketed bracketed-light bracketed-split raised-light flex flex-col lg:flex-row rounded-lg overflow-hidden mb-12 transition-shadow duration-300"
+              className="group bracketed bracketed-light bracketed-split raised-light flex flex-col lg:flex-row lg:h-[360px] rounded-lg overflow-hidden mb-12 transition-shadow duration-300"
             >
               <div className="lg:w-[56%] shrink-0 overflow-hidden bg-ink">
                 <Image
@@ -117,18 +133,20 @@ export default function BlogIndexClient() {
                   alt={featured.title}
                   width={720}
                   height={440}
-                  // Roughly 56% of a 1280px container from lg up, full-bleed
-                  // below. Without this next/image assumes the image could fill
-                  // the viewport and over-fetches on every breakpoint.
-                  sizes="(min-width: 1024px) 720px, 100vw"
+                  // 56% of the 1600px container from lg up, full-bleed below.
+                  // Stated because without it next/image assumes the image
+                  // could fill the viewport; kept in step with the container
+                  // width, because a stale value here silently ships a blurry
+                  // image rather than an error.
+                  sizes="(min-width: 1024px) 900px, 100vw"
                   // The largest element in view on this page, so the LCP
                   // candidate. Everything below it stays lazy.
                   priority
-                  className="w-full h-[240px] lg:h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                  className="w-full h-[220px] lg:h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
                 />
               </div>
 
-              <div className="flex-1 p-8 lg:p-12 bg-paper flex flex-col justify-center">
+              <div className="flex-1 p-8 lg:p-10 bg-paper flex flex-col justify-center min-w-0">
                 <div className="flex items-center gap-3 mb-5">
                   <EyebrowLabel className="block">{featured.category}</EyebrowLabel>
                   <span className="font-jetbrains text-[10px] text-ink/35 uppercase tracking-eyebrow border border-ink/15 rounded-md px-2 py-1">
@@ -136,11 +154,14 @@ export default function BlogIndexClient() {
                   </span>
                 </div>
 
-                <h2 className="font-archivo font-medium text-ink leading-tight tracking-[-0.025em] text-[26px] md:text-[34px] mb-5 group-hover:text-signal transition-colors duration-200">
+                <h2 className="font-archivo font-medium text-ink leading-tight tracking-[-0.025em] text-[24px] md:text-[30px] mb-4 group-hover:text-signal transition-colors duration-200">
                   {featured.title}
                 </h2>
 
-                <p className="font-barlow text-body-l text-ink/60 leading-[31px] mb-7 max-w-[560px]">
+                {/* Three lines, not four. At four the block plus the title, eyebrow
+                    and meta row totals more than the 360px the card is capped
+                    at, and the last line clipped against the bottom edge. */}
+                <p className="font-barlow text-[17px] text-ink/60 leading-[28px] mb-6 max-w-[620px] line-clamp-3">
                   {featured.excerpt}
                 </p>
 
@@ -158,7 +179,10 @@ export default function BlogIndexClient() {
           )}
 
           {/* Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Four across from xl. With the feature taken out, eight posts make
+              two clean rows of four; at three across the last row is a ragged
+              pair. Drops to three at lg, where four would be too narrow. */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {grid.map((post) => (
               <Link
                 key={post.slug}
@@ -171,8 +195,9 @@ export default function BlogIndexClient() {
                     alt={post.title}
                     width={420}
                     height={236}
-                    // Three across inside a 1280px container, two at md.
-                    sizes="(min-width: 1024px) 400px, (min-width: 768px) 45vw, 100vw"
+                    // Four across inside the 1600px container, three at lg,
+                    // two at md.
+                    sizes="(min-width: 1280px) 350px, (min-width: 1024px) 460px, (min-width: 768px) 45vw, 100vw"
                     className="w-full aspect-[16/9] object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
                   />
                 </div>

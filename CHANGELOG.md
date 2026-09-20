@@ -21,6 +21,36 @@
 
 ## [Unreleased]
 
+### Changed — 2026-09-20 (Blog index uses the full width, and the feature is shorter)
+
+**Decision 122 — a card grid does not want a prose measure:**
+
+**`/blog` now runs to 1600px, and it is the only page that does.** `DESIGN.md` sets max content
+width at 1280px and `CLAUDE.md` repeats it — this is a deliberate exception on the client's
+instruction, recorded in `DESIGN.md` beside the rule so nobody 'corrects' it later.
+
+The reason it shows here and nowhere else: every other page is prose and panels, which a 1280px
+measure suits. The blog index is a card grid, and at 1280px on a 1900px display it left roughly
+310px of empty page down each side while cramping the cards into three narrow columns. The hero
+widened with it so the left edge of the heading still lines up with the first card.
+
+**The grid goes four across from `xl`.** With the feature removed from the set, eight posts make two
+clean rows of four; at three across the last row was a ragged pair. It drops back to three at `lg`,
+where four would be too narrow.
+
+**The featured card is capped at 360px** and was pulling nearly 500. The image column is unchanged;
+the text block lost padding (`lg:p-12` to `lg:p-10`), the title came down from 34px to 30px, and the
+excerpt from 21px to 17px.
+
+Two things caught by looking at it rather than reasoning about it: the excerpt clamped to four lines
+overran the fixed height and clipped against the bottom edge, so it clamps to three; and both
+`sizes` attributes still described a 1280px container, which would have shipped a blurry image at
+the new width rather than an error. They now read 900px for the lead and 350px for a grid card.
+
+Verified at 1800px: two clean rows of four, no clipping in the feature, and the left edges of the
+hero and the first card line up.
+
+
 ### Changed — 2026-09-20 (New blog index layout)
 
 **Decision 121 — an index that gave nine posts equal weight had not indexed them:**
