@@ -79,18 +79,33 @@ would be worse than an English one.
 **Decision 125 — Arabic fonts were in the critical path of every English page:**
 
 `next/font` preloads every declared family by default. Cairo is declared in the
-root layout because the chrome above `/ar` renders from there, so four weights
-of an Arabic subset were being preloaded on all twenty-five English pages,
-where nothing ever renders in Cairo. `preload: false` keeps the `@font-face`
-rule and drops the `<link rel="preload">`; `/ar` still loads Cairo on demand and
-`display: 'swap'` already covered the late arrival.
+root layout because the chrome above `/ar` renders from there, so its Arabic
+subset was being preloaded on all twenty-five English pages, where nothing ever
+renders in Cairo. `preload: false` keeps the `@font-face` rule and drops the
+`<link rel="preload">`; `/ar` still loads Cairo on demand and `display: 'swap'`
+already covered the late arrival.
+
+Measured on the English home page after deploy: **155.9KB across 7 preloaded
+files down to 126.0KB across 6** — 29.9KB off the critical path of every English
+page. One file, not four: next/font had already collapsed the four declared
+weights into a single subset file, so the saving is smaller than the weight list
+suggests. Recorded here because the first draft of this entry said "four weights"
+and implied roughly four times the figure.
+
+Worth knowing for anyone re-checking this: a local `next start` emits no font
+preload links at all, in either configuration — confirmed by building a control
+with `preload: true` and getting the same zero. This change is only observable on
+a real deployment, and the Vercel preview is behind Deployment Protection, so
+production after merge is the first place it can be measured.
 
 **Decision 126 — AVIF was never enabled:**
 
 `next.config.js` set no `images.formats`, so the default WebP-only list applied
 and every photograph shipped heavier than it needed to. With AVIF first, the
-same source and query now serve 24.2KB where WebP served 39.5KB — measured on
-`us-gap-labor.jpg` at `w=828&q=75`. Negotiation is on the Accept header and
+same source and query serve **28.2KB where WebP served 38.9KB** — measured on
+production against `us-gap-labor.jpg` at `w=828&q=75`, roughly 27% off. (A local
+build measured 24.2KB against 39.5KB for the same file; the production optimiser
+tunes differently, so the deployed figures are the ones recorded.) Negotiation is on the Accept header and
 falls back along the list, so nothing regresses for a browser without it.
 Largest Contentful Paint is a ranking signal; this is the cheapest place to buy
 it.
