@@ -7,6 +7,8 @@ import ServiceFAQ from '@/components/sections/ServiceFAQ'
 import ContactCTA from '@/components/sections/ContactCTA'
 import SectionImage from '@/components/ui/SectionImage'
 import { serviceData } from '@/lib/serviceTranslations'
+import RelatedReading from '@/components/sections/RelatedReading'
+import { postsForService } from '@/lib/posts'
 
 export default function CybersecurityPageClient() {
   const { lang } = useLanguage()
@@ -30,6 +32,7 @@ export default function CybersecurityPageClient() {
 
       <ServiceWhyUs {...d.whyUs} />
       {d.faq && <ServiceFAQ faqs={d.faq} />}
+      <RelatedReading posts={postsForService('cybersecurity')} />
       <ContactCTA />
     </main>
   )

@@ -832,3 +832,27 @@ Privacy Policy · Cookie Policy
 
 ### Brand badge (JetBrains Mono, small)
 BRAND V1.0 · APRIL 2026 · BRAND@COMPASS-ITS.COM
+
+---
+
+## Related reading section (blog posts and service pages)
+
+Added 2026-09-20 by the internal-linking work in Decision 129.
+
+### Eyebrow (JetBrains Mono, uppercase)
+Related reading
+
+**AWAITING SIGN-OFF.** This is the one string in that change that did not already
+exist. It mirrors the "Related services" eyebrow each blog post has carried since
+launch, which is why it was written this way rather than as something new — but
+nobody has approved the words themselves. Change or reject it freely; it appears
+in exactly one component, `components/sections/RelatedReading.tsx`, and nowhere
+else.
+
+Everything else in the section is existing approved copy: the card titles,
+categories and read times all come from `lib/posts.ts`.
+
+**English only.** The section does not render on `/ar`, because the blog has no
+Arabic edition and Arabic service pages reuse the English client. There is
+therefore no Arabic string to approve here. If the blog is ever translated, this
+needs one.

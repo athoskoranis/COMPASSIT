@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
 import ContactCTA from '@/components/sections/ContactCTA'
+import RelatedReading from '@/components/sections/RelatedReading'
+import { relatedPosts } from '@/lib/posts'
 
 const IMG_FLOWCHART = '/images/blog/blog2-ai-agent-flowchart.jpg'
 const IMG_CUSTOMER_SERVICE = '/images/blog/blog2-ai-customer-service.jpg'
@@ -284,6 +286,7 @@ export default function AIAgentsPostClient() {
         </div>
       </article>
 
+      <RelatedReading posts={relatedPosts('ai-agents-for-business-gcc')} />
       <ContactCTA />
     </main>
   )

@@ -105,3 +105,74 @@ export const posts: Post[] = [
 ]
 
 export const latestPost = posts[0]
+
+/**
+ * Which posts to offer beside a given post.
+ *
+ * Before this, the only link any post had was the one from the blog index. Nine
+ * posts sat on one inbound link each, nothing connected them, and a crawler that
+ * reached one had no route to the next. Posts are where this site's organic
+ * traffic lands, so that was the weakest part of the link graph.
+ *
+ * Same category first, because a reader on penetration testing wants the other
+ * security piece rather than whatever published most recently. Then topped up
+ * with the newest remaining posts to fill the row. The top-up is deliberate: a
+ * category holds two or three posts, so relevance alone would leave some posts
+ * with a single link and others with none, and the point of the exercise is that
+ * every post ends up reachable from several others.
+ */
+export function relatedPosts(slug: string, limit = 3): Post[] {
+  const current = posts.find((p) => p.slug === slug)
+  if (!current) return []
+  const others = posts.filter((p) => p.slug !== slug)
+  const sameCategory = others.filter((p) => p.category === current.category)
+  const rest = others.filter((p) => p.category !== current.category)
+  return [...sameCategory, ...rest].slice(0, limit)
+}
+
+/**
+ * Posts worth reading beside a service page, named explicitly per service.
+ *
+ * Matching on category would be less code and worse: "IT SERVICES" holds both
+ * the cost piece and the network build guide, so /services/network-infrastructure
+ * would lead with whichever happened to sit first in the array. Listing slugs
+ * puts the most relevant one first on each page and keeps a loose category match
+ * from putting an unrelated post under a service.
+ *
+ * Four services have no post that genuinely covers them — web development, app
+ * development, digital marketing and custom solutions. They are absent here
+ * rather than filled with the nearest thing, and the section renders nothing on
+ * those pages. A "related" link that is not related is a worse signal than no
+ * link at all.
+ */
+const POSTS_BY_SERVICE: Record<string, string[]> = {
+  'it-services': [
+    'how-it-services-help-businesses-reduce-costs',
+    'how-to-build-network-infrastructure-qatar',
+    'generative-ai-consulting-qatar',
+  ],
+  'network-infrastructure': [
+    'how-to-build-network-infrastructure-qatar',
+    'how-cyber-security-reduces-business-risks',
+  ],
+  'cloud-solutions': [
+    'cloud-migration-services-qatar',
+    'cloud-artificial-intelligence-it-innovation',
+  ],
+  cybersecurity: [
+    'how-cyber-security-reduces-business-risks',
+    'penetration-testing-services-qatar',
+  ],
+  'ai-workflows': [
+    'ai-workflow-automation-gcc-businesses',
+    'ai-agents-for-business-gcc',
+    'generative-ai-consulting-qatar',
+  ],
+}
+
+export function postsForService(serviceSlug: string, limit = 3): Post[] {
+  return (POSTS_BY_SERVICE[serviceSlug] ?? [])
+    .map((slug) => posts.find((p) => p.slug === slug))
+    .filter((p): p is Post => Boolean(p))
+    .slice(0, limit)
+}
