@@ -1,6 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    // AVIF first, WebP behind it. The default is WebP only, so every
+    // photograph on the site was shipping at WebP weight when most browsers
+    // would have taken an AVIF appreciably smaller from the same source.
+    // Next negotiates on the Accept header and falls back along this list, so
+    // a browser without AVIF still gets WebP and one without either still gets
+    // the original JPEG — nothing regresses. Largest Contentful Paint is a
+    // ranking signal, and this is the cheapest place to buy it.
+    formats: ['image/avif', 'image/webp'],
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",

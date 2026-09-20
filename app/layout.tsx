@@ -27,10 +27,20 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ['400', '500', '700'],
 })
 
+// Cairo is declared in the root layout because the chrome above /ar — the nav
+// and footer — renders from here, so the variable has to exist on every route.
+// Declaring it here is not the same as shipping it everywhere, though:
+// next/font preloads every declared family by default, which put four weights
+// of an Arabic subset in the critical path of all twenty-five English pages,
+// where nothing ever renders in it. preload: false keeps the @font-face rule
+// and drops the <link rel="preload">, so /ar still loads Cairo on demand and
+// the English routes stop paying for it. display: 'swap' already covers the
+// late arrival, which is the only cost this trades for.
 const cairo = Cairo({
   subsets: ['arabic'],
   variable: '--font-cairo',
   display: 'swap',
+  preload: false,
   weight: ['400', '500', '600', '700'],
 })
 

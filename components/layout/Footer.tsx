@@ -5,6 +5,7 @@ import { Mail, MapPin, Phone } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { TextHoverEffect, FooterBackgroundGradient } from '@/components/ui/hover-footer'
 import { useLanguage } from '@/context/LanguageContext'
+import { localeHref } from '@/lib/locale'
 import { isUsRoute, usIdentity, hasUsIdentity } from '@/lib/us'
 
 function WhatsAppIcon() {
@@ -24,9 +25,10 @@ type ContactItem = {
 }
 
 export default function Footer() {
-  const { tr } = useLanguage()
+  const { tr, lang } = useLanguage()
   const pathname = usePathname()
-  const isHome = pathname === '/'
+  // /ar is the Arabic home, not an interior page. See the same note in Nav.
+  const isHome = pathname === '/' || pathname === '/ar'
   const isUs = isUsRoute(pathname)
 
   const serviceHrefs = [
@@ -42,7 +44,10 @@ export default function Footer() {
 
   const services = tr.services.items.map((item, i) => ({
     label: item.title,
-    href: serviceHrefs[i] ?? '/contact',
+    // Arabic where an Arabic page exists, English where it does not. Without
+    // this the Arabic footer sent every reader back to the English site and
+    // left the Arabic pages with no internal links between them.
+    href: localeHref(serviceHrefs[i] ?? '/contact', lang),
   }))
 
   // The US practice does not publish the Doha contact block. A Portland reader
@@ -91,7 +96,7 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href={isHome ? '#hero' : '/'} className="flex items-center gap-2 mb-4">
+            <Link href={isHome ? '#hero' : localeHref('/', lang)} className="flex items-center gap-2 mb-4">
               <img
                 src="/brand/compass-its-monogram-dark.svg"
                 alt="Compass ITS"
@@ -142,7 +147,7 @@ export default function Footer() {
               {/* The column heading is the link to the hub. Every page gets a
                   footer link to /services this way, without inventing an "All
                   services" string that would have no approved Arabic. */}
-              <Link href="/services" className="hover:text-signal transition-colors">
+              <Link href={localeHref('/services', lang)} className="hover:text-signal transition-colors">
                 {tr.footer.servicesLabel}
               </Link>
             </p>
@@ -150,7 +155,7 @@ export default function Footer() {
               {services.map((item) => (
                 <li key={item.label}>
                   <Link
-                    href={item.href}
+                    href={localeHref(item.href, lang)}
                     className="font-archivo text-[14px] text-paper/50 hover:text-signal transition-colors leading-snug"
                   >
                     {item.label}
@@ -172,7 +177,7 @@ export default function Footer() {
                     // A bare "#why-compass" scrolls nowhere on /services or a blog
                     // post -- the section only exists on the home page. Prefix it
                     // off-home, as Nav does with the same anchor.
-                    href={item.href.startsWith('#') && !isHome ? `/${item.href}` : item.href}
+                    href={item.href.startsWith('#') && !isHome ? `/${item.href}` : localeHref(item.href, lang)}
                     className="font-archivo text-[14px] text-paper/50 hover:text-signal transition-colors"
                   >
                     {item.label}

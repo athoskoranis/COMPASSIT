@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/context/LanguageContext'
-import { toArabic, toEnglish } from '@/lib/locale'
+import { toArabic, toEnglish, localeHref } from '@/lib/locale'
 import { isUsRoute } from '@/lib/us'
 
 const serviceLinks = [
@@ -85,7 +85,10 @@ export default function Nav() {
   const { tr, lang } = useLanguage()
   const dropdownRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
-  const isHome = pathname === '/'
+  // Both home pages. /ar is the Arabic home, not an interior page — treating it
+  // as one pointed the logo and the CTA at other URLs instead of anchoring to
+  // the sections already on screen.
+  const isHome = pathname === '/' || pathname === '/ar'
 
   // No language switcher on the US practice. toArabic() falls back to the Arabic
   // home page for any route with no Arabic counterpart — a reasonable compromise
@@ -142,7 +145,7 @@ export default function Nav() {
       >
 
         {/* Logo — far left */}
-        <Link href={isHome ? '#hero' : '/'} className="flex items-center flex-shrink-0">
+        <Link href={isHome ? '#hero' : localeHref('/', lang)} className="flex items-center flex-shrink-0">
           <img
             src="/brand/compass-its-horizontal-dark.svg"
             alt="Compass ITS"
@@ -161,7 +164,7 @@ export default function Nav() {
           {navItems.map((item) => (
             <Link
               key={item.key}
-              href={item.href}
+              href={localeHref(item.href, lang)}
               className="font-archivo text-[14px] text-paper/70 hover:text-signal transition-all duration-300 ease-out"
               style={{ padding: floating ? '0 4px' : '0 8px' }}
             >
@@ -190,7 +193,7 @@ export default function Nav() {
                 {serviceLinks.map((s) => (
                   <Link
                     key={s.href}
-                    href={s.href}
+                    href={localeHref(s.href, lang)}
                     onClick={() => setServicesOpen(false)}
                     className="block px-4 py-2.5 font-archivo text-[13px] text-paper/70 hover:text-signal hover:bg-paper/[0.05] transition-colors"
                   >
@@ -232,7 +235,7 @@ export default function Nav() {
           )}
 
           <Link
-            href={isHome ? '#contact' : '/contact'}
+            href={isHome ? '#contact' : localeHref('/contact', lang)}
             className="inline-flex items-center justify-center leading-none font-archivo text-[13px] font-medium uppercase tracking-cta liquid-fill px-4 py-[7px] rounded-xl ml-1"
           >
             {tr.nav.cta}
@@ -256,7 +259,7 @@ export default function Nav() {
             {navItems.map((item) => (
               <Link
                 key={item.key}
-                href={item.href}
+                href={localeHref(item.href, lang)}
                 onClick={() => setMobileOpen(false)}
                 className="font-archivo text-[17px] text-paper/80 hover:text-signal transition-colors"
               >
@@ -283,7 +286,7 @@ export default function Nav() {
                   {serviceLinks.map((s) => (
                     <Link
                       key={s.href}
-                      href={s.href}
+                      href={localeHref(s.href, lang)}
                       onClick={() => setMobileOpen(false)}
                       className="font-archivo text-[15px] text-paper/60 hover:text-signal transition-colors"
                     >
@@ -324,7 +327,7 @@ export default function Nav() {
                 </Link>
               )}
               <Link
-                href={isHome ? '#contact' : '/contact'}
+                href={isHome ? '#contact' : localeHref('/contact', lang)}
                 onClick={() => setMobileOpen(false)}
                 className="inline-flex items-center justify-center w-full leading-none font-archivo text-[14px] font-medium uppercase tracking-cta liquid-fill px-6 py-3 rounded-xl"
               >

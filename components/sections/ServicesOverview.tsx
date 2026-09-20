@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { Monitor, Wifi, Cloud, Shield, Globe, Smartphone, Cpu, TrendingUp } from 'lucide-react'
 import { useLanguage } from '@/context/LanguageContext'
+import { localeHref } from '@/lib/locale'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
 import RadialOrbitalTimeline from '@/components/ui/radial-orbital-timeline'
 
@@ -17,10 +18,15 @@ const servicesMeta = [
 ]
 
 export default function ServicesOverview() {
-  const { tr } = useLanguage()
+  const { tr, lang } = useLanguage()
+  // Localised here rather than in the table above, because the table is module
+  // scope and the language is not known until render. On /ar these eight cards
+  // and the dial built from them were the largest block of English links on the
+  // Arabic home page.
   const servicesData = servicesMeta.map((meta, i) => ({
     ...meta,
     ...tr.services.items[i],
+    href: localeHref(meta.href, lang),
   }))
 
   return (
@@ -32,7 +38,7 @@ export default function ServicesOverview() {
           {/* The eyebrow is the home page's only link to the services hub, which
               otherwise had none. pointer-events-auto because the wrapper turns
               them off so the orbital dial behind stays interactive. */}
-          <Link href="/services" className="pointer-events-auto inline-block mb-4 hover:underline underline-offset-4">
+          <Link href={localeHref('/services', lang)} className="pointer-events-auto inline-block mb-4 hover:underline underline-offset-4">
             <EyebrowLabel>{tr.services.eyebrow}</EyebrowLabel>
           </Link>
           <h2 className="font-archivo text-heading-1 font-semibold text-paper tracking-[-0.025em] max-w-[520px]">
@@ -48,7 +54,7 @@ export default function ServicesOverview() {
 
       {/* Mobile: list grid */}
       <div className="lg:hidden max-w-content mx-auto px-6">
-        <Link href="/services" className="inline-block mb-4 hover:underline underline-offset-4">
+        <Link href={localeHref('/services', lang)} className="inline-block mb-4 hover:underline underline-offset-4">
           <EyebrowLabel>{tr.services.eyebrow}</EyebrowLabel>
         </Link>
         <h2 className="font-archivo text-[32px] font-semibold text-paper tracking-[-0.025em] mb-2">
