@@ -35,7 +35,11 @@ export default function Hero() {
             {/* Primary CTA lives in the card now — the left column keeps only
                 the secondary route so the fold has one clear action. */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button href="#why-compass" variant="ghost">
+              {/* SITEMAP.md specifies "See how we work" -> /how-we-work. It
+                  pointed at #why-compass, so the label named one destination
+                  and the link went to another, on the same page. Corrected
+                  with the Why Compass nav and footer entries. */}
+              <Button href="/how-we-work" variant="ghost">
                 {tr.hero.ctaSecondary}
               </Button>
             </div>

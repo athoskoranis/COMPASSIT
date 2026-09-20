@@ -21,6 +21,35 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-09-20 (Why Compass out of the footer, and a hero link that contradicted its own label)
+
+**Decision 120 — removing the footer entry surfaced a spec violation next to it:**
+
+Why Compass is out of the footer's Company column, in both languages, matching the nav entry
+removed in Decision 119.
+
+**`SITEMAP.md` already agreed.** Its Footer Nav spec lists Column 2 as *About · How We Work ·
+Contact* and its Primary Nav spec has no Why Compass entry at all — so the code had drifted from
+the spec, and removing the link brought it back rather than departing from it.
+
+**The home hero's secondary button said one thing and did another.** It reads *See how we work* and
+pointed at `#why-compass`, a section on the same page. `SITEMAP.md` specifies it twice — in the Home
+page table and again in the Internal Linking Map — as *"See how we work" → `/how-we-work`*. The
+label was right, the destination was wrong, and it now goes where the spec and the label both say.
+
+That one was found by following the last `#why-compass` reference rather than by being asked about
+it. It is the same class of drift as Decision 102: a spec that was right and an implementation that
+quietly was not.
+
+**`SITEMAP.md` was stale in the other direction too,** and is now current: the Primary Nav block
+lists Blog, POS Analytics and the language toggle, records that POS Analytics is English-only, and
+notes why Why Compass is absent. The footer Company column records Blog.
+
+Verified: no Why Compass link in the rendered home page, the hero button resolves to
+`/how-we-work`, and the `#why-compass` section is still on the page for anything linking to it
+directly.
+
+
 ### Changed — 2026-09-20 (Portrait photography on /us, and Why Compass out of the nav)
 
 **Decision 119 — the /us photography is inside the sections now, not between them:**

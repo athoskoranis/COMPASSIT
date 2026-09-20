@@ -220,8 +220,16 @@ block instead, posting to the same endpoint.
 ### Primary Nav (desktop)
 
 ```
-[Logo]    About    Services ▾    How We Work    [Start with a diagnostic →]
+[Logo]   About   How We Work   Services ▾   Blog   POS Analytics   [عربي]   [Get a quote →]
 ```
+
+**Why Compass is not in the nav.** It sat here as an anchor into the home page's own
+`#why-compass` section — the only entry that led nowhere new, arguing what the hero above it
+already argues. The section stays and the anchor still resolves; only the entries are gone.
+
+**POS Analytics appears on English routes only.** `/us` is English and Oregon-only with no Arabic
+counterpart, so the Arabic nav does not offer it. The language toggle is suppressed on `/us` for
+the same reason.
 
 **Services dropdown:**
 IT Services · Network Infrastructure · Cloud Solutions · Cybersecurity · Website Development · App Development · AI Workflows · Custom Solutions · Digital Marketing
@@ -236,7 +244,9 @@ Hamburger menu. Full-page overlay on open. Same links as desktop, stacked vertic
 IT Services · Network Infrastructure · Cloud Solutions · Cybersecurity · Website Development · App Development · AI Workflows · Custom Solutions · Digital Marketing
 
 **Column 2 — Company**
-About · How We Work · Contact
+About · How We Work · Blog · Contact
+
+Why Compass was removed from this column with the nav entry, for the same reason.
 
 **Column 3 — Legal**
 Privacy Policy · Cookie Policy
