@@ -21,6 +21,35 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-09-20 (Dead space between the /us sections)
+
+**Decision 116 — two separate causes, one of them a real bug:**
+
+**1. `ServiceWhyUs` carried 64px of orphaned margin.** Its points list has `mb-16`, which exists to
+clear the credentials block underneath. The margin was unconditional, so on any page that passes no
+credentials it was 64px of empty space at the end of the section with nothing below it to clear.
+
+That is **14 of the 17 `whyUs` blocks** in `lib/serviceTranslations.ts`, so the Gulf service pages
+were carrying it too. The margin is now conditional on credentials existing; the three blocks that
+do supply them are unchanged.
+
+**2. The page runs to nine sections at `py-20 lg:py-28`.** Two adjacent sections put 224px between
+themselves on desktop, and on a page this long that reads as the page having ended rather than as
+breathing room. Tightened to 56px and 76px, giving 112px and 152px between sections.
+
+**Done as one page-scoped rule in `globals.css`, not as edits to each component.**
+`ServiceSubServices` and `ServiceWhyUs` are shared with the Gulf service pages, where the wider
+rhythm is correct and must not change — scoping it to `.us-page` keeps the change where it belongs
+and keeps it in one place.
+
+The hero is excluded via `:not(:first-child)`. It carries its own `pt-[54px]` to clear the fixed
+nav, and overriding that would tuck the h1 under the header.
+
+Verified at 1400px: the gap under *Built by people who read profit and loss statements* went from
+roughly 290px to about 130px, the hero still clears the nav, and the pricing, callout and coverage
+transitions stay clearly separated.
+
+
 ### Changed — 2026-09-20 (The slot under the hero now gives a reason before a figure)
 
 **Decision 115 — a second account of the week, and the arithmetic moved to the price:**

@@ -105,7 +105,7 @@ const platformGroups = [
 
 export default function UsPageClient() {
   return (
-    <main>
+    <main className="us-page">
       <ServiceHero
         eyebrow="POINT-OF-SALE ANALYTICS · PORTLAND"
         title="The numbers your POS won't show you."

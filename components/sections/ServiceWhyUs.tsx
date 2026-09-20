@@ -39,7 +39,10 @@ export default function ServiceWhyUs({
           </p>
         )}
 
-        <ul className="flex flex-col gap-4 mb-16">
+        {/* The bottom margin exists to clear the credentials block. Without one
+            it was 64px of orphaned space at the end of the section, which is
+            the state 14 of the 17 whyUs blocks are actually in. */}
+        <ul className={`flex flex-col gap-4 ${credentials && credentials.length > 0 ? 'mb-16' : ''}`}>
           {points.map((point, i) => (
             <li key={i} className="flex items-start gap-4">
               <span className="mt-[6px] flex-shrink-0 w-[3px] h-5 rounded-full bg-signal" />

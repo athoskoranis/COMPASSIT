@@ -652,3 +652,30 @@ main > section:not(#hero) {
   border: 3px solid #0b0e10;
   box-shadow: 0 0 0 1px rgba(43, 179, 230, 0.5);
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   /us section rhythm.
+
+   The page runs to nine sections. At the site's standard py-20 lg:py-28 that
+   leaves 224px of empty space between each pair on desktop, and on a page this
+   long the gaps read as the page having ended rather than as breathing room.
+
+   One rule here rather than edits in each component, because
+   ServiceSubServices and ServiceWhyUs are shared with the Gulf service pages,
+   where the wider rhythm is correct and must not change. Scoping it to the
+   page keeps the change where it belongs.
+
+   The hero is excluded: it carries its own pt-[54px] to clear the fixed nav,
+   and overriding that would tuck the h1 under the header.
+   ───────────────────────────────────────────────────────────────────────── */
+.us-page > section:not(:first-child) {
+  padding-top: 56px;
+  padding-bottom: 56px;
+}
+
+@media (min-width: 1024px) {
+  .us-page > section:not(:first-child) {
+    padding-top: 76px;
+    padding-bottom: 76px;
+  }
+}
