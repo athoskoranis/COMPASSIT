@@ -21,6 +21,50 @@
 
 ## [Unreleased]
 
+### Added — 2026-09-20 (Photography on the home page, /how-we-work and /us)
+
+**Decision 118 — the remaining pages, and two problems the first pass hid:**
+
+Three more images: `/` gets an engineer at a workstation in a server room, `/how-we-work` gets two
+engineers over a technical drawing, `/us` gets a bar counter lit for evening service — the one
+photograph on a page that is otherwise entirely screens and figures, and a reminder that the
+business being sold to is a room with people in it.
+
+**Two pages deliberately have none.**
+
+`/services` is nine cards on a Paper ground, each led by an icon. Photographs would fight the icons
+for the same job, and a navigation hub earns nothing in search from decoration. `/contact` already
+carries an embedded map, which is the one image a contact page genuinely wants.
+
+**The Ink wash was too heavy, and it hid the very thing it was meant to seat.** A multiply gradient
+over a flat ink layer looked right on a bright frame and rendered the control-room and bar shots as
+black rectangles. It is a bottom vignette alone now.
+
+**Exposure is normalised at prep time, which is the real fix.** Stock frames arrive anywhere between
+mean luminance 21.6 (a security operations room) and 171.8 (a neural render). Anything under about
+65 reads as a black rectangle on `#0B0E10` however the CSS is tuned. Five images were lifted by
+gamma — shadows up, highlights untouched, so a screen in a dark room stays a screen rather than
+blooming:
+
+| Image | Mean before | After |
+|---|---|---|
+| `cybersecurity-monitoring` | 21.6 | 71.5 |
+| `web-development-markup` | 24.4 | 71.9 |
+| `app-development-phone-code` | 40.6 | 72.0 |
+| `us-bar-interior` | 45.9 | 72.0 |
+| `about-doha-skyline` | 47.8 | 72.0 |
+
+**One image was replaced after looking at it.** The home page first had an operator in front of a
+wall of monitors, which on screen turned out to be a wall of *video thumbnails* — it read as a
+broadcast or media company, not an IT operations provider. Swapped for the server room.
+
+Thirteen images, 3.0MB in the repository, `next/image` re-encoding to AVIF/WebP at delivery. Still
+none in any hero, still all lazy.
+
+Verified: `tsc --noEmit` and `next build` clean, every image returns 200 and appears in its page's
+rendered markup.
+
+
 ### Added — 2026-09-20 (Photography on the service pages and /about)
 
 **Decision 117 — ten images, placed where SEO actually benefits rather than everywhere:**

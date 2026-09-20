@@ -62,6 +62,24 @@
     "source": "https://www.pexels.com/photo/close-up-shot-of-a-laptop-computer-12969403/",
     "width": 6000
   },
+  "home-engineer-server-room": {
+    "alt": "An engineer at a workstation in a server room",
+    "height": 4016,
+    "pexels_id": 37605911,
+    "photographer": "panumas nikhomkhai",
+    "photographer_url": "https://www.pexels.com/@cookiecutter",
+    "source": "https://www.pexels.com/photo/it-technician-working-in-data-center-server-room-37605911/",
+    "width": 6016
+  },
+  "how-we-work-planning": {
+    "alt": "Two engineers working over a technical drawing",
+    "height": 5304,
+    "pexels_id": 3861938,
+    "photographer": "ThisIsEngineering",
+    "photographer_url": "https://www.pexels.com/@thisisengineering",
+    "source": "https://www.pexels.com/photo/female-engineer-designing-equipment-3861938/",
+    "width": 7952
+  },
   "it-services-server-rack-indicators": {
     "alt": "Server rack with blue status indicators in a data room",
     "height": 4016,
@@ -79,6 +97,15 @@
     "photographer_url": "https://www.pexels.com/@brett-sayles",
     "source": "https://www.pexels.com/photo/cables-plugged-into-patch-panel-5073493/",
     "width": 6048
+  },
+  "us-bar-interior": {
+    "alt": "A bar counter with glassware, lit for evening service",
+    "height": 4160,
+    "pexels_id": 9130342,
+    "photographer": "Egor Komarov",
+    "photographer_url": "https://www.pexels.com/@egorkomarov",
+    "source": "https://www.pexels.com/photo/bar-counter-filled-with-various-bottles-of-alcohol-9130342/",
+    "width": 6240
   },
   "web-development-markup": {
     "alt": "Close-up of markup on a developer's screen",

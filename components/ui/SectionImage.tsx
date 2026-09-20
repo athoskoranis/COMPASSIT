@@ -55,14 +55,16 @@ export default function SectionImage({
         sizes="(min-width: 1280px) 1200px, (min-width: 768px) 90vw, 100vw"
         className="object-cover"
       />
-      {/* Ink wash. The photographs are someone else's colour temperature and
-          the page is Ink and Signal; without this they sit on the page as
-          foreign objects rather than as part of it. */}
+      {/* Ink wash, tying the photograph to the page without swallowing it.
+          The first version stacked a multiply gradient over a flat ink layer,
+          which looked right on a bright frame and rendered an already-dark one
+          — a control room, a night skyline — as a black rectangle. A bottom
+          vignette alone is enough: it seats the image on the page and leaves
+          the subject legible whatever its exposure. */}
       <div
         aria-hidden
-        className="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-ink/10 mix-blend-multiply"
+        className="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/15 to-transparent"
       />
-      <div aria-hidden className="absolute inset-0 bg-ink/25" />
     </div>
   )
 }

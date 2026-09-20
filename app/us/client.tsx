@@ -8,6 +8,7 @@ import UsSecondAccount from '@/components/sections/UsSecondAccount'
 import UsTiers from '@/components/sections/UsTiers'
 import UsPlatforms from '@/components/sections/UsPlatforms'
 import UsContact from '@/components/sections/UsContact'
+import SectionImage from '@/components/ui/SectionImage'
 
 /**
  * The US practice page.
@@ -190,6 +191,19 @@ export default function UsPageClient() {
         groups={platformGroups}
         footnote="Running something else? If it exports on a schedule or holds its data somewhere we can reach, we can usually work with it. Ask, and we'll tell you either way."
       />
+
+      {/* The one photograph on this page. Everything above it is screens and
+          figures; the business being sold to is a room with people in it, and
+          the page had stopped saying so. Below the fold, lazy. */}
+      <section className="relative z-[1] pb-4">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-20">
+          <SectionImage
+            src="/images/site/us-bar-interior.jpg"
+            alt="A bar counter with glassware, lit for evening service"
+            aspect="aspect-[21/9]"
+          />
+        </div>
+      </section>
 
       <ServiceWhyUs
         eyebrow="WHY US"
