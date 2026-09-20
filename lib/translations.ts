@@ -125,11 +125,12 @@ export const t = {
       copyright: '© 2026 Compass IT Solutions. All rights reserved. · Museum Park St, Doha, Qatar',
       brandLine: 'BRAND V1.0 · MAY 2026 · BRAND@COMPASS-ITS.COM',
       company: [
-        // /about and /how-we-work are real pages. These pointed at home-page
-        // anchors, so the only internal link either page had was the nav.
+        // /about and /how-we-work are real pages. Why Compass sat here as a
+        // '#why-compass' anchor and came out with the nav entry: the section it
+        // jumped to argues what the home hero already argues, and the anchor
+        // still resolves for anything linking to it directly.
         { label: 'About',       href: '/about' },
         { label: 'How We Work', href: '/how-we-work' },
-        { label: 'Why Compass', href: '#why-compass' },
         { label: 'Blog',        href: '/blog' },
         { label: 'Contact',     href: '/contact' },
       ],
@@ -265,7 +266,6 @@ export const t = {
         // compromise the nav already makes with the same two labels.
         { label: 'عن الشركة',   href: '/about' },
         { label: 'طريقة عملنا',  href: '/how-we-work' },
-        { label: 'لماذا كومباس', href: '#why-compass' },
         { label: 'المدونة',      href: '/blog' },
         { label: 'تواصل',       href: '/contact' },
       ],

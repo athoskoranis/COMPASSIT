@@ -4,6 +4,7 @@ import ServiceHero from '@/components/sections/ServiceHero'
 import ServiceSubServices from '@/components/sections/ServiceSubServices'
 import ServiceWhyUs from '@/components/sections/ServiceWhyUs'
 import ContactCTA from '@/components/sections/ContactCTA'
+import SectionImage from '@/components/ui/SectionImage'
 import { serviceData } from '@/lib/serviceTranslations'
 
 export default function ITServicesPageClient() {
@@ -15,6 +16,17 @@ export default function ITServicesPageClient() {
       {d.sections.map((s, i) => (
         <ServiceSubServices key={i} eyebrow={s.eyebrow} heading={s.heading} intro={s.intro} items={s.items} />
       ))}
+      {/* Below the fold on purpose: lazy-loaded, never the LCP element.
+          See the note in SectionImage. */}
+      <section className="relative z-[1] pb-4">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-20">
+          <SectionImage
+            src="/images/site/it-services-server-rack-indicators.jpg"
+            alt="Server rack with blue status indicators in a data room"
+          />
+        </div>
+      </section>
+
       <ServiceWhyUs {...d.whyUs} />
       <ContactCTA />
     </main>

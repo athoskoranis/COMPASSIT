@@ -62,12 +62,18 @@ function MenuIcon({ open }: { open: boolean }) {
   )
 }
 
-// About and How We Work are real routes. Why Compass has no page of its own,
-// so it stays an anchor into the home page's section.
+// About and How We Work are real routes.
+//
+// Why Compass was a third entry here, an anchor into the home page's own
+// #why-compass section rather than a route. It came out of the nav: it was the
+// only item that did not lead anywhere new, and the section it jumped to makes
+// the same argument the hero above it already makes. The section itself stays,
+// and the anchor still resolves for anything linking to it directly — only the
+// nav entry is gone. The `whyCompass` string stays in lib/translations.ts,
+// because the section heading still uses it.
 const navItems = [
   { key: 'about' as const,      href: '/about' },
   { key: 'howWeWork' as const,  href: '/how-we-work' },
-  { key: 'whyCompass' as const, anchor: 'why-compass' },
 ] as const
 
 export default function Nav() {
@@ -155,7 +161,7 @@ export default function Nav() {
           {navItems.map((item) => (
             <Link
               key={item.key}
-              href={'href' in item ? item.href : isHome ? `#${item.anchor}` : `/#${item.anchor}`}
+              href={item.href}
               className="font-archivo text-[14px] text-paper/70 hover:text-signal transition-all duration-300 ease-out"
               style={{ padding: floating ? '0 4px' : '0 8px' }}
             >
@@ -250,7 +256,7 @@ export default function Nav() {
             {navItems.map((item) => (
               <Link
                 key={item.key}
-                href={'href' in item ? item.href : isHome ? `#${item.anchor}` : `/#${item.anchor}`}
+                href={item.href}
                 onClick={() => setMobileOpen(false)}
                 className="font-archivo text-[17px] text-paper/80 hover:text-signal transition-colors"
               >

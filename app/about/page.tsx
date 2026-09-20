@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
 import Button from '@/components/ui/Button'
+import SectionImage from '@/components/ui/SectionImage'
 import BrandPillars from '@/components/sections/BrandPillars'
 import ContactCTA from '@/components/sections/ContactCTA'
 
@@ -76,6 +77,20 @@ export default function AboutPage() {
             </div>
 
             <Button href="/contact" variant="primary">Get in touch</Button>
+          </div>
+        </section>
+
+        {/* Doha, because the page says Doha. The only photograph on the site
+            that is about the business rather than about a service, and the one
+            with a genuine local-search reason to exist. Below the fold and
+            lazy, like every other. */}
+        <section className="relative z-[1] pb-4">
+          <div className="max-w-content mx-auto px-6 lg:px-20">
+            <SectionImage
+              src="/images/site/about-doha-skyline.jpg"
+              alt="The Doha skyline at night, lit and reflected on the water"
+              aspect="aspect-[21/9]"
+            />
           </div>
         </section>
 

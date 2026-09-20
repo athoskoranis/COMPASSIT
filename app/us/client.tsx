@@ -1,11 +1,13 @@
 'use client'
 import ServiceHero from '@/components/sections/ServiceHero'
-import ServiceSubServices from '@/components/sections/ServiceSubServices'
 import ServiceWhyUs from '@/components/sections/ServiceWhyUs'
 import UsDashboardPreview from '@/components/sections/UsDashboardPreview'
+import UsOnePoint from '@/components/sections/UsOnePoint'
+import UsSecondAccount from '@/components/sections/UsSecondAccount'
 import UsTiers from '@/components/sections/UsTiers'
 import UsPlatforms from '@/components/sections/UsPlatforms'
 import UsContact from '@/components/sections/UsContact'
+import UsGap from '@/components/sections/UsGap'
 
 /**
  * The US practice page.
@@ -101,19 +103,9 @@ const platformGroups = [
   },
 ]
 
-// Number plus terse label, per the headline pattern guide in VOICE.md. The first
-// version mixed single digits with phrases like "Setup + monthly", which wrapped
-// to three lines beside a one-character neighbour and broke the row.
-const stats = [
-  { value: '22', label: 'Platforms supported' },
-  { value: '3', label: 'Pricing tiers' },
-  { value: '$99', label: 'From, per month' },
-  { value: 'Portland', label: 'Oregon' },
-]
-
 export default function UsPageClient() {
   return (
-    <main>
+    <main className="us-page">
       <ServiceHero
         eyebrow="POINT-OF-SALE ANALYTICS · PORTLAND"
         title="The numbers your POS won't show you."
@@ -123,34 +115,48 @@ export default function UsPageClient() {
         ctaHref="#contact"
       />
 
-      {/* Stats. Inline rather than StatsBar, which reads the Gulf figures from
-          the translations file. */}
-      <section className="relative z-[1] pb-4">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-20">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-paper/10 border border-paper/10 rounded-xl overflow-hidden">
-            {stats.map((stat) => (
-              <div key={stat.label} className="bg-ink px-6 py-8">
-                <p className="font-archivo font-light text-signal text-[34px] lg:text-[40px] leading-none tracking-[-0.03em] m-0">
-                  {stat.value}
-                </p>
-                <p className="font-jetbrains text-[10px] text-paper/40 uppercase tracking-eyebrow mt-4 m-0">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* The slot under the hero. Held a four-cell stat row, then the 1%
+          arithmetic; both argued value before a reader had a reason to want it.
+          This states the reason: when you are not there, you get one account of
+          the week, and this is the other one. */}
+      <UsSecondAccount
+        eyebrow="WHEN YOU ARE NOT IN THE ROOM"
+        heading="A second account of the week."
+        intro="Most of what you know about a shift you missed comes from the people who worked it. That is usually right, and it is always partial — a closing manager knows their own Friday, not the Tuesday lunch they were off for. This is the other account, assembled from what the tills, the schedule and the invoices already recorded."
+        heardLabel="What you hear"
+        recordedLabel="What the week recorded"
+        footnote="Neither account is wrong, and you want both. Only one of them saw every shift — and where something moved, it says what moved, what it cost, and what to do next."
+      />
 
-      <ServiceSubServices
+      <UsGap
         eyebrow="THE GAP"
         heading="Your POS counts sales. It doesn't count cost."
         intro="Sales reporting answers one question: what went out the door. It leaves the questions that decide whether the month works — what the food and labor cost together, which items earn their place on the menu, which hours are overstaffed and which are quietly losing you covers. Those numbers exist. They sit across the POS, the invoices and the schedule, and nothing joins them up."
         items={[
-          { title: 'Prime cost', description: 'Food and labor together, against sales, for the period you choose rather than the one the POS defaults to.' },
-          { title: 'Labor by daypart', description: 'Cost as a percentage of sales, hour by hour, so an overstaffed Tuesday lunch shows up as a number instead of a feeling.' },
-          { title: 'Item-level margin', description: 'Measured against the costs you enter, so the menu can be read by what it earns rather than by what it sells.' },
-          { title: 'Staffing signal', description: 'Revenue by hour set against who was on, which is the same data your schedule should be built from.' },
+          {
+            title: 'Prime cost',
+            description: 'Food and labor together, against sales, for the period you choose rather than the one the POS defaults to.',
+            image: '/images/site/us-gap-prime-cost.jpg',
+            alt: 'A chef working the pass in a restaurant kitchen at night',
+          },
+          {
+            title: 'Labor by daypart',
+            description: 'Cost as a percentage of sales, hour by hour, so an overstaffed Tuesday lunch shows up as a number instead of a feeling.',
+            image: '/images/site/us-gap-labor.jpg',
+            alt: 'A server carrying plates through a busy dining room',
+          },
+          {
+            title: 'Item-level margin',
+            description: 'Measured against the costs you enter, so the menu can be read by what it earns rather than by what it sells.',
+            image: '/images/site/us-gap-item-margin.jpg',
+            alt: 'A chef plating a dish in a professional kitchen',
+          },
+          {
+            title: 'Staffing signal',
+            description: 'Revenue by hour set against who was on, which is the same data your schedule should be built from.',
+            image: '/images/site/us-gap-staffing.jpg',
+            alt: 'A hand pulling order tickets in a busy kitchen',
+          },
         ]}
       />
 
@@ -160,8 +166,18 @@ export default function UsPageClient() {
       <UsDashboardPreview
         eyebrow="WHAT YOU SEE"
         heading="Your dashboard, not a template."
-        intro="Three configurations of the same service, from a single site to a group of five. The panels are not fixed — we build the measures your business is actually run on, and the layout follows them."
-        disclaimer="Example views · illustrative figures, not a client's data"
+        intro="Five builds, five businesses, five different screens. We do not ship one layout with your logo on it — the measures, the density and the look all follow how you actually run, which is why none of these resemble each other."
+        disclaimer="Example builds · illustrative figures, not a client's data"
+      />
+
+      {/* Sits against the price rather than under the hero. "Is this worth it"
+          is a question a reader asks when they see the number, not before. */}
+      <UsOnePoint
+        eyebrow="THE MATH"
+        heading="1% of your sales is worth more than we charge."
+        intro="Move the slider to what you sell in a month. If better numbers help you save or earn just 1% more, that is the middle figure — and the one on the right is what the reporting costs."
+        sliderLabel="Monthly sales"
+        footnote="We are not promising you that 1%. We are showing you how big it is, and what it costs to see where it is hiding."
       />
 
       <UsTiers

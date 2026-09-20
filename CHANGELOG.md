@@ -21,6 +21,586 @@
 
 ## [Unreleased]
 
+### Changed — 2026-09-20 (Blog index uses the full width, and the feature is shorter)
+
+**Decision 122 — a card grid does not want a prose measure:**
+
+**`/blog` now runs to 1600px, and it is the only page that does.** `DESIGN.md` sets max content
+width at 1280px and `CLAUDE.md` repeats it — this is a deliberate exception on the client's
+instruction, recorded in `DESIGN.md` beside the rule so nobody 'corrects' it later.
+
+The reason it shows here and nowhere else: every other page is prose and panels, which a 1280px
+measure suits. The blog index is a card grid, and at 1280px on a 1900px display it left roughly
+310px of empty page down each side while cramping the cards into three narrow columns. The hero
+widened with it so the left edge of the heading still lines up with the first card.
+
+**The grid goes four across from `xl`.** With the feature removed from the set, eight posts make two
+clean rows of four; at three across the last row was a ragged pair. It drops back to three at `lg`,
+where four would be too narrow.
+
+**The featured card is capped at 360px** and was pulling nearly 500. The image column is unchanged;
+the text block lost padding (`lg:p-12` to `lg:p-10`), the title came down from 34px to 30px, and the
+excerpt from 21px to 17px.
+
+Two things caught by looking at it rather than reasoning about it: the excerpt clamped to four lines
+overran the fixed height and clipped against the bottom edge, so it clamps to three; and both
+`sizes` attributes still described a 1280px container, which would have shipped a blurry image at
+the new width rather than an error. They now read 900px for the lead and 350px for a grid card.
+
+Verified at 1800px: two clean rows of four, no clipping in the feature, and the left edges of the
+hero and the first card line up.
+
+
+### Changed — 2026-09-20 (New blog index layout)
+
+**Decision 121 — an index that gave nine posts equal weight had not indexed them:**
+
+`/blog` was nine full-width horizontal cards stacked one under another. Each ran around 300px tall,
+so a reader saw roughly one post per screen and scrolled some three thousand pixels to reach the
+ninth — and every post carried identical prominence, so nothing marked the newest or the one worth
+opening first.
+
+**The newest post now leads at full width and the remaining eight sit three across.** Same nine
+posts, about a third of the height, with a hierarchy. The lead carries a `Latest` pill so the
+treatment reads as a deliberate choice rather than an accident of ordering.
+
+**The feature disappears when a filter is on.** Featuring the first of two results looks like a bug:
+the lead treatment means "start here, out of nine", and it stops meaning that at three. Filtered
+views are an even grid.
+
+**Grid cards clamp their excerpt to three lines and pin the meta row with `mt-auto`,** so three
+cards in a row square off and the dates align regardless of how long an excerpt runs.
+
+**What did not change, deliberately.** Filtering is still client state and still does not touch the
+URL — a `?category=` parameter would be crawlable, and nine posts would become five near-identical
+URLs competing with `/blog` itself. Every post is still server-rendered, so the `ItemList` schema in
+`page.tsx` and what a crawler sees are unaffected by which chip is active.
+
+**`priority` moved to the featured image** and the grid stays lazy. The featured image is now the
+largest element in view and therefore the LCP candidate; the old first card no longer exists.
+`sizes` was re-stated for both shapes — 720px for the lead, 400px for a grid card — so no breakpoint
+over-fetches.
+
+Verified: `tsc --noEmit` and `next build` clean, `/blog` is 4.05 kB, the lead renders with its
+badge, the grid renders three across, and filtering to a two-post category drops the feature and
+returns an even grid.
+
+
+### Fixed — 2026-09-20 (Why Compass out of the footer, and a hero link that contradicted its own label)
+
+**Decision 120 — removing the footer entry surfaced a spec violation next to it:**
+
+Why Compass is out of the footer's Company column, in both languages, matching the nav entry
+removed in Decision 119.
+
+**`SITEMAP.md` already agreed.** Its Footer Nav spec lists Column 2 as *About · How We Work ·
+Contact* and its Primary Nav spec has no Why Compass entry at all — so the code had drifted from
+the spec, and removing the link brought it back rather than departing from it.
+
+**The home hero's secondary button said one thing and did another.** It reads *See how we work* and
+pointed at `#why-compass`, a section on the same page. `SITEMAP.md` specifies it twice — in the Home
+page table and again in the Internal Linking Map — as *"See how we work" → `/how-we-work`*. The
+label was right, the destination was wrong, and it now goes where the spec and the label both say.
+
+That one was found by following the last `#why-compass` reference rather than by being asked about
+it. It is the same class of drift as Decision 102: a spec that was right and an implementation that
+quietly was not.
+
+**`SITEMAP.md` was stale in the other direction too,** and is now current: the Primary Nav block
+lists Blog, POS Analytics and the language toggle, records that POS Analytics is English-only, and
+notes why Why Compass is absent. The footer Company column records Blog.
+
+Verified: no Why Compass link in the rendered home page, the hero button resolves to
+`/how-we-work`, and the `#why-compass` section is still on the page for anything linking to it
+directly.
+
+
+### Changed — 2026-09-20 (Portrait photography on /us, and Why Compass out of the nav)
+
+**Decision 119 — the /us photography is inside the sections now, not between them:**
+
+The page had one full-width landscape strip sitting between two sections, which is a break in the
+page rather than part of one. It is gone, and five portrait crops are inside the content instead.
+
+**The gap section now carries a photograph per item.** `components/sections/UsGap.tsx` is a
+/us-only version of `ServiceSubServices`: four cards, each a 4:5 crop above its heading. The shared
+component stays text-only because nine Gulf service pages use it, and a restaurant kitchen would be
+wrong above a network infrastructure page.
+
+| Card | Photograph |
+|---|---|
+| Prime cost | A chef working the pass at night |
+| Labor by daypart | A server crossing a busy dining room |
+| Item-level margin | A chef plating a dish |
+| Staffing signal | A hand pulling order tickets |
+
+**The contact block gained one beside the form,** a coffee counter at 4:5, level with the ask rather
+than stacked above it. Hidden below `lg`, where it would only push the form down the page.
+
+`us-bar-interior.jpg` was deleted along with its credit — it existed only for the landscape strip.
+
+Exposure normalised as before: the kitchen-at-night frame arrived at mean luminance 36.9 and was
+lifted to 72.
+
+**Why Compass came out of the main navigation.** It was the only entry that led nowhere new — an
+anchor into the home page's own `#why-compass` section, which argues what the hero above it already
+argues. The section stays and the anchor still resolves, so anything linking to it directly still
+works; only the nav entry is gone. Removing it left every `navItems` entry with an `href`, so the
+anchor branch in both render sites narrowed to `never` and was simplified away.
+
+**The footer still links to Why Compass** in its Company column. That was not part of the ask and
+the link is not broken, so it stays until someone says otherwise.
+
+Verified: `tsc --noEmit` and `next build` clean, all five /us photographs load and the page is
+17 kB.
+
+
+### Added — 2026-09-20 (Photography on the home page, /how-we-work and /us)
+
+**Decision 118 — the remaining pages, and two problems the first pass hid:**
+
+Three more images: `/` gets an engineer at a workstation in a server room, `/how-we-work` gets two
+engineers over a technical drawing, `/us` gets a bar counter lit for evening service — the one
+photograph on a page that is otherwise entirely screens and figures, and a reminder that the
+business being sold to is a room with people in it.
+
+**Two pages deliberately have none.**
+
+`/services` is nine cards on a Paper ground, each led by an icon. Photographs would fight the icons
+for the same job, and a navigation hub earns nothing in search from decoration. `/contact` already
+carries an embedded map, which is the one image a contact page genuinely wants.
+
+**The Ink wash was too heavy, and it hid the very thing it was meant to seat.** A multiply gradient
+over a flat ink layer looked right on a bright frame and rendered the control-room and bar shots as
+black rectangles. It is a bottom vignette alone now.
+
+**Exposure is normalised at prep time, which is the real fix.** Stock frames arrive anywhere between
+mean luminance 21.6 (a security operations room) and 171.8 (a neural render). Anything under about
+65 reads as a black rectangle on `#0B0E10` however the CSS is tuned. Five images were lifted by
+gamma — shadows up, highlights untouched, so a screen in a dark room stays a screen rather than
+blooming:
+
+| Image | Mean before | After |
+|---|---|---|
+| `cybersecurity-monitoring` | 21.6 | 71.5 |
+| `web-development-markup` | 24.4 | 71.9 |
+| `app-development-phone-code` | 40.6 | 72.0 |
+| `us-bar-interior` | 45.9 | 72.0 |
+| `about-doha-skyline` | 47.8 | 72.0 |
+
+**One image was replaced after looking at it.** The home page first had an operator in front of a
+wall of monitors, which on screen turned out to be a wall of *video thumbnails* — it read as a
+broadcast or media company, not an IT operations provider. Swapped for the server room.
+
+Thirteen images, 3.0MB in the repository, `next/image` re-encoding to AVIF/WebP at delivery. Still
+none in any hero, still all lazy.
+
+Verified: `tsc --noEmit` and `next build` clean, every image returns 200 and appears in its page's
+rendered markup.
+
+
+### Added — 2026-09-20 (Photography on the service pages and /about)
+
+**Decision 117 — ten images, placed where SEO actually benefits rather than everywhere:**
+
+The brief was images across the site with SEO as the deciding factor. Deferring to SEO argues
+against full coverage, so this is deliberately selective:
+
+- **Images are not a ranking factor.** Core Web Vitals is one, and this site targets Lighthouse
+  95+. A photograph in a hero becomes the LCP element, which is the easiest way to lose that for
+  no ranking gain.
+- **Stock photography earns almost nothing in image search.** Google dedupes widely-licensed files
+  and favours original imagery, so the Google Images upside here is close to zero. What is left is
+  alt text, relevance and not breaking the page speed — and all three favour fewer, better-placed
+  images.
+
+**Where they went:** one per service page (nine), and one on `/about`. Every one sits below the
+fold, lazy-loaded, never `priority`. No image in any hero, and none on the home page.
+
+`components/ui/SectionImage.tsx` holds the pattern: a fixed aspect ratio so the box is reserved
+before the file lands and CLS stays at zero, a `sizes` attribute so no phone downloads a desktop
+file, and an Ink wash over the top — the photographs are someone else's colour temperature, and
+without it they sit on an Ink and Signal page as foreign objects.
+
+**`/about` gets the Doha skyline,** the only photograph on the site about the business rather than
+a service, and the only one with a genuine local-search reason to exist. The page says Doha; the
+picture is Doha.
+
+**What these images must never claim.** They are licensed stock. They are not photographs of
+Compass work, Compass staff or a client site, and no caption may imply otherwise — a photo
+captioned "structured cabling at a client site" would be a claim about work nobody can point to,
+which is the rule that keeps `ClientProof` empty. `SectionImage` carries the note.
+
+Photographer and source URL for every file are recorded in `public/images/site/credits.json`.
+Attribution is not required by the Pexels licence; the record exists so provenance is checkable.
+
+**Repository weight:** the originals came to 6.0MB. Capped at 1800px and quality 82 they are
+2.2MB, and `next/image` re-encodes to AVIF/WebP at delivery. The two worst offenders went from
+1.8MB and 2.4MB to 193KB and 102KB.
+
+Selection favoured cool and neutral tones. The network infrastructure photograph is fibre in almost
+exactly Signal Cyan, which is luck, but the criterion is not — warm stock on an Ink page looks
+pasted on.
+
+The API key lives in `pexelskey.env.txt`, which is gitignored along with `pexelskey*` and
+`*.env.txt`. It is not in any commit.
+
+Verified: `tsc --noEmit` and `next build` clean, all ten images return 200 and appear in the
+rendered markup of their pages.
+
+
+### Fixed — 2026-09-20 (Dead space between the /us sections)
+
+**Decision 116 — two separate causes, one of them a real bug:**
+
+**1. `ServiceWhyUs` carried 64px of orphaned margin.** Its points list has `mb-16`, which exists to
+clear the credentials block underneath. The margin was unconditional, so on any page that passes no
+credentials it was 64px of empty space at the end of the section with nothing below it to clear.
+
+That is **14 of the 17 `whyUs` blocks** in `lib/serviceTranslations.ts`, so the Gulf service pages
+were carrying it too. The margin is now conditional on credentials existing; the three blocks that
+do supply them are unchanged.
+
+**2. The page runs to nine sections at `py-20 lg:py-28`.** Two adjacent sections put 224px between
+themselves on desktop, and on a page this long that reads as the page having ended rather than as
+breathing room. Tightened to 56px and 76px, giving 112px and 152px between sections.
+
+**Done as one page-scoped rule in `globals.css`, not as edits to each component.**
+`ServiceSubServices` and `ServiceWhyUs` are shared with the Gulf service pages, where the wider
+rhythm is correct and must not change — scoping it to `.us-page` keeps the change where it belongs
+and keeps it in one place.
+
+The hero is excluded via `:not(:first-child)`. It carries its own `pt-[54px]` to clear the fixed
+nav, and overriding that would tuck the h1 under the header.
+
+Verified at 1400px: the gap under *Built by people who read profit and loss statements* went from
+roughly 290px to about 130px, the hero still clears the nav, and the pricing, callout and coverage
+transitions stay clearly separated.
+
+
+### Changed — 2026-09-20 (The slot under the hero now gives a reason before a figure)
+
+**Decision 115 — a second account of the week, and the arithmetic moved to the price:**
+The slot under the hero has held three things now. A four-cell stat row, which was facts about us.
+Then the 1% arithmetic, which was a value calculation. Both argued worth before a reader had been
+given a reason to want the thing.
+
+`components/sections/UsSecondAccount.tsx` states the reason. An owner who was not in the building
+learns what happened from the people who were — normal, usually right, and always partial. The
+section sets three spoken accounts of a week beside what the same week recorded:
+
+| What you hear | What the week recorded |
+|---|---|
+| Friday was busy, we got slammed around seven | Peaked 19:00 on $8,970, 6% above forecast, because two of five tables were still turning from the 18:30 sitting |
+| Tuesday was quiet, nothing out of the ordinary | Lunch ran 18 labor hours above forecast, on nine of the last fourteen days |
+| The steak has been selling really well | It has, and it earns the least on the menu — margin fell 6.2 points after the 12 September supplier change |
+
+**The third pair is the argument.** Both statements are true. Only the numbers hold both at once.
+
+**The tone is the whole thing, and `CONTENT.md` now guards it.** The claim is that one account is
+partial, never that it is wrong, and the section must not nudge an owner toward suspecting their own
+team. Nobody holds fourteen shifts in their head; a closing manager knows the shift they worked.
+`VOICE.md` bans fear-selling and this is exactly the shape fear-selling would take here. The
+footnote carries it: *neither account is wrong, and you want both.*
+
+Static by design — a section whose point is quiet objectivity should not be the flashiest thing on
+the page.
+
+**The 1% arithmetic was not deleted, it moved,** to sit directly above the pricing tiers. *Is this
+worth it* is a question a reader asks when they see the number, not before they know what they are
+buying. It reads better there than it did as an opening claim.
+
+Verified: `tsc --noEmit` clean, the pairs align in two columns at 1400px and stack with their own
+labels below `lg`.
+
+
+### Fixed — 2026-09-19 (The 1% panel said one thing and calculated another)
+
+**Decision 114 — the heading did not agree with the sum:**
+Decision 113 replaced the jargon with plain words, and in doing so introduced a worse problem. The
+heading read *Trim 1% off your costs. This is what you keep*, while the panel computed **1% of
+sales**. Those are different numbers.
+
+A reader cannot name that mismatch, but they can feel it — which is exactly why the section still
+read as confusing after the words got simpler. The words were not the whole fault; the arithmetic
+did not follow from its own heading.
+
+**It is 1% of sales throughout now,** and the heading states the conclusion instead of issuing an
+instruction: *1% of your sales is worth more than we charge.* The body explains the sum in one
+sentence and points at the two figures by position.
+
+**The heading is a claim, and it holds at every point on the slider.** At the floor — $10,000 a
+month — 1% is $100 against a $99 tier. `CONTENT.md` records that `MIN` cannot go lower without
+rewording the heading, because at $9,000 the claim becomes false.
+
+**The multiple now shows a decimal below 10.** At the bottom of the range it is 1.0×, and a rounded
+`1× bigger` would have read as no difference at all.
+
+Smaller corrections in the same pass: step 01 reads *What you sell* rather than *What you take*, the
+slider is labelled *Monthly sales*, and the footnote says *math* rather than *maths* — British
+spelling had crept into a US-facing section, against the note at the top of the US block in
+`CONTENT.md`.
+
+Verified: `tsc --noEmit` clean, the three steps read as one sentence, and the figures move with both
+slider and presets.
+
+
+### Changed — 2026-09-19 (Plainer words and a guided order for the 1% figure)
+
+**Decision 113 — the jargon went, and the layout now carries the argument:**
+
+**"One point of prime cost" became "1%".** The term was correct and unreadable. It asks a reader to
+know an industry phrase, then translate *a point* into a percentage, before they can care about the
+number — and a small business owner who has to do that has already scrolled. The heading is now
+*Trim 1% off your costs. This is what you keep*, and the body names food and labor rather than
+naming the ratio.
+
+**The panel became three numbered steps** instead of a two-column split: `01 What you take` →
+`02 1% of that is` → `03 What we charge`, with chevrons between, reading left to right on desktop
+and top to bottom on a phone. The argument always had that order; the layout now carries it rather
+than leaving a reader to assemble it. Step 03 takes the Signal border because it is the one that
+lands.
+
+**Contrast was raised throughout.** Labels sat at `text-paper/40` and the footnote at `/45`, which
+is roughly 3.4:1 and 4.0:1 on Ink — both under the 4.5:1 that `CLAUDE.md` requires. They are now
+`/55` and `/65`, and the body moved from 16px to 17px.
+
+Three smaller fixes found by looking at it at a narrow desktop width rather than a wide one: the
+unit moved below each figure, because *$100,000 a month* broke between *a* and *month* once the
+column narrowed; the presets were tightened so all four sit on one row; and the slider label reads
+*Your takings, before costs* rather than *Your sales, per month*.
+
+Verified: `tsc --noEmit` clean, the figures move with slider and presets, the steps read in order at
+1440px and stack with the chevron rotated at 375px.
+
+
+### Changed — 2026-09-19 (The stat row became the reader's own arithmetic)
+
+**Decision 112 — the slot under the hero now argues the price:**
+It held four cells: 22 platforms, 3 tiers, from $99, Portland. Facts about us, in the strongest slot
+on the page, and a location is not a statistic sitting beside three counts. A Portland operator
+scrolling past had no reason to stop for any of it.
+
+`components/sections/UsOnePoint.tsx` replaces it. Prime cost is food and labor against sales, so one
+point of it is one percent of revenue — the reader drags a slider to their own monthly sales and
+reads what a single point is worth, over a month, over a year, and as a multiple of what Tier 1
+costs. At $80,000 a month that is $800 against $99.
+
+**The argument makes itself, which is the point.** Nobody has to be persuaded of the ratio; they can
+see it in their own number. That suits `VOICE.md` better than any adjective would — lead with the
+answer, no fear-selling, no urgency language.
+
+**It deliberately does not promise a saving.** The section multiplies a figure the reader supplies
+and sets it beside a published price. Claiming we will find an operator a point would be a results
+guarantee nobody can make. The closing line says so — *arithmetic on your own number, not a
+promise* — and `CONTENT.md` marks it required, alongside a note that the section must never be
+rewritten into a savings claim.
+
+Presets at $25k, $50k, $100k and $250k for readers who will not drag anything.
+
+The native range control was rebuilt in `globals.css` on Signal over Ink. A stock range input is the
+one place a browser default would have shown through on this site, complete with the UA's own blue.
+
+Verified: `tsc --noEmit` clean, the figures move with both the slider and the presets, and the panel
+stacks at 375px with the slider full width.
+
+
+### Added — 2026-09-19 (A product mark on each mock dashboard)
+
+**Decision 111 — five products, five logos:**
+The dashboards were five distinct products with no branding on any of them, which is the one thing
+every real application has in that corner. Each now carries its own mark, top-left, drawn to its own
+character: a gradient badge for Aurora, a ruled ledger page for Ledger, a citrus wheel for Citrus, a
+prompt in a box for Terminal, a globe with a meridian line for Meridian.
+
+**None of them is a Compass mark, and `CONTENT.md` records that none should become one.** Putting
+ours in that corner would say we built the software rather than the reporting inside it, which
+inverts the whole point of the section.
+
+Drawn as inline SVG rather than files: they are 18–19px, five of them, and a request each for a mark
+that exists only inside a mock is not worth the bytes.
+
+Aurora's subtitle lost its now-redundant `Aurora POS` prefix, since the wordmark sits directly above
+it.
+
+Verified: `tsc --noEmit` clean, all five render and cycle.
+
+
+### Changed — 2026-09-19 (Each dashboard leads with a recommendation)
+
+**Decision 110 — the instruction goes first, not in a side panel:**
+Decision 109 gave every screen a findings panel, but it sat beside or below the charts. A reader
+scanning the section still met the numbers first and had to work down to the part that justifies the
+price.
+
+Each of the five now opens with a recommendation banner above the figures, in its own visual
+language — a pill and gradient on Aurora, a serif note with a blue rule on Ledger, an outlined coral
+callout on Citrus, an inverse `ACTION` block on Terminal, an amber-ruled `recommended_action` row on
+Meridian.
+
+**They are written as instructions, not observations.** *Bar covers are down 14%* is something the
+point-of-sale system could produce by itself. *Drop two bar shifts on Tuesday and Wednesday* is the
+thing being paid for, and the line under it exists only to show the working.
+
+| Screen | Lead |
+|---|---|
+| Aurora | Drop two bar shifts on Tuesday and Wednesday — +$780/wk |
+| Ledger | Reprice the beef dishes before the next order goes in — 1.6pt of gross margin |
+| Citrus | Put a second hand on grill from 19:30 — 14 covers remade |
+| Terminal | HWTHN, pull prime cost back to group mean — $1,240/wk if unchanged |
+| Meridian | Cut 18 labor hours from the 14:00–16:00 block — +$412/wk |
+
+**Each lead's finding was removed from the panel below it,** so no screen states the same thing
+twice. The panels keep the remaining items.
+
+Two things caught before commit: three unicode escapes reached the file as literal `\u2014` text
+rather than characters, which would have rendered as backslash-u in the markup, and the banners
+squeezed three columns into 375px on a phone. They now stack below `sm`.
+
+Verified: `tsc --noEmit` clean, all five leads render and none duplicates its panel, and the banners
+stack on mobile.
+
+
+### Changed — 2026-09-19 (The dashboards now state conclusions, and the frame is ours again)
+
+**Decision 109 — three corrections to the preview:**
+
+**1. The frame is Compass again, and identical across all five.** Decision 108 themed the browser
+chrome per dashboard, which was a step too far: five differently coloured browsers read as five
+screenshots rather than one page showing five products, and the chrome competed with the thing it
+was framing. The window now uses Ink, Paper, the JetBrains address line and the `.raised` shadow on
+every screen. The exception stays where it belongs — inside the viewport.
+
+**2. The viewport is a fixed height above `md`,** so the window no longer resizes as a reader
+cycles. A frame that grows and shrinks looks unstable and drags the page around it. Each dashboard
+fills the height with flex rather than being cropped, which also exposed that Ledger had been half
+empty — it now carries a reconciliation panel and a receipts chart in the space it was wasting.
+
+**3. Every screen now states a conclusion with money attached.** This was the substantive problem:
+the dashboards showed what happened, which is what the point-of-sale system already gives away free.
+Nobody pays $1,000 and a retainer to be shown their own sales by hour.
+
+Each of the five gained a findings panel — *Needs a decision*, *Worth reading*, *Do this today*,
+*Exceptions*, *anomalies* — written in the shape of a real finding: specific, dated, costed.
+
+| Screen | Example finding |
+|---|---|
+| Aurora | Bar covers down 14% on Tue and Wed only, kitchen flat — −$780/week |
+| Ledger | Labor 2.8% over budget, all of it Thursday and Sunday evening — $536 over |
+| Citrus | Every refire after 19:30 came off the grill station, same two shifts |
+| Terminal | HWTHN prime 6.9pt over group — $1,240/week |
+| Meridian | steak margin −6.2pt since the 12 Sep supplier change — $1,840 annualised |
+
+The rest of each screen got denser to match: deltas against forecast rather than bare numbers, a
+prime-cost split against target, a full profit and loss with budget variance, profit-per-item
+instead of units sold, a timestamped exceptions log, and threshold breaches with sigma.
+
+`CONTENT.md` records the principle, because a later redesign that drops those panels has removed the
+argument for the price without noticing.
+
+**Still invented, including the dollar amounts.** They are written to be the shape of a real finding,
+not a claim about any business, and the disclaimer under the frame is unchanged.
+
+Verified: `tsc --noEmit` clean, all five fill the fixed viewport without clipping, the range control
+still drives every figure, and each holds at 375px where the height releases and the panels stack.
+
+
+### Changed — 2026-09-19 (Five dashboards, each from a different company)
+
+**Decision 108 — the design system stops at the window border:**
+Decision 107 put the preview inside a browser frame, but the three screens inside it were the three
+service tiers wearing Compass colours. That quietly argued the opposite of the heading: a reader saw
+one product in three states, not reporting shaped to a business.
+
+**There are now five dashboards, and each is designed as if it came from a different company:**
+
+| Name | Identity |
+|---|---|
+| Aurora | Neon violet on near-black, gradient area chart, pill filters — modern SaaS |
+| Ledger | Cream and white, Georgia headings, dense table with sparklines, 3px corners — accounting BI |
+| Citrus | Coral-to-amber gradient hero, 22px radii, chunky progress bars — consumer app |
+| Terminal | Green on black, monospace throughout, block-character bar strings, status column — operations console |
+| Meridian | Dark blue panel grid, monospace metric keys, alert pill — engineering console |
+
+**`DESIGN.md` is deliberately ignored inside the frame.** Other palettes, other fonts, other radii,
+other densities. Five dashboards in Ink and Signal would read as five screenshots of one Compass
+product. The variety is the argument the section is making, and it cannot be made in one palette.
+
+**The exception stops at the window border.** The heading, the copy, the cycle controls and the
+disclaimer all stay on Compass tokens, because those are the site speaking rather than the product.
+This is a scoped exception like the Beacon stars in Decision 101, not a general licence.
+
+`components/ui/MockWindow.tsx` was rewritten to take a `WindowTheme` — bar, border, pill, text, dots,
+radius and font are all passed in. A frame hard-coded to Ink and Signal would have made every screen
+look like ours no matter what sat inside it.
+
+**Everything is still invented and still labelled.** `CONTENT.md` now records all five, their style
+captions and their mock addresses, with notes that none of the five hosts resolve, that they are not
+Compass products, and that the Portland neighbourhoods are real places but not real clients.
+
+**The range control moved outside the frame.** It drives all five. Each dashboard styles its own
+chrome differently enough that a control inside would have to be restyled five times to mean one
+thing.
+
+Two defects found by looking at it on a phone rather than reading the markup: the Ledger table
+clipped its trend column at 375px and now scrolls, and the Terminal caption read
+*Terminal · Monospace · operations terminal*, which said terminal twice.
+
+Verified: `tsc --noEmit` clean, all five render and cycle by arrow and by name, the range control
+changes figures across all five, and each holds at 375px.
+
+
+### Changed — 2026-09-19 (The dashboard preview is now an application)
+
+**Decision 107 — a frame, a working shell, and arrows:**
+Decision 106 shipped three tabbed panels of charts. They read as page sections with charts in
+them, which undersold the thing being sold: a reader could not tell whether they were being shown
+a product or a brochure.
+
+**The views now sit inside a browser frame,** `components/ui/MockWindow.tsx` — chrome only, holding
+no dashboard logic. Inside it is an application shell: a sidebar, an app header with the screen's
+name, and a date range control. The point of the frame is to make a reader stop reading the website
+and start reading a screen.
+
+**The window dots are Paper at low opacity, not red/amber/green.** Those three would put two
+off-palette hues on the page for decoration, and Beacon is a status colour here — a fake close
+button is not a status.
+
+**The date range control actually changes the figures.** Today, 7 days and 30 days each carry their
+own numbers across all three screens. It is the smallest piece of real behaviour that makes the
+frame read as an application rather than a picture of one: a reader who clicks a control and sees
+nothing move has been shown a screenshot.
+
+**The three screens now differ in layout, not just in data,** which is what the section claims:
+
+| Screen | Shape |
+|---|---|
+| Daily service | Four KPI tiles over a column chart, with a server leaderboard beside it |
+| Custom metrics | A ring gauge against target, paired with item margin bars and cost tiles |
+| Multi-location | A trend line with the peak directly labelled, over a sortable-looking site table |
+
+Three populations of the same grid would have quietly contradicted the heading. The sidebar items
+change per screen for the same reason — the sections a group operator needs are not the ones a
+single site needs.
+
+**Arrows, plus the names.** The arrows carry the "there are more of these" signal a row of tabs does
+not, and a counter reads `1 / 3`. The names stay for going straight to one.
+
+**Everything in it is still invented and still labelled.** `CONTENT.md` now records the mock chrome
+as well — the addresses, the sync badge, the sidebar items — with a note that
+`reports.compass-its.com` does not resolve and should be changed first if a real reporting host is
+ever stood up at a different name. The Portland neighbourhoods are real places but not real clients,
+and the staff names belong to nobody.
+
+**Charts follow the same rules as before:** single-hue Signal at varying opacity, never a colour per
+series; values and labels in Paper text tokens; one direct label on the trend peak rather than a
+number on every point; `<title>` on the marks so a hover reports the figure.
+
+Verified: `tsc --noEmit` clean, the range control changes every figure on all three screens, the
+arrows and the names both cycle, and the whole frame holds at 375px — the sidebar drops away and
+the site table scrolls horizontally rather than stretching the page.
+
+
 ### Added — 2026-09-19 (Dashboard preview, nav link, centred contact)
 
 **Decision 106 — three changes to `/us`, all at the client's direction:**

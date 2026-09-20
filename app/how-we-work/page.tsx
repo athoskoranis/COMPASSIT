@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
+import SectionImage from '@/components/ui/SectionImage'
 import Button from '@/components/ui/Button'
 import WhyCompass from '@/components/sections/WhyCompass'
 import ContactCTA from '@/components/sections/ContactCTA'
@@ -124,6 +125,19 @@ export default function HowWeWorkPage() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Sits on the last Ink section before the page turns to Paper. The
+            wash in SectionImage is built for a dark ground, so the image goes
+            above the switch rather than below it. */}
+        <section className="relative z-[1] pb-4">
+          <div className="max-w-content mx-auto px-6 lg:px-20">
+            <SectionImage
+              src="/images/site/how-we-work-planning.jpg"
+              alt="Two engineers working over a technical drawing"
+              aspect="aspect-[21/9]"
+            />
           </div>
         </section>
 

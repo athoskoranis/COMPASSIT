@@ -476,14 +476,101 @@ The numbers your POS won't show you.
 ### Body
 Every point-of-sale (POS) system ships with a dashboard, and they all tell you what you sold. Very few tell you what it cost you to sell it. We build reporting on top of the POS you already run — prime cost, labor against sales by daypart, margin by item, and the staffing signal underneath both. We read profit and loss statements for a living, and we build the reports we would want to read.
 
-### Four key stats
+### A second account of the week — the section under the hero
 
-| Stat | Label |
+The slot under the hero has held three things: a four-cell stat row, then the 1% arithmetic, now
+this. Both earlier versions argued value before a reader had been given a reason to want it. This
+states the reason.
+
+**Eyebrow**
+WHEN YOU ARE NOT IN THE ROOM
+
+**Heading**
+A second account of the week.
+
+**Body**
+Most of what you know about a shift you missed comes from the people who worked it. That is usually right, and it is always partial — a closing manager knows their own Friday, not the Tuesday lunch they were off for. This is the other account, assembled from what the tills, the schedule and the invoices already recorded.
+
+**Column headings**
+What you hear · What the week recorded
+
+**The three pairs** — the same event twice, aligned in rows
+
+| What you hear | What the week recorded |
 |---|---|
-| 22 platforms | Supported |
-| 3 tiers | Single site to five |
-| Setup plus monthly | Pricing |
-| Portland, Oregon | Based |
+| "Friday was busy. We got slammed around seven." | Friday peaked at 19:00 on $8,970, about 6% above forecast. The queue built because two of the five tables in section 12–16 were still turning from the 18:30 sitting. |
+| "Tuesday was quiet. Nothing out of the ordinary." | Tuesday lunch ran 18 labor hours above forecast, and has done on nine of the last fourteen days. Quiet is the pattern, not the exception. |
+| "The steak has been selling really well." | It has. It also earns the least of anything on the menu — margin fell 6.2 points after the supplier changed on 12 September, and the price has not moved since. |
+
+**Footnote (required, do not remove)**
+Neither account is wrong, and you want both. Only one of them saw every shift — and where something moved, it says what moved, what it cost, and what to do next.
+
+> **This section must never suggest the reader's staff are careless or dishonest.** The argument is
+> that one account is *partial*, not that it is wrong — nobody holds fourteen shifts in their head,
+> and a closing manager knows the shift they worked. A page that nudges an owner toward suspecting
+> their own team would be insulting and bad business, and `VOICE.md` bans fear-selling; this is the
+> shape fear-selling would take here.
+>
+> The footnote carries the tone and is the reason the section is allowed to make the comparison at
+> all. Keep it.
+
+> **The third pair is the one that works.** "The steak sells well" and "the steak earns least" are
+> both true, and only the numbers hold both at once. If the pairs are ever rewritten, keep one where
+> the spoken account is entirely correct and still incomplete — that is the whole argument in one
+> row.
+
+> **Rows, not two lists.** Aligned so the same event appears twice. Two independent columns would
+> leave the reader to pair them up, and the pairing is the point.
+
+### The math — the figure under the hero
+
+Replaced a four-cell stat row (22 platforms · 3 tiers · setup plus monthly · Portland, Oregon). Those
+were facts about us in the strongest slot on the page, a location is not a statistic, and a visitor
+scrolling past had no reason to stop for any of them.
+
+**Eyebrow**
+THE MATH
+
+**Heading**
+1% of your sales is worth more than we charge.
+
+**Body**
+Move the slider to what you sell in a month. If better numbers help you save or earn just 1% more, that is the middle figure — and the one on the right is what the reporting costs.
+
+**Slider label**
+Monthly sales
+
+**The three steps**, left to right on desktop, stacked on a phone, with a chevron between each:
+
+| Step | Label | Shows |
+|---|---|---|
+| 01 | What you sell | The slider, the figure the reader sets, and four presets |
+| 02 | 1% of that | 1% of the monthly figure, and the same again × 12 for the year |
+| 03 | What we charge | $99 a month, and how many times larger step 02 is |
+
+**Footnote (required, do not remove)**
+We are not promising you that 1%. We are showing you how big it is, and what it costs to see where it is hiding.
+
+> **The sum must agree with the heading.** A previous version read *Trim 1% off your costs* while the
+> panel computed 1% of **sales**. Those are different numbers, and a reader who cannot name the
+> mismatch can still feel it — which is why that version read as confusing despite using plain words.
+> It is 1% of sales throughout now. If the heading is ever rewritten, check the arithmetic still
+> follows from it.
+
+> **Say 1%, never "a point of prime cost".** The original used the industry term, which is correct
+> and unreadable: it asks a reader to know the phrase, then translate a point into a percentage,
+> before they can care about the figure.
+
+> **The heading is a claim, and it holds.** At the bottom of the slider — $10,000 a month — 1% is
+> $100 against a $99 tier. That is why `MIN` is $10,000 and must not go lower without rewording the
+> heading.
+
+> **This section must never promise a saving.** It multiplies a number the reader supplies and sets
+> it beside a published price. Nobody can guarantee they will find an operator 1%, and a page that
+> implies otherwise is making a results claim. The footnote is the safeguard.
+
+> **The order is the argument.** What you sell, what 1% of it is, what we charge — numbered, with
+> chevrons between. Step 03 carries the Signal border because it is the one that lands.
 
 ### Section heading — the gap
 Your POS counts sales. It doesn't count cost.
@@ -497,31 +584,119 @@ That is the report we build.
 Your dashboard, not a template.
 
 ### Section body — dashboard preview
-Three configurations of the same service, from a single site to a group of five. The panels are not fixed — we build the measures your business is actually run on, and the layout follows them.
+Five builds, five businesses, five different screens. We do not ship one layout with your logo on it — the measures, the density and the look all follow how you actually run, which is why none of these resemble each other.
 
-### Dashboard preview — the three example views
+### Dashboard preview — the five example builds
 
-**Tab 1 · Daily service**
-*One location, the shift you just finished.*
-The view a single-site operator opens at close. Revenue by hour against who was on, with the two numbers that decide the week sitting above it.
+Each sits inside a browser frame and is designed as if it came from a different company. The caption under the frame reads `<Name> · <style>`.
 
-**Tab 2 · Custom metrics**
-*The measures your business runs on.*
-Tier 2 is where the panels stop being standard. Item-level margin against the costs you enter, labor split the way your dayparts actually fall, and any measure you can define.
-
-**Tab 3 · Multi-location**
-*Four sites, read as one business.*
-Tier 3 rolls the sites up and sets them against each other, so a site drifting from the group shows as a number rather than a feeling.
+| # | Name | Style caption | Mock address |
+|---|---|---|---|
+| 1 | Aurora | Neon violet · modern SaaS | `app.aurorapos.io/venue/9812` |
+| 2 | Ledger | Light corporate · accounting BI | `ledger-reporting.com/reports/weekly` |
+| 3 | Citrus | Warm coral · consumer app | `citrus.app/kitchen/today` |
+| 4 | Terminal | Monospace · operations console | `trm.internal:8443/ops` |
+| 5 | Meridian | Dense grid · engineering console | `meridian.grid/boards/retail-ops` |
 
 ### Dashboard preview — disclaimer (required, do not remove)
-Example views · illustrative figures, not a client's data
+Example builds · illustrative figures, not a client's data
 
-> **Every figure in that section is invented and must stay labelled as such.** The site
-> carries no client data and no client permission to show any. The disclaimer line above
-> is the reason the section is allowed to exist at all — it is the same rule that keeps
-> `ClientProof` empty rather than filled with a plausible quote. If real dashboards are
-> ever shown, they need written permission and the figures anonymised, and the label
-> changes to say so.
+> **Every figure, name and address in this section is invented and must stay labelled as such.**
+> The site carries no client data and no client permission to show any. The disclaimer line above
+> is the reason the section is allowed to exist at all — the same rule that keeps `ClientProof`
+> empty rather than filled with a plausible quote. If real dashboards are ever shown, they need
+> written permission and the figures anonymised, and the label changes to say so.
+
+> **None of the five hosts resolve.** `aurorapos.io`, `ledger-reporting.com`, `citrus.app`,
+> `trm.internal` and `meridian.grid` are plausible addresses shown inside a picture of a browser,
+> which is ordinary for a product mock. They are also not Compass products — the frame is a window
+> into what a client ends up with, not a preview of software we sell.
+
+> **The Portland neighbourhoods and staff names are invented.** Pearl District, Alberta, Division
+> and Hawthorne are real places but not real clients, and no business trades under those names here.
+> The staff names belong to nobody.
+
+### Dashboard preview — the product marks
+
+Each of the five carries its own logo in the top-left of the screen, because five products from five
+companies would each have one.
+
+| Screen | Mark | Wordmark |
+|---|---|---|
+| Aurora | Gradient badge, violet to cyan, with an arc and a dot | `aurora`, bold lowercase sans |
+| Ledger | Ruled ledger page in outline | `Ledger`, Georgia |
+| Citrus | Citrus wheel with segment lines | `citrus`, heavy lowercase sans |
+| Terminal | A prompt in a bordered box | `TRM-1`, monospace |
+| Meridian | A globe with a meridian line and an amber marker | `meridian`, monospace |
+
+> **None of these is a Compass logo, and none should become one.** Putting our mark in that corner
+> would say we built the software rather than the reporting inside it, which is the opposite of what
+> the section is for. They are invented brands for invented companies, drawn so that none resembles
+> a real product.
+
+### Dashboard preview — the lead recommendation on each screen
+
+Each of the five opens with a recommendation banner, above the figures. It is the first thing on
+the screen because it is the thing being sold: an instruction, the one-line reason, and the money.
+
+| Screen | Label | Recommendation | Amount |
+|---|---|---|---|
+| Aurora | Recommended | Drop two bar shifts on Tuesday and Wednesday. | +$780 / wk |
+| Ledger | Recommendation | Reprice the beef dishes before the next order goes in. | 1.6pt of gross margin |
+| Citrus | Do this first | Put a second hand on grill from 19:30. | 14 covers remade |
+| Terminal | Action | HWTHN — pull prime cost back to group mean. | $1,240 / wk if unchanged |
+| Meridian | recommended_action | Cut 18 labor hours from the 14:00–16:00 block. | +$412 / wk |
+
+**Each is written as an instruction, not an observation.** "Bar covers are down 14%" is a fact the
+point-of-sale system could have produced on its own. "Drop two bar shifts on Tuesday and Wednesday"
+is the thing an owner is paying for, and the sentence under it exists only to show the working.
+
+**The banner never repeats a finding from the panel below it.** The lead takes the strongest item
+and the panel carries the rest, so a reader is not told the same thing twice on one screen.
+
+**Below `sm` the banner stacks** — label, instruction, reason, amount — rather than squeezing three
+columns into 375px.
+
+### Dashboard preview — every screen states a conclusion
+
+Each of the five carries a panel that names a finding and attaches money to it — *Needs a decision*,
+*Worth reading*, *Do this today*, *Exceptions*, *anomalies*. That panel is the reason the section
+exists.
+
+A chart of what happened is what the point-of-sale system already gives away free. Nobody pays
+$1,000 and a monthly retainer to be shown their own sales by hour. They pay to be told that labor
+ran 2.8% over budget and all of it was Thursday and Sunday evening, that it cost $536, and what to
+do about it. **If a redesign ever drops those panels, it has removed the argument for the price.**
+
+Every figure in them is invented, including the dollar amounts. They are written to be the *shape*
+of a real finding — specific, dated, costed — not a claim about any business.
+
+**The window frame is Compass; the software inside it is not.** The chrome uses Ink, Paper, the
+JetBrains address line, the standard radius and the `.raised` shadow, and it is identical across all
+five. Only the contents change. Five differently coloured browsers read as five screenshots rather
+than one page showing five products.
+
+**The viewport is a fixed height above the `md` breakpoint** so the window does not resize as a
+reader cycles. A frame that grows and shrinks looks unstable and drags the rest of the page with it.
+Each dashboard fills the height rather than being cropped by it; below `md` the height releases,
+because a fixed viewport on a phone means scrolling inside a scroll.
+
+### Dashboard preview — why these ignore the design system
+
+`DESIGN.md` does not apply inside the window frame, on purpose. Five dashboards in Ink and Signal
+would read as five screenshots of one Compass product, which is the opposite of what the section
+claims. The variety is the argument: the work is shaped to the business, so five businesses get
+five different screens.
+
+**The exception stops at the window border.** The section heading, the copy, the cycle controls and
+the disclaimer are all Compass tokens, because those are the site speaking rather than the product.
+Logged as Decision 108.
+
+### Dashboard preview — shared controls
+Arrows cycle through the five, the names jump straight to one, and a counter reads `1 / 5`.
+A date range control — Today · 7 days · 30 days — sits outside the frame and drives all five,
+because each dashboard styles its own chrome differently enough that a control inside would have to
+be restyled five times to mean one thing.
 
 ### Tiers
 

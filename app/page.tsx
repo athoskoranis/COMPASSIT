@@ -7,6 +7,7 @@ import ServicesOverview from '@/components/sections/ServicesOverview'
 import StatsBar from '@/components/sections/StatsBar'
 import WhyCompass from '@/components/sections/WhyCompass'
 import ContactCTA from '@/components/sections/ContactCTA'
+import SectionImage from '@/components/ui/SectionImage'
 
 // The home page had no metadata export at all, so it inherited the layout's and
 // ended up as the only route on the site without a self-referencing canonical —
@@ -37,6 +38,19 @@ export default function HomePage() {
           empty and still waiting on request 01 — these are Google reviews, not
           named client references, and they do not replace them. */}
       <GoogleReviews />
+      {/* The only photograph on the home page, and it sits well below the
+          fold. The hero stays text and texture: it is the LCP element, and the
+          site targets Lighthouse 95+. See the note in SectionImage. */}
+      <section className="relative z-[1] py-4">
+        <div className="max-w-content mx-auto px-6 lg:px-20">
+          <SectionImage
+            src="/images/site/home-engineer-server-room.jpg"
+            alt="An engineer at a workstation in a server room"
+            aspect="aspect-[21/9]"
+          />
+        </div>
+      </section>
+
       <WhyCompass />
       <ContactCTA />
     </main>
