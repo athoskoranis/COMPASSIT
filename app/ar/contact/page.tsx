@@ -7,7 +7,11 @@ export const metadata: Metadata = {
     canonical: '/ar/contact',
     languages: { en: '/contact', ar: '/ar/contact', 'x-default': '/contact' },
   },
-  openGraph: { url: '/ar/contact', locale: 'ar_QA' },
+  // Share card. Declaring openGraph here stops the root
+  // app/opengraph-image.tsx reaching this route, so it has to name one
+  // explicitly — see app/ar/page.tsx for why it is the English card.
+  openGraph: { url: '/ar/contact', locale: 'ar_QA', images: ['/contact/opengraph-image'] },
+  twitter: { images: ['/contact/opengraph-image'] },
 }
 
 import ContactCTA from '@/components/sections/ContactCTA'

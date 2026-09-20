@@ -2,7 +2,12 @@ import type { Metadata } from 'next'
 import CloudAIPostClient from './client'
 
 export const metadata: Metadata = {
-  title: 'How Cloud Artificial Intelligence Is Driving IT Innovation?',
+  // Shortened from the headline, which is the only post long enough that the
+  // blog layout's "| Compass ITS" suffix still left it over SEO.md's 60. The
+  // H1, the Article headline and the openGraph title all keep the question —
+  // a title tag is allowed to differ from the heading it sits above, and the
+  // exact phrase that earns the ranking survives the trim.
+  title: 'Cloud Artificial Intelligence in IT Innovation',
   description: 'How cloud artificial intelligence platforms are reshaping IT strategy in Qatar and the GCC, from managed AI infrastructure to practical deployment.',
   alternates: { canonical: '/blog/cloud-artificial-intelligence-it-innovation' },
   openGraph: {

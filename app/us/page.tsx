@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import UsPageClient from './client'
+import { hasUsIdentity } from '@/lib/us'
 
 /**
  * No `alternates.languages` here, deliberately.
@@ -13,7 +14,7 @@ import UsPageClient from './client'
 export const metadata: Metadata = {
   title: { absolute: 'POS Analytics & Restaurant Reporting — Portland, Oregon · Compass ITS' },
   description:
-    'Custom reporting built on your point-of-sale data. Prime cost, labor by daypart, and item-level margin for restaurants, bars and retail across Portland and Oregon.',
+    'Custom reporting built on your point-of-sale data. Prime cost, labor by daypart, and item-level margin for restaurants, bars and retail in Portland and Oregon.',
   alternates: { canonical: '/us' },
   openGraph: {
     title: 'POS Analytics for Restaurants & Retail — Portland, Oregon',
@@ -43,7 +44,25 @@ const jsonLd = {
       name: 'Point-of-Sale Analytics',
       description:
         'Custom reporting dashboards built on point-of-sale system APIs for restaurants, bars, cafes and retail. Prime cost, labor as a percentage of sales by daypart, item-level margin and multi-location roll-up.',
-      provider: { '@id': 'https://compass-its.com/#us-practice' },
+      // Whichever provider entity actually exists on the page.
+      //
+      // app/us/layout.tsx emits #us-practice only once lib/us.ts holds a real
+      // Oregon entity, which it does not yet. This node named it unconditionally,
+      // so the Service shipped with a provider pointing at nothing — a reference
+      // a validator resolves to an empty node and a crawler reads as a service
+      // with no provider at all, which is weaker than naming the company that
+      // does in fact run this practice today.
+      //
+      // Falling back to #organization is accurate rather than a fudge: the Doha
+      // entity is the provider until the Oregon one is formed. The Service keeps
+      // its own Portland/Oregon areaServed, so nothing about the geography of
+      // this page shifts to Qatar, and the reference re-points itself the moment
+      // hasUsIdentity() turns true.
+      provider: {
+        '@id': hasUsIdentity()
+          ? 'https://compass-its.com/#us-practice'
+          : 'https://compass-its.com/#organization',
+      },
       areaServed: [
         { '@type': 'City', name: 'Portland' },
         { '@type': 'State', name: 'Oregon' },

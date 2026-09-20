@@ -7,9 +7,21 @@
 ## Global SEO Rules
 
 - **Title format:** `[Page-specific title] — Compass IT Solutions` (≤ 60 characters)
+  - **Blog posts** use the shorter `[Post title] | Compass ITS` suffix, set as a
+    `title.template` in `app/blog/layout.tsx`. Post headlines are questions written
+    for search and the 23-character full suffix pushed every one of them past 60,
+    where the result page truncates. The template lives in the layout rather than in
+    each post because posts are written into `app/blog/` by the blog bot. `/blog`
+    itself keeps the full suffix — a `title.template` applies to child segments, not
+    to the one that declares it.
 - **Meta description:** 140–160 characters. Plain language. No keyword stuffing. Match the voice in `VOICE.md`.
 - **Canonical:** Every page sets a self-referencing canonical tag.
-- **hreflang:** Not required at launch (single language, single region).
+- **hreflang:** Required on every route that exists in both languages. `alternatesFor()`
+  in `lib/locale.ts` emits `en`, `ar` and `x-default`, and emits nothing for a route with
+  no counterpart — a non-reciprocal annotation is one Google ignores. The ten Arabic
+  routes are listed in `AR_ROUTES`. (This line read "not required at launch (single
+  language, single region)" until the 2026-09-20 audit; the Arabic tree shipped long
+  before that and the rule had not caught up.)
 - **robots meta:** `index, follow` on all public pages.
 - **Sitemap:** Generate `sitemap.xml` automatically via Next.js `next-sitemap` or the built-in App Router sitemap function. Submit to Google Search Console post-launch.
 - **robots.txt:** Disallow `/api/` routes. Allow all public pages.
@@ -319,7 +331,7 @@ The one exception is the Open Graph image. The bot writes an `openGraph` block w
 POS Analytics & Restaurant Reporting — Portland, Oregon · Compass ITS
 
 **Meta description (159 chars):**
-Custom reporting built on your point-of-sale data. Prime cost, labor by daypart, and item-level margin for restaurants, bars and retail across Portland and Oregon.
+Custom reporting built on your point-of-sale data. Prime cost, labor by daypart, and item-level margin for restaurants, bars and retail in Portland and Oregon.
 
 **Primary keyword:**
 restaurant POS reporting Portland Oregon

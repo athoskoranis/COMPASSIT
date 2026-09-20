@@ -33,6 +33,41 @@ export function toArabic(path: string): string {
   return hasArabic(path) ? (path === '/' ? '/ar' : `/ar${path}`) : '/ar'
 }
 
+/**
+ * The href a link should carry for the language currently being read.
+ *
+ * ── Why this exists ─────────────────────────────────────────────────────────
+ *
+ * The nav and footer render Arabic labels on /ar — useLanguage() derives the
+ * locale from the pathname, so the words were already right — while every href
+ * stayed pointed at the English URL. The Arabic home page linked to fifteen
+ * internal URLs and not one of them was Arabic.
+ *
+ * Two costs, and the second is the expensive one. A reader who picked Arabic
+ * was returned to English by the next thing they clicked. And a crawler
+ * arriving at /ar found no path onward: the only link any Arabic page had was
+ * the toggle on its English twin, so ten pages of Arabic content sat with one
+ * inbound link each and passed no authority between themselves. Content Google
+ * can barely reach ranks like content that isn't there.
+ *
+ * ── Why it falls back to English rather than /ar ────────────────────────────
+ *
+ * Only ten routes exist in Arabic. toArabic() sends anything else to the
+ * Arabic home page, which is the right answer for the language toggle — the
+ * reader asked for Arabic and gets the most useful Arabic page available.
+ *
+ * It is the wrong answer for a nav link. "About" has to lead to About; a nav
+ * where four items quietly land on the home page is broken navigation, and a
+ * crawler reading four different anchor texts all pointing at /ar learns
+ * nothing from any of them. So a route with no Arabic version keeps its
+ * English href: a real destination, honestly labelled, and one fewer page that
+ * has to exist before the nav works.
+ */
+export function localeHref(path: string, lang: Lang): string {
+  if (lang !== 'ar') return toEnglish(path)
+  return hasArabic(path) ? toArabic(path) : path
+}
+
 /** hreflang alternates for a route, for use in `alternates.languages`. */
 export function alternatesFor(englishPath: string) {
   if (!hasArabic(englishPath)) return undefined

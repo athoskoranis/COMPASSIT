@@ -21,6 +21,133 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-09-20 (Deep SEO audit: six defects found live, all six fixed)
+
+A full crawl of all 35 sitemap URLs against production, plus the code behind
+them. The site was in good order on the things that usually go wrong — every
+URL returned 200, every page carried a canonical and exactly one H1, robots and
+the sitemap agreed, www/http/trailing-slash all 308 to one canonical host, HTML
+shipped Brotli, keyword density was inside every cap, and no page was thin
+except the two contact forms, which are short because a contact form is short.
+
+What it found was six real defects, listed worst first.
+
+**Decision 123 — the Arabic site linked to nothing Arabic:**
+
+The Arabic home page carried fifteen internal links and not one of them pointed
+at an Arabic URL. The nav, the footer and the eight service cards all rendered
+Arabic labels — `useLanguage()` derives the locale from the pathname, so the
+words were right — over hrefs still pointing at the English routes.
+
+Two consequences, and the second is the expensive one. A reader who chose
+Arabic was returned to English by the next thing they clicked. And a crawler
+arriving at `/ar` found no path onward: the only inbound link any Arabic page
+had was the toggle on its English twin, so ten pages of Arabic content sat on
+one inbound link each and passed no authority between themselves. Content a
+crawler can barely reach ranks like content that is not there — which is most
+of the return on the whole Arabic build.
+
+`localeHref()` in `lib/locale.ts` resolves a link against the language being
+read, and `Nav`, `Footer` and `ServicesOverview` now use it. A route with an
+Arabic version links to it; a route without one keeps its English href, because
+`toArabic()` falls back to the Arabic home page and a nav where four items
+quietly land on the home page is broken navigation — and four different anchor
+texts all pointing at `/ar` teach a crawler nothing.
+
+`/ar` went from 0 Arabic links to 9, interior Arabic pages to 10. The English
+tree is untouched: the English home still carries exactly one `/ar` link, the
+toggle.
+
+Also corrected here: `isHome` was `pathname === '/'` in both Nav and Footer, so
+`/ar` was treated as an interior page and the logo and CTA pointed at other URLs
+instead of anchoring to sections already on screen.
+
+**Decision 124 — every Arabic page shipped without a share card:**
+
+All ten `/ar` routes rendered no `og:image` and no `twitter:image`. Next fills
+those from the nearest `opengraph-image.tsx`, but declaring an `openGraph`
+object in a page's metadata stops the root `app/opengraph-image.tsx` reaching
+that route, and there is no file under `app/ar/`. Every Arabic URL pasted into
+WhatsApp, LinkedIn or X came out as a bare link.
+
+Each Arabic route now names its English counterpart's card explicitly. The card
+is in English on an Arabic page, which is not right and is recorded below as
+outstanding: an Arabic card needs approved Arabic copy and an RTL-safe
+renderer, because Satori joins Arabic glyphs badly and a broken Arabic card
+would be worse than an English one.
+
+**Decision 125 — Arabic fonts were in the critical path of every English page:**
+
+`next/font` preloads every declared family by default. Cairo is declared in the
+root layout because the chrome above `/ar` renders from there, so four weights
+of an Arabic subset were being preloaded on all twenty-five English pages,
+where nothing ever renders in Cairo. `preload: false` keeps the `@font-face`
+rule and drops the `<link rel="preload">`; `/ar` still loads Cairo on demand and
+`display: 'swap'` already covered the late arrival.
+
+**Decision 126 — AVIF was never enabled:**
+
+`next.config.js` set no `images.formats`, so the default WebP-only list applied
+and every photograph shipped heavier than it needed to. With AVIF first, the
+same source and query now serve 24.2KB where WebP served 39.5KB — measured on
+`us-gap-labor.jpg` at `w=828&q=75`. Negotiation is on the Accept header and
+falls back along the list, so nothing regresses for a browser without it.
+Largest Contentful Paint is a ranking signal; this is the cheapest place to buy
+it.
+
+**Decision 127 — every blog post title was truncated in results:**
+
+`SEO.md` caps a title at 60 characters and the root template appends
+" | Compass IT Solutions", 23 of them. Post headlines are questions written for
+search, so the nine posts rendered titles between 56 and 82 characters and were
+cut off mid-phrase, usually before the word that names Qatar.
+
+`app/blog/layout.tsx` sets the template to " | Compass ITS" for posts — the form
+each post's own `openGraph.title` has been using all along. A `title.template`
+applies to child segments rather than the one declaring it, so `/blog` keeps the
+full suffix and has room for it. Declaring it in a layout rather than per post is
+what makes it hold: posts are written into `app/blog/` by the blog bot, and the
+same fix applied nine times would be correct until the next post landed.
+
+One post was still over at 73 and its title tag is now shortened; the H1, the
+`Article` headline and the `openGraph` title keep the original question.
+
+**Decision 128 — the `/us` Service named a provider that did not exist:**
+
+`app/us/layout.tsx` emits `#us-practice` only once `lib/us.ts` holds a real
+Oregon entity, which it does not. The `Service` node named that `@id`
+unconditionally, so it shipped with a provider reference resolving to nothing —
+weaker than naming the company that does run the practice today. It now falls
+back to `#organization`, which is accurate rather than a fudge: the Doha entity
+is the provider until the Oregon one is formed. The `Service` keeps its own
+Portland/Oregon `areaServed`, so no geography shifts to Qatar, and the reference
+re-points itself the moment `hasUsIdentity()` turns true.
+
+Also trimmed: the `/us` meta description shipped at 163 characters against a
+140–160 rule, and `SEO.md` described it as 159. "across Portland and Oregon"
+became "in Portland and Oregon" and the label is now true.
+
+### Outstanding after this audit
+
+Not defects in the code, and not fixed here:
+
+- **No Arabic share card.** Needs approved Arabic copy and an RTL-safe renderer.
+- **Five English pages have no Arabic counterpart** — `/about`, `/how-we-work`,
+  `/services`, `/services/custom-solutions` and `/blog`. Their nav links stay
+  English by design. Each one written would deepen the Arabic tree.
+- **`ServiceHero`'s contact CTA stays English on Arabic service pages.** It is a
+  server component used by `app/services/custom-solutions/page.tsx`, so it cannot
+  read the language context without a wider refactor. One link per page; the nav
+  and footer CTAs are localised.
+- **`/services/custom-solutions` has one inbound link,** from `/services`. It is
+  in neither the nav dropdown nor the footer list.
+- **Blog posts have one inbound link each,** from the index. Nothing cross-links
+  posts, and no service page links the post covering its subject.
+- **26.6MB of raw JPEGs in `public/images/`,** the largest 5.3MB. Readers never
+  fetch these — `next/image` serves optimised derivatives — but they are
+  reachable directly and served with no `Cache-Control`.
+
+
 ### Changed — 2026-09-20 (Blog index uses the full width, and the feature is shorter)
 
 **Decision 122 — a card grid does not want a prose measure:**
