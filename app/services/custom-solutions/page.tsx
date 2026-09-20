@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import ServiceHero from '@/components/sections/ServiceHero'
 import ServiceSubServices from '@/components/sections/ServiceSubServices'
 import ServiceWhyUs from '@/components/sections/ServiceWhyUs'
+import SectionImage from '@/components/ui/SectionImage'
 import ContactCTA from '@/components/sections/ContactCTA'
 
 // Copy is verbatim from CONTENT.md "Custom Solutions Page"; title and
@@ -127,6 +128,17 @@ export default function CustomSolutionsPage() {
           heading="Scope, design, build, hand over"
           items={process}
         />
+
+        {/* Below the fold on purpose: lazy-loaded, never the LCP element.
+            See the note in SectionImage. */}
+        <section className="relative z-[1] pb-4">
+          <div className="max-w-[1280px] mx-auto px-6 lg:px-20">
+            <SectionImage
+              src="/images/site/custom-solutions-build.jpg"
+              alt="An engineer working across several screens during a build"
+            />
+          </div>
+        </section>
 
         <ServiceWhyUs
           eyebrow="WHY COMPASS ITS"

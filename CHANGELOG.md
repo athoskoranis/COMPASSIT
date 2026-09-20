@@ -21,6 +21,56 @@
 
 ## [Unreleased]
 
+### Added — 2026-09-20 (Photography on the service pages and /about)
+
+**Decision 117 — ten images, placed where SEO actually benefits rather than everywhere:**
+
+The brief was images across the site with SEO as the deciding factor. Deferring to SEO argues
+against full coverage, so this is deliberately selective:
+
+- **Images are not a ranking factor.** Core Web Vitals is one, and this site targets Lighthouse
+  95+. A photograph in a hero becomes the LCP element, which is the easiest way to lose that for
+  no ranking gain.
+- **Stock photography earns almost nothing in image search.** Google dedupes widely-licensed files
+  and favours original imagery, so the Google Images upside here is close to zero. What is left is
+  alt text, relevance and not breaking the page speed — and all three favour fewer, better-placed
+  images.
+
+**Where they went:** one per service page (nine), and one on `/about`. Every one sits below the
+fold, lazy-loaded, never `priority`. No image in any hero, and none on the home page.
+
+`components/ui/SectionImage.tsx` holds the pattern: a fixed aspect ratio so the box is reserved
+before the file lands and CLS stays at zero, a `sizes` attribute so no phone downloads a desktop
+file, and an Ink wash over the top — the photographs are someone else's colour temperature, and
+without it they sit on an Ink and Signal page as foreign objects.
+
+**`/about` gets the Doha skyline,** the only photograph on the site about the business rather than
+a service, and the only one with a genuine local-search reason to exist. The page says Doha; the
+picture is Doha.
+
+**What these images must never claim.** They are licensed stock. They are not photographs of
+Compass work, Compass staff or a client site, and no caption may imply otherwise — a photo
+captioned "structured cabling at a client site" would be a claim about work nobody can point to,
+which is the rule that keeps `ClientProof` empty. `SectionImage` carries the note.
+
+Photographer and source URL for every file are recorded in `public/images/site/credits.json`.
+Attribution is not required by the Pexels licence; the record exists so provenance is checkable.
+
+**Repository weight:** the originals came to 6.0MB. Capped at 1800px and quality 82 they are
+2.2MB, and `next/image` re-encodes to AVIF/WebP at delivery. The two worst offenders went from
+1.8MB and 2.4MB to 193KB and 102KB.
+
+Selection favoured cool and neutral tones. The network infrastructure photograph is fibre in almost
+exactly Signal Cyan, which is luck, but the criterion is not — warm stock on an Ink page looks
+pasted on.
+
+The API key lives in `pexelskey.env.txt`, which is gitignored along with `pexelskey*` and
+`*.env.txt`. It is not in any commit.
+
+Verified: `tsc --noEmit` and `next build` clean, all ten images return 200 and appear in the
+rendered markup of their pages.
+
+
 ### Fixed — 2026-09-20 (Dead space between the /us sections)
 
 **Decision 116 — two separate causes, one of them a real bug:**

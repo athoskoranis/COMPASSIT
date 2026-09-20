@@ -32,3 +32,4 @@ yarn-error.log*
 # Local credential files. Never commit these.
 *.env.txt
 pexelskey.env.txt
+pexelskey*
