@@ -856,3 +856,25 @@ categories and read times all come from `lib/posts.ts`.
 Arabic edition and Arabic service pages reuse the English client. There is
 therefore no Arabic string to approve here. If the blog is ever translated, this
 needs one.
+
+
+---
+
+## Arabic share card (all `/ar` routes)
+
+Added 2026-09-20 by Decision 132. Rendered into
+`public/images/og/ar-share-card.png`; regenerate with
+`scripts/build-ar-share-card.html`.
+
+**No new copy.** Every line is approved Arabic already published elsewhere on the
+site, repeated here only so a change to one is a change to both:
+
+| Line | String | Source |
+|---|---|---|
+| Eyebrow | الدوحة، قطر · خدمات تقنية معلومات مُدارة | `/ar/contact` meta description |
+| Brand | كومباس آي تي سولوشنز | `/ar` page title |
+| Tagline | مُثبَّت بإتقان. يعمل باستمرار. | `tr.ar` hero tagline, `lib/translations.ts` |
+| Services | الشبكات · السحابة · الأمن السيبراني · تطوير المواقع · الذكاء الاصطناعي | Arabic service titles, `lib/translations.ts` |
+
+If any of these strings changes, the PNG must be rebuilt — it is a picture of the
+text, not the text itself, so nothing else will pick the change up.

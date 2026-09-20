@@ -21,6 +21,82 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-09-20 (The Arabic share card, and why next/og could not draw it)
+
+Decision 124 gave every /ar route the English counterpart's card, as a stopgap,
+and recorded an Arabic one as outstanding because Satori's Arabic handling was
+unverified. This closes it.
+
+**Decision 131 — next/og cannot render Arabic correctly, measured:**
+
+Satori, the renderer behind `next/og`, shapes Arabic letters properly — joining,
+contextual forms, diacritics all correct — and performs **no bidi reordering**. It
+lays words out in source order, left to right, so every multi-word Arabic line
+renders in reverse word order.
+
+Established by probe rather than by eye, because Arabic set loosely is easy to
+misread as Arabic set wrongly, and an early read of this got it backwards.
+Rendering `"أ بببببببب"` — a one-letter word beside an eight-letter one —
+and measuring the ink columns:
+
+| | narrow word | long word | correct? |
+|---|---|---|---|
+| Browser canvas | x 1087–1098 | x 888–1066 | yes — short word on the right |
+| Satori | x 655–673 | x 693–913 | **no — short word on the left** |
+
+On the real tagline that turns "مُثبَّت بإتقان." into "بإتقان. مُثبَّت".
+
+Everything tried and rejected, so nobody repeats it:
+
+- `direction: 'rtl'` on the container, on each text node, or not at all — byte-
+  identical output in all three cases.
+- Narrow spaces (U+2009, U+200A, U+00A0, U+202F) — these tighten the gaps to match
+  a browser exactly and leave the word order broken, which is the worst outcome
+  available: it looks fixed.
+- `wordSpacing` from -0.08em to -0.3em — ignored entirely; all values render the
+  same. Passing it as `undefined` crashes the route with "Cannot read properties
+  of undefined (reading 'trim')".
+- Laying each word out as its own flex item — collides the words and reverses them
+  again.
+- The subset font renders identically to the full one, so the subsetting was never
+  implicated.
+
+Pre-reversing the words in source would work and was rejected: it puts unreadable
+text in the file, and the next person to correct it would silently break the card.
+
+**Decision 132 — the card is a committed PNG, drawn by a browser:**
+
+`public/images/og/ar-share-card.png`, 1200×630, quantised to 256 colours — 175KB
+to 36KB with no visible change, and smaller than any of the generated English
+cards. All ten /ar routes point at it.
+
+A browser canvas has a real bidi implementation, so it draws this correctly. A
+static file is also cheaper than the edge function each English card runs on. What
+it gives up is per-request data: the English side has a card per service, and one
+card serves the whole Arabic subtree. Arabic per-service cards remain a later job.
+
+`scripts/build-ar-share-card.html` regenerates it — a self-contained page that
+draws the canvas and offers the download, with the evidence above in the markup
+and the quantise command at the bottom. It loads Cairo from Google Fonts and calls
+`document.fonts.load()` for each weight before drawing: canvas takes no part in
+font loading, and without that the first paint falls back to a system Arabic face
+that looks close enough to miss. The first version of this card shipped in that
+fallback and had to be redrawn.
+
+**No new copy.** Every string is approved text already on the site — the brand name
+and tagline from the /ar page title and `lib/translations.ts`, the eyebrow from the
+/ar/contact meta description, the service names from the Arabic service titles.
+
+### Still outstanding
+
+- Five English pages have no Arabic counterpart: `/about`, `/how-we-work`,
+  `/services`, `/services/custom-solutions`, `/blog`.
+- `ServiceHero`'s contact CTA stays English on Arabic service pages.
+- Arabic per-service share cards.
+- 26.6MB of raw JPEGs in `public/images/`, reachable directly with no `Cache-Control`.
+- The "Related reading" eyebrow from Decision 130 is still awaiting sign-off.
+
+
 ### Fixed — 2026-09-20 (Internal linking: the three weakest parts of the link graph)
 
 Follow-up to the audit above, which flagged these and did not fix them.
