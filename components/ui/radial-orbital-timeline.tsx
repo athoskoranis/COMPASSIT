@@ -118,12 +118,18 @@ export default function RadialOrbitalTimeline({ timelineData, seeLabel = 'See' }
             alt="Compass ITS"
             className="absolute z-[200] w-40 h-40 object-contain"
             style={{
+              // Dimmed. The mark was inverted to pure white and carried four
+              // stacked glows at 1 / 0.9 / 0.7 / 0.4, which blew out the centre
+              // of the graphic and pulled the eye off the orbiting nodes that
+              // are the point of it. The mark sits just under white and each
+              // glow is roughly halved.
               filter: [
                 'invert(1)',
-                'drop-shadow(0 0 6px rgba(80,45,150,1))',
-                'drop-shadow(0 0 12px rgba(80,45,150,0.9))',
-                'drop-shadow(0 0 20px rgba(80,45,150,0.7))',
-                'drop-shadow(0 0 30px rgba(80,45,150,0.4))',
+                'brightness(0.82)',
+                'drop-shadow(0 0 6px rgba(80,45,150,0.55))',
+                'drop-shadow(0 0 12px rgba(80,45,150,0.42))',
+                'drop-shadow(0 0 20px rgba(80,45,150,0.30))',
+                'drop-shadow(0 0 30px rgba(80,45,150,0.18))',
               ].join(' '),
             }}
           />

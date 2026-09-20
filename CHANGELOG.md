@@ -21,6 +21,46 @@
 
 ## [Unreleased]
 
+### Changed — 2026-09-20 (Portrait photography on /us, and Why Compass out of the nav)
+
+**Decision 119 — the /us photography is inside the sections now, not between them:**
+
+The page had one full-width landscape strip sitting between two sections, which is a break in the
+page rather than part of one. It is gone, and five portrait crops are inside the content instead.
+
+**The gap section now carries a photograph per item.** `components/sections/UsGap.tsx` is a
+/us-only version of `ServiceSubServices`: four cards, each a 4:5 crop above its heading. The shared
+component stays text-only because nine Gulf service pages use it, and a restaurant kitchen would be
+wrong above a network infrastructure page.
+
+| Card | Photograph |
+|---|---|
+| Prime cost | A chef working the pass at night |
+| Labor by daypart | A server crossing a busy dining room |
+| Item-level margin | A chef plating a dish |
+| Staffing signal | A hand pulling order tickets |
+
+**The contact block gained one beside the form,** a coffee counter at 4:5, level with the ask rather
+than stacked above it. Hidden below `lg`, where it would only push the form down the page.
+
+`us-bar-interior.jpg` was deleted along with its credit — it existed only for the landscape strip.
+
+Exposure normalised as before: the kitchen-at-night frame arrived at mean luminance 36.9 and was
+lifted to 72.
+
+**Why Compass came out of the main navigation.** It was the only entry that led nowhere new — an
+anchor into the home page's own `#why-compass` section, which argues what the hero above it already
+argues. The section stays and the anchor still resolves, so anything linking to it directly still
+works; only the nav entry is gone. Removing it left every `navItems` entry with an `href`, so the
+anchor branch in both render sites narrowed to `never` and was simplified away.
+
+**The footer still links to Why Compass** in its Company column. That was not part of the ask and
+the link is not broken, so it stays until someone says otherwise.
+
+Verified: `tsc --noEmit` and `next build` clean, all five /us photographs load and the page is
+17 kB.
+
+
 ### Added — 2026-09-20 (Photography on the home page, /how-we-work and /us)
 
 **Decision 118 — the remaining pages, and two problems the first pass hid:**

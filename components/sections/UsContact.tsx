@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import Image from 'next/image'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
 
 /**
@@ -102,12 +103,29 @@ export default function UsContact({
   return (
     <section id="contact" className="py-20 lg:py-28 relative z-[1]">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-20">
-        {/* Centred. This is the last thing on the page and the only ask on it,
-            so it sits in the middle of the column rather than hanging off the
-            left edge under a full-width section above it. The header is centred;
-            the fields are not, because a centred label over a full-width input
-            reads as a mistake. */}
-        <div className="max-w-[640px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] gap-10 lg:gap-14 items-center">
+
+          {/* Portrait crop beside the form rather than a strip above it. The
+              page sells to rooms like this one, and putting it level with the
+              ask says so while the reader is deciding whether to fill it in.
+              Hidden below lg: on a phone it would only push the form down. */}
+          <div className="relative hidden lg:block aspect-[4/5] w-full overflow-hidden rounded-xl border border-paper/[0.10]">
+            <Image
+              src="/images/site/us-contact-coffee-bar.jpg"
+              alt="A coffee shop counter with an espresso machine and menu board"
+              fill
+              sizes="(min-width: 1024px) 460px, 0px"
+              className="object-cover"
+            />
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent"
+            />
+          </div>
+
+          {/* Header centred, fields not — a centred label over a full-width
+              input reads as a mistake. */}
+          <div className="max-w-[640px] mx-auto w-full">
           <div className="text-center">
             <EyebrowLabel className="mb-5 block">{eyebrow}</EyebrowLabel>
 
@@ -238,6 +256,7 @@ export default function UsContact({
               </button>
             </form>
           )}
+          </div>
         </div>
       </div>
     </section>

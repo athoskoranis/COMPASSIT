@@ -1,6 +1,5 @@
 'use client'
 import ServiceHero from '@/components/sections/ServiceHero'
-import ServiceSubServices from '@/components/sections/ServiceSubServices'
 import ServiceWhyUs from '@/components/sections/ServiceWhyUs'
 import UsDashboardPreview from '@/components/sections/UsDashboardPreview'
 import UsOnePoint from '@/components/sections/UsOnePoint'
@@ -8,7 +7,7 @@ import UsSecondAccount from '@/components/sections/UsSecondAccount'
 import UsTiers from '@/components/sections/UsTiers'
 import UsPlatforms from '@/components/sections/UsPlatforms'
 import UsContact from '@/components/sections/UsContact'
-import SectionImage from '@/components/ui/SectionImage'
+import UsGap from '@/components/sections/UsGap'
 
 /**
  * The US practice page.
@@ -129,15 +128,35 @@ export default function UsPageClient() {
         footnote="Neither account is wrong, and you want both. Only one of them saw every shift — and where something moved, it says what moved, what it cost, and what to do next."
       />
 
-      <ServiceSubServices
+      <UsGap
         eyebrow="THE GAP"
         heading="Your POS counts sales. It doesn't count cost."
         intro="Sales reporting answers one question: what went out the door. It leaves the questions that decide whether the month works — what the food and labor cost together, which items earn their place on the menu, which hours are overstaffed and which are quietly losing you covers. Those numbers exist. They sit across the POS, the invoices and the schedule, and nothing joins them up."
         items={[
-          { title: 'Prime cost', description: 'Food and labor together, against sales, for the period you choose rather than the one the POS defaults to.' },
-          { title: 'Labor by daypart', description: 'Cost as a percentage of sales, hour by hour, so an overstaffed Tuesday lunch shows up as a number instead of a feeling.' },
-          { title: 'Item-level margin', description: 'Measured against the costs you enter, so the menu can be read by what it earns rather than by what it sells.' },
-          { title: 'Staffing signal', description: 'Revenue by hour set against who was on, which is the same data your schedule should be built from.' },
+          {
+            title: 'Prime cost',
+            description: 'Food and labor together, against sales, for the period you choose rather than the one the POS defaults to.',
+            image: '/images/site/us-gap-prime-cost.jpg',
+            alt: 'A chef working the pass in a restaurant kitchen at night',
+          },
+          {
+            title: 'Labor by daypart',
+            description: 'Cost as a percentage of sales, hour by hour, so an overstaffed Tuesday lunch shows up as a number instead of a feeling.',
+            image: '/images/site/us-gap-labor.jpg',
+            alt: 'A server carrying plates through a busy dining room',
+          },
+          {
+            title: 'Item-level margin',
+            description: 'Measured against the costs you enter, so the menu can be read by what it earns rather than by what it sells.',
+            image: '/images/site/us-gap-item-margin.jpg',
+            alt: 'A chef plating a dish in a professional kitchen',
+          },
+          {
+            title: 'Staffing signal',
+            description: 'Revenue by hour set against who was on, which is the same data your schedule should be built from.',
+            image: '/images/site/us-gap-staffing.jpg',
+            alt: 'A hand pulling order tickets in a busy kitchen',
+          },
         ]}
       />
 
@@ -191,19 +210,6 @@ export default function UsPageClient() {
         groups={platformGroups}
         footnote="Running something else? If it exports on a schedule or holds its data somewhere we can reach, we can usually work with it. Ask, and we'll tell you either way."
       />
-
-      {/* The one photograph on this page. Everything above it is screens and
-          figures; the business being sold to is a room with people in it, and
-          the page had stopped saying so. Below the fold, lazy. */}
-      <section className="relative z-[1] pb-4">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-20">
-          <SectionImage
-            src="/images/site/us-bar-interior.jpg"
-            alt="A bar counter with glassware, lit for evening service"
-            aspect="aspect-[21/9]"
-          />
-        </div>
-      </section>
 
       <ServiceWhyUs
         eyebrow="WHY US"
