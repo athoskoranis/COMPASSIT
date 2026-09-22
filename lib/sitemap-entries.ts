@@ -4,13 +4,13 @@ import { AR_ROUTES, alternatesFor } from '@/lib/locale'
 export const BASE = 'https://compass-its.com'
 
 // Bump when the copy on the static pages changes. See the note in sitemapEntries().
-const CONTENT_UPDATED = '2026-08-23'
+const CONTENT_UPDATED = '2026-09-20'
 
 // The US practice page is dated separately. It was built long after the rest and
 // will change on its own schedule while the practice launches, so folding it into
 // CONTENT_UPDATED would either backdate it or tell Google that ten Gulf pages
 // changed every time a US price moved.
-const US_UPDATED = '2026-09-17'
+const US_UPDATED = '2026-09-20'
 
 // alternatesFor() returns site-relative paths because page metadata resolves
 // them against metadataBase. A sitemap has no such base, so xhtml:link entries
@@ -35,15 +35,15 @@ const services = [
 // Article dates are fixed, not build-time — a post that hasn't changed
 // shouldn't report a fresh lastModified on every deploy.
 const posts = [
-  { slug: 'how-it-services-help-businesses-reduce-costs', published: '2026-08-21' },
-  { slug: 'how-to-build-network-infrastructure-qatar', published: '2026-08-14' },
-  { slug: 'how-cyber-security-reduces-business-risks', published: '2026-08-13' },
-  { slug: 'cloud-artificial-intelligence-it-innovation', published: '2026-08-13' },
-  { slug: 'generative-ai-consulting-qatar', published: '2026-07-06' },
-  { slug: 'cloud-migration-services-qatar', published: '2026-07-06' },
-  { slug: 'penetration-testing-services-qatar', published: '2026-07-06' },
-  { slug: 'ai-agents-for-business-gcc', published: '2026-07-06' },
-  { slug: 'ai-workflow-automation-gcc-businesses', published: '2026-06-01' },
+  { slug: 'how-it-services-help-businesses-reduce-costs', published: '2026-08-21', updated: '2026-09-20' },
+  { slug: 'how-to-build-network-infrastructure-qatar', published: '2026-08-14', updated: '2026-09-20' },
+  { slug: 'how-cyber-security-reduces-business-risks', published: '2026-08-13', updated: '2026-09-20' },
+  { slug: 'cloud-artificial-intelligence-it-innovation', published: '2026-08-13', updated: '2026-09-20' },
+  { slug: 'generative-ai-consulting-qatar', published: '2026-07-06', updated: '2026-09-20' },
+  { slug: 'cloud-migration-services-qatar', published: '2026-07-06', updated: '2026-09-20' },
+  { slug: 'penetration-testing-services-qatar', published: '2026-07-06', updated: '2026-09-20' },
+  { slug: 'ai-agents-for-business-gcc', published: '2026-07-06', updated: '2026-09-20' },
+  { slug: 'ai-workflow-automation-gcc-businesses', published: '2026-06-01', updated: '2026-09-20' },
 ]
 
 export function sitemapEntries(): MetadataRoute.Sitemap {
@@ -56,12 +56,26 @@ export function sitemapEntries(): MetadataRoute.Sitemap {
   // the Services level. The previous value predated /services existing at
   // all, so the sitemap was reporting a modification date for a page that
   // had not been written yet.
+  //
+  // 2026-09-20: every page in this list changed. The services menu moved into
+  // the server HTML, adding ten links to the chrome of every page, and the /ar
+  // pages had every nav, footer and service-card href switched to its Arabic
+  // counterpart. Left at 2026-08-23 the sitemap would have told Google nothing
+  // had changed in four weeks, delaying the re-crawl of the exact links added
+  // to make the site easier to crawl.
   const contentUpdated = new Date(CONTENT_UPDATED)
 
   // The blog index genuinely does change whenever a post lands, and that date is
   // already known, so it is derived rather than declared.
+  //
+  // Whichever is later, the newest post or the last template change. Derived
+  // from post dates alone it reported 2026-08-21 -- the date of the newest post
+  // -- through both the rebuild of this page into a featured-plus-grid layout
+  // and the nav change that put ten more links in its markup. A page can change
+  // without its list of posts changing.
   const newestPost = posts
-    .map((p) => p.published)
+    .map((p) => p.updated ?? p.published)
+    .concat(CONTENT_UPDATED)
     .sort()
     .reverse()[0]
 
@@ -135,7 +149,7 @@ export function sitemapEntries(): MetadataRoute.Sitemap {
     })),
     ...posts.map((post) => ({
       url: `${BASE}/blog/${post.slug}`,
-      lastModified: new Date(post.published),
+      lastModified: new Date(post.updated ?? post.published),
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     })),

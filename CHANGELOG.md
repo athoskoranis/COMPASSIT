@@ -21,6 +21,46 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-09-20 (Sitemap lastmod did not reflect three releases of changes)
+
+**Decision 133 — the sitemap was reporting a four-week-old modification date:**
+
+A crawl audit reconciled cleanly — 35 sitemap URLs, every one reachable by
+following links from the home page, none orphaned, none missing, all 200, all
+self-canonical, none noindexed, real 404s on bad paths, `/_next/` not blocked, and
+every page's copy present in the server HTML rather than assembled by script. The
+one thing that did not hold up was `lastmod`.
+
+`CONTENT_UPDATED` is a manual constant, deliberately so: `new Date()` there once
+told Google on every deploy that all ten Gulf pages had changed, which trains it
+to ignore the field. But it was last bumped on 2026-08-23, and Decisions 123–132
+changed every page on the site — the services menu moved into the server HTML,
+putting ten more links in the chrome of all 35 pages, and the /ar pages had every
+nav, footer and service-card href repointed at its Arabic counterpart.
+
+So the sitemap was claiming nothing had changed in four weeks, which delays the
+re-crawl of the very links added to make the site easier to crawl. Every date in
+the sitemap now reads 2026-09-20.
+
+Three parts to it:
+
+- `CONTENT_UPDATED` bumped to 2026-09-20.
+- `US_UPDATED` bumped too. It is dated separately so a US price change does not
+  backdate ten Gulf pages, but separate is not frozen — `/us` did change that day
+  (meta description trimmed to the 140–160 rule, Service schema stopped naming a
+  provider entity that does not exist).
+- Posts gained an optional `updated`, which overrides `published` for
+  `lastModified`. The blog index derives from it as well, taking whichever is
+  later of the newest post and the last template change — from post dates alone
+  it reported 2026-08-21 straight through its own rebuild into a
+  featured-plus-grid layout.
+
+**`updated` is deliberately not wired to the Article schema's `dateModified`.**
+That field describes when the article was revised. These posts gained a shorter
+title tag and a related-reading block while the writing stayed exactly as it was,
+and reporting a fresh `dateModified` for that would claim an editorial update that
+did not happen. `lastmod` answers "has this URL changed", which it has;
+`dateModified` answers "was this article rewritten", which it was not.
 ### Fixed — 2026-09-20 (The Arabic share card, and why next/og could not draw it)
 
 Decision 124 gave every /ar route the English counterpart's card, as a stopgap,
