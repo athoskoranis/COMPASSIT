@@ -13,6 +13,16 @@ export type Post = {
 // silently go stale. Newest first.
 export const posts: Post[] = [
   {
+    slug: 'ai-solutions-qatar-transforming-businesses',
+    category: 'AI & MANAGED IT',
+    title: 'How AI Solutions in Qatar Are Transforming Businesses?',
+    excerpt:
+      'AI solutions have moved out of the pilot deck and into daily operations across Qatar. Here is where they are already working, how businesses move a pilot to something that scales, and what to get right before you do.',
+    date: 'September 2026',
+    readTime: '7 min read',
+    image: '/images/blog/ai-solutions-qatar-transforming-businesses-1.jpg',
+  },
+  {
     slug: 'how-it-services-help-businesses-reduce-costs',
     category: 'IT SERVICES',
     title: 'How IT Services Help Businesses Reduce Costs?',
