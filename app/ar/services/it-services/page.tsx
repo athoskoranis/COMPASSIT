@@ -7,11 +7,10 @@ export const metadata: Metadata = {
     canonical: '/ar/services/it-services',
     languages: { en: '/services/it-services', ar: '/ar/services/it-services', 'x-default': '/services/it-services' },
   },
-  // Share card. Declaring openGraph here stops the root
-  // app/opengraph-image.tsx reaching this route, so it has to name one
-  // explicitly — see app/ar/page.tsx for why it is the English card.
-  openGraph: { url: '/ar/services/it-services', locale: 'ar_QA', images: ['/services/it-services/opengraph-image'] },
-  twitter: { images: ['/services/it-services/opengraph-image'] },
+  // Share card. Declaring openGraph here stops the file-convention image
+  // reaching this route, so it names the Arabic card explicitly.
+  openGraph: { url: '/ar/services/it-services', locale: 'ar_QA', images: ['/images/og/ar-share-card.png'] },
+  twitter: { images: ['/images/og/ar-share-card.png'] },
 }
 
 import Client from '@/app/services/it-services/client'

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Rebuild the Arabic share card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#0B0E10; --paper:#F4F2EC; --signal:#2BB3E6; }
+  body { margin:0; padding:32px; background:var(--ink); color:var(--paper);
+         font:15px/1.6 ui-sans-serif, system-ui, sans-serif; }
+  h1 { font-size:20px; margin:0 0 4px; }
+  p { max-width:70ch; color:rgba(244,242,236,0.7); }
+  code { background:rgba(244,242,236,0.08); padding:1px 5px; border-radius:4px;
+         font-family:ui-monospace, Menlo, Consolas, monospace; font-size:13px; }
+  canvas { border:1px solid rgba(244,242,236,0.15); border-radius:8px;
+           max-width:100%; height:auto; margin:20px 0; display:block; }
+  a.btn { display:inline-block; background:var(--signal); color:var(--ink);
+          text-decoration:none; font-weight:600; padding:10px 18px; border-radius:8px; }
+  .warn { border-inline-start:3px solid var(--signal); padding-inline-start:14px; }
+</style>
+</head>
+<body>
+
+<h1>Rebuild the Arabic share card</h1>
+
+<p>Regenerates <code>public/images/og/ar-share-card.png</code>, the Open Graph card
+served for every <code>/ar</code> route. Open this file in a browser, wait for the
+canvas below to draw, then use the button to download and replace that file.</p>
+
+<div class="warn">
+  <p><strong>Why this is a static image rather than a generated one.</strong>
+  Every other share card on the site is drawn at request time by
+  <code>next/og</code>. That renderer (Satori) shapes Arabic letters and joins them
+  correctly, but performs no bidi reordering: it lays words out in source order,
+  left to right, so every multi-word Arabic line comes out in reverse word order.
+  Measured rather than guessed — rendering <code>"أ بببببببب"</code> puts the
+  one-letter word on the left, where a browser puts it on the right. Setting
+  <code>direction: rtl</code> changes nothing, and <code>wordSpacing</code> is
+  ignored. A browser canvas has a real bidi implementation, so the card is drawn
+  here instead and committed as a file.</p>
+</div>
+
+<p><strong>If you change the copy</strong>, edit the strings below, reload, download,
+and commit the new PNG. Keep the strings identical to the approved Arabic in
+<code>lib/translations.ts</code> and the <code>/ar</code> page metadata — this card
+must not introduce copy that exists nowhere else.</p>
+
+<canvas id="c" width="1200" height="630"></canvas>
+<a id="dl" class="btn" download="ar-share-card.png">Download ar-share-card.png</a>
+
+<script>
+// The approved Arabic strings. Sources, in order:
+//   eyebrow  — built from the /ar/contact meta description
+//   brand    — the /ar page title
+//   tagline  — tr.ar.hero.tagline in lib/translations.ts
+//   services — the Arabic service titles in lib/translations.ts
+const EYEBROW  = 'الدوحة، قطر · خدمات تقنية معلومات مُدارة'
+const BRAND    = 'كومباس آي تي سولوشنز'
+const TAGLINE  = 'مُثبَّت بإتقان. يعمل باستمرار.'
+const SERVICES = 'الشبكات · السحابة · الأمن السيبراني · تطوير المواقع · الذكاء الاصطناعي'
+
+const W = 1200, H = 630, FAM = 'Cairo'
+
+async function draw () {
+  // Canvas takes no part in font loading, so each weight is requested explicitly
+  // before drawing. Without this the first paint silently falls back to a system
+  // Arabic face, which looks close enough to miss and is not the brand font.
+  await Promise.all([400, 500, 700].map(w => document.fonts.load(`${w} 66px ${FAM}`, BRAND)))
+  await document.fonts.ready
+
+  const g = document.getElementById('c').getContext('2d')
+  g.fillStyle = '#0B0E10'; g.fillRect(0, 0, W, H)
+
+  // Cyan wash in the outer top corner — the left, on a right-to-left card.
+  const blob = g.createRadialGradient(130, 130, 0, 130, 130, 250)
+  blob.addColorStop(0, 'rgba(43,179,230,0.12)')
+  blob.addColorStop(1, 'rgba(43,179,230,0)')
+  g.fillStyle = blob; g.fillRect(0, 0, 500, 500)
+
+  // direction + textAlign are what invoke the browser's bidi engine. Both matter.
+  g.direction = 'rtl'; g.textAlign = 'right'
+  const R = W - 96
+
+  g.fillStyle = '#2BB3E6';               g.font = `500 22px ${FAM}`; g.fillText(EYEBROW, R, 190)
+  g.fillStyle = '#F4F2EC';               g.font = `700 66px ${FAM}`; g.fillText(BRAND, R, 286)
+  g.fillStyle = 'rgba(244,242,236,0.55)'; g.font = `400 38px ${FAM}`; g.fillText(TAGLINE, R, 360)
+  g.fillStyle = 'rgba(244,242,236,0.35)'; g.font = `400 24px ${FAM}`; g.fillText(SERVICES, R, 452)
+
+  // Accent bar, mirrored to run from the right.
+  const bar = g.createLinearGradient(W, 0, 0, 0)
+  bar.addColorStop(0, '#2BB3E6')
+  bar.addColorStop(0.6, 'rgba(43,179,230,0.3)')
+  bar.addColorStop(1, 'rgba(43,179,230,0)')
+  g.fillStyle = bar; g.fillRect(0, H - 4, W, 4)
+
+  document.getElementById('dl').href = document.getElementById('c').toDataURL('image/png')
+}
+
+draw()
+</script>
+
+<p>The committed file is quantised to a 256-colour palette, which takes it from
+roughly 175KB to 36KB with no visible change. The download here is the full-colour
+version; quantise before committing, for example:</p>
+<p><code>python -c "from PIL import Image; Image.open('ar-share-card.png').convert('RGB').quantize(colors=256).save('ar-share-card.png', optimize=True)"</code></p>
+
+</body>
+</html>
