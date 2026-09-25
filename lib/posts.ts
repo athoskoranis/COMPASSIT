@@ -13,6 +13,16 @@ export type Post = {
 // silently go stale. Newest first.
 export const posts: Post[] = [
   {
+    slug: 'healthcare-it-service-qatar-guide',
+    category: 'IT SERVICES',
+    title: 'Healthcare IT Service in Qatar: A Complete Guide',
+    excerpt:
+      'What healthcare IT service actually means for a Qatar medical center: the systems that need to stay up, the compliance requirements that apply to patient data, and how to pick a firm that understands clinical operations rather than just generic office IT.',
+    date: 'September 2026',
+    readTime: '7 min read',
+    image: '/images/blog/healthcare-it-service-qatar-guide-1.jpg',
+  },
+  {
     slug: 'ai-solutions-qatar-transforming-businesses',
     category: 'AI & MANAGED IT',
     title: 'How AI Solutions in Qatar Are Transforming Businesses?',
