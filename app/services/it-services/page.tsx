@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import { serviceData } from '@/lib/serviceTranslations'
+import { faqNodes } from '@/lib/faqSchema'
 import ITServicesPageClient from './client'
 
 export const metadata: Metadata = {
@@ -39,26 +41,7 @@ const jsonLd = {
         { '@type': 'ListItem', position: 3, name: 'IT Services', item: 'https://compass-its.com/services/it-services' },
       ],
     },
-    {
-      '@type': 'FAQPage',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'What is a managed IT service?',
-          acceptedAnswer: { '@type': 'Answer', text: 'A managed IT service means outsourcing your IT operations to a dedicated provider like Compass IT Solutions who monitors, manages, and supports your technology infrastructure for a fixed monthly fee — eliminating the need for a full in-house IT team.' },
-        },
-        {
-          '@type': 'Question',
-          name: 'Do you offer on-site IT support in Qatar?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Yes, Compass IT Solutions provides both on-site and remote IT support across Qatar and the GCC, with rapid response times. Simply submit a request and our team will get back to you without delay.' },
-        },
-        {
-          '@type': 'Question',
-          name: 'What is an IT Annual Maintenance Contract (AMC)?',
-          acceptedAnswer: { '@type': 'Answer', text: 'An IT AMC is a service agreement where Compass IT Solutions provides scheduled maintenance, proactive monitoring, and priority support for your IT infrastructure throughout the year under one fixed annual agreement.' },
-        },
-      ],
-    },
+    ...faqNodes(serviceData['it-services'].en.faq),
   ],
 }
 

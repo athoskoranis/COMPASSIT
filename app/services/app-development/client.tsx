@@ -3,6 +3,7 @@ import { useLanguage } from '@/context/LanguageContext'
 import ServiceHero from '@/components/sections/ServiceHero'
 import ServiceSubServices from '@/components/sections/ServiceSubServices'
 import ServiceWhyUs from '@/components/sections/ServiceWhyUs'
+import ServiceFAQ from '@/components/sections/ServiceFAQ'
 import ContactCTA from '@/components/sections/ContactCTA'
 import SectionImage from '@/components/ui/SectionImage'
 import { serviceData } from '@/lib/serviceTranslations'
@@ -28,6 +29,7 @@ export default function AppDevelopmentPageClient() {
       </section>
 
       <ServiceWhyUs {...d.whyUs} />
+      {d.faq && <ServiceFAQ faqs={d.faq} />}
       <ContactCTA />
     </main>
   )
