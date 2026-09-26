@@ -40,7 +40,6 @@ These apply to all pages unless overridden by a page-specific OG block below.
 <meta property="og:image:height" content="630" />
 <meta property="og:locale" content="en_QA" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:site" content="@compass.its" />
 ```
 
 **OG image spec:** 1200 × 630px · Dark Ink background · Horizontal logo (white) · Tagline "Wired right. Kept running." in Archivo 300 · Signal Cyan accent line. File: `/public/brand/og-image.png`.
@@ -91,7 +90,10 @@ IT solutions Doha · MSP Qatar · network infrastructure Qatar · cloud services
     "email": "info@compass-its.com"
   },
   "sameAs": [
-    "https://instagram.com/compass.its"
+    "https://www.linkedin.com/company/compassits/",
+    "https://www.instagram.com/compassits/",
+    "https://www.f6s.com/company/compass-it-solutions",
+    "https://compass-group.me/"
   ],
   "foundingDate": "2018"
 }

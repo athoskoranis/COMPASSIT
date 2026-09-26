@@ -60,9 +60,10 @@ export const metadata: Metadata = {
     description:
       'Managed IT services for organisations across Qatar and the GCC. Network infrastructure, cloud, cybersecurity, and web development — wired right the first time.',
   },
+  // No `site` handle: the business has no X account. `@compass.its` pointed at
+  // nothing and was the Instagram handle misspelt besides.
   twitter: {
     card: 'summary_large_image',
-    site: '@compass.its',
   },
   robots: { index: true, follow: true },
   verification: {
@@ -151,7 +152,16 @@ const jsonLd = {
       ],
       currenciesAccepted: 'QAR',
       priceRange: '$$',
-      sameAs: ['https://instagram.com/compass.its'],
+      // Every profile that names this business, so Google can reconcile the entity
+      // against the six other Doha companies trading as some form of "Compass".
+      // LinkedIn first: it is the profile a brand search surfaces. The Instagram
+      // handle is @compassits — the old value pointed at a handle that does not exist.
+      sameAs: [
+        'https://www.linkedin.com/company/compassits/',
+        'https://www.instagram.com/compassits/',
+        'https://www.f6s.com/company/compass-it-solutions',
+        'https://compass-group.me/',
+      ],
       foundingDate: '2018',
     },
     {

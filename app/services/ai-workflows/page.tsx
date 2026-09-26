@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import { serviceData } from '@/lib/serviceTranslations'
+import { faqNodes } from '@/lib/faqSchema'
 import AIWorkflowsPageClient from './client'
 
 export const metadata: Metadata = {
@@ -39,26 +41,7 @@ const jsonLd = {
         { '@type': 'ListItem', position: 3, name: 'AI Workflow Automation', item: 'https://compass-its.com/services/ai-workflows' },
       ],
     },
-    {
-      '@type': 'FAQPage',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'What is AI workflow automation?',
-          acceptedAnswer: { '@type': 'Answer', text: 'AI workflow automation uses artificial intelligence to handle repetitive business processes — such as invoice processing, lead qualification, WhatsApp and lead bots, and document handling — reducing manual work and improving efficiency for businesses in Qatar and the GCC.' },
-        },
-        {
-          '@type': 'Question',
-          name: 'Can AI automation work for small businesses in Qatar?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Yes, AI automation solutions are scalable and can be tailored for businesses of any size. Compass IT Solutions works with SMEs across Qatar to implement cost-effective automation that delivers measurable ROI.' },
-        },
-        {
-          '@type': 'Question',
-          name: 'What business processes can be automated with AI in Qatar?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Common automation use cases for Gulf businesses include WhatsApp and lead bots, invoice and quote processing, document classification, customer support automation, reporting, and data entry — all implementable for businesses across Qatar, Saudi Arabia, and the UAE.' },
-        },
-      ],
-    },
+    ...faqNodes(serviceData['ai-workflows'].en.faq),
   ],
 }
 

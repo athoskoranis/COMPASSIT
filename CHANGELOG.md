@@ -21,6 +21,87 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-09-26 (Entity signals and FAQ schema that described invisible content)
+
+**Decision 134 — the SEO audit found the site technically sound and off-site
+weak, and four code changes that make the off-site work count:**
+
+Search Console for the 28 days to 26 September: 1,232 impressions, 18 clicks,
+average position 16.6, ten of 37 URLs earning any impressions, up from 451 / 6 /
+19.0 the month before. Backlinks: 36, every one a sitewide footer link from a
+sister Compass site. On a brand search from Qatar the home page is the fifth web
+result, behind Compass Qatar catering's LinkedIn page. The AI Overviews for
+"AI companies Qatar" cite Clutch, The Manifest, Tezeract and Reddit — lists the
+business is on none of. That work is off-site and is handed to the SEO
+specialist separately. What follows is the part that lives in this repo.
+
+**`sameAs` pointed at a handle that does not exist.** `app/layout.tsx` gave
+`instagram.com/compass.its`; the account is `@compassits`, which the footer and
+Google both use. The list now carries LinkedIn
+(`linkedin.com/company/compassits`, verified live, 5 followers), the correct
+Instagram handle, the F6S profile (`f6s.com/company/compass-it-solutions`,
+verified live) and `compass-group.me`, which links back to this site from its
+contact page. Google uses `sameAs` to reconcile which "Compass IT Solutions"
+this is, and there are at least six other Doha businesses trading under some
+form of the name. Directory profiles the specialist creates are to be appended
+here as each goes live. `SEO.md` updated to match.
+
+**`twitter:site` removed.** It named `@compass.its`, the misspelt Instagram
+handle; the business has no X account. A card handle that resolves to nothing
+is worse than none.
+
+**FAQ schema now describes what the visitor can read.** Seven of the eight
+English service pages carried a hand-written `FAQPage` node in `page.tsx` whose
+questions appeared nowhere in the rendered HTML, and the two that did render a
+FAQ (`cybersecurity`, `digital-marketing`) showed different questions from the
+ones their schema declared. Verified against the live pages before the change:
+`it-services`, `network-infrastructure`, `cloud-solutions`, `web-development`,
+`ai-workflows`, `app-development` and `cybersecurity` each had 3 schema
+questions and 0 visible; `digital-marketing` had 6 and 1. Google's structured
+data policy requires FAQ markup to reflect visible content, so this was a
+manual-action risk on seven pages, and it is exactly the kind of drift
+Decision 118 removed from the blog index.
+
+The fix is a single source. `lib/faqSchema.ts` exports `faqNodes(faqs)`, which
+builds the `FAQPage` node from the same array `ServiceFAQ` renders and returns
+`[]` when there is no copy, so a page without a FAQ contributes nothing to
+`@graph` rather than a `null`. Every service `page.tsx` spreads it from
+`serviceData[slug].en.faq`. The five services that had schema-only questions
+(`it-services`, `network-infrastructure`, `cloud-solutions`, `web-development`,
+`ai-workflows`) had those questions moved verbatim into their `en.faq` so the
+copy is now visible; the three that already had `en.faq` keep the visible set
+and drop the schema-only one. `ServiceFAQ` is mounted before `ContactCTA` on the
+six clients that lacked it. Verified in the build output: schema questions and
+visible questions match on all eight pages (3/3 on seven, 6/6 on
+`digital-marketing`); `custom-solutions` has no FAQ copy and emits no node.
+
+One word changed while relocating copy: the web development answer said sites
+work "seamlessly across all devices". "Seamless" is on the `VOICE.md` never
+list; it now reads "across all devices". Nothing else in the moved copy was
+edited.
+
+**Arabic service pages still carry no FAQ schema**, and only three have Arabic
+FAQ copy. `faqNodes` takes any array, so wiring `ar.faq` is a one-line change
+per page once the copy exists — it is left unwired rather than emitting an
+English FAQ under an Arabic URL.
+
+**Two H1s lost their superlatives.** `Top Cyber Security Service Provider in
+Qatar, GCC` is now `Cybersecurity Services in Qatar, GCC`; `Best IT Service
+Company In Qatar-GCC` is `Managed IT Services in Qatar, GCC`. `VOICE.md` bans
+"best-in-class" and "industry-leading", and a claim of being the best or top
+provider is the same claim in fewer words. The other six H1s make no such
+claim and are unchanged. Google had started lifting body copy instead of the
+meta description for the IT services snippet, which is what a stuffed heading
+earns.
+
+Verified: `npm run build` clean at 38 routes; `sameAs` and the absence of
+`twitter:site` confirmed in the built home page.
+
+**Left for people, not code:** named blog authors (Article `author` is still
+the organisation node, pending names), the client proof section (still empty),
+GA4 in the group dashboard (no property ID), and the dashboard keyword set.
+All four are listed with what unblocks them in the specialist's plan.
+
 ### Fixed — 2026-09-20 (Sitemap lastmod did not reflect three releases of changes)
 
 **Decision 133 — the sitemap was reporting a four-week-old modification date:**

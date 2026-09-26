@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import { serviceData } from '@/lib/serviceTranslations'
+import { faqNodes } from '@/lib/faqSchema'
 import NetworkInfrastructurePageClient from './client'
 
 export const metadata: Metadata = {
@@ -39,26 +41,7 @@ const jsonLd = {
         { '@type': 'ListItem', position: 3, name: 'Network Infrastructure', item: 'https://compass-its.com/services/network-infrastructure' },
       ],
     },
-    {
-      '@type': 'FAQPage',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'What is network infrastructure?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Network infrastructure includes all the hardware and software — routers, switches, firewalls, and cabling — that connects devices and enables communication within and between business locations. Proper network infrastructure is essential for business continuity and productivity.' },
-        },
-        {
-          '@type': 'Question',
-          name: 'How often should network infrastructure be upgraded?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Business networks should typically be reviewed every 3–5 years, or sooner if performance issues arise. Compass IT Solutions provides network assessments to identify when upgrades are needed and what improvements will deliver the best ROI.' },
-        },
-        {
-          '@type': 'Question',
-          name: 'Does Compass IT Solutions provide network support across Qatar?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Yes, Compass IT Solutions provides network design, installation, and ongoing managed network services for businesses across Doha and the wider Qatar and GCC region, with both on-site and remote support available.' },
-        },
-      ],
-    },
+    ...faqNodes(serviceData['network-infrastructure'].en.faq),
   ],
 }
 
