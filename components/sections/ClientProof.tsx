@@ -10,9 +10,10 @@ import { clientLogos, references, hasClientProof } from '@/lib/clients'
  * social proof at all, so this section simply does not exist until the assets
  * do. Adding one logo or one reference brings it to life.
  *
- * The reference sits left and the logo grid right, because a named person
+ * The reference sits left and the logo strip right, because a named person
  * saying something specific outranks a wall of marks. Logos are dimmed and lift
- * on hover so they read as evidence rather than decoration.
+ * on hover so they read as evidence rather than decoration; the strip pauses
+ * while hovered so a mark can be read.
  */
 export default function ClientProof() {
   if (!hasClientProof()) return null
@@ -44,23 +45,40 @@ export default function ClientProof() {
           {clientLogos.length > 0 && (
             <div>
               <EyebrowLabel dim className="mb-5 block">
-                Worked with
+                Clients &amp; Affiliates
               </EyebrowLabel>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-px bg-paper/10 border border-paper/10 rounded-lg overflow-hidden">
-                {clientLogos.map((logo) => (
-                  <div
-                    key={logo.src}
-                    className="bg-ink h-[84px] flex items-center justify-center px-5"
-                  >
-                    <Image
-                      src={logo.src}
-                      alt={logo.name}
-                      width={120}
-                      height={40}
-                      className="max-h-8 w-auto object-contain opacity-40 hover:opacity-70 transition-opacity duration-300"
-                    />
-                  </div>
-                ))}
+              {/* Option C from the 28 September review: a slow strip rather than
+                  a bounded grid, so the row stays one line tall however many
+                  marks lib/clients.ts carries. The list renders twice; the
+                  second copy is hidden from assistive tech and dropped under
+                  reduced motion, where the strip becomes a static wrapped row. */}
+              <div className="client-marquee border-y border-paper/10 py-7">
+                {/* Duration scales with the count so the strip moves at the same
+                    pace whether it holds six marks or sixty: about four seconds
+                    per mark for one full pass. */}
+                <div
+                  className="client-marquee-track"
+                  style={{ animationDuration: `${Math.max(24, clientLogos.length * 4)}s` }}
+                >
+                  {[false, true].map((duplicate) =>
+                    clientLogos.map((logo) => (
+                      <div
+                        key={`${logo.src}${duplicate ? '-dup' : ''}`}
+                        className="flex items-center shrink-0"
+                        aria-hidden={duplicate || undefined}
+                        data-duplicate={duplicate || undefined}
+                      >
+                        <Image
+                          src={logo.src}
+                          alt={duplicate ? '' : logo.name}
+                          width={120}
+                          height={40}
+                          className="max-h-8 w-auto object-contain opacity-40 hover:opacity-70 transition-opacity duration-300"
+                        />
+                      </div>
+                    )),
+                  )}
+                </div>
               </div>
             </div>
           )}
