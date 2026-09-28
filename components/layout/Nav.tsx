@@ -149,6 +149,7 @@ export default function Nav() {
           <img
             src="/brand/compass-its-horizontal-dark.svg"
             alt="Compass ITS"
+            width={139}
             height={36}
             className="object-contain transition-all duration-300"
             style={{
