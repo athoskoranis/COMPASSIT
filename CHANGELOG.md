@@ -81,10 +81,12 @@ text, and are unchanged.
 **Two map iframes** (`Footer`, `/contact`) gained a `title`; Lighthouse's
 frame-title audit was the other accessibility failure.
 
-**Not changed, needs a decision:** the schema declares Sunday to Thursday
-08:00–17:00 and the Google Business Profile declares Monday to Sunday
-08:00–18:00. One of them is wrong. The schema follows whichever the client
-confirms.
+**Opening hours corrected.** The schema declared Sunday to Thursday
+08:00–17:00 and the Google Business Profile declared Monday to Sunday
+08:00–18:00; the client confirmed neither. The true hours are **Sunday to
+Thursday, 09:00–18:00**, and the schema now says so. The Business Profile
+still shows seven days and an 08:00 open, and needs editing to match — that is
+a profile change, not a code one.
 
 ### Fixed — 2026-09-26 (Entity signals and FAQ schema that described invisible content)
 

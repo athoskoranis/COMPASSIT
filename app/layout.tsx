@@ -146,8 +146,10 @@ const jsonLd = {
         {
           '@type': 'OpeningHoursSpecification',
           dayOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'],
-          opens: '08:00',
-          closes: '17:00',
+          // Client-confirmed 2026-09-28: Sunday to Thursday, 09:00 to 18:00. The
+          // Business Profile should say the same; it does not yet.
+          opens: '09:00',
+          closes: '18:00',
         },
       ],
       // Qatar, Saudi Arabia and the UAE only. Kuwait, Bahrain and Oman were listed
