@@ -51,7 +51,7 @@ export default function NotFound() {
           {/* A dead end is a crawl dead end too. These keep both readers and
               crawlers moving into the parts of the site that matter. */}
           <div>
-            <p className="font-jetbrains text-xs text-paper/30 uppercase tracking-eyebrow mb-5">
+            <p className="font-jetbrains text-xs text-paper/50 uppercase tracking-eyebrow mb-5">
               Or try one of these
             </p>
             <ul className="flex flex-wrap gap-x-8 gap-y-3">

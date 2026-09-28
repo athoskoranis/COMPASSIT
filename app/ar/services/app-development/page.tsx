@@ -13,8 +13,14 @@ export const metadata: Metadata = {
   twitter: { images: ['/images/og/ar-share-card.png'] },
 }
 
+import { arServiceJsonLd } from '@/lib/arServiceSchema'
 import Client from '@/app/services/app-development/client'
 
 export default function ArabicServicePage() {
-  return <Client />
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(arServiceJsonLd('app-development')) }} />
+      <Client />
+    </>
+  )
 }

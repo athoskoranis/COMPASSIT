@@ -44,13 +44,13 @@ export default function MockWindow({
               <path d="M6 10V8a6 6 0 1 1 12 0v2" stroke="rgba(244,242,236,0.35)" strokeWidth="2.5" strokeLinecap="round" />
               <rect x="4" y="10" width="16" height="11" rx="2" fill="rgba(244,242,236,0.35)" />
             </svg>
-            <span className="font-jetbrains text-[10px] text-paper/40 truncate">{address}</span>
+            <span className="font-jetbrains text-[10px] text-paper/50 truncate">{address}</span>
           </span>
         </div>
 
         <div className="shrink-0 w-[92px] flex justify-end">
           {badge && (
-            <span className="font-jetbrains text-[9px] text-paper/30 uppercase tracking-eyebrow truncate">
+            <span className="font-jetbrains text-[9px] text-paper/50 uppercase tracking-eyebrow truncate">
               {badge}
             </span>
           )}

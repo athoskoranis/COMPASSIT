@@ -119,6 +119,7 @@ export default function Footer() {
             {!isUs && (
               <div className="relative rounded-xl overflow-hidden h-[130px] border border-paper/[0.08]">
                 <iframe
+            title="Map of the Compass IT Solutions office on Museum Park St, Doha"
                   src="https://maps.google.com/maps?q=25.2896241,51.5431226&z=16&output=embed"
                   width="100%"
                   height="100%"
@@ -143,7 +144,7 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <p className="font-jetbrains text-[10px] text-paper/30 uppercase tracking-eyebrow mb-5">
+            <p className="font-jetbrains text-[10px] text-paper/50 uppercase tracking-eyebrow mb-5">
               {/* The column heading is the link to the hub. Every page gets a
                   footer link to /services this way, without inventing an "All
                   services" string that would have no approved Arabic. */}
@@ -167,7 +168,7 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <p className="font-jetbrains text-[10px] text-paper/30 uppercase tracking-eyebrow mb-5">
+            <p className="font-jetbrains text-[10px] text-paper/50 uppercase tracking-eyebrow mb-5">
               {tr.footer.companyLabel}
             </p>
             <ul className="space-y-3">
@@ -194,7 +195,7 @@ export default function Footer() {
               invisible to a reader, still there for a crawler. */}
           {contactInfo.length > 0 && (
           <div>
-            <p className="font-jetbrains text-[10px] text-paper/30 uppercase tracking-eyebrow mb-5">
+            <p className="font-jetbrains text-[10px] text-paper/50 uppercase tracking-eyebrow mb-5">
               {tr.footer.contactLabel}
             </p>
             <ul className="space-y-4">
@@ -256,7 +257,7 @@ export default function Footer() {
                   <circle cx="12" cy="12" r="4" stroke="url(#ig-grad)"/>
                   <circle cx="17.5" cy="6.5" r="1" fill="#E1306C" stroke="none"/>
                 </svg>
-                <span className="font-archivo text-[13px] text-paper/40 group-hover:text-paper/70 transition-colors">
+                <span className="font-archivo text-[13px] text-paper/50 group-hover:text-paper/70 transition-colors">
                   @compassits
                 </span>
               </a>
@@ -271,7 +272,7 @@ export default function Footer() {
                   <rect x="2" y="9" width="4" height="12"/>
                   <circle cx="4" cy="4" r="2"/>
                 </svg>
-                <span className="font-archivo text-[13px] text-paper/40 group-hover:text-paper/70 transition-colors">
+                <span className="font-archivo text-[13px] text-paper/50 group-hover:text-paper/70 transition-colors">
                   compassits
                 </span>
               </a>
@@ -282,7 +283,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="pt-6 pb-2 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          <p className="font-archivo text-[13px] text-paper/30">
+          <p className="font-archivo text-[13px] text-paper/50">
             {isUs ? copyrightWithoutAddress : tr.footer.copyright}
           </p>
           <p className="font-jetbrains text-[10px] text-paper/20 uppercase tracking-eyebrow">

@@ -21,6 +21,71 @@
 
 ## [Unreleased]
 
+### Added — 2026-09-28 (The organisation node completed, a named author, and schema on the Arabic service pages)
+
+**Decision 135 — the second audit went node by node through the structured
+data and found the entity under-described rather than broken:**
+
+The schema.org validator returns zero errors and zero warnings on the home
+page. What the organisation node lacked was everything Google uses to tell
+this business apart from the six other Doha companies trading as some form of
+"Compass". Client-supplied facts, 28 September: founder Adam Sahli; eight core
+staff, expanding per project; legal name and commercial registration number
+withheld by choice, so neither is declared.
+
+**Organisation node, `app/layout.tsx`.** Added `alternateName` (Compass ITS,
+which every title tag already uses), `founder` (a `Person` node at
+`#founder`), `numberOfEmployees` as a `QuantitativeValue` with `minValue: 8`
+rather than a point value the headcount would contradict, `slogan`,
+`parentOrganization` (Compass Group, compass-group.me, which links back to
+this site from its contact page), `knowsAbout` for the nine service areas, and
+`hasOfferCatalog` with one `Offer` per service page. `logo` became an
+`ImageObject` pointing at a new `public/brand/compass-its-horizontal-dark.png`
+(2176 × 563, rasterised from the SVG in headless Chrome and trimmed to the
+mark). Google accepts SVG logos but its guidance is written for rasters, and a
+PNG removes the doubt at the cost of one file. The SVG remains the on-page
+asset.
+
+**A named author.** Every Article credited the organisation as `author`.
+Google's authorship guidance asks for a person, and the site had none. All
+eleven now reference `#founder`, and the meta row under each post heading
+reads `By Adam Sahli` where it read `Compass ITS`. The `Person` node carries
+`jobTitle`, `worksFor` and a `url` to `/about`; a LinkedIn `sameAs` is left
+for when the client confirms the profile URL — a search turned up an Adam
+Sahli in Portland, Oregon, and guessing an identity into schema is worse than
+omitting it.
+
+**Article `image` and `mainEntityOfPage`.** Google requires `image` for the
+Article rich result and none of the eleven declared one, although
+`lib/posts.ts` has carried a hero image per post since July. Each node now
+names its post's image as an absolute URL, and `mainEntityOfPage` names the
+post URL.
+
+**Arabic service pages had no page-level schema at all.** Each `/ar/services/*`
+route reused the English client component and emitted only the site-wide
+organisation and WebSite nodes. `lib/arServiceSchema.ts` builds a `Service`
+(name and description from `serviceData[slug].ar.hero`, `inLanguage: 'ar'`),
+a three-level `BreadcrumbList` and, where `ar.faq` exists, a `FAQPage` through
+the same `faqNodes` helper Decision 134 introduced. Breadcrumb names use the
+Arabic brand name from the `/ar` title and the approved nav label الخدمات;
+there is no approved Arabic "Home" string, so none is invented.
+
+**Contrast.** Lighthouse flagged Paper at 30% and 40% opacity on Ink — the
+eyebrow labels, post meta rows and footer fine print — at 2.46:1 to 3.51:1
+against a 4.5:1 requirement. `DESIGN.md` already sets 50% as the floor for
+fine print ("Placeholders, fine print — 50% — 4.7:1"). Seventy-six
+`text-paper/30` and `text-paper/40` utilities across 28 files are now
+`text-paper/50`. The `/20` separators between meta items are punctuation, not
+text, and are unchanged.
+
+**Two map iframes** (`Footer`, `/contact`) gained a `title`; Lighthouse's
+frame-title audit was the other accessibility failure.
+
+**Not changed, needs a decision:** the schema declares Sunday to Thursday
+08:00–17:00 and the Google Business Profile declares Monday to Sunday
+08:00–18:00. One of them is wrong. The schema follows whichever the client
+confirms.
+
 ### Fixed — 2026-09-26 (Entity signals and FAQ schema that described invisible content)
 
 **Decision 134 — the SEO audit found the site technically sound and off-site

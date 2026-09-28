@@ -149,7 +149,7 @@ export default function GoogleReviews() {
                         <span className="font-archivo font-medium text-paper text-[15px] block leading-tight">
                           {review.name}
                         </span>
-                        <span className="font-jetbrains text-[11px] text-paper/40 uppercase tracking-eyebrow mt-1.5 block">
+                        <span className="font-jetbrains text-[11px] text-paper/50 uppercase tracking-eyebrow mt-1.5 block">
                           {review.credential ?? 'Google review'}
                         </span>
                       </div>

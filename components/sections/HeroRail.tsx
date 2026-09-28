@@ -48,7 +48,7 @@ export default function HeroRail() {
           <span className="block font-archivo text-[14px] font-medium text-paper tracking-[-0.01em] leading-[1.3] group-hover:text-signal transition-colors duration-200">
             {latestPost.title}
           </span>
-          <span className="block font-jetbrains text-[9px] uppercase tracking-[0.1em] text-paper/40 mt-[6px]">
+          <span className="block font-jetbrains text-[9px] uppercase tracking-[0.1em] text-paper/50 mt-[6px]">
             {latestPost.date} · {latestPost.readTime}
           </span>
         </span>

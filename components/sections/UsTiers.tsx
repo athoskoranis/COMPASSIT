@@ -84,12 +84,12 @@ export default function UsTiers({
                 <p className="font-archivo font-light text-paper text-[30px] leading-none tracking-[-0.02em] m-0">
                   {tier.monthly}
                 </p>
-                <p className="font-jetbrains text-[11px] text-paper/40 uppercase tracking-eyebrow mt-3 m-0">
+                <p className="font-jetbrains text-[11px] text-paper/50 uppercase tracking-eyebrow mt-3 m-0">
                   {tier.setup} setup
                 </p>
               </div>
 
-              <p className="font-jetbrains text-[10px] text-paper/30 uppercase tracking-eyebrow mb-4">
+              <p className="font-jetbrains text-[10px] text-paper/50 uppercase tracking-eyebrow mb-4">
                 {tier.scopeLabel}
               </p>
 

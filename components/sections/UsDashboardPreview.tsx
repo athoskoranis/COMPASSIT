@@ -834,7 +834,7 @@ export default function UsDashboardPreview({
                 onClick={() => setRange(x.key)}
                 aria-pressed={range === x.key}
                 className={`font-jetbrains text-[10px] uppercase tracking-eyebrow px-2.5 py-1.5 rounded-md transition-colors ${
-                  range === x.key ? 'bg-signal/15 text-signal' : 'text-paper/40 hover:text-paper/70'
+                  range === x.key ? 'bg-signal/15 text-signal' : 'text-paper/50 hover:text-paper/70'
                 }`}
               >
                 {x.label}
@@ -851,7 +851,7 @@ export default function UsDashboardPreview({
           <p className="font-jetbrains text-[11px] text-paper/45 uppercase tracking-eyebrow m-0">
             {d.name} · {d.style}
           </p>
-          <p className="font-jetbrains text-[10px] text-paper/30 uppercase tracking-eyebrow m-0">
+          <p className="font-jetbrains text-[10px] text-paper/50 uppercase tracking-eyebrow m-0">
             {index + 1} / {DASHBOARDS.length}
           </p>
         </div>

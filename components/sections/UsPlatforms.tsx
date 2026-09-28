@@ -43,7 +43,7 @@ export default function UsPlatforms({
                 {group.label}
               </h3>
 
-              <p className="font-jetbrains text-[11px] text-paper/40 uppercase tracking-eyebrow mt-3 mb-6 m-0">
+              <p className="font-jetbrains text-[11px] text-paper/50 uppercase tracking-eyebrow mt-3 mb-6 m-0">
                 {group.note}
               </p>
 
