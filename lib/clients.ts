@@ -34,10 +34,11 @@ export type ClientReference = {
   company: string
 }
 
-// Marks are single-colour white PNGs with transparency at 128px tall (4x the
-// 32px they render at), converted from the colour originals on
+// Marks are colour PNGs with transparency at 128px tall, from the originals on
 // compass-arabia.com, the group's surveying company, whose client roster these
-// come from. The section eyebrow says "Clients & Affiliates", which is the accurate
+// come from. White backgrounds were knocked out and dark pixels lifted (blacks
+// and greys to light grey, saturated colours to mid-lightness) so every mark
+// reads on Ink without losing its brand colour. The section eyebrow says "Clients & Affiliates", which is the accurate
 // claim at group level. Alt text is the company name as it should be read.
 export const clientLogos: ClientLogo[] = [
   { name: 'Qatar Airways', src: '/clients/qatar-airways.png' },

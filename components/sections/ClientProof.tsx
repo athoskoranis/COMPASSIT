@@ -73,7 +73,7 @@ export default function ClientProof() {
                           alt={duplicate ? '' : logo.name}
                           width={180}
                           height={60}
-                          className="max-h-12 w-auto object-contain opacity-55 hover:opacity-85 transition-opacity duration-300"
+                          className="max-h-12 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity duration-300"
                         />
                       </div>
                     )),
