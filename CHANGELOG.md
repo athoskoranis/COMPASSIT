@@ -21,6 +21,55 @@
 
 ## [Unreleased]
 
+### Changed — 2026-09-28 (The WebGL field compiles off the main thread)
+
+**Decision 137 — Decision 136 moved the field's start to the first idle slot
+after load, and that moved its cost without removing it:**
+
+Re-measured on production after Decision 136 deployed: performance 73–79,
+blocking time 770–870 ms, no better than the 800 ms before. One 650 ms task
+at about 2.6 s, attributed to the layout chunk — the shader compile and link,
+now running at idle, still inside the window in which the page is becoming
+interactive. Confirmed by measuring `/about`, which has no field: 97, with
+80 ms of blocking time. Everything left on the home page was the field.
+
+Two changes, both in `WebGLBackground.tsx`:
+
+**A fixed start delay.** The field now starts `START_DELAY_MS` (3 000 ms)
+after the window load event, and fades in over 1.2 s from `opacity: 0` on
+its first drawn frame. "Idle" on a slow phone arrives while React is still
+hydrating; three seconds after load does not. A first tap never triggers
+it, deliberately — starting a compile on the user's first interaction is the
+one placement worse than at hydration.
+
+**Compile without blocking.** Querying `COMPILE_STATUS` or `LINK_STATUS`,
+or issuing the first draw, forces the driver to finish compiling on the
+spot; for this shader under a 4× CPU throttle that was the whole 650 ms.
+`init()` now compiles and links without asking, then, when the browser
+offers `KHR_parallel_shader_compile` (Chrome, including Android, and
+Firefox), polls `COMPLETION_STATUS_KHR` once per animation frame and only
+calls `useProgram` and the first draw once the driver says it is done. The
+main thread pays for a cheap poll per frame. Browsers without the extension
+(Safari) hit the status query and block as before, which is no worse than
+Decision 136 left them. `init()` returns a cleanup that cancels the poll,
+the pending start, or the running loop, whichever is outstanding.
+
+Measured on a local `next start` of this build, three runs, same profile as
+every earlier measurement:
+
+| | Before (26 Sep) | Decision 136 | Decision 137 |
+|---|---|---|---|
+| Performance | 68 | 73–79 (prod) | 93 · 93 · 93 |
+| Total Blocking Time | 800 ms | 770–870 ms (prod) | 20 · 10 · 50 ms |
+| Time to Interactive | 5.0 s | 3.2–3.4 s | 3.0 · 3.0 · 3.1 s |
+| Largest Contentful Paint | 3.9 s | 1.8–2.9 s | 3.0 · 3.0 · 3.1 s |
+
+The largest paint on localhost is pessimistic against production (its
+TTFB and CDN are not simulated); production is the comparison to repeat
+after this deploys. Verified visually: a headless Chrome screenshot of the
+local build after nine seconds of virtual time shows the contours and blobs
+drawn, matching production.
+
 ### Changed — 2026-09-28 (Mobile critical path: fonts, Tag Manager, the WebGL field)
 
 **Decision 136 — Lighthouse mobile scored the home page 68, with the largest
