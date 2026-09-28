@@ -34,7 +34,33 @@ export type ClientReference = {
   company: string
 }
 
-export const clientLogos: ClientLogo[] = []
+// Marks are single-colour white PNGs with transparency at 128px tall (4x the
+// 32px they render at), converted from the colour originals on
+// compass-arabia.com, the group's surveying company, whose client roster these
+// come from. The section eyebrow says "Clients & Affiliates", which is the accurate
+// claim at group level. Alt text is the company name as it should be read.
+export const clientLogos: ClientLogo[] = [
+  { name: 'Qatar Airways', src: '/clients/qatar-airways.png' },
+  { name: 'QatarEnergy', src: '/clients/qatar-energy.png' },
+  { name: 'Qatar University', src: '/clients/qatar-university.png' },
+  { name: 'ASTAD', src: '/clients/astad.png' },
+  { name: 'Midmac Contracting', src: '/clients/midmac.png' },
+  { name: 'Khatib & Alami', src: '/clients/khatib-alami.png' },
+  { name: 'Consolidated Contractors Company', src: '/clients/ccc.png' },
+  { name: 'Acciona', src: '/clients/acciona.png' },
+  { name: 'Bilfinger', src: '/clients/bilfinger.png' },
+  { name: 'Meinhardt', src: '/clients/meinhardt.png' },
+  { name: 'Artelia', src: '/clients/artelia.png' },
+  { name: 'RSM', src: '/clients/rsm.png' },
+  { name: 'Al Faisal Holding', src: '/clients/al-faisal-holding.png' },
+  { name: 'Alghanim International', src: '/clients/alghanim-international.png' },
+  { name: 'Al Balagh Trading & Contracting', src: '/clients/al-balagh.png' },
+  { name: 'Qatar Primary Materials Company', src: '/clients/qpmc.png' },
+  { name: 'Al Khalij Cement Company', src: '/clients/al-khalij-cement.png' },
+  { name: 'Mekdam Holding Group', src: '/clients/mekdam-holding.png' },
+  { name: 'Bin Arbaid Holding', src: '/clients/bin-arbaid-holding.png' },
+  { name: 'Black Cat Engineering & Construction', src: '/clients/black-cat-engineering.png' },
+]
 
 export const references: ClientReference[] = []
 

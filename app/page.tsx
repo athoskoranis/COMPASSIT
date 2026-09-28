@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Hero from '@/components/sections/Hero'
-import BrandPillars from '@/components/sections/BrandPillars'
 import ClientProof from '@/components/sections/ClientProof'
 import GoogleReviews from '@/components/sections/GoogleReviews'
 import ServicesOverview from '@/components/sections/ServicesOverview'
@@ -27,15 +26,14 @@ export default function HomePage() {
   return (
     <main>
       <Hero />
-      <BrandPillars />
-      {/* Renders nothing until lib/clients.ts has a logo or a reference. Once it
-          does, this is the section that replaces BrandPillars above. */}
+      {/* Replaced BrandPillars once lib/clients.ts had logos (Decision 138).
+          Still returns null if that file is ever emptied again. */}
       <ClientProof />
       <ServicesOverview />
       <StatsBar />
       {/* Sits after the stats because it is the only social proof on the page
-          that a visitor can verify for themselves. ClientProof above is still
-          empty and still waiting on request 01 — these are Google reviews, not
+          that a visitor can verify for themselves. ClientProof above now shows
+          logos but still no named reference — these are Google reviews, not
           named client references, and they do not replace them. */}
       <GoogleReviews />
       {/* The only photograph on the home page, and it sits well below the
