@@ -131,6 +131,57 @@ export default function WebGLBackground() {
     const canvas = canvasRef.current
     if (!canvas) return
 
+    // Context creation, shader compilation and the first frame used to run in
+    // this effect at hydration, which is the busiest moment of the load on a
+    // phone: it landed inside the long task Lighthouse attributed to the
+    // framework chunk and pushed the page's interactive time out. The field is
+    // decoration behind the fold's text, so it starts once the window has
+    // loaded and the main thread is idle. The canvas is transparent until
+    // then; the body's Ink background shows through, which is the same colour
+    // the shader paints first.
+    let cleanup: (() => void) | undefined
+    let idle = 0
+    let cancelled = false
+    const boot = () => {
+      if (cancelled) return
+      cleanup = init(canvas)
+    }
+    const schedule = () => {
+      if (typeof window.requestIdleCallback === 'function') idle = window.requestIdleCallback(boot, { timeout: 1500 })
+      else idle = window.setTimeout(boot, 200)
+    }
+    if (document.readyState === 'complete') schedule()
+    else window.addEventListener('load', schedule, { once: true })
+
+    return () => {
+      cancelled = true
+      window.removeEventListener('load', schedule)
+      if (idle) {
+        if (typeof window.cancelIdleCallback === 'function') window.cancelIdleCallback(idle)
+        else window.clearTimeout(idle)
+      }
+      cleanup?.()
+    }
+  }, [])
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 0,
+        pointerEvents: 'none',
+        display: 'block',
+      }}
+    />
+  )
+}
+
+function init(canvas: HTMLCanvasElement): (() => void) | undefined {
+  {
     const gl = canvas.getContext('webgl', { antialias: false, premultipliedAlpha: false })
     if (!gl) return
     gl.getExtension('OES_standard_derivatives')
@@ -221,20 +272,5 @@ export default function WebGLBackground() {
       document.removeEventListener('visibilitychange', onVisibility)
       window.removeEventListener('resize', resize)
     }
-  }, [])
-
-  return (
-    <canvas
-      ref={canvasRef}
-      style={{
-        position: 'fixed',
-        inset: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 0,
-        pointerEvents: 'none',
-        display: 'block',
-      }}
-    />
-  )
+  }
 }

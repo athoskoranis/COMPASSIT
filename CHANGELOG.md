@@ -21,6 +21,77 @@
 
 ## [Unreleased]
 
+### Changed — 2026-09-28 (Mobile critical path: fonts, Tag Manager, the WebGL field)
+
+**Decision 136 — Lighthouse mobile scored the home page 68, with the largest
+paint at 3.9 s against a 2.5 s target and 800 ms of blocking time:**
+
+The largest paint is the hero paragraph, which is text and is in the server
+HTML, so nothing about it needed to be slow. Three things sat on its critical
+path and one more on the main thread behind it. Measured on the production
+site on 26 September with Lighthouse 12 in mobile emulation and simulated
+throttling; re-measured after the change on a local `next start` of this
+build, twice, same profile.
+
+| | Before | After |
+|---|---|---|
+| Performance | 68 | 81–83 |
+| Largest Contentful Paint | 3.9 s | 2.4–3.1 s |
+| Total Blocking Time | 800 ms | 470–600 ms |
+| Script boot-up | 1.8 s | 0.5–0.6 s |
+| Time to Interactive | 5.0 s | 3.4–3.6 s |
+| Font files preloaded | 6 | 4 |
+| Accessibility | 92 | 100 |
+
+**Fonts.** `next/font` preloads one file per declared static weight. Archivo
+declared five and the site uses four (300, 500, 600, 700 — never 400); Barlow
+declared four and uses two (400, 500); JetBrains Mono declared three and uses
+two (400, 500). Archivo and JetBrains Mono are variable fonts on Google Fonts,
+so each is now one `weight: 'variable'` file carrying every weight; Barlow is
+static and keeps 400 and 500. Six preloaded files (130 KB) became four
+(107 KB), and more to the point two fewer requests ahead of the first paint.
+Counted by grepping every `font-{light,medium,semibold,bold}` utility on a line
+that also names the family; the 400 weight of Archivo has no consumer.
+
+**Google Tag Manager.** Decision 025 placed the container's inline loader
+first in `<head>`, which is what the snippet says. On a throttled phone that
+put gtm.js (124 KB) and the GA4 tag it loads (171 KB) on the main thread
+during hydration: 290 ms of blocking time attributed to Google Tag Manager,
+and 132 KB of the 2117 KB "unused JavaScript" finding. The loader is now the
+same size and in the same place, but it waits for the first interaction
+(pointer, key, touch or scroll) or five seconds, whichever comes first, before
+fetching gtm.js. `dataLayer` exists from the first byte so anything that
+pushes before the container arrives is queued, not lost; verified in the
+browser that `gtm.js`, `gtm.dom` and `gtm.load` all fire after the delay. A
+`next/script` `lazyOnload` strategy was tried first and rejected: it runs
+after the load event but still inside the window Lighthouse measures, and
+blocking time went up, not down. The trade is that a visit which ends inside
+five seconds with no scroll is not recorded. No tag would have told anyone
+anything useful about that visit.
+
+**The WebGL field.** `WebGLBackground` created its context, compiled the
+shader and drew its first frame inside `useEffect` at hydration, on `/` and
+`/contact`. That work now waits for the window `load` event and then
+`requestIdleCallback` (1.5 s timeout, `setTimeout` fallback). The effect body
+moved into an `init()` function that returns its own cleanup; the effect
+schedules it and cancels whichever of the load listener, the idle callback or
+the running field is outstanding on unmount. The canvas is transparent until
+the first frame and the body's Ink shows through, which is the colour the
+shader paints first, so nothing flashes. Script boot-up on the home page fell
+from 1.8 s to 0.6 s.
+
+**The nav logo** carries `width={139}` beside its `height={36}` so the
+browser has the 3.865:1 ratio before the file arrives; it was the one
+unsized image Lighthouse reported.
+
+**Not changed.** Hydration of the home page's eight client components is the
+remaining blocking time (the framework chunk's long task went from 483 ms to
+about 65 ms once the field and the tags moved off it; what is left is
+React). The two Lighthouse "long tasks" in the after runs are Lighthouse's
+own evaluation script. Real-user numbers do not exist yet — the site has no
+Chrome UX Report entry — so the production comparison should be repeated
+once this deploys and the field data checked in Search Console after 28 days.
+
 ### Added — 2026-09-28 (The organisation node completed, a named author, and schema on the Arabic service pages)
 
 **Decision 135 — the second audit went node by node through the structured

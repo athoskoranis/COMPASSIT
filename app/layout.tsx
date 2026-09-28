@@ -6,25 +6,33 @@ import Footer from '@/components/layout/Footer'
 import SiteBackground from '@/components/layout/SiteBackground'
 import PointerTracker from '@/components/layout/PointerTracker'
 
+// Font files are on the critical path of the largest paint on every page (the
+// LCP element is text), so the count of preloaded files matters more than any
+// single file's size. Archivo and JetBrains Mono are variable fonts on Google
+// Fonts: one file each carries every weight the site uses (Archivo 300, 500,
+// 600 and 700; JetBrains 400 and 500), where the static declaration preloaded
+// one file per weight, including weights nothing renders in. Barlow is not
+// variable; it keeps the two weights in use and drops 300 and 600, which no
+// class on the site asks for.
 const archivo = Archivo({
   subsets: ['latin'],
   variable: '--font-archivo',
   display: 'swap',
-  weight: ['300', '400', '500', '600', '700'],
+  weight: 'variable',
 })
 
 const barlow = Barlow({
   subsets: ['latin'],
   variable: '--font-barlow',
   display: 'swap',
-  weight: ['300', '400', '500', '600'],
+  weight: ['400', '500'],
 })
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-jetbrains',
   display: 'swap',
-  weight: ['400', '500', '700'],
+  weight: 'variable',
 })
 
 // Cairo is declared in the root layout because the chrome above /ar — the nav
@@ -73,11 +81,17 @@ export const metadata: Metadata = {
 
 const GTM_ID = 'GTM-KZ59QK4H'
 
-const gtmScript = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','${GTM_ID}');`
+// The loader waits for the first interaction (pointer, key, touch or scroll)
+// or five seconds, whichever comes first, before fetching gtm.js. dataLayer
+// exists from the start so anything that pushes before the container loads is
+// queued, not lost. A visit that ends inside five seconds without a scroll
+// goes unrecorded; that is the trade for keeping 305 KB of tag scripts off the
+// main thread while the page is becoming interactive on a phone.
+const gtmScript = `(function(w,d,i){w.dataLayer=w.dataLayer||[];var done=false,ev=['pointerdown','keydown','touchstart','scroll'];
+function load(){if(done)return;done=true;ev.forEach(function(e){w.removeEventListener(e,load)});
+w.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});var s=d.createElement('script');s.async=true;
+s.src='https://www.googletagmanager.com/gtm.js?id='+i;d.head.appendChild(s)}
+ev.forEach(function(e){w.addEventListener(e,load,{once:true,passive:true})});setTimeout(load,5000)})(window,document,'${GTM_ID}');`
 
 // Entity graph. The blog index CollectionPage points at #organization and
 // #website by @id, so those anchors have to exist somewhere the crawler will
@@ -237,9 +251,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        {/* Google Tag Manager */}
+        {/* Google Tag Manager. Decision 025 put the container's own loader
+            first in head; on a throttled phone that put 305 KB of tag scripts
+            on the main thread while the page was becoming interactive. This
+            loader is the same size and runs at the same point, but defers the
+            fetch — see the note on gtmScript. */}
         <script dangerouslySetInnerHTML={{ __html: gtmScript }} />
-        {/* End Google Tag Manager */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
