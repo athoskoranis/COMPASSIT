@@ -44,7 +44,7 @@ export default function ClientProof() {
 
           {clientLogos.length > 0 && (
             <div>
-              <EyebrowLabel dim className="mb-5 block">
+              <EyebrowLabel className="mb-6 block">
                 Clients &amp; Affiliates
               </EyebrowLabel>
               {/* Option C from the 28 September review: a slow strip rather than
@@ -52,7 +52,7 @@ export default function ClientProof() {
                   marks lib/clients.ts carries. The list renders twice; the
                   second copy is hidden from assistive tech and dropped under
                   reduced motion, where the strip becomes a static wrapped row. */}
-              <div className="client-marquee border-y border-paper/10 py-7">
+              <div className="client-marquee border-y border-paper/10 py-10">
                 {/* Duration scales with the count so the strip moves at the same
                     pace whether it holds six marks or sixty: about four seconds
                     per mark for one full pass. */}
@@ -71,9 +71,9 @@ export default function ClientProof() {
                         <Image
                           src={logo.src}
                           alt={duplicate ? '' : logo.name}
-                          width={120}
-                          height={40}
-                          className="max-h-8 w-auto object-contain opacity-40 hover:opacity-70 transition-opacity duration-300"
+                          width={180}
+                          height={60}
+                          className="max-h-12 w-auto object-contain opacity-55 hover:opacity-85 transition-opacity duration-300"
                         />
                       </div>
                     )),

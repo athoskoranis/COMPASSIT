@@ -248,7 +248,7 @@ a {
 .client-marquee-track {
   display: flex;
   align-items: center;
-  gap: 72px;
+  gap: 96px;
   width: max-content;
   animation: client-marquee 32s linear infinite;
 }
