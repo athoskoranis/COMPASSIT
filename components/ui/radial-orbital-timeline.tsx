@@ -251,7 +251,7 @@ export default function RadialOrbitalTimeline({ timelineData, seeLabel = 'See' }
                       </p>
                       {item.relatedIds.length > 0 && (
                         <div className="mb-4 pt-3 border-t border-paper/10">
-                          <p className="font-jetbrains text-[9px] text-paper/30 uppercase tracking-eyebrow mb-2">
+                          <p className="font-jetbrains text-[9px] text-paper/50 uppercase tracking-eyebrow mb-2">
                             Related
                           </p>
                           <div className="flex flex-wrap gap-1.5">

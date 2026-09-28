@@ -103,7 +103,7 @@ export default function AboutPage() {
                   <p className="font-archivo font-light text-paper text-[44px] lg:text-[56px] leading-none tracking-[-0.03em] mb-3">
                     {stat.value}
                   </p>
-                  <p className="font-jetbrains text-xs text-paper/40 uppercase tracking-eyebrow">
+                  <p className="font-jetbrains text-xs text-paper/50 uppercase tracking-eyebrow">
                     {stat.label}
                   </p>
                 </div>

@@ -189,7 +189,7 @@ export default function UsContact({
                 <div>
                   <label
                     htmlFor="us-pos"
-                    className="font-jetbrains text-[10px] text-paper/30 uppercase tracking-eyebrow mb-2 block"
+                    className="font-jetbrains text-[10px] text-paper/50 uppercase tracking-eyebrow mb-2 block"
                   >
                     Which POS do you run
                   </label>
@@ -211,7 +211,7 @@ export default function UsContact({
                 <div>
                   <label
                     htmlFor="us-locations"
-                    className="font-jetbrains text-[10px] text-paper/30 uppercase tracking-eyebrow mb-2 block"
+                    className="font-jetbrains text-[10px] text-paper/50 uppercase tracking-eyebrow mb-2 block"
                   >
                     How many locations
                   </label>

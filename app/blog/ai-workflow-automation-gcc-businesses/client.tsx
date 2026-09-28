@@ -43,7 +43,7 @@ export default function BlogPostClient() {
 
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="flex items-center gap-2 mb-8">
-            <Link href="/blog" className="font-jetbrains text-xs text-paper/40 hover:text-signal transition-colors tracking-eyebrow uppercase">
+            <Link href="/blog" className="font-jetbrains text-xs text-paper/50 hover:text-signal transition-colors tracking-eyebrow uppercase">
               Blog
             </Link>
             <span className="font-jetbrains text-xs text-paper/20">/</span>
@@ -57,11 +57,11 @@ export default function BlogPostClient() {
           </h1>
 
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <span className="font-jetbrains text-xs text-paper/40 tracking-eyebrow uppercase">June 2026</span>
+            <span className="font-jetbrains text-xs text-paper/50 tracking-eyebrow uppercase">June 2026</span>
             <span className="font-jetbrains text-xs text-paper/20">·</span>
-            <span className="font-jetbrains text-xs text-paper/40 tracking-eyebrow uppercase">4 min read</span>
+            <span className="font-jetbrains text-xs text-paper/50 tracking-eyebrow uppercase">4 min read</span>
             <span className="font-jetbrains text-xs text-paper/20">·</span>
-            <span className="font-jetbrains text-xs text-paper/40 tracking-eyebrow uppercase">Compass ITS</span>
+            <span className="font-jetbrains text-xs text-paper/50 tracking-eyebrow uppercase">By Adam Sahli</span>
           </div>
         </div>
       </section>

@@ -36,7 +36,7 @@ const cybersecurity: Record<Lang, ServicePageData> = {
   en: {
     hero: {
       eyebrow: 'CYBERSECURITY · QATAR · GCC',
-      title: 'Top Cyber Security Service Provider in Qatar, GCC',
+      title: 'Cybersecurity Services in Qatar, GCC',
       subtitle: 'Information system audits have become a core part of security assurance. We run them, and we help you act on what they find.',
       primaryCta: 'Book a Consultation',
       secondaryCta: 'Secure your business',
@@ -152,7 +152,7 @@ const itServices: Record<Lang, ServicePageData> = {
   en: {
     hero: {
       eyebrow: 'IT SERVICES · QATAR · GCC',
-      title: 'Best IT Service Company In Qatar-GCC',
+      title: 'Managed IT Services in Qatar, GCC',
       subtitle: 'IT services and IT solutions for businesses across the region.',
       primaryCta: 'Contact us',
     },
@@ -184,6 +184,11 @@ const itServices: Record<Lang, ServicePageData> = {
         'Your business runs on this technology. We take on the IT problems that get in the way of it',
       ],
     },
+    faq: [
+      { question: 'What is a managed IT service?', answer: 'A managed IT service means outsourcing your IT operations to a dedicated provider like Compass IT Solutions who monitors, manages, and supports your technology infrastructure for a fixed monthly fee — eliminating the need for a full in-house IT team.' },
+      { question: 'Do you offer on-site IT support in Qatar?', answer: 'Yes, Compass IT Solutions provides both on-site and remote IT support across Qatar and the GCC, with rapid response times. Simply submit a request and our team will get back to you without delay.' },
+      { question: 'What is an IT Annual Maintenance Contract (AMC)?', answer: 'An IT AMC is a service agreement where Compass IT Solutions provides scheduled maintenance, proactive monitoring, and priority support for your IT infrastructure throughout the year under one fixed annual agreement.' },
+    ],
   },
   ar: {
     hero: {
@@ -274,6 +279,11 @@ const webDevelopment: Record<Lang, ServicePageData> = {
         'Maintenance and Support — we are always here to give you 24/7 assistance and deliver proactive solutions for your queries',
       ],
     },
+    faq: [
+      { question: 'How long does it take to build a business website in Qatar?', answer: 'A standard business website takes 4–8 weeks from initial scoping to launch. More complex projects with custom features or e-commerce functionality may take 8–16 weeks. Compass IT Solutions provides a clear timeline at the start of every project.' },
+      { question: 'Do you build mobile-friendly websites?', answer: 'Yes, all websites built by Compass IT Solutions are mobile-first and fully responsive, working across all devices and screen sizes including smartphones, tablets, and desktops.' },
+      { question: 'Can Compass IT Solutions take over and maintain an existing website?', answer: 'Yes, Compass IT Solutions offers website maintenance, support, and improvement services for existing websites regardless of the original developer or platform used.' },
+    ],
   },
   ar: {
     hero: {
@@ -366,6 +376,11 @@ const aiWorkflows: Record<Lang, ServicePageData> = {
         'Technological Innovation— we tell you about the most recent upgrades and help you make use of them in accordance with the future needs of your company',
       ],
     },
+    faq: [
+      { question: 'What is AI workflow automation?', answer: 'AI workflow automation uses artificial intelligence to handle repetitive business processes — such as invoice processing, lead qualification, WhatsApp and lead bots, and document handling — reducing manual work and improving efficiency for businesses in Qatar and the GCC.' },
+      { question: 'Can AI automation work for small businesses in Qatar?', answer: 'Yes, AI automation solutions are scalable and can be tailored for businesses of any size. Compass IT Solutions works with SMEs across Qatar to implement cost-effective automation that delivers measurable ROI.' },
+      { question: 'What business processes can be automated with AI in Qatar?', answer: 'Common automation use cases for Gulf businesses include WhatsApp and lead bots, invoice and quote processing, document classification, customer support automation, reporting, and data entry — all implementable for businesses across Qatar, Saudi Arabia, and the UAE.' },
+    ],
   },
   ar: {
     hero: {
@@ -459,6 +474,11 @@ const cloudSolutions: Record<Lang, ServicePageData> = {
         'Business solutions with automation, self-service, strong security, and infrastructure tuned for performance and cost',
       ],
     },
+    faq: [
+      { question: 'Which cloud platforms does Compass IT Solutions support in Qatar?', answer: 'Compass IT Solutions supports AWS, Microsoft Azure, and hybrid cloud environments, providing migration, management, and optimization services across Qatar and the GCC.' },
+      { question: 'How long does cloud migration take for a business in Qatar?', answer: 'Cloud migration timelines vary by complexity — small businesses typically take 2–4 weeks, while enterprise migrations may take 2–3 months. Compass IT Solutions provides a detailed roadmap before any work begins.' },
+      { question: 'Is cloud hosting secure for businesses in Qatar?', answer: 'Yes, cloud hosting with proper security controls is highly secure. Compass IT Solutions implements encryption, access controls, and continuous monitoring to protect your data in compliance with Qatar\'s data regulations.' },
+    ],
   },
   ar: {
     hero: {
@@ -558,6 +578,11 @@ const networkInfrastructure: Record<Lang, ServicePageData> = {
         'From copper and optical fiber cabling to switches, routers, LAN & WAN — every aspect of your network infrastructure is handled with utmost care and expertise by our service engineers',
       ],
     },
+    faq: [
+      { question: 'What is network infrastructure?', answer: 'Network infrastructure includes all the hardware and software — routers, switches, firewalls, and cabling — that connects devices and enables communication within and between business locations. Proper network infrastructure is essential for business continuity and productivity.' },
+      { question: 'How often should network infrastructure be upgraded?', answer: 'Business networks should typically be reviewed every 3–5 years, or sooner if performance issues arise. Compass IT Solutions provides network assessments to identify when upgrades are needed and what improvements will deliver the best ROI.' },
+      { question: 'Does Compass IT Solutions provide network support across Qatar?', answer: 'Yes, Compass IT Solutions provides network design, installation, and ongoing managed network services for businesses across Doha and the wider Qatar and GCC region, with both on-site and remote support available.' },
+    ],
   },
   ar: {
     hero: {

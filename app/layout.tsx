@@ -60,9 +60,10 @@ export const metadata: Metadata = {
     description:
       'Managed IT services for organisations across Qatar and the GCC. Network infrastructure, cloud, cybersecurity, and web development — wired right the first time.',
   },
+  // No `site` handle: the business has no X account. `@compass.its` pointed at
+  // nothing and was the Instagram handle misspelt besides.
   twitter: {
     card: 'summary_large_image',
-    site: '@compass.its',
   },
   robots: { index: true, follow: true },
   verification: {
@@ -89,8 +90,17 @@ const jsonLd = {
       '@id': 'https://compass-its.com/#organization',
       '@type': ['LocalBusiness', 'ProfessionalService'],
       name: 'Compass IT Solutions',
+      // The short form every title tag and the Arabic pages already use.
+      alternateName: 'Compass ITS',
       url: 'https://compass-its.com',
-      logo: 'https://compass-its.com/brand/compass-its-horizontal-dark.svg',
+      // Google's logo guidance wants a raster of at least 112px on a side that it
+      // can index; the SVG stays as the on-page asset, this PNG is its rasterisation.
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://compass-its.com/brand/compass-its-horizontal-dark.png',
+        width: 2176,
+        height: 563,
+      },
       image: 'https://compass-its.com/opengraph-image',
       description:
         'Managed IT services provider specialising in network infrastructure, cloud solutions, and cybersecurity. Based in Doha, Qatar.',
@@ -136,8 +146,10 @@ const jsonLd = {
         {
           '@type': 'OpeningHoursSpecification',
           dayOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'],
-          opens: '08:00',
-          closes: '17:00',
+          // Client-confirmed 2026-09-28: Sunday to Thursday, 09:00 to 18:00. The
+          // Business Profile should say the same; it does not yet.
+          opens: '09:00',
+          closes: '18:00',
         },
       ],
       // Qatar, Saudi Arabia and the UAE only. Kuwait, Bahrain and Oman were listed
@@ -151,8 +163,64 @@ const jsonLd = {
       ],
       currenciesAccepted: 'QAR',
       priceRange: '$$',
-      sameAs: ['https://instagram.com/compass.its'],
+      // Every profile that names this business, so Google can reconcile the entity
+      // against the six other Doha companies trading as some form of "Compass".
+      // LinkedIn first: it is the profile a brand search surfaces. The Instagram
+      // handle is @compassits — the old value pointed at a handle that does not exist.
+      sameAs: [
+        'https://www.linkedin.com/company/compassits/',
+        'https://www.instagram.com/compassits/',
+        'https://www.f6s.com/company/compass-it-solutions',
+        'https://compass-group.me/',
+      ],
       foundingDate: '2018',
+      founder: { '@id': 'https://compass-its.com/#founder' },
+      // Eight core staff; the team expands per project, so a floor rather than a
+      // point value. Legal name and CR number are deliberately not declared.
+      numberOfEmployees: { '@type': 'QuantitativeValue', minValue: 8 },
+      slogan: 'Wired right. Kept running.',
+      parentOrganization: {
+        '@type': 'Organization',
+        name: 'Compass Group',
+        url: 'https://compass-group.me',
+      },
+      knowsAbout: [
+        'Managed IT services',
+        'Network infrastructure',
+        'Cloud migration',
+        'Cybersecurity',
+        'Penetration testing',
+        'AI workflow automation',
+        'Web development',
+        'Mobile app development',
+        'Digital marketing',
+      ],
+      // One entry per service page, so the catalogue and the site cannot disagree.
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Services',
+        itemListElement: [
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Managed IT Services', url: 'https://compass-its.com/services/it-services' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Network Infrastructure', url: 'https://compass-its.com/services/network-infrastructure' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Cloud Solutions', url: 'https://compass-its.com/services/cloud-solutions' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Cybersecurity', url: 'https://compass-its.com/services/cybersecurity' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Web Development', url: 'https://compass-its.com/services/web-development' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'App Development', url: 'https://compass-its.com/services/app-development' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI Workflows', url: 'https://compass-its.com/services/ai-workflows' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Digital Marketing', url: 'https://compass-its.com/services/digital-marketing' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Custom Solutions', url: 'https://compass-its.com/services/custom-solutions' } },
+        ],
+      },
+    },
+    {
+      // The founder, and the author of every article. A named person is what
+      // Google's authorship guidance asks for; the organisation was standing in.
+      '@id': 'https://compass-its.com/#founder',
+      '@type': 'Person',
+      name: 'Adam Sahli',
+      jobTitle: 'Founder',
+      worksFor: { '@id': 'https://compass-its.com/#organization' },
+      url: 'https://compass-its.com/about',
     },
     {
       '@id': 'https://compass-its.com/#website',

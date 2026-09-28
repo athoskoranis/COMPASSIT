@@ -116,7 +116,7 @@ export default function UsSecondAccount({
             >
               {/* What a person said. Set as speech, and deliberately quieter. */}
               <div className="px-7 py-6 lg:py-7">
-                <p className="font-jetbrains text-[9px] text-paper/40 uppercase tracking-eyebrow m-0 mb-3 lg:hidden">
+                <p className="font-jetbrains text-[9px] text-paper/50 uppercase tracking-eyebrow m-0 mb-3 lg:hidden">
                   {heardLabel}
                 </p>
                 <p className="font-barlow text-[17px] text-paper/55 italic leading-[1.5] m-0">

@@ -72,7 +72,7 @@ export default function StatsBar() {
                 <p className="font-archivo font-light leading-none mb-3 text-signal" style={{ fontSize: '72px', lineHeight: '1' }}>
                   <CountUp target={num} suffix={suffix} active={active} />
                 </p>
-                <p className="font-jetbrains text-xs text-paper/40 uppercase tracking-eyebrow">
+                <p className="font-jetbrains text-xs text-paper/50 uppercase tracking-eyebrow">
                   {stat.label}
                 </p>
               </div>

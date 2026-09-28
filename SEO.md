@@ -40,7 +40,6 @@ These apply to all pages unless overridden by a page-specific OG block below.
 <meta property="og:image:height" content="630" />
 <meta property="og:locale" content="en_QA" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:site" content="@compass.its" />
 ```
 
 **OG image spec:** 1200 × 630px · Dark Ink background · Horizontal logo (white) · Tagline "Wired right. Kept running." in Archivo 300 · Signal Cyan accent line. File: `/public/brand/og-image.png`.
@@ -75,7 +74,8 @@ IT solutions Doha · MSP Qatar · network infrastructure Qatar · cloud services
   "@type": "Organization",
   "name": "Compass IT Solutions",
   "url": "https://compass-its.com",
-  "logo": "https://compass-its.com/brand/compass-its-horizontal-dark.svg",
+  "alternateName": "Compass ITS",
+  "logo": { "@type": "ImageObject", "url": "https://compass-its.com/brand/compass-its-horizontal-dark.png", "width": 2176, "height": 563 },
   "description": "Managed IT services provider specialising in network infrastructure, cloud solutions, and cybersecurity. Based in Doha, Qatar.",
   "address": {
     "@type": "PostalAddress",
@@ -91,10 +91,19 @@ IT solutions Doha · MSP Qatar · network infrastructure Qatar · cloud services
     "email": "info@compass-its.com"
   },
   "sameAs": [
-    "https://instagram.com/compass.its"
+    "https://www.linkedin.com/company/compassits/",
+    "https://www.instagram.com/compassits/",
+    "https://www.f6s.com/company/compass-it-solutions",
+    "https://compass-group.me/"
   ],
-  "foundingDate": "2018"
+  "foundingDate": "2018",
+  "founder": { "@type": "Person", "name": "Adam Sahli", "jobTitle": "Founder" },
+  "numberOfEmployees": { "@type": "QuantitativeValue", "minValue": 8 },
+  "slogan": "Wired right. Kept running.",
+  "parentOrganization": { "@type": "Organization", "name": "Compass Group", "url": "https://compass-group.me" }
 }
+
+The live node also carries `knowsAbout` and a `hasOfferCatalog` with one `Offer` per service page, generated in `app/layout.tsx`. Legal name and CR number are deliberately not declared. Every Article names `#founder` (Adam Sahli) as `author`.
 ```
 
 ---

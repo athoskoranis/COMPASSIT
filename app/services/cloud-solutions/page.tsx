@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import { serviceData } from '@/lib/serviceTranslations'
+import { faqNodes } from '@/lib/faqSchema'
 import CloudSolutionsPageClient from './client'
 
 export const metadata: Metadata = {
@@ -39,26 +41,7 @@ const jsonLd = {
         { '@type': 'ListItem', position: 3, name: 'Cloud Solutions', item: 'https://compass-its.com/services/cloud-solutions' },
       ],
     },
-    {
-      '@type': 'FAQPage',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'Which cloud platforms does Compass IT Solutions support in Qatar?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Compass IT Solutions supports AWS, Microsoft Azure, and hybrid cloud environments, providing migration, management, and optimization services across Qatar and the GCC.' },
-        },
-        {
-          '@type': 'Question',
-          name: 'How long does cloud migration take for a business in Qatar?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Cloud migration timelines vary by complexity — small businesses typically take 2–4 weeks, while enterprise migrations may take 2–3 months. Compass IT Solutions provides a detailed roadmap before any work begins.' },
-        },
-        {
-          '@type': 'Question',
-          name: 'Is cloud hosting secure for businesses in Qatar?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Yes, cloud hosting with proper security controls is highly secure. Compass IT Solutions implements encryption, access controls, and continuous monitoring to protect your data in compliance with Qatar\'s data regulations.' },
-        },
-      ],
-    },
+    ...faqNodes(serviceData['cloud-solutions'].en.faq),
   ],
 }
 

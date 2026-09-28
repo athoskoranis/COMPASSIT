@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import { serviceData } from '@/lib/serviceTranslations'
+import { faqNodes } from '@/lib/faqSchema'
 import AppDevelopmentPageClient from './client'
 
 export const metadata: Metadata = {
@@ -39,26 +41,7 @@ const jsonLd = {
         { '@type': 'ListItem', position: 3, name: 'App Development', item: 'https://compass-its.com/services/app-development' },
       ],
     },
-    {
-      '@type': 'FAQPage',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'How long does it take to build a mobile app in Qatar?',
-          acceptedAnswer: { '@type': 'Answer', text: 'A standard mobile application takes 10–16 weeks from discovery to App Store submission. Projects with complex backend integrations or custom hardware features may take longer. Compass IT Solutions provides a detailed timeline at the start of every project.' },
-        },
-        {
-          '@type': 'Question',
-          name: 'Do you build for both iOS and Android?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Yes. Compass IT Solutions builds native iOS (Swift), native Android (Kotlin), and cross-platform (React Native, Flutter) applications. The right technology choice depends on your budget, timeline, and performance requirements — we advise on this during the discovery phase.' },
-        },
-        {
-          '@type': 'Question',
-          name: 'What happens after the app launches?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Every project includes a 30-day post-launch support window covering bug fixes, OS compatibility updates, and performance monitoring. Ongoing retained support is also available on a monthly basis.' },
-        },
-      ],
-    },
+    ...faqNodes(serviceData['app-development'].en.faq),
   ],
 }
 

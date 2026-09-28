@@ -119,7 +119,7 @@ export default function HowWeWorkPage() {
                   <p className="font-archivo font-light text-paper text-[26px] lg:text-[30px] leading-tight tracking-[-0.02em] mb-3">
                     {stat.value}
                   </p>
-                  <p className="font-jetbrains text-xs text-paper/40 uppercase tracking-eyebrow">
+                  <p className="font-jetbrains text-xs text-paper/50 uppercase tracking-eyebrow">
                     {stat.label}
                   </p>
                 </div>
