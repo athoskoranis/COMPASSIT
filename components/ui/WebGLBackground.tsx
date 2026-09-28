@@ -122,6 +122,12 @@ const RENDER_SCALE = 1
 // Nothing on screen moves fast enough for 30 and 60 to differ, and halving the
 // frame rate hands the compositor back half the GPU time it was competing for.
 const TARGET_FPS = 30
+
+// How long after the window load event the field starts. Long enough that the
+// shader compile lands after the page is interactive on a slow phone; short
+// enough that on any normal connection the field is up before anyone has
+// finished reading the headline.
+const START_DELAY_MS = 3000
 const FRAME_MS = 1000 / TARGET_FPS
 
 export default function WebGLBackground() {
@@ -133,22 +139,22 @@ export default function WebGLBackground() {
 
     // Context creation, shader compilation and the first frame used to run in
     // this effect at hydration, which is the busiest moment of the load on a
-    // phone: it landed inside the long task Lighthouse attributed to the
-    // framework chunk and pushed the page's interactive time out. The field is
-    // decoration behind the fold's text, so it starts once the window has
-    // loaded and the main thread is idle. The canvas is transparent until
-    // then; the body's Ink background shows through, which is the same colour
-    // the shader paints first.
+    // phone. Decision 136 moved it to the first idle slot after load, and that
+    // moved the cost without removing it: on a throttled phone the compile and
+    // link are one 650 ms task, and "idle after load" lands at about 2.6 s,
+    // still inside the window where the page is becoming interactive. The
+    // field is decoration behind the fold's text, so it now starts a fixed
+    // START_DELAY_MS after the window has loaded and fades in over a second.
+    // Nothing that takes input waits on it, and a first tap never triggers it.
     let cleanup: (() => void) | undefined
-    let idle = 0
+    let timer = 0
     let cancelled = false
     const boot = () => {
       if (cancelled) return
-      cleanup = init(canvas)
+      cleanup = init(canvas, () => { canvas.style.opacity = '1' })
     }
     const schedule = () => {
-      if (typeof window.requestIdleCallback === 'function') idle = window.requestIdleCallback(boot, { timeout: 1500 })
-      else idle = window.setTimeout(boot, 200)
+      timer = window.setTimeout(boot, START_DELAY_MS)
     }
     if (document.readyState === 'complete') schedule()
     else window.addEventListener('load', schedule, { once: true })
@@ -156,10 +162,7 @@ export default function WebGLBackground() {
     return () => {
       cancelled = true
       window.removeEventListener('load', schedule)
-      if (idle) {
-        if (typeof window.cancelIdleCallback === 'function') window.cancelIdleCallback(idle)
-        else window.clearTimeout(idle)
-      }
+      if (timer) window.clearTimeout(timer)
       cleanup?.()
     }
   }, [])
@@ -175,29 +178,65 @@ export default function WebGLBackground() {
         zIndex: 0,
         pointerEvents: 'none',
         display: 'block',
+        opacity: 0,
+        transition: 'opacity 1200ms ease',
       }}
     />
   )
 }
 
-function init(canvas: HTMLCanvasElement): (() => void) | undefined {
-  {
-    const gl = canvas.getContext('webgl', { antialias: false, premultipliedAlpha: false })
-    if (!gl) return
-    gl.getExtension('OES_standard_derivatives')
+function init(canvas: HTMLCanvasElement, onFirstFrame: () => void): (() => void) | undefined {
+  const gl = canvas.getContext('webgl', { antialias: false, premultipliedAlpha: false })
+  if (!gl) return
+  gl.getExtension('OES_standard_derivatives')
 
-    const compile = (type: number, src: string) => {
-      const sh = gl.createShader(type)!
-      gl.shaderSource(sh, src)
-      gl.compileShader(sh)
-      if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(sh))
-      return sh
+  // Compile and link without asking for a result. Querying COMPILE_STATUS or
+  // LINK_STATUS, or issuing the first draw, forces the driver to finish the
+  // compile on the spot, and for this shader on a slow phone that is a single
+  // 600 ms block of the main thread. With KHR_parallel_shader_compile the
+  // driver compiles on its own threads and COMPLETION_STATUS_KHR says when it
+  // is done, so the main thread only ever pays for a cheap poll per frame.
+  // Without the extension (Safari, older drivers) the first status query below
+  // blocks as before, which is no worse than it was.
+  const compile = (type: number, src: string) => {
+    const sh = gl.createShader(type)!
+    gl.shaderSource(sh, src)
+    gl.compileShader(sh)
+    return sh
+  }
+  const vert = compile(gl.VERTEX_SHADER, VERT)
+  const frag = compile(gl.FRAGMENT_SHADER, FRAG)
+  const prog = gl.createProgram()!
+  gl.attachShader(prog, vert)
+  gl.attachShader(prog, frag)
+  gl.linkProgram(prog)
+
+  const parallel = gl.getExtension('KHR_parallel_shader_compile') as { COMPLETION_STATUS_KHR: number } | null
+
+  let disposed = false
+  let poll = 0
+  let teardown: (() => void) | undefined
+
+  const ready = () => {
+    poll = 0
+    if (disposed) return
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+      console.error(gl.getProgramInfoLog(prog), gl.getShaderInfoLog(frag))
+      return
     }
+    teardown = run()
+  }
 
-    const prog = gl.createProgram()!
-    gl.attachShader(prog, compile(gl.VERTEX_SHADER, VERT))
-    gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FRAG))
-    gl.linkProgram(prog)
+  const waitForCompile = () => {
+    if (disposed) return
+    if (parallel && !gl.getProgramParameter(prog, parallel.COMPLETION_STATUS_KHR)) {
+      poll = requestAnimationFrame(waitForCompile)
+      return
+    }
+    ready()
+  }
+
+  const run = (): (() => void) => {
     gl.useProgram(prog)
 
     const buf = gl.createBuffer()
@@ -226,6 +265,7 @@ function init(canvas: HTMLCanvasElement): (() => void) | undefined {
 
     const t0 = performance.now()
     let raf = 0
+    let drawn = false
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -235,6 +275,7 @@ function init(canvas: HTMLCanvasElement): (() => void) | undefined {
       gl.uniform2f(uRes, canvas.width, canvas.height)
       gl.uniform1f(uTime, t)
       gl.drawArrays(gl.TRIANGLES, 0, 3)
+      if (!drawn) { drawn = true; onFirstFrame() }
     }
 
     let lastFrame = 0
@@ -272,5 +313,13 @@ function init(canvas: HTMLCanvasElement): (() => void) | undefined {
       document.removeEventListener('visibilitychange', onVisibility)
       window.removeEventListener('resize', resize)
     }
+  }
+
+  waitForCompile()
+
+  return () => {
+    disposed = true
+    if (poll) cancelAnimationFrame(poll)
+    teardown?.()
   }
 }
