@@ -21,6 +21,58 @@
 
 ## [Unreleased]
 
+### Added — 2026-09-28 (Trusted Partners: a client-facing page and a partner-facing one)
+
+**Decision 138 — The partner roster is split across two pages, because the same
+facts sell very differently to a client and to a subcontractor:**
+`/trusted-partners` is client-facing, indexed and in the sitemap. It argues that a
+vetted roster is a reason to trust Compass — one point of accountability whoever
+is on site, capability without a hiring lead time, and a procurement review before
+anyone reaches a client site. `/trusted-partners/apply` is partner-facing, carries
+`noindex, follow`, is absent from `lib/sitemap-entries.ts`, and is reached only
+from a quiet JetBrains-caption link at the foot of the client page. A client
+searching for Compass must land on the client page, never on the terms we offer
+subcontractors. Neither page may describe partners as doing the work: they add
+capability to a scope we hold, brief and sign off.
+
+**Decision 139 — The process is an application, not a registration:**
+Completing the form does not put a contractor on the roster. Form plus evidence of
+comparable work goes to procurement, procurement decides, and the applicant is
+told either way. The page, the questions and the PDF all say this — they must stay
+in step. No turnaround time is stated anywhere; add one only if the team commits
+to it.
+
+**Decision 140 — The roster renders only when real partners exist:**
+`content/partners.json` ships empty and `lib/partners.ts` feeds a section that
+renders nothing until it has entries — the same rule the site already applies to
+client proof. A contractor goes in that file only once procurement has accepted
+them and their signed application is on file. That signature is what permits the
+public listing, and it is why a removal request must be honoured within 30 days.
+
+**Decision 141 — English only, matching existing practice:**
+`AR_ROUTES` is unchanged. `/about` and `/how-we-work` are English-only too, and
+`toArabic()` already sends a reader from a route with no Arabic version to the
+Arabic home rather than a dead link.
+
+**Copy status — NOT YET APPROVED:**
+Every string on both pages is newly drafted and recorded in `CONTENT.md` under
+"Trusted Partners Page" and "Become a Trusted Partner Page", flagged there as
+awaiting sign-off. CLAUDE.md forbids inventing copy, so it is written into the
+content spec for approval rather than left loose in the components. Approve, amend
+or replace before launch.
+
+**Files:**
+- `app/trusted-partners/page.tsx` — client-facing.
+- `app/trusted-partners/apply/page.tsx` — partner-facing, `noindex`.
+- `lib/partners.ts`, `content/partners.json` — the roster, empty.
+- `public/compass-its-trusted-partner-application.pdf` — the one-page form. Source
+  is `01. Compass ITS/Trusted Partners/trusted-partner-form.html`, rendered with
+  headless Chrome. It is the authoritative version of the arrangement; both pages
+  summarise it and must never contradict it.
+- `lib/sitemap-entries.ts` — the client page only.
+- `lib/translations.ts` — footer Company column, never the header nav.
+- `CONTENT.md`, `SITEMAP.md`, `SEO.md` — both pages registered.
+
 ### Changed — 2026-09-28 (The WebGL field compiles off the main thread)
 
 **Decision 137 — Decision 136 moved the field's start to the first idle slot

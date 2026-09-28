@@ -101,6 +101,16 @@ export function sitemapEntries(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    // The client-facing half only. /trusted-partners/apply is noindex and stays
+    // out of here: submitting a noindexed URL invites crawl-and-drop noise, and a
+    // client searching for Compass should land on this page, not on the terms we
+    // offer subcontractors.
+    {
+      url: `${BASE}/trusted-partners`,
+      lastModified: contentUpdated,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
     {
       url: `${BASE}/contact`,
       lastModified: contentUpdated,

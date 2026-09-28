@@ -878,3 +878,113 @@ site, repeated here only so a change to one is a change to both:
 
 If any of these strings changes, the PNG must be rebuilt — it is a picture of the
 text, not the text itself, so nothing else will pick the change up.
+
+---
+
+## Trusted Partners Page (`/trusted-partners`)
+
+> **NEWLY DRAFTED — NOT YET APPROVED.** Every string in this section and the next
+> was written for the Trusted Partners build and has not been signed off. CLAUDE.md
+> forbids inventing copy, so it is recorded here for approval rather than left
+> loose in the components. Approve, amend, or replace before launch.
+
+Client-facing. This page argues why a vetted partner roster is a reason to trust
+Compass. It must never read as an admission that work is handed off — partners add
+capability to a scope we hold, brief and sign off.
+
+### Heading
+Vetted before they touch your network.
+
+### Body
+Some work needs a specialist — a cabling crew for a fit-out, a security engineer for an audit, extra hands to hold a programme. We keep a short roster of contractors who have been through our procurement review. The scope, the standard and the accountability stay with us.
+
+### What that means for you
+
+| Heading | Body |
+|---|---|
+| One point of accountability | You deal with us. We hold the scope, the programme and the standard, whoever is on site. One contract, one number to call. |
+| Capability without a hiring lead time | A cabling crew, a security engineer, a field team for a rollout — available for the window you need them, not the quarter it takes to recruit them. |
+| Vetted, not sourced on the day | Every partner clears a procurement review before they go near a client site: past work, references we call, trade licence, insurance and capacity. |
+
+### How a partner earns the name
+
+| Step | Name | Body |
+|---|---|---|
+| 01 | They apply | A written application with evidence of comparable work. A form on its own is not an application. |
+| 02 | Procurement reviews it | We check the work, call the references, and verify trade licence, insurance and capacity against the jobs we run. |
+| 03 | Terms in writing | Confidentiality, our technical standard and the commercial terms, agreed and signed before anything starts. |
+| 04 | Reviewed every job | The roster is not a permanent pass. We brief, supervise and sign off the work job by job. |
+
+### Roster section heading
+Who we work with.
+
+### Roster section body
+Contractors who have cleared the review above, and whose work we put our name to.
+
+> The roster renders only when real, accepted partners exist. Until then the
+> section is absent — the same rule the site already applies to client proof.
+
+### Quiet link to the partner-facing page
+Run a contracting or engineering practice? → Become a trusted partner
+
+---
+
+## Become a Trusted Partner Page (`/trusted-partners/apply`)
+
+> **NEWLY DRAFTED — NOT YET APPROVED.** See the note above.
+
+Partner-facing, and deliberately undiscoverable: `noindex`, absent from the
+sitemap, reached only from the quiet link at the foot of `/trusted-partners`. A
+client searching for Compass must land on the client-facing page, never on the
+terms we offer subcontractors.
+
+### Heading
+Become a trusted partner.
+
+### Body
+We work with a short list of specialist contractors across Qatar. If your work holds up and your process is reliable, we would like to see it. Our procurement team reviews every application — send the form and your evidence together.
+
+### How to apply
+
+| Step | Name | Body |
+|---|---|---|
+| 01 | Complete the form | One page: your details, your disciplines, your certifications, and two references we can call. |
+| 02 | Send it with your evidence | Email the signed form to info@compass-its.com with photographs, drawings or job records from comparable work. This is the part that decides it. |
+| 03 | Procurement reviews it | We assess the evidence, call your references, and check trade licence, insurance and capacity against the jobs we run. |
+| 04 | We come back to you | You get an outcome either way. If you are accepted, you go on the roster and we brief you when a scope fits what you do. |
+
+### Compass IT Solutions brings
+
+- Scopes that arrive defined, priced and programmed. No bidding, no chasing.
+- The technical standard the work is held to, and sign-off against it.
+- The client relationship, site access and coordination, handled by us.
+- Clear payment terms, set out in each purchase order.
+- A listing on our Trusted Partners page, once you are accepted.
+
+### You bring
+
+- Specialist capability on a defined scope of works, to the agreed programme.
+- Your own engineers, tools, trade licence, insurance and tax compliance.
+- A written quote for each job. You are free to decline any scope.
+- Evidence of comparable work and references we can call.
+- Discretion. What you see on a client site stays between us.
+
+### Questions
+
+| Question | Answer |
+|---|---|
+| Does sending the form put me on the roster? | No. The form is an application, not an acceptance. It goes to our procurement team with your evidence, they review it against the jobs we run, and we come back to you either way. A form sent with nothing to look at will not be assessed. |
+| What counts as evidence? | Photographs of finished work, as-built drawings, job records, or a reference site we can visit. Certifications and vendor partner status help. Pick the jobs closest to the work you want from us. |
+| Does it cost anything to apply or to be listed? | No. There is no fee to apply, no fee to join the roster and no fee to stay on it. You are paid per job, for the scope you take on. |
+| Is it exclusive? | No. Acceptance is not exclusive and guarantees no volume of work. You stay free to work with anyone else. |
+| Who owns the client relationship? | Compass IT Solutions does. We hold the account, set the technical standard, and handle the scope, site access and invoicing. You work with us rather than with the client, and the form asks you not to approach clients we introduce directly for those services, during a job and for twelve months after it ends. |
+| How and when am I paid? | Per job, on the terms set out in the purchase order you accept before work starts. Pricing comes from your own quote. |
+| What do you do with the evidence I send? | We use it to assess the application and, if you are accepted, to match you to the right scope. As the form sets out, we may show relevant examples and references when we are putting a team together. Only ever what you give us. Tell us on the form if something is confidential. |
+| Can I leave the roster? | Any time, by email. We remove your listing from the Trusted Partners page within 30 days. Material already printed or sent may take longer to withdraw. |
+
+### Form
+
+The one-page application form is served from `/compass-its-trusted-partner-application.pdf`.
+Its source is `01. Compass ITS/Trusted Partners/trusted-partner-form.html`, rendered
+to PDF with headless Chrome. The form is the authoritative version of the
+arrangement; these two pages summarise it and must never contradict it.
