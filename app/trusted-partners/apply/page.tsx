@@ -103,8 +103,8 @@ const questions = [
 
 export default function BecomeATrustedPartnerPage() {
   return (
-    <>
-      <section className="bg-ink py-24 md:py-32">
+    <main>
+      <section className="bg-ink py-24 md:py-32 relative z-[1]">
         <div className="mx-auto max-w-content px-6 md:px-10">
           <EyebrowLabel dim>Trusted partners</EyebrowLabel>
           <h1 className="mt-6 max-w-4xl font-archivo text-heading-1 text-paper md:text-display-l">
@@ -124,7 +124,7 @@ export default function BecomeATrustedPartnerPage() {
         </div>
       </section>
 
-      <section className="bg-paper py-20 md:py-28">
+      <section className="bg-paper py-20 md:py-28 relative z-[1]">
         <div className="mx-auto max-w-content px-6 md:px-10">
           <EyebrowLabel>How to apply</EyebrowLabel>
           <h2 className="mt-4 max-w-3xl font-archivo text-heading-1 text-ink">
@@ -148,7 +148,7 @@ export default function BecomeATrustedPartnerPage() {
         </div>
       </section>
 
-      <section className="bg-mist py-20 md:py-28">
+      <section className="bg-mist py-20 md:py-28 relative z-[1]">
         <div className="mx-auto max-w-content px-6 md:px-10">
           <EyebrowLabel>How the arrangement works</EyebrowLabel>
           <div className="mt-12 grid gap-6 lg:grid-cols-2">
@@ -178,7 +178,7 @@ export default function BecomeATrustedPartnerPage() {
         </div>
       </section>
 
-      <section className="bg-paper py-20 md:py-28">
+      <section className="bg-paper py-20 md:py-28 relative z-[1]">
         <div className="mx-auto max-w-content px-6 md:px-10">
           <EyebrowLabel>Questions</EyebrowLabel>
           <dl className="mt-12 divide-y divide-ink/10 border-y border-ink/10">
@@ -198,6 +198,6 @@ export default function BecomeATrustedPartnerPage() {
           </p>
         </div>
       </section>
-    </>
+    </main>
   )
 }

@@ -65,7 +65,7 @@ function Roster() {
   if (!partners.length) return null
 
   return (
-    <section className="bg-paper py-20 md:py-28">
+    <section className="bg-paper py-20 md:py-28 relative z-[1]">
       <div className="mx-auto max-w-content px-6 md:px-10">
         <EyebrowLabel>The roster</EyebrowLabel>
         <h2 className="mt-4 font-archivo text-heading-1 text-ink">Who we work with.</h2>
@@ -103,8 +103,8 @@ function Roster() {
 
 export default function TrustedPartnersPage() {
   return (
-    <>
-      <section className="bg-ink py-24 md:py-32">
+    <main>
+      <section className="bg-ink py-24 md:py-32 relative z-[1]">
         <div className="mx-auto max-w-content px-6 md:px-10">
           <EyebrowLabel dim>Trusted partners</EyebrowLabel>
           <h1 className="mt-6 max-w-4xl font-archivo text-heading-1 text-paper md:text-display-l">
@@ -121,7 +121,7 @@ export default function TrustedPartnersPage() {
         </div>
       </section>
 
-      <section className="bg-paper py-20 md:py-28">
+      <section className="bg-paper py-20 md:py-28 relative z-[1]">
         <div className="mx-auto max-w-content px-6 md:px-10">
           <EyebrowLabel>What that means for you</EyebrowLabel>
           <ul className="mt-12 grid gap-6 md:grid-cols-3">
@@ -140,7 +140,7 @@ export default function TrustedPartnersPage() {
 
       {/* The vetting itself. The reassurance a client wants, and the same process
           the partner-facing page describes from the other side. */}
-      <section className="bg-mist py-20 md:py-28">
+      <section className="bg-mist py-20 md:py-28 relative z-[1]">
         <div className="mx-auto max-w-content px-6 md:px-10">
           <EyebrowLabel>How a partner earns the name</EyebrowLabel>
           <h2 className="mt-4 max-w-3xl font-archivo text-heading-1 text-ink">
@@ -162,7 +162,7 @@ export default function TrustedPartnersPage() {
 
       {/* The partner-facing door. Deliberately quiet: a contractor looking for it
           will find it, a client reading the page is not pulled into it. */}
-      <section className="border-t border-ink/10 bg-paper">
+      <section className="border-t border-ink/10 bg-paper relative z-[1]">
         <div className="mx-auto flex max-w-content flex-col gap-2 px-6 py-8 sm:flex-row sm:items-center sm:justify-between md:px-10">
           <p className="font-jetbrains text-caption uppercase tracking-caption text-ink/50">
             Run a contracting or engineering practice?
@@ -177,6 +177,6 @@ export default function TrustedPartnersPage() {
       </section>
 
       <ContactCTA />
-    </>
+    </main>
   )
 }

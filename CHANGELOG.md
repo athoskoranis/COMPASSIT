@@ -21,6 +21,32 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-09-29 (Trusted Partners rendered blank)
+
+**Decision 148 — The background sits behind the page, not on top of it:**
+`/trusted-partners` and `/trusted-partners/apply` showed the nav over empty
+background and nothing else. The content was in the DOM and styled; it was being
+painted over. `SiteBackground` is a `fixed` layer at `z-index: 0`, and a
+positioned element with an explicit z-index paints after every static element in
+the same stacking context — including sections declared later in the DOM. Every
+other page opts out with `relative z-[1]` on each section; the two Trusted
+Partners pages never did. The flaw was latent until Decision 147 gave the layer
+an opaque `#0B0E10` fill: before that it was transparent linework, and the pages
+were readable through it.
+
+The pages now follow the convention (`<main>` plus `relative z-[1]`), and the
+convention is no longer load-bearing: `SiteBackground` and the `WebGLBackground`
+canvas move to `z-index: -1`, under all in-flow content, so a section that
+forgets the classes can no longer disappear. Their order relative to each other
+is unchanged. This relies on `<html>` having no background — `body`'s `bg-ink`
+propagates to the canvas and paints beneath the layer. Give `<html>` a
+background and the layer is buried.
+
+Verified by stripping `relative z-[1]` from every section on `/trusted-partners`
+(47 text elements, none covered) and by hit-testing every visible text element
+on all 39 sitemap routes, `/trusted-partners/apply` and the 404 page: 4,214
+elements, none under the background.
+
 ### Fixed — 2026-09-29 (The background placeholder now looks like the field)
 
 **Decision 147 — The placeholder was the wrong picture, so the handover still

@@ -42,11 +42,15 @@ export default function SiteBackground() {
 
   // Layering is safe because the shader writes alpha 1.0: once the canvas reaches
   // full opacity it covers this completely, so the two never fight.
+  //
+  // Negative z-index, not 0: a positioned z-0 layer paints over every static
+  // element, hiding any section that forgets `relative z-[1]`. At -1 it sits
+  // under all in-flow content. Relies on <html> having no background of its own.
   return (
     <>
       <div
         aria-hidden
-        className="fixed inset-0 z-0 pointer-events-none bg-cover bg-center"
+        className="fixed inset-0 -z-[1] pointer-events-none bg-cover bg-center"
         style={{
           backgroundColor: '#0B0E10',
           backgroundImage: animated ? `${CONTOURS}, ${FIELD_AT_REST}` : CONTOURS,
