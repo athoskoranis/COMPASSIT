@@ -21,6 +21,50 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-09-29 (Background pop-in, the form download, and the form's logo)
+
+**Decision 143 — The contour texture now paints on every route, under the field:**
+Decisions 136 and 137 moved the WebGL field off the critical path and gave it a
+fixed delay after load. Right for the metrics, and it left a hole: on `/` and
+`/contact` the field was the ONLY background, so those pages showed bare ink for
+the first few seconds and then something faded in. `SiteBackground` now always
+paints `/images/topo-contours.svg` and layers the field on top where it applies,
+so the page looks finished at first paint and the field becomes an enrichment
+rather than the thing you wait for. The field's schedule is untouched. Layering is
+safe because the shader writes alpha 1.0 — at full opacity the canvas covers the
+texture completely.
+
+**Decision 144 — `Button` can download instead of navigate:**
+`Button` always rendered `next/link`, so "Download the application form" routed to
+the PDF and replaced the page with it. It now takes a `download` prop and renders
+a plain anchor for a download or a `mailto:`/`tel:` href, keeping `next/link` for
+real routes. The reader stays on `/trusted-partners/apply` and the file lands in
+their downloads. Same-origin only, which the form is.
+
+**Decision 145 — The form's logo no longer depends on a viewBox offset:**
+The Compass logo SVG is a CorelDRAW export: the canvas is padded to 23385x16535
+while the lockup occupies 20418x4696 at (1483.5, 5919.5), so the form embedded it
+with a cropped viewBox. The crop was correct — measured against the paths' true
+bounds in root coordinates, aspect 4.348 — but a non-zero viewBox origin is
+fragile once a page is rasterised for print. The offset is now baked into a
+`translate()` with the viewBox starting at 0,0, and the export's full-canvas
+`<rect fill:none>` is gone, since an invisible rect carrying the original
+23385x16535 canvas is the most likely thing to make another PDF viewer clip.
+
+**Not reproduced, and worth knowing:** a report of the logo clipping in the form
+could not be reproduced. The logo rasterises complete in the HTML at 3x and in the
+PDF at 7x, checked with pdf.js. The two changes above remove the plausible causes
+rather than fix an observed break.
+
+**Pre-existing and NOT fixed — the WebGL field never initialises:**
+On compass-its.com the canvas stays at its default 300x150 and opacity 0 well past
+the load-plus-3s schedule, with no console error, `readyState: complete`, no
+reduced-motion, WebGL available, 8 cores and 16 GB reported. Reproduced on the
+live site and on a local production build, so it predates this change and is not
+caused by it. `init()` appears never to run. Decision 143 means the page now looks
+correct whether or not the field ever arrives, but the field itself is still dead
+and wants its own investigation.
+
 ### Added — 2026-09-28 (Trusted Partners: a client-facing page and a partner-facing one)
 
 **Decision 138 — The partner roster is split across two pages, because the same

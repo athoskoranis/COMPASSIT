@@ -116,7 +116,7 @@ export default function BecomeATrustedPartnerPage() {
             send the form and your evidence together.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
-            <Button href={FORM}>Download the application form</Button>
+            <Button href={FORM} download>Download the application form</Button>
             <Button href="mailto:info@compass-its.com?subject=Trusted%20Partner%20application" variant="ghost">
               info@compass-its.com
             </Button>
@@ -140,7 +140,7 @@ export default function BecomeATrustedPartnerPage() {
             ))}
           </ol>
           <div className="mt-12 flex flex-wrap items-center gap-6">
-            <Button href={FORM}>Download the application form</Button>
+            <Button href={FORM} download>Download the application form</Button>
             <span className="font-jetbrains text-caption uppercase tracking-caption text-ink/50">
               PDF · one page · send it with your evidence
             </span>
