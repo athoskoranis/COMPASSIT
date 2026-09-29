@@ -883,10 +883,10 @@ text, not the text itself, so nothing else will pick the change up.
 
 ## Trusted Partners Page (`/trusted-partners`)
 
-> **NEWLY DRAFTED — NOT YET APPROVED.** Every string in this section and the next
-> was written for the Trusted Partners build and has not been signed off. CLAUDE.md
-> forbids inventing copy, so it is recorded here for approval rather than left
-> loose in the components. Approve, amend, or replace before launch.
+> **APPROVED 2026-09-29.** Every string in this section and the next was written
+> for the Trusted Partners build and signed off by the owner on that date. It is
+> now approved copy like the rest of this file: use it verbatim, and log any
+> change in `CHANGELOG.md` before editing it.
 
 Client-facing. This page argues why a vetted partner roster is a reason to trust
 Compass. It must never read as an admission that work is handed off — partners add
@@ -931,7 +931,7 @@ Run a contracting or engineering practice? → Become a trusted partner
 
 ## Become a Trusted Partner Page (`/trusted-partners/apply`)
 
-> **NEWLY DRAFTED — NOT YET APPROVED.** See the note above.
+> **APPROVED 2026-09-29.** See the note above.
 
 Partner-facing, and deliberately undiscoverable: `noindex`, absent from the
 sitemap, reached only from the quiet link at the foot of `/trusted-partners`. A
