@@ -56,14 +56,29 @@ could not be reproduced. The logo rasterises complete in the HTML at 3x and in t
 PDF at 7x, checked with pdf.js. The two changes above remove the plausible causes
 rather than fix an observed break.
 
-**Pre-existing and NOT fixed — the WebGL field never initialises:**
-On compass-its.com the canvas stays at its default 300x150 and opacity 0 well past
-the load-plus-3s schedule, with no console error, `readyState: complete`, no
-reduced-motion, WebGL available, 8 cores and 16 GB reported. Reproduced on the
-live site and on a local production build, so it predates this change and is not
-caused by it. `init()` appears never to run. Decision 143 means the page now looks
-correct whether or not the field ever arrives, but the field itself is still dead
-and wants its own investigation.
+**Decision 146 — RETRACTION: the WebGL field is not broken. The measurement was.**
+Decision 143 originally shipped with a note claiming the field never initialises,
+on the evidence that the canvas stayed at its default 300x150 and opacity 0 past
+the load-plus-3s schedule, on the live site and on a local production build. That
+note was wrong and has been removed.
+
+`init()` ends at `waitForCompile()`, which polls `COMPLETION_STATUS_KHR` through
+`requestAnimationFrame`, and `run()` — the only thing that sizes the canvas — runs
+only once that poll resolves. **`requestAnimationFrame` does not fire in a hidden
+tab.** Every one of those observations was taken in an automated browser pane
+reporting `document.visibilityState: 'hidden'`, confirmed by a direct test in
+which a bare `requestAnimationFrame` never fired within 2.5 s. A canvas at 300x150
+was therefore the expected result in that environment and says nothing about a
+real browser. Fronting the tab did not help: the pane itself stays hidden, so the
+field could not be verified here either way.
+
+This is correct behaviour, not a bug to route around. A page opened in a
+background tab defers the compile poll until someone looks at it, which is exactly
+what should happen, and the queued callback resumes on the visibility change.
+
+What the original report — "the background takes a second to load in" — actually
+described is `START_DELAY_MS = 3000` plus the 1200 ms fade. Decision 143 is the
+fix for that, and it stands on its own.
 
 ### Added — 2026-09-28 (Trusted Partners: a client-facing page and a partner-facing one)
 
