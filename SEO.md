@@ -538,3 +538,30 @@ Every entry pairs with its English counterpart through reciprocal `hreflang`, de
 - [ ] GA4 and GTM tags fire on page view — verified in GTM Preview
 - [ ] Conversion event fires on contact form submission
 - [ ] `hreflang` added if Arabic or multilingual version is added later
+
+### Trusted Partners `/trusted-partners`
+
+**Title tag (69 chars):**
+Trusted Partners — Vetted before they touch your network · Compass ITS
+
+**Meta description (151 chars):**
+Compass IT Solutions works with a short roster of specialist contractors, each cleared by procurement before they reach a client site. The standard stays ours.
+
+**Primary keyword:**
+IT subcontractors Qatar
+
+**Indexing:** indexed, in the sitemap.
+
+---
+
+### Become a Trusted Partner `/trusted-partners/apply`
+
+**Title tag (38 chars):**
+Become a Trusted Partner · Compass ITS
+
+**Meta description (137 chars):**
+Apply to join the Compass IT Solutions partner roster. Send the form with evidence of comparable work and our procurement team will review it.
+
+**Indexing:** `noindex, follow`, and absent from the sitemap. Partner-facing by design.
+
+---

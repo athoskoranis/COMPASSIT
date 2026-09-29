@@ -272,3 +272,28 @@ Privacy Policy · Cookie Policy
 ## Redirects
 
 No legacy redirects required at launch — this is a new domain. Add any future redirects to `next.config.js` under the `redirects` array and log them in `CHANGELOG.md`.
+
+### Trusted Partners `/trusted-partners`
+
+| Property | Value |
+|---|---|
+| Title tag | Trusted Partners — Vetted before they touch your network · Compass ITS |
+| Nav label | Trusted partners (footer only — not in the header nav) |
+| Primary CTA | "Talk to us" → `/contact` |
+| Key sections | What that means for you (3) · How a partner earns the name (4 steps) · Roster (renders only when partners exist) · Quiet link to `/trusted-partners/apply` |
+| Arabic | None. Matches `/about` and `/how-we-work`, which are English-only; `AR_ROUTES` is unchanged. |
+
+---
+
+### Become a Trusted Partner `/trusted-partners/apply`
+
+| Property | Value |
+|---|---|
+| Title tag | Become a Trusted Partner · Compass ITS |
+| Nav label | None. Reached only from the quiet link at the foot of `/trusted-partners`. |
+| Primary CTA | "Download the application form" → `/compass-its-trusted-partner-application.pdf` |
+| Key sections | How to apply (4 steps) · What each side brings · Questions |
+| Indexing | `noindex, follow`, and deliberately absent from `lib/sitemap-entries.ts`. A client searching for Compass must land on the client-facing page, not on subcontractor terms. |
+| Arabic | None. |
+
+---

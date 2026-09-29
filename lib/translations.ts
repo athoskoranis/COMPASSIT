@@ -132,6 +132,9 @@ export const t = {
         { label: 'About',       href: '/about' },
         { label: 'How We Work', href: '/how-we-work' },
         { label: 'Blog',        href: '/blog' },
+        // Footer only, never the header nav: the roster is a trust signal for a
+        // client already reading, not something to sell from the top of the page.
+        { label: 'Trusted Partners', href: '/trusted-partners' },
         { label: 'Contact',     href: '/contact' },
       ],
     },
