@@ -54,12 +54,12 @@ public listing, and it is why a removal request must be honoured within 30 days.
 `toArabic()` already sends a reader from a route with no Arabic version to the
 Arabic home rather than a dead link.
 
-**Copy status — NOT YET APPROVED:**
-Every string on both pages is newly drafted and recorded in `CONTENT.md` under
-"Trusted Partners Page" and "Become a Trusted Partner Page", flagged there as
-awaiting sign-off. CLAUDE.md forbids inventing copy, so it is written into the
-content spec for approval rather than left loose in the components. Approve, amend
-or replace before launch.
+**Decision 142 — The Trusted Partners copy is approved (2026-09-29):**
+Every string on both pages was newly drafted for this build and recorded in
+`CONTENT.md` under "Trusted Partners Page" and "Become a Trusted Partner Page".
+The owner signed it off on 2026-09-29, so it is now approved copy like everything
+else in that file: use it verbatim, and log any change here before editing it. The
+pending-approval notices in `CONTENT.md` were replaced with the approval date.
 
 **Files:**
 - `app/trusted-partners/page.tsx` — client-facing.
