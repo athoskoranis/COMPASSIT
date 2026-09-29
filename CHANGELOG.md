@@ -21,6 +21,32 @@
 
 ## [Unreleased]
 
+### Fixed — 2026-09-29 (The background placeholder now looks like the field)
+
+**Decision 147 — The placeholder was the wrong picture, so the handover still
+showed:**
+Decision 143 put the plain contour texture under the field, which closed the bare
+ink gap and swapped one visible change for another: the contour sheet is grey
+linework, the field is a colour wash, and the reader watched the page change its
+mind a second after load. Confirmed from the owner's own before/after screenshots.
+
+The placeholder now approximates the field at rest, using the shader's values
+rather than invented ones. `FRAG` mixes five drifting blobs over `BG` at
+`BLOB_INTENSITY` 0.25, where `BG` is `vec3(0.0431, 0.0549, 0.0627)` — ink
+`#0B0E10` — `CYAN` is `vec3(0.12, 0.54, 0.72)` → `#1F8AB8`, and `INDIGO` is
+`vec3(0.24, 0.13, 0.50)` → `#3D2180`. The five radial gradients sit at the `a[0..4]`
+blob centres evaluated at t=0, rounded to viewport percentages, with alphas near
+that 0.25 mix. The contour sheet stays on top of the wash because the shader draws
+its own contour lines from fbm — the linework was never wrong, only lonely.
+
+It cannot match frame for frame; it is a still of a moving thing. The point is
+that the right colours are in roughly the right places, so the field arriving
+reads as the picture starting to move rather than as a different picture.
+
+This also settles Decision 146 from the other side: the owner's screenshots show
+the field rendering normally, so it was never broken, exactly as the retraction
+concluded.
+
 ### Fixed — 2026-09-29 (Background pop-in, the form download, and the form's logo)
 
 **Decision 143 — The contour texture now paints on every route, under the field:**
