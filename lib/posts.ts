@@ -13,6 +13,16 @@ export type Post = {
 // silently go stale. Newest first.
 export const posts: Post[] = [
   {
+    slug: 'how-to-protect-company-data-from-cyber-threats',
+    category: 'CYBERSECURITY',
+    title: 'How to Protect Your Company Data from Cyber Threats?',
+    excerpt:
+      'Protecting company data starts with knowing what you hold, who can reach it, and how quickly you would spot a problem. This guide covers practical data security steps for Qatar and GCC businesses, from access control and backups to breach readiness.',
+    date: 'September 2026',
+    readTime: '6 min read',
+    image: '/images/blog/how-to-protect-company-data-from-cyber-threats-1.jpg',
+  },
+  {
     slug: 'healthcare-it-service-qatar-guide',
     category: 'IT SERVICES',
     title: 'Healthcare IT Service in Qatar: A Complete Guide',
