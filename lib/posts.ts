@@ -13,6 +13,16 @@ export type Post = {
 // silently go stale. Newest first.
 export const posts: Post[] = [
   {
+    slug: 'how-enterprise-technology-services-scale-businesses',
+    category: 'IT SERVICES',
+    title: 'How Enterprise Technology Services Scale Businesses?',
+    excerpt:
+      'Growth exposes the gaps between systems, processes and decisions made years earlier. This article explains how enterprise application integration, custom application development and architecture consulting help Qatar and GCC businesses scale without rebuilding every time they grow.',
+    date: 'October 2026',
+    readTime: '6 min read',
+    image: '/images/blog/how-enterprise-technology-services-scale-businesses-1.jpg',
+  },
+  {
     slug: 'how-to-protect-company-data-from-cyber-threats',
     category: 'CYBERSECURITY',
     title: 'How to Protect Your Company Data from Cyber Threats?',
