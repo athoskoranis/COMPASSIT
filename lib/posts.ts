@@ -13,6 +13,16 @@ export type Post = {
 // silently go stale. Newest first.
 export const posts: Post[] = [
   {
+    slug: 'it-services-trends-qatar-2026',
+    category: 'IT SERVICES',
+    title: 'IT Services Trends in Qatar: What to Expect in 2026',
+    excerpt:
+      'Cloud is becoming the default, data protection now shapes buying decisions, and managed services are replacing break-fix support. Here are the IT services trends Qatar businesses should plan for in 2026, and what to ask a technology partner.',
+    date: 'October 2026',
+    readTime: '6 min read',
+    image: '/images/blog/it-services-trends-qatar-2026-1.jpg',
+  },
+  {
     slug: 'how-enterprise-technology-services-scale-businesses',
     category: 'IT SERVICES',
     title: 'How Enterprise Technology Services Scale Businesses?',
