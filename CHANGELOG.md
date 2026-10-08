@@ -21,6 +21,24 @@
 
 ## [Unreleased]
 
+### Changed — 2026-10-08 (Favicon: dark monogram on transparent, centred)
+
+**Decision 149 — The favicon is the bare monogram, centred on its own bounds:**
+`app/icon.svg` was the white monogram on an Ink rounded square, and it sat off
+centre in the browser tab. The cause was the viewBox: `1500 -500 20000 20000`
+is centred on (11500, 9500), but the mark's measured bounds are centred on
+(11692, 8267). At 512px that left 88px above the mark and 151px below, and
+110px left against 100px right — about two pixels high at tab size, which is
+enough to see. The viewBox is now a 12800-unit square centred on the mark's
+own bounds (`5292.5 1867.4 12800 12800`), and a raster check at 512, 32 and
+16px gives equal margins on both axes.
+
+The Ink tile is gone: the mark is drawn in Ink `#0B0E10` on a transparent
+ground, per the owner's request. Ink on a transparent ground disappears on a
+dark browser theme, so the icon carries a `prefers-color-scheme: dark` rule
+that redraws it in Paper `#F4F2EC` there — both palette colours, no new hex.
+Path data is unchanged, byte for byte, from `compass-its-monogram-dark.svg`.
+
 ### Fixed — 2026-09-29 (Trusted Partners rendered blank)
 
 **Decision 148 — The background sits behind the page, not on top of it:**
