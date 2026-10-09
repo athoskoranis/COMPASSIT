@@ -13,6 +13,16 @@ export type Post = {
 // silently go stale. Newest first.
 export const posts: Post[] = [
   {
+    slug: 'ai-challenges-and-solutions-qatar-businesses',
+    category: 'AI & MANAGED IT',
+    title: 'AI Challenges and Solutions for Businesses in Qatar',
+    excerpt:
+      'Most AI projects in Qatar stall on unclear ownership, scattered data, governance gaps and low staff confidence, not on the technology. This guide covers the common AI challenges and the practical solutions that get a first project working.',
+    date: 'October 2026',
+    readTime: '6 min read',
+    image: '/images/blog/ai-challenges-and-solutions-qatar-businesses-1.jpg',
+  },
+  {
     slug: 'it-services-trends-qatar-2026',
     category: 'IT SERVICES',
     title: 'IT Services Trends in Qatar: What to Expect in 2026',
