@@ -264,7 +264,7 @@ export default function HealthcareITPostClient() {
                 IT Services — the team behind your IT team
               </Link>
               <Link
-                href="/services/cyber-security"
+                href="/services/cybersecurity"
                 className="font-barlow text-body text-signal hover:underline underline-offset-4 transition-colors"
               >
                 Cybersecurity — protecting patient and business data
