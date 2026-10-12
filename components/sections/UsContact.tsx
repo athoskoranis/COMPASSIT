@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
+import { useSpamGuard } from '@/lib/spamGuard'
 
 /**
  * Contact block for the US practice.
@@ -59,6 +60,7 @@ export default function UsContact({
     message: '',
   })
   const [submitted, setSubmitted] = useState(false)
+  const guard = useSpamGuard()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -86,6 +88,7 @@ export default function UsContact({
           email: form.email,
           services: ['POS Analytics — US practice'],
           message: [details, form.message].filter(Boolean).join('\n\n'),
+          ...guard.payload(),
         }),
       })
       if (!res.ok) throw new Error()
@@ -144,6 +147,7 @@ export default function UsContact({
             </p>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              {guard.field}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="us-name" className="sr-only">

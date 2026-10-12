@@ -21,6 +21,33 @@
 
 ## [Unreleased]
 
+### Security — 2026-10-12 (Bot enquiries reaching the inbox)
+
+**Decision 151 — The contact endpoint drops bots before it sends mail:**
+`/api/contact` mailed anything that carried a name and an email, and spam bots
+were filing several "New enquiry from <random letters>" messages a day. Every
+form that posts there now sends two invisible checks from `lib/spamGuard.tsx`:
+a honeypot field no person can see or tab to, and how long the form was on
+screen. The route drops a submission with the honeypot filled, or one sent in
+under three seconds, or with no time at all (a script posting directly). It
+answers those with the same `{ ok: true }` as a real send, so a bot has nothing
+to adjust to, and logs each drop as "Contact form: dropped as bot" in the Vercel
+function logs. No CAPTCHA: neither check asks anything of a real visitor.
+
+The same change escapes every visitor field before it goes into the HTML
+email. They were interpolated raw, so a submission could put its own links and
+markup in the inbox. Email format and name/message length are now checked.
+
+### Fixed — 2026-09-29 (A broken service link in the healthcare post)
+
+**Decision 150 — `/services/cyber-security` is `/services/cybersecurity`:**
+The "Cybersecurity — protecting patient and business data" link at the foot of
+`/blog/healthcare-it-service-qatar-guide` pointed at a hyphenated slug that has
+never existed, so it landed on the 404 page. It arrived with the post itself
+(blog-pumper, 2026-09-25). Found by a full-site crawl: every sitemap page plus
+`/trusted-partners/apply`, and all 435 unique links and assets they reference.
+It was the only broken internal link.
+
 ### Changed — 2026-10-08 (Favicon: dark monogram on transparent, centred)
 
 **Decision 149 — The favicon is the bare monogram, centred on its own bounds:**

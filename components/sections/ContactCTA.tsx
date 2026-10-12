@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { useLanguage } from '@/context/LanguageContext'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
+import { useSpamGuard } from '@/lib/spamGuard'
 
 // headingLevel exists because this section closes every page on the site. On
 // all of them it is a secondary CTA under the page's own h1, so h2 is right.
@@ -21,6 +22,7 @@ export default function ContactCTA({ headingLevel = 2 }: { headingLevel?: 1 | 2 
     message: '',
   })
   const [submitted, setSubmitted] = useState(false)
+  const guard = useSpamGuard()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [servicesOpen, setServicesOpen] = useState(false)
@@ -42,7 +44,7 @@ export default function ContactCTA({ headingLevel = 2 }: { headingLevel?: 1 | 2 
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, ...guard.payload() }),
       })
       if (!res.ok) {
         const data = await res.json()
@@ -80,6 +82,7 @@ export default function ContactCTA({ headingLevel = 2 }: { headingLevel?: 1 | 2 
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-left">
+              {guard.field}
 
               {/* Name */}
               <input

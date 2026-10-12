@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { useLanguage } from '@/context/LanguageContext'
+import { useSpamGuard } from '@/lib/spamGuard'
 
 // Card treatment per DESIGN.md: opaque Ink, .raised elevation, .bracketed
 // diagonal corner marks. No Signal border — that pattern is superseded.
@@ -8,6 +9,7 @@ export default function HeroContactCard() {
   const { tr } = useLanguage()
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
+  const guard = useSpamGuard()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -19,7 +21,7 @@ export default function HeroContactCard() {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, ...guard.payload() }),
       })
       if (!res.ok) {
         const data = await res.json()
@@ -52,6 +54,7 @@ export default function HeroContactCard() {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="flex flex-col gap-[11px]">
+          {guard.field}
           <input
             type="text"
             required
