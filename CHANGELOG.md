@@ -21,6 +21,20 @@
 
 ## [Unreleased]
 
+### Added — 2026-10-13 (A photograph for Hardware Supply)
+
+**Decision 153 — Hardware Supply gets a section image like its siblings:**
+Decision 152 shipped the page without one because no licensed hardware photo existed. At
+the owner's request one was sourced from Pexels by the same rules as the other ten (see the
+2026-08 site-photography entry): cool and neutral tones, nothing that claims to be Compass
+work. Rows of identical monitors on white desks — the "every desk in the office" offer the
+page makes — by Ludovic Delot, Pexels 18471488. Capped at 1800px, 214KB; credit recorded in
+`public/images/site/credits.json`; placed after the two card sections, as on Network
+Infrastructure. The alt text describes the picture, not a project.
+
+The Pexels key is the owner's own key, reused from the Sunset Media project with the owner's
+permission and stored in the gitignored `pexelskey.env.txt`. It is not in any commit.
+
 ### Added — 2026-10-13 (Hardware Supply: a tenth service)
 
 **Decision 152 — Hardware supply and installation is a service page, in both languages:**
