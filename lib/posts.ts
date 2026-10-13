@@ -13,6 +13,16 @@ export type Post = {
 // silently go stale. Newest first.
 export const posts: Post[] = [
   {
+    slug: 'how-businesses-use-degaussers-for-secure-data-erasure',
+    category: 'CYBERSECURITY',
+    title: 'How Businesses Use Degaussers for Secure Data Erasure?',
+    excerpt:
+      'Degaussers erase magnetic drives and tapes so the data cannot be read back, but they only suit certain media. Here is where they fit in a data centre, what they cannot erase, and the records that prove the job was done.',
+    date: 'October 2026',
+    readTime: '5 min read',
+    image: '/images/blog/how-businesses-use-degaussers-for-secure-data-erasure-1.jpg',
+  },
+  {
     slug: 'ai-challenges-and-solutions-qatar-businesses',
     category: 'AI & MANAGED IT',
     title: 'AI Challenges and Solutions for Businesses in Qatar',
