@@ -19,6 +19,7 @@ const SERVICE_TYPE: Record<string, string> = {
   'app-development': 'Mobile App Development',
   'ai-workflows': 'AI Workflow Automation',
   'digital-marketing': 'Digital Marketing',
+  'hardware-supply': 'IT Hardware Supply',
 }
 
 export function arServiceJsonLd(slug: string) {

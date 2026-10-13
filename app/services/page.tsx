@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Monitor, Wifi, Cloud, Shield, Globe, Smartphone, Cpu, TrendingUp, Wrench } from 'lucide-react'
+import { Monitor, Wifi, Cloud, Shield, Globe, Smartphone, Cpu, TrendingUp, HardDrive, Wrench } from 'lucide-react'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
 import Button from '@/components/ui/Button'
 import ContactCTA from '@/components/sections/ContactCTA'
@@ -33,6 +33,7 @@ const services = [
     { slug: 'app-development',        icon: Smartphone },
     { slug: 'ai-workflows',           icon: Cpu        },
     { slug: 'digital-marketing',      icon: TrendingUp },
+    { slug: 'hardware-supply',        icon: HardDrive  },
   ].map((meta, i) => ({
     ...meta,
     href: `/services/${meta.slug}`,

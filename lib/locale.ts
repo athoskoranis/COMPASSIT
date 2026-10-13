@@ -13,6 +13,7 @@ export const AR_ROUTES = [
   '/services/app-development',
   '/services/ai-workflows',
   '/services/digital-marketing',
+  '/services/hardware-supply',
 ] as const
 
 export const hasArabic = (path: string) => (AR_ROUTES as readonly string[]).includes(path)

@@ -208,6 +208,7 @@ const jsonLd = {
         'Web development',
         'Mobile app development',
         'Digital marketing',
+        'IT hardware supply',
       ],
       // One entry per service page, so the catalogue and the site cannot disagree.
       hasOfferCatalog: {
@@ -222,6 +223,7 @@ const jsonLd = {
           { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'App Development', url: 'https://compass-its.com/services/app-development' } },
           { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI Workflows', url: 'https://compass-its.com/services/ai-workflows' } },
           { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Digital Marketing', url: 'https://compass-its.com/services/digital-marketing' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Hardware Supply', url: 'https://compass-its.com/services/hardware-supply' } },
           { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Custom Solutions', url: 'https://compass-its.com/services/custom-solutions' } },
         ],
       },

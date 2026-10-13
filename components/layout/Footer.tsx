@@ -40,6 +40,7 @@ export default function Footer() {
     '/services/app-development',
     '/services/ai-workflows',
     '/services/digital-marketing',
+    '/services/hardware-supply',
   ]
 
   const services = tr.services.items.map((item, i) => ({

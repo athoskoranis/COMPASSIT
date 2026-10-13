@@ -1,0 +1,27 @@
+'use client'
+import { useLanguage } from '@/context/LanguageContext'
+import ServiceHero from '@/components/sections/ServiceHero'
+import ServiceSubServices from '@/components/sections/ServiceSubServices'
+import ServiceWhyUs from '@/components/sections/ServiceWhyUs'
+import ServiceFAQ from '@/components/sections/ServiceFAQ'
+import ContactCTA from '@/components/sections/ContactCTA'
+import { serviceData } from '@/lib/serviceTranslations'
+
+// No SectionImage and no RelatedReading: there is no licensed hardware photo in
+// /images/site yet, and no post that covers procurement. Both are left out
+// rather than filled with the nearest thing.
+export default function HardwareSupplyPageClient() {
+  const { lang } = useLanguage()
+  const d = serviceData['hardware-supply'][lang]
+  return (
+    <main>
+      <ServiceHero {...d.hero} />
+      {d.sections.map((s, i) => (
+        <ServiceSubServices key={i} eyebrow={s.eyebrow} heading={s.heading} intro={s.intro} items={s.items} />
+      ))}
+      <ServiceWhyUs {...d.whyUs} />
+      {d.faq && <ServiceFAQ faqs={d.faq} />}
+      <ContactCTA />
+    </main>
+  )
+}

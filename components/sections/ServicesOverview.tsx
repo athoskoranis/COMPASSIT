@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { Monitor, Wifi, Cloud, Shield, Globe, Smartphone, Cpu, TrendingUp } from 'lucide-react'
+import { Monitor, Wifi, Cloud, Shield, Globe, Smartphone, Cpu, TrendingUp, HardDrive } from 'lucide-react'
 import { useLanguage } from '@/context/LanguageContext'
 import { localeHref } from '@/lib/locale'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
@@ -15,12 +15,13 @@ const servicesMeta = [
   { id: 6, href: '/services/app-development',        icon: Smartphone, relatedIds: [5, 7], energy: 70 },
   { id: 7, href: '/services/ai-workflows',           icon: Cpu,        relatedIds: [6, 8], energy: 82 },
   { id: 8, href: '/services/digital-marketing',       icon: TrendingUp, relatedIds: [5, 7], energy: 72 },
+  { id: 9, href: '/services/hardware-supply',         icon: HardDrive,  relatedIds: [1, 2], energy: 78 },
 ]
 
 export default function ServicesOverview() {
   const { tr, lang } = useLanguage()
   // Localised here rather than in the table above, because the table is module
-  // scope and the language is not known until render. On /ar these eight cards
+  // scope and the language is not known until render. On /ar these nine cards
   // and the dial built from them were the largest block of English links on the
   // Arabic home page.
   const servicesData = servicesMeta.map((meta, i) => ({

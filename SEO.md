@@ -297,6 +297,22 @@ SEO Qatar · Google Ads Qatar · digital marketing agency Doha · inbound market
 
 ---
 
+### Hardware Supply `/services/hardware-supply`
+
+**Title tag (38 chars):**
+Hardware Supply — Compass IT Solutions
+
+**Meta description (145 chars):**
+PCs, laptops, monitors, printers, servers and meeting-room AV for businesses in Qatar. Dell, HP, Lenovo and Apple — imaged, installed and tagged.
+
+**Primary keyword:**
+IT hardware supply Qatar
+
+**Secondary keywords:**
+laptop supplier Doha · computer hardware Qatar · IT procurement Qatar · office IT equipment Doha
+
+---
+
 ### How We Work `/how-we-work`
 
 **Title tag (54 chars):**
@@ -520,6 +536,18 @@ Every entry pairs with its English counterpart through reciprocal `hreflang`, de
 قنوات البحث والمحتوى والإعلانات المدفوعة مصممة للعمل معاً — قياس أسبوعي وتحسين شهري وتراكم على مدى أرباع السنة. برامج تسويق رقمي تبنى لتدوم.
 
 **English counterpart:** `/services/digital-marketing`
+
+---
+
+### Arabic Hardware Supply `/ar/services/hardware-supply`
+
+**Title tag (55 chars):**
+توريد الأجهزة وتركيبها في قطر ودول الخليج · Compass ITS
+
+**Meta description (140 chars):**
+أجهزة كمبيوتر وحواسيب محمولة وشاشات وطابعات وخوادم وأنظمة قاعات الاجتماعات للشركات في قطر. Dell وHP وLenovo وApple — مهيّأة ومركّبة ومسجّلة.
+
+**English counterpart:** `/services/hardware-supply`
 
 ---
 ## Technical SEO Checklist (At Launch)

@@ -19,7 +19,8 @@ compass-its.com/
 │   ├── /services/app-development           Application Development
 │   ├── /services/ai-workflows              AI & Automated Workflows
 │   ├── /services/custom-solutions          Custom Solutions
-│   └── /services/digital-marketing         Digital Marketing
+│   ├── /services/digital-marketing         Digital Marketing
+│   └── /services/hardware-supply           Hardware Supply
 ├── /how-we-work                How We Work (engagement model + ongoing support)
 ├── /contact                    Contact
 └── /us                         US practice — POS Analytics (Portland, Oregon)
@@ -191,6 +192,18 @@ block instead, posting to the same endpoint.
 
 ---
 
+### Hardware Supply `/services/hardware-supply`
+
+| Property | Value |
+|---|---|
+| Title tag | Hardware Supply — Compass IT Solutions |
+| Nav label | Hardware Supply |
+| Primary CTA | "Request a hardware quote" → `/contact` |
+| Key sections | Hero · What We Supply (4) · From Order to Desk (6) · Why Compass · FAQ |
+| Arabic | `/ar/services/hardware-supply` |
+
+---
+
 ### How We Work `/how-we-work`
 
 | Property | Value |
@@ -232,7 +245,7 @@ counterpart, so the Arabic nav does not offer it. The language toggle is suppres
 the same reason.
 
 **Services dropdown:**
-IT Services · Network Infrastructure · Cloud Solutions · Cybersecurity · Website Development · App Development · AI Workflows · Custom Solutions · Digital Marketing
+IT Services · Network Infrastructure · Cloud Solutions · Cybersecurity · Website Development · App Development · AI Workflows · Digital Marketing · Hardware Supply · Custom Solutions
 
 ### Primary Nav (mobile)
 
@@ -241,7 +254,7 @@ Hamburger menu. Full-page overlay on open. Same links as desktop, stacked vertic
 ### Footer Nav
 
 **Column 1 — Services**
-IT Services · Network Infrastructure · Cloud Solutions · Cybersecurity · Website Development · App Development · AI Workflows · Custom Solutions · Digital Marketing
+IT Services · Network Infrastructure · Cloud Solutions · Cybersecurity · Website Development · App Development · AI Workflows · Digital Marketing · Hardware Supply
 
 **Column 2 — Company**
 About · How We Work · Blog · Contact

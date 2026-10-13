@@ -87,6 +87,7 @@ Use service page titles and one-line descriptions only. Full copy lives on indiv
 | App Development | Apps that earn a place on the home screen. |
 | AI Workflows | The manual middle of every process — automated. |
 | Digital Marketing | Marketing that compounds. |
+| Hardware Supply | Devices that arrive ready to work. |
 
 ---
 
@@ -406,6 +407,50 @@ Search, content, and paid channels engineered to work together — measured week
 
 **Source label:**
 / measurement standard · compass-its
+
+---
+
+## Hardware Supply Page (`/services/hardware-supply`)
+
+Brands, product range and scope confirmed by the owner, 13 October 2026: Dell, HP,
+HPE, Lenovo, Apple · PCs, laptops, monitors, printers, scanners, servers, storage,
+meeting-room AV · imaging and setup, asset tagging, warranty handling, disposal.
+
+### Hero
+**Eyebrow:** HARDWARE SUPPLY · QATAR · GCC
+**Title:** Hardware Supply and Installation in Qatar, GCC
+**Subtitle:** Tell us how many people need equipment. We source the PCs, laptops and monitors, set them up, and install them at the desk.
+**CTA:** Request a hardware quote
+
+### Section 1 — WHAT WE SUPPLY · What We Supply
+**Intro:** We supply Dell, HP, HPE, Lenovo and Apple, so you choose from the brands your team already knows.
+- **PCs, Laptops & Monitors** — Desktops, laptops, monitors, docks, keyboards and headsets, from one new starter to a full office fit-out.
+- **Printers & Scanners** — Office printers, multifunction devices and scanners, sized to how much your team actually prints.
+- **Servers & Storage** — Rack and tower servers and network-attached storage (NAS), specified for the workloads they will run.
+- **Meeting-Room AV** — Screens, cameras, microphones and conferencing kits, set up so the call starts when the meeting does.
+
+### Section 2 — HOW IT WORKS · From Order to Desk
+- **Specify** — We start with who uses each device and for what, then recommend models. Your quote is itemised by device, not one total.
+- **Image & Set Up** — Devices arrive configured: operating system, your applications, user accounts and Microsoft Intune or domain enrolment.
+- **Install** — We deliver to your office, connect and test each device at its desk, and confirm it with the person who will use it.
+- **Tag & Register** — We label every device and record it in an asset register: serial number, assigned user and warranty end date.
+- **Warranty Handling** — When a device fails, you tell us. We raise the claim with the manufacturer and follow it through to repair or replacement.
+- **Old-Device Disposal** — We wipe the data from the equipment you are retiring, then collect it and dispose of it.
+
+### Why Compass — WHY COMPASS ITS · One Supplier for the Device and Everything After
+- One quote, one delivery and one point of contact, whether you need five laptops or a full floor.
+- Devices arrive imaged and ready, so day one is spent working rather than installing software.
+- The team that supplies your hardware also supports it, so a fault goes to people who already know your setup.
+- The asset register shows what you own, who has it and when each warranty runs out.
+- Hardware is specified to fit the network, cloud and security setup we manage, not bought in isolation.
+
+### FAQ
+- **Can you supply hardware in bulk?** — Yes. We supply anything from a single replacement laptop to a full office fit-out, with one itemised quote covering the devices, setup and installation.
+- **Which brands do you supply?** — Dell, HP, HPE, Lenovo and Apple. We recommend models based on how each device will be used, and can match the brands you already run.
+- **Do devices arrive ready to use?** — Yes. We image and configure each device before delivery, then install and test it at the desk.
+
+### Services overview one-liner
+Devices that arrive ready to work.
 
 ---
 

@@ -8,7 +8,7 @@ import ContactCTA from '@/components/sections/ContactCTA'
 // Copy is verbatim from CONTENT.md "Custom Solutions Page"; title and
 // description verbatim from SEO.md.
 //
-// Unlike the other eight service pages, this one holds its own copy instead of
+// Unlike the other nine service pages, this one holds its own copy instead of
 // reading lib/serviceTranslations.ts. That file is typed Record<Lang, ...>, so
 // adding an entry would require an Arabic block, and there is no Arabic for
 // this route — putting the English text in the `ar` slot would be a lie in the

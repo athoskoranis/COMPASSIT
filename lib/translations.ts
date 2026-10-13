@@ -69,6 +69,7 @@ export const t = {
         { id: 6, title: 'App Development',        description: 'Apps that earn a place on the home screen.',          category: 'MOBILE'      },
         { id: 7, title: 'AI Workflows',           description: 'The manual middle of every process — automated.',    category: 'AUTOMATION'  },
         { id: 8, title: 'Digital Marketing',      description: 'Marketing that compounds.',                           category: 'DIGITAL'     },
+        { id: 9, title: 'Hardware Supply',        description: 'Devices that arrive ready to work.',                  category: 'HARDWARE'    },
       ],
     },
     whyCompass: {
@@ -109,6 +110,7 @@ export const t = {
         'App Development',
         'AI Workflows',
         'Digital Marketing',
+        'Hardware Supply',
         "Not sure — tell us more",
       ],
       urgencyLabel: 'Timeline',
@@ -208,6 +210,7 @@ export const t = {
         { id: 6, title: 'تطوير التطبيقات',             description: 'تطبيقات تستحق مكانًا في الشاشة الرئيسية.',            category: 'الجوال'                },
         { id: 7, title: 'سير عمل الذكاء الاصطناعي', description: 'أتمتة الوسط اليدوي في كل عملية.',                       category: 'الأتمتة'               },
         { id: 8, title: 'التسويق الرقمي',              description: 'تسويق يتراكم ويتضاعف.',                                 category: 'الرقمي'                },
+        { id: 9, title: 'توريد الأجهزة',               description: 'أجهزة تصل جاهزة للعمل.',                                category: 'الأجهزة'               },
       ],
     },
     whyCompass: {
@@ -248,6 +251,7 @@ export const t = {
         'تطوير التطبيقات',
         'سير عمل الذكاء الاصطناعي',
         'التسويق الرقمي',
+        'توريد الأجهزة',
         'غير متأكد — أخبرنا المزيد',
       ],
       urgencyLabel: 'الإطار الزمني',

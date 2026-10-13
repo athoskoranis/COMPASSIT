@@ -4,7 +4,7 @@ import { AR_ROUTES, alternatesFor } from '@/lib/locale'
 export const BASE = 'https://compass-its.com'
 
 // Bump when the copy on the static pages changes. See the note in sitemapEntries().
-const CONTENT_UPDATED = '2026-09-20'
+const CONTENT_UPDATED = '2026-10-13'
 
 // The US practice page is dated separately. It was built long after the rest and
 // will change on its own schedule while the practice launches, so folding it into
@@ -28,6 +28,7 @@ const services = [
   'app-development',
   'ai-workflows',
   'digital-marketing',
+  'hardware-supply',
   // English-only: no /ar counterpart, so alternatesFor() returns nothing for it.
   'custom-solutions',
 ]
@@ -69,6 +70,9 @@ export function sitemapEntries(): MetadataRoute.Sitemap {
   // counterpart. Left at 2026-08-23 the sitemap would have told Google nothing
   // had changed in four weeks, delaying the re-crawl of the exact links added
   // to make the site easier to crawl.
+  //
+  // 2026-10-13: Hardware Supply joined the nav, footer and home dial, so every
+  // page's chrome gained a link again.
   const contentUpdated = new Date(CONTENT_UPDATED)
 
   // The blog index genuinely does change whenever a post lands, and that date is
@@ -133,7 +137,7 @@ export function sitemapEntries(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      // The services hub. No Arabic counterpart: /ar has the eight service
+      // The services hub. No Arabic counterpart: /ar has the nine service
       // pages but no index, so alternatesFor() correctly returns nothing here.
       url: `${BASE}/services`,
       lastModified: contentUpdated,

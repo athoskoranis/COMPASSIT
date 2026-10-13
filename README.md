@@ -97,7 +97,8 @@ compass-its-website/
 │   │   │   ├── app-development/
 │   │   │   ├── ai-workflows/
 │   │   │   ├── custom-solutions/
-│   │   │   └── digital-marketing/
+│   │   │   ├── digital-marketing/
+│   │   │   └── hardware-supply/
 │   │   ├── how-we-work/
 │   │   └── contact/
 │   ├── layout.tsx          # Root layout (fonts, analytics, metadata)
@@ -153,6 +154,7 @@ Before writing any component or copy, read these files in order:
 | AI Workflows | `/services/ai-workflows` |
 | Custom Solutions | `/services/custom-solutions` |
 | Digital Marketing | `/services/digital-marketing` |
+| Hardware Supply | `/services/hardware-supply` |
 | How We Work | `/how-we-work` |
 | Contact | `/contact` |
 

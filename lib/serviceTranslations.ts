@@ -874,6 +874,111 @@ const digitalMarketing: Record<Lang, ServicePageData> = {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// HARDWARE SUPPLY
+// English copy is CONTENT.md "Hardware Supply Page" verbatim (Decision 152).
+// ─────────────────────────────────────────────────────────────────────────────
+const hardwareSupply: Record<Lang, ServicePageData> = {
+  en: {
+    hero: {
+      eyebrow: 'HARDWARE SUPPLY · QATAR · GCC',
+      title: 'Hardware Supply and Installation in Qatar, GCC',
+      subtitle: 'Tell us how many people need equipment. We source the PCs, laptops and monitors, set them up, and install them at the desk.',
+      primaryCta: 'Request a hardware quote',
+    },
+    sections: [
+      {
+        eyebrow: 'WHAT WE SUPPLY',
+        heading: 'What We Supply',
+        intro: 'We supply Dell, HP, HPE, Lenovo and Apple, so you choose from the brands your team already knows.',
+        items: [
+          { title: 'PCs, Laptops & Monitors', description: 'Desktops, laptops, monitors, docks, keyboards and headsets, from one new starter to a full office fit-out.' },
+          { title: 'Printers & Scanners', description: 'Office printers, multifunction devices and scanners, sized to how much your team actually prints.' },
+          { title: 'Servers & Storage', description: 'Rack and tower servers and network-attached storage (NAS), specified for the workloads they will run.' },
+          { title: 'Meeting-Room AV', description: 'Screens, cameras, microphones and conferencing kits, set up so the call starts when the meeting does.' },
+        ],
+      },
+      {
+        eyebrow: 'HOW IT WORKS',
+        heading: 'From Order to Desk',
+        items: [
+          { title: 'Specify', description: 'We start with who uses each device and for what, then recommend models. Your quote is itemised by device, not one total.' },
+          { title: 'Image & Set Up', description: 'Devices arrive configured: operating system, your applications, user accounts and Microsoft Intune or domain enrolment.' },
+          { title: 'Install', description: 'We deliver to your office, connect and test each device at its desk, and confirm it with the person who will use it.' },
+          { title: 'Tag & Register', description: 'We label every device and record it in an asset register: serial number, assigned user and warranty end date.' },
+          { title: 'Warranty Handling', description: 'When a device fails, you tell us. We raise the claim with the manufacturer and follow it through to repair or replacement.' },
+          { title: 'Old-Device Disposal', description: 'We wipe the data from the equipment you are retiring, then collect it and dispose of it.' },
+        ],
+      },
+    ],
+    whyUs: {
+      eyebrow: 'WHY COMPASS ITS',
+      heading: 'One Supplier for the Device and Everything After',
+      points: [
+        'One quote, one delivery and one point of contact, whether you need five laptops or a full floor.',
+        'Devices arrive imaged and ready, so day one is spent working rather than installing software.',
+        'The team that supplies your hardware also supports it, so a fault goes to people who already know your setup.',
+        'The asset register shows what you own, who has it and when each warranty runs out.',
+        'Hardware is specified to fit the network, cloud and security setup we manage, not bought in isolation.',
+      ],
+    },
+    faq: [
+      { question: 'Can you supply hardware in bulk?', answer: 'Yes. We supply anything from a single replacement laptop to a full office fit-out, with one itemised quote covering the devices, setup and installation.' },
+      { question: 'Which brands do you supply?', answer: 'Dell, HP, HPE, Lenovo and Apple. We recommend models based on how each device will be used, and can match the brands you already run.' },
+      { question: 'Do devices arrive ready to use?', answer: 'Yes. We image and configure each device before delivery, then install and test it at the desk.' },
+    ],
+  },
+  ar: {
+    hero: {
+      eyebrow: 'توريد الأجهزة · قطر · دول الخليج',
+      title: 'توريد الأجهزة وتركيبها في قطر ودول الخليج',
+      subtitle: 'أخبرنا بعدد الموظفين الذين يحتاجون إلى أجهزة. نوفّر أجهزة الكمبيوتر المكتبية والمحمولة والشاشات، ونجهّزها، ونركّبها على المكاتب.',
+      primaryCta: 'اطلب عرض سعر للأجهزة',
+    },
+    sections: [
+      {
+        eyebrow: 'ما نورّده',
+        heading: 'ما نورّده',
+        intro: 'نورّد أجهزة Dell وHP وHPE وLenovo وApple، لتختار من العلامات التي يعرفها فريقك.',
+        items: [
+          { title: 'أجهزة الكمبيوتر والحواسيب المحمولة والشاشات', description: 'أجهزة مكتبية ومحمولة وشاشات ومحطات توصيل ولوحات مفاتيح وسماعات، من موظف جديد واحد إلى تجهيز مكتب كامل.' },
+          { title: 'الطابعات والماسحات الضوئية', description: 'طابعات مكتبية وأجهزة متعددة الوظائف وماسحات ضوئية، بحجم يناسب ما يطبعه فريقك فعلاً.' },
+          { title: 'الخوادم ووحدات التخزين', description: 'خوادم رف وخوادم برجية ووحدات تخزين متصلة بالشبكة (NAS)، مختارة لأحمال العمل التي ستشغّلها.' },
+          { title: 'أنظمة الصوت والصورة لقاعات الاجتماعات', description: 'شاشات وكاميرات وميكروفونات وأطقم مؤتمرات، مجهّزة بحيث تبدأ المكالمة مع بداية الاجتماع.' },
+        ],
+      },
+      {
+        eyebrow: 'كيف نعمل',
+        heading: 'من الطلب إلى المكتب',
+        items: [
+          { title: 'التحديد', description: 'نبدأ بمن سيستخدم كل جهاز ولأي غرض، ثم نوصي بالطرازات. يأتي عرض السعر مفصّلاً لكل جهاز، لا رقماً إجمالياً واحداً.' },
+          { title: 'التهيئة والإعداد', description: 'تصل الأجهزة مهيّأة: نظام التشغيل وتطبيقاتك وحسابات المستخدمين والتسجيل في Microsoft Intune أو في النطاق.' },
+          { title: 'التركيب', description: 'نسلّم الأجهزة إلى مكتبك، ونوصل كل جهاز ونختبره على مكتبه، ونتأكد منه مع الشخص الذي سيستخدمه.' },
+          { title: 'الترقيم والتسجيل', description: 'نضع ملصقاً على كل جهاز ونسجّله في سجل الأصول: الرقم التسلسلي والمستخدم المخصّص وتاريخ انتهاء الضمان.' },
+          { title: 'إدارة الضمان', description: 'عندما يتعطل جهاز، تخبرنا. نرفع المطالبة لدى الشركة المصنّعة ونتابعها حتى الإصلاح أو الاستبدال.' },
+          { title: 'التخلص من الأجهزة القديمة', description: 'نمسح البيانات من الأجهزة التي تستغني عنها، ثم نستلمها ونتخلص منها.' },
+        ],
+      },
+    ],
+    whyUs: {
+      eyebrow: 'لماذا كومباس آي تي سولوشنز',
+      heading: 'مورّد واحد للجهاز ولكل ما بعده',
+      points: [
+        'عرض سعر واحد وتسليم واحد وجهة تواصل واحدة، سواء احتجت خمسة حواسيب محمولة أو تجهيز طابق كامل.',
+        'تصل الأجهزة مهيّأة وجاهزة، فيقضي فريقك يومه الأول في العمل لا في تثبيت البرامج.',
+        'الفريق الذي يورّد أجهزتك يدعمها أيضاً، فيصل أي عطل إلى أشخاص يعرفون إعدادك مسبقاً.',
+        'يوضّح سجل الأصول ما تملكه، ومن يستخدمه، ومتى ينتهي ضمان كل جهاز.',
+        'نختار الأجهزة لتتوافق مع إعدادات الشبكة والسحابة والأمن التي ندير، لا بمعزل عنها.',
+      ],
+    },
+    faq: [
+      { question: 'هل يمكنكم توريد الأجهزة بكميات كبيرة؟', answer: 'نعم. نورّد من حاسوب محمول بديل واحد إلى تجهيز مكتب كامل، بعرض سعر واحد مفصّل يشمل الأجهزة والإعداد والتركيب.' },
+      { question: 'ما العلامات التجارية التي تورّدونها؟', answer: 'Dell وHP وHPE وLenovo وApple. نوصي بالطرازات بحسب طريقة استخدام كل جهاز، ويمكننا مطابقة العلامات التي تستخدمها حالياً.' },
+      { question: 'هل تصل الأجهزة جاهزة للاستخدام؟', answer: 'نعم. نهيّئ كل جهاز ونجهّزه قبل التسليم، ثم نركّبه ونختبره على المكتب.' },
+    ],
+  },
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // EXPORT
 // ─────────────────────────────────────────────────────────────────────────────
 export const serviceData: Record<string, Record<Lang, ServicePageData>> = {
@@ -885,4 +990,5 @@ export const serviceData: Record<string, Record<Lang, ServicePageData>> = {
   'network-infrastructure': networkInfrastructure,
   'app-development': appDevelopment,
   'digital-marketing': digitalMarketing,
+  'hardware-supply': hardwareSupply,
 }

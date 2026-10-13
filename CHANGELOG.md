@@ -21,6 +21,47 @@
 
 ## [Unreleased]
 
+### Added — 2026-10-13 (Hardware Supply: a tenth service)
+
+**Decision 152 — Hardware supply and installation is a service page, in both languages:**
+The owner added a service line: supplying a client's PCs, laptops, monitors and the rest of
+the desk, then setting it up and installing it. It is `/services/hardware-supply` and
+`/ar/services/hardware-supply`, built on the same `ServicePageData` shape and components as
+Network Infrastructure.
+
+**The copy was approved before the page existed.** It went into `CONTENT.md` ("Hardware
+Supply Page") first and the owner signed it off on 13 October 2026. The facts in it are the
+owner's answers, not assumptions: brands (Dell, HP, HPE, Lenovo, Apple), range (PCs,
+laptops, monitors, printers, scanners, servers, storage, meeting-room AV) and scope
+(imaging and setup, asset tagging, warranty handling, disposal). Lead times, minimum
+orders, pricing and leasing are deliberately absent — none was confirmed, and VOICE.md's
+"specific" rule cuts both ways. The Arabic copy is a translation of the approved English.
+
+**Name: "Hardware Supply".** Short enough for the nav, the footer column and a dial node;
+the H1 carries the full "Hardware Supply and Installation in Qatar, GCC".
+
+**Wired everywhere a service is listed:** `t.services.items` (en + ar, id 9, so the home
+dial, the footer and the services hub all pick it up by index), the contact form's service
+options (en + ar), the nav dropdown, the `#organization` offer catalogue and `knowsAbout`,
+`AR_ROUTES`, the sitemap, `arServiceSchema`'s `serviceType`, SEO.md, SITEMAP.md and the
+README. Appended last rather than slotted beside Network Infrastructure: the dial, footer
+and hub all pair two arrays by index, and inserting mid-list means renumbering every one
+of them in lockstep for an ordering nobody asked for.
+
+**No section photo and no related reading.** `/images/site` holds licensed photos only
+(see `credits.json`) and none shows hardware; no post covers procurement. Both are left
+out rather than filled with the nearest thing, as with the four services that already
+have no related posts.
+
+`CONTENT_UPDATED` moves to 2026-10-13: the nav, footer and dial gained a link, so every
+page's chrome changed.
+
+Verified on a production build (`next build`, `next start`): both routes 200; every
+approved string renders; `/ar` route is `rtl` with its own `Service` node; hreflang
+pairs resolve; `Service` + `BreadcrumbList` + `FAQPage` JSON-LD on the English page; the
+services hub `ItemList` reports 10; the OG image renders; the sitemap lists both URLs;
+the home dial spaces nine nodes evenly. `tsc --noEmit` clean.
+
 ### Security — 2026-10-12 (Bot enquiries reaching the inbox)
 
 **Decision 151 — The contact endpoint drops bots before it sends mail:**
