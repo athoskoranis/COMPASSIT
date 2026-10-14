@@ -7,9 +7,9 @@ import ServiceFAQ from '@/components/sections/ServiceFAQ'
 import ContactCTA from '@/components/sections/ContactCTA'
 import SectionImage from '@/components/ui/SectionImage'
 import { serviceData } from '@/lib/serviceTranslations'
+import RelatedReading from '@/components/sections/RelatedReading'
+import { postsForService } from '@/lib/posts'
 
-// No RelatedReading: no post covers procurement yet, and a related link that is
-// not related is worse than none.
 export default function HardwareSupplyPageClient() {
   const { lang } = useLanguage()
   const d = serviceData['hardware-supply'][lang]
@@ -31,6 +31,7 @@ export default function HardwareSupplyPageClient() {
       </section>
 
       <ServiceWhyUs {...d.whyUs} />
+      <RelatedReading posts={postsForService('hardware-supply')} />
       {d.faq && <ServiceFAQ faqs={d.faq} />}
       <ContactCTA />
     </main>

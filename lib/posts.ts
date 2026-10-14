@@ -233,6 +233,11 @@ const POSTS_BY_SERVICE: Record<string, string[]> = {
     'how-cyber-security-reduces-business-risks',
     'penetration-testing-services-qatar',
   ],
+  // The degausser post covers the erasure half of the page's Old-Device Disposal
+  // step; nothing else on the blog touches hardware.
+  'hardware-supply': [
+    'how-businesses-use-degaussers-for-secure-data-erasure',
+  ],
   'ai-workflows': [
     'ai-workflow-automation-gcc-businesses',
     'ai-agents-for-business-gcc',

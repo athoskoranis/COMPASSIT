@@ -21,6 +21,16 @@
 
 ## [Unreleased]
 
+### Changed — 2026-10-14 (Hardware Supply links the degausser post)
+
+**Decision 154 — The first related post for Hardware Supply:**
+Decisions 152 and 153 left the page without `RelatedReading` because no post touched
+hardware. The blog pipeline has since published "How Businesses Use Degaussers for Secure
+Data Erasure?" (13 October), which covers the erasure half of the page's Old-Device
+Disposal step. It is now listed under `hardware-supply` in `POSTS_BY_SERVICE` and the page
+renders `RelatedReading` after Why Compass, the same position as Network Infrastructure.
+One post, not padded to three.
+
 ### Added — 2026-10-13 (A photograph for Hardware Supply)
 
 **Decision 153 — Hardware Supply gets a section image like its siblings:**
