@@ -21,6 +21,30 @@
 
 ## [Unreleased]
 
+### Changed — 2026-10-14 (Hero markets row matches the Compass Group site)
+
+**Decision 155 — The "Serving" strip becomes three country marks:**
+At the owner's request the hero's markets row now matches the Compass Group site: each
+market is its outline, its Arabic name and its English name, three across, with no
+visible label or dividing rules. The outlines are the group site's own data —
+`lib/outlines.ts` is a verbatim copy of `CompassGroup/src/lib/outlines.ts` (Natural Earth
+1:10m, public domain), so the two heroes draw identical shapes; regenerate there and copy.
+
+- "Serving" / "نخدم" is kept as the list's `aria-label`, so a screen reader still hears
+  what the list is. `hero.rail.countries` is removed from both languages; the names now
+  live beside the shapes in `HeroRail`, identical on `/` and `/ar` since the pair is
+  already bilingual.
+- Saudi Arabia is "السعودية", as on the group site, not the full state name the old
+  Arabic strip used: the full name does not fit a third of the rail on one line.
+- The Arabic line sets Cairo directly; the `[dir="rtl"]` swap in globals.css never fires
+  on the English home page. Neither line sets `dir`, so each pair inherits the page's
+  direction and shares an edge — left on `/`, right on `/ar` (measured).
+- Outlines are Signal at 20% fill with a Signal stroke, the group site's accent role.
+  This is decorative use of Signal, which DESIGN.md reserves for active states; it
+  follows the owner's request to match the group hero and sits beside the hero's
+  existing Signal eyebrow.
+- Mobile: one per row, as on the group site; no horizontal overflow at 375px.
+
 ### Changed — 2026-10-14 (Hardware Supply links the degausser post)
 
 **Decision 154 — The first related post for Hardware Supply:**

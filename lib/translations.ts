@@ -23,7 +23,6 @@ export const t = {
       },
       rail: {
         servingLabel: 'Serving',
-        countries: ['Qatar', 'Saudi Arabia', 'UAE'],
         latestLabel: 'Latest',
       },
       monitorTitle: 'Infrastructure Monitor',
@@ -164,7 +163,6 @@ export const t = {
       },
       rail: {
         servingLabel: 'نخدم',
-        countries: ['قطر', 'المملكة العربية السعودية', 'الإمارات'],
         latestLabel: 'الأحدث',
       },
       monitorTitle: 'مراقب البنية التحتية',
