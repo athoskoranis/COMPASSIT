@@ -203,7 +203,7 @@ export default function ServicesPage() {
                 {services.map((service) => (
                   <li key={service.slug}>
                     <a href={`#${service.slug}`} className="group flex flex-col gap-1.5">
-                      <span className="font-jetbrains text-[11px] font-medium uppercase tracking-eyebrow text-paper/40">
+                      <span className="font-jetbrains text-[11px] font-medium uppercase tracking-eyebrow text-signal">
                         {service.category}
                       </span>
                       <span className="font-archivo text-[15px] leading-[20px] text-paper transition-colors duration-200 group-hover:text-signal group-focus-visible:text-signal">

@@ -21,6 +21,41 @@
 
 ## [Unreleased]
 
+### Changed — 2026-10-15 (More Signal on the services hub)
+
+**Decision 159 — Signal on the row CTAs, list markers and hero index:**
+At the owner's request, more of the brand blue, spent only where DESIGN.md already allows
+it: CTAs, live marks and eyebrows.
+
+- **Row CTAs.** Each row's underlined "See …" text link becomes the primary `Button`: an
+  Ink pill with a Signal border that fills Signal on hover. Ten of them sit on the page,
+  one per section, each naming its service.
+- **List markers.** The `/` before each sub-service is now Signal on every row. They are
+  `aria-hidden` glyphs, not text, so the AA limit that keeps Signal off small text on
+  Paper does not apply.
+- **Hero index.** The category above each service in the jump index is Signal, matching
+  `EyebrowLabel` on dark sections.
+- Unchanged: categories on Paper rows stay Ink at 40%, for contrast.
+
+### Changed — 2026-10-15 (Services hub rows alternate Paper and Ink)
+
+**Decision 158 — Every other service row goes dark:**
+The owner wanted more colour, within the brand guide. The six-colour palette limits where
+that can come from: Beacon is reserved for advisories and Indigo for editorial pieces, so
+the contrast comes from Ink and Signal. The Mist bands from Decision 157 become Ink.
+
+- **Ink rows are transparent, not `bg-ink`.** Like the hero they show SiteBackground's
+  contour lines, so the dark rows read as the same surface as the hero and the closing
+  CTA. Text on them follows the hero: Paper headings, Paper at 60% for body copy.
+- **Signal marks the category on Ink rows only,** matching `EyebrowLabel` on every other
+  dark section. On Paper rows the category stays Ink at 40%, because Signal on Paper
+  falls below AA at caption size.
+- **Proportion.** The page now runs close to half Ink, which sits between the guide's
+  light-mode (Ink 15%) and dark-mode (Ink 80%) ratios. Signal stays a small share:
+  eyebrows, link underlines, the hero highlight and hover states.
+- The last row (Custom Solutions) is Ink and runs straight into the Ink CTA, separated
+  only by the CTA's own spacing.
+
 ### Changed — 2026-10-15 (Services hub rows get more substance)
 
 **Decision 157 — Each row lists what the service covers, and the hero indexes all ten:**
