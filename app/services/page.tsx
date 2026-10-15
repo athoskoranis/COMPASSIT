@@ -4,6 +4,7 @@ import Button from '@/components/ui/Button'
 import ContactCTA from '@/components/sections/ContactCTA'
 import ServiceRows from '@/components/sections/ServiceRows'
 import { t } from '@/lib/translations'
+import { serviceData } from '@/lib/serviceTranslations'
 
 // The services hub SITEMAP.md has declared since launch. Every string here is
 // already-approved copy, because CONTENT.md has no block for this route: the
@@ -87,11 +88,24 @@ const rows = [
   },
 ]
 
+// What each row lists under its paragraph (Decision 157): the sub-service
+// titles the service's own page already ships, read from serviceData so the two
+// cannot drift apart. Most pages lead with their list of services; Network and
+// Cloud lead with something else (device types, a process), so their services
+// list is the second section. Capped at six so no row outgrows its photograph.
+const includesSection: Record<string, number> = {
+  'network-infrastructure': 1,
+  'cloud-solutions': 1,
+}
+const includesFor = (slug: string) =>
+  serviceData[slug].en.sections[includesSection[slug] ?? 0].items.slice(0, 6).map((item) => item.title)
+
 const services = [
   ...rows.map((row, i) => ({
     ...row,
     href: `/services/${row.slug}`,
     image: `/images/site/${row.image}.jpg`,
+    includes: includesFor(row.slug),
     ...t.en.services.items[i],
   })),
   // Custom Solutions is not in t.services.items, and should not be: that array
@@ -105,6 +119,16 @@ const services = [
     category: 'BESPOKE',
     title: 'Custom Solutions',
     description: 'For the part nobody sells off the shelf.',
+    // Custom Solutions has no serviceData entry; this is its "What we build"
+    // line from CONTENT.md.
+    includes: [
+      'Internal tools',
+      'Client portals',
+      'Booking and scheduling systems',
+      'Data dashboards',
+      'System integrations',
+      'Workflow automation',
+    ],
     body: 'Some problems do not have a product. When the workflow is yours alone, or the systems that need to talk to each other were never designed to, the answer is something built. We build web platforms, internal tools, and data products — then hand them over documented, so they outlast the engagement.',
   },
 ]
@@ -171,15 +195,30 @@ export default function ServicesPage() {
             </p>
 
             <Button href="/contact" variant="primary">Get in touch</Button>
+
+            {/* Jump index: every service on one screen, each a link to its row
+                below. Decision 157. */}
+            <nav aria-label="Services" className="mt-16 border-t border-paper/[0.12] pt-8">
+              <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-6">
+                {services.map((service) => (
+                  <li key={service.slug}>
+                    <a href={`#${service.slug}`} className="group flex flex-col gap-1.5">
+                      <span className="font-jetbrains text-[11px] font-medium uppercase tracking-eyebrow text-paper/40">
+                        {service.category}
+                      </span>
+                      <span className="font-archivo text-[15px] leading-[20px] text-paper transition-colors duration-200 group-hover:text-signal group-focus-visible:text-signal">
+                        {service.title}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
         </section>
 
-        {/* One row per service page, per SITEMAP.md. Decision 156. */}
-        <section className="bg-paper py-20 lg:py-28 relative z-[1]">
-          <div className="max-w-content mx-auto px-6 lg:px-20">
-            <ServiceRows items={services} seeLabel={t.en.services.seeLabel} />
-          </div>
-        </section>
+        {/* One row per service page, per SITEMAP.md. Decisions 156 and 157. */}
+        <ServiceRows items={services} seeLabel={t.en.services.seeLabel} />
 
         <ContactCTA />
       </main>

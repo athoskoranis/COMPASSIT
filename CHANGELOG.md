@@ -21,6 +21,23 @@
 
 ## [Unreleased]
 
+### Changed — 2026-10-15 (Services hub rows get more substance)
+
+**Decision 157 — Each row lists what the service covers, and the hero indexes all ten:**
+The owner found the Decision 156 rows bland. Three changes, still with no new copy:
+
+- **What each service covers.** Under its paragraph, each row now lists up to six
+  sub-services in two columns, read straight from `serviceData` in
+  `lib/serviceTranslations.ts`, so they always match the service page. Network and Cloud
+  use their second section, because their first is device types and a process, not
+  services. Custom Solutions has no `serviceData` entry, so it uses the "What we build"
+  line from CONTENT.md.
+- **A jump index in the hero.** All ten services sit below the CTA, category over title,
+  each linking to its row, so the whole offer is visible on the first screen.
+- **Heavier rows.** Each row is now its own full-width band alternating Paper and Mist,
+  with an `id` the index targets. Titles go up to `heading-1` (44px), the one-liner to
+  `body-l` on desktop, and photos to 4:3.
+
 ### Changed — 2026-10-15 (Services hub becomes alternating photo rows)
 
 **Decision 156 — `/services` drops the card grid for one photo-and-copy row per service:**
