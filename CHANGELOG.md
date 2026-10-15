@@ -21,6 +21,35 @@
 
 ## [Unreleased]
 
+### Changed — 2026-10-15 (Services hub becomes alternating photo rows)
+
+**Decision 156 — `/services` drops the card grid for one photo-and-copy row per service:**
+At the owner's request, after reviewing a set of mocked directions, the hub's ten small
+cards are replaced by ten alternating rows: a photograph on one side, and the category,
+the title as an `h2`, the one-liner, a full paragraph and a "See …" link on the other,
+swapping sides down the page. The new `components/sections/ServiceRows.tsx` renders them.
+
+- **Why.** The three-column grid left Custom Solutions alone on its last row, gave every
+  service the same weight, and carried one short line each. Rows give each service a real
+  section with crawlable copy, and ten rows have no leftover.
+- **No new copy.** Each paragraph is that service page's approved intro: its CONTENT.md
+  `Body` block (IT Services, Website Development, App Development, AI Workflows, Digital
+  Marketing, Custom Solutions), the hero subtitle for Hardware Supply, which has no
+  `Body` block, and the SEO.md meta description for Network Infrastructure, Cloud
+  Solutions and Cybersecurity, which have neither.
+- **Flagged.** Those three meta descriptions now also appear as body text here. That is
+  acceptable, but each would be better served by a short summary written for this page
+  and added to CONTENT.md.
+- **No new images.** Each row uses the photograph its own service page already uses,
+  through `SectionImage` at 3:2, with its alt text from `public/images/site/credits.json`.
+  The image is wrapped in a link to the service, removed from the tab order and hidden
+  from screen readers, so each row still has exactly one announced link.
+- **Removed.** The lucide icons the cards used. The ItemList schema is still generated
+  from the same array, so its count and entries are unchanged.
+- **Watch.** On tall desktop screens the first photograph can sit inside the first
+  viewport and become the LCP element. It lazy-loads through `next/image`; check
+  Lighthouse after deploy.
+
 ### Changed — 2026-10-14 (Hero markets row matches the Compass Group site)
 
 **Decision 155 — The "Serving" strip becomes three country marks:**

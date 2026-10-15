@@ -1,9 +1,8 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
-import { Monitor, Wifi, Cloud, Shield, Globe, Smartphone, Cpu, TrendingUp, HardDrive, Wrench } from 'lucide-react'
 import EyebrowLabel from '@/components/ui/EyebrowLabel'
 import Button from '@/components/ui/Button'
 import ContactCTA from '@/components/sections/ContactCTA'
+import ServiceRows from '@/components/sections/ServiceRows'
 import { t } from '@/lib/translations'
 
 // The services hub SITEMAP.md has declared since launch. Every string here is
@@ -21,38 +20,96 @@ export const metadata: Metadata = {
   openGraph: { url: '/services' },
 }
 
-// Slugs and icons pair with t.en.services.items by index, the same contract
+// Slugs pair with t.en.services.items by index, the same contract
 // ServicesOverview and the footer already rely on.
+//
+// Each row also carries a paragraph, a photograph and its alt text (Decision
+// 156). None of it is new: the photograph is the one the service's own page
+// already uses, the alt text is its entry in public/images/site/credits.json,
+// and the paragraph is that page's approved intro — the "Body" block in
+// CONTENT.md where one exists, the Hardware Supply hero subtitle, and for
+// Network, Cloud and Cybersecurity, which have no Body block, the page's meta
+// description from SEO.md. Those three are flagged for their own summaries.
+const rows = [
+  {
+    slug: 'it-services',
+    image: 'it-services-server-rack-indicators',
+    alt: 'Server rack with blue status indicators in a data room',
+    body: 'We build and manage the technology backbone your organisation runs on. From strategic planning to day-to-day operations, our team acts as a trusted extension of your IT function.',
+  },
+  {
+    slug: 'network-infrastructure',
+    image: 'network-infrastructure-patch-panel',
+    alt: 'Cables terminated into a patch panel in a network rack',
+    body: 'Network design, installation, and management for businesses in Qatar. Every cable labelled, every config documented. On-call support included.',
+  },
+  {
+    slug: 'cloud-solutions',
+    image: 'cloud-solutions-distribution',
+    alt: 'Cabling running from a central switch out to distributed systems',
+    body: 'Cloud architecture and migration for organisations in Qatar. AWS, Microsoft Azure, and hybrid environments — built for redundancy, performance, and security.',
+  },
+  {
+    slug: 'cybersecurity',
+    image: 'cybersecurity-monitoring',
+    alt: 'Code on monitors in a darkened security operations room',
+    body: 'Cybersecurity for businesses in Qatar. Fortinet-backed protection, risk registers, and 24/7 incident monitoring. No fear-selling — just clear assessment.',
+  },
+  {
+    slug: 'web-development',
+    image: 'web-development-markup',
+    alt: "Close-up of markup on a developer's screen",
+    body: 'End-to-end web development — from scoping and information architecture through to a live, measurable, search-optimised site. Built on a process that holds up at every stage.',
+  },
+  {
+    slug: 'app-development',
+    image: 'app-development-phone-code',
+    alt: 'Code displayed on a smartphone screen',
+    body: 'Native and cross-platform mobile applications built for performance, usability, and long-term maintainability. From the first user flow to the App Store listing.',
+  },
+  {
+    slug: 'ai-workflows',
+    image: 'ai-workflows-neural-render',
+    alt: 'Abstract render of connected nodes in a neural network',
+    body: 'We deploy AI agents into the workflows your team already runs — triage, drafting, reconciliation, monitoring — so the manual middle of every process disappears. Humans stay in the loop where it matters.',
+  },
+  {
+    slug: 'digital-marketing',
+    image: 'digital-marketing-analytics',
+    alt: 'Laptop showing an analytics dashboard with live figures',
+    body: 'Search, content, and paid channels engineered to work together — measured weekly, optimised monthly, compounded over quarters.',
+  },
+  {
+    slug: 'hardware-supply',
+    image: 'hardware-supply-workstations',
+    alt: 'Rows of identical monitors on white desks across an open-plan floor',
+    body: 'Tell us how many people need equipment. We source the PCs, laptops and monitors, set them up, and install them at the desk.',
+  },
+]
+
 const services = [
-  ...[
-    { slug: 'it-services',            icon: Monitor    },
-    { slug: 'network-infrastructure', icon: Wifi       },
-    { slug: 'cloud-solutions',        icon: Cloud      },
-    { slug: 'cybersecurity',          icon: Shield     },
-    { slug: 'web-development',        icon: Globe      },
-    { slug: 'app-development',        icon: Smartphone },
-    { slug: 'ai-workflows',           icon: Cpu        },
-    { slug: 'digital-marketing',      icon: TrendingUp },
-    { slug: 'hardware-supply',        icon: HardDrive  },
-  ].map((meta, i) => ({
-    ...meta,
-    href: `/services/${meta.slug}`,
+  ...rows.map((row, i) => ({
+    ...row,
+    href: `/services/${row.slug}`,
+    image: `/images/site/${row.image}.jpg`,
     ...t.en.services.items[i],
   })),
   // Custom Solutions is not in t.services.items, and should not be: that array
   // also feeds the home page dial and the footer, in both languages, and this
-  // route is English-only. Its card copy comes straight from CONTENT.md.
+  // route is English-only. Its copy comes straight from CONTENT.md.
   {
     slug: 'custom-solutions',
-    icon: Wrench,
     href: '/services/custom-solutions',
+    image: '/images/site/custom-solutions-build.jpg',
+    alt: 'An engineer working across several screens during a build',
     category: 'BESPOKE',
     title: 'Custom Solutions',
     description: 'For the part nobody sells off the shelf.',
+    body: 'Some problems do not have a product. When the workflow is yours alone, or the systems that need to talk to each other were never designed to, the answer is something built. We build web platforms, internal tools, and data products — then hand them over documented, so they outlast the engagement.',
   },
 ]
 
-// Generated from the same array as the grid, so the ItemList cannot claim a
+// Generated from the same array as the rows, so the ItemList cannot claim a
 // count the page does not render — the drift that put six posts in the blog
 // index schema when there were eight.
 const jsonLd = {
@@ -117,39 +174,10 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        {/* Overview grid — one card per service page, per SITEMAP.md */}
+        {/* One row per service page, per SITEMAP.md. Decision 156. */}
         <section className="bg-paper py-20 lg:py-28 relative z-[1]">
           <div className="max-w-content mx-auto px-6 lg:px-20">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {services.map((service) => {
-                const Icon = service.icon
-                return (
-                  <Link
-                    key={service.href}
-                    href={service.href}
-                    className="group flex flex-col rounded-xl border border-ink/[0.12] bg-ink/[0.02] p-8 transition-all duration-200 hover:border-signal/50 hover:bg-ink/[0.04]"
-                  >
-                    <Icon size={22} className="text-signal mb-6" aria-hidden />
-
-                    <span className="font-jetbrains text-xs font-medium uppercase tracking-eyebrow text-ink/40 mb-3 block">
-                      {service.category}
-                    </span>
-
-                    <h2 className="font-archivo font-medium text-ink text-[22px] leading-tight tracking-[-0.02em] mb-3 group-hover:text-signal transition-colors duration-200">
-                      {service.title}
-                    </h2>
-
-                    <p className="font-barlow text-body text-ink/60 leading-[28px] mb-7">
-                      {service.description}
-                    </p>
-
-                    <span className="font-jetbrains text-xs text-signal tracking-eyebrow uppercase mt-auto group-hover:underline underline-offset-4">
-                      {t.en.services.seeLabel} {service.title} →
-                    </span>
-                  </Link>
-                )
-              })}
-            </div>
+            <ServiceRows items={services} seeLabel={t.en.services.seeLabel} />
           </div>
         </section>
 
