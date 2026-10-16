@@ -13,6 +13,16 @@ export type Post = {
 // silently go stale. Newest first.
 export const posts: Post[] = [
   {
+    slug: 'why-choose-professional-system-integrators-qatar',
+    category: 'IT SERVICES',
+    title: 'Why Choose Professional System Integrators in Qatar?',
+    excerpt:
+      'A system integrator is the difference between a pile of products and a network, security and access setup that works together. Here is what professional integration covers in Qatar, from Cisco networks to access control, and what to ask before you sign.',
+    date: 'October 2026',
+    readTime: '6 min read',
+    image: '/images/blog/why-choose-professional-system-integrators-qatar-1.jpg',
+  },
+  {
     slug: 'how-businesses-use-degaussers-for-secure-data-erasure',
     category: 'CYBERSECURITY',
     title: 'How Businesses Use Degaussers for Secure Data Erasure?',

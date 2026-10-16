@@ -36,6 +36,7 @@ const services = [
 // Article dates are fixed, not build-time — a post that hasn't changed
 // shouldn't report a fresh lastModified on every deploy.
 const posts = [
+  { slug: 'why-choose-professional-system-integrators-qatar', published: '2026-10-16' },
   { slug: 'how-businesses-use-degaussers-for-secure-data-erasure', published: '2026-10-13' },
   { slug: 'ai-challenges-and-solutions-qatar-businesses', published: '2026-10-09' },
   { slug: 'it-services-trends-qatar-2026', published: '2026-10-06' },
