@@ -116,9 +116,9 @@ export default function EngagementStepper({ steps }: { steps: EngagementStep[] }
               className="engagement-panel bracketed raised-light rounded-lg bg-ink p-6 sm:p-8 lg:p-12 scroll-mt-24"
             >
               <div className="grid grid-cols-1 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] gap-8 lg:gap-14 items-center">
-                <div className="relative aspect-square w-full max-w-[220px] md:max-w-[340px] rounded-lg border border-paper/[0.10] bg-paper/[0.03] overflow-hidden">
-                  <div aria-hidden className="absolute inset-0 topo-lines-pattern opacity-[0.12]" />
-                  <div className="engagement-draw absolute inset-[14%]">{Icon && <Icon />}</div>
+                {/* The icon sits straight on the panel, unframed (Decision 161). */}
+                <div className="relative aspect-square w-full max-w-[260px] md:max-w-[400px] justify-self-center md:justify-self-start">
+                  <div className="engagement-draw absolute inset-0">{Icon && <Icon />}</div>
                 </div>
 
                 <div className="flex flex-col">

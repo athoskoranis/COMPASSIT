@@ -21,6 +21,14 @@
 
 ## [Unreleased]
 
+### Changed — 2026-10-18 (Stepper icons lose their frame)
+
+**Decision 161 — The engagement icons sit unframed on the panel, larger:**
+At the owner's request, the bordered, tinted square and topo pattern behind each icon in
+the How We Work stepper are removed. The icon now sits straight on the Ink panel and
+fills its box edge to edge (no 14% inset), up to 400px on desktop instead of about 230px
+of drawing inside a 340px frame. On phones it is centred, at up to 260px.
+
 ### Changed — 2026-10-15 (How We Work steps become a stepper with drawn icons)
 
 **Decision 160 — The engagement model becomes a stepper, one drawn icon per step:**
