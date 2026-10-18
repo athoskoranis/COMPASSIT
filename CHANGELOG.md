@@ -21,6 +21,29 @@
 
 ## [Unreleased]
 
+### Changed — 2026-10-18 (Six reasons get drawn icons)
+
+**Decision 162 — WhyCompass drops its indigo cards for one drawn icon per reason:**
+After reviewing ten mocked directions, the owner chose drawn icons for "Six reasons the
+work sticks." The section is shared, so this changes `/`, `/ar` and `/how-we-work` in
+both languages.
+
+- **Icons.** Six line drawings in `components/ui/ReasonIcons.tsx`, in the same hand as the
+  engagement icons (Decision 160): a labelled lead terminated into its port, a speech
+  bubble holding a signed note, a year's loop with four quarterly reviews, a gauge, a
+  cloud with redundant paths to two regions, and three layers with one line of
+  accountability through them. Each sits unframed at 120px above its reason.
+- **Indigo removed.** The reasons were `GlowCard variant="indigo"`. DESIGN.md keeps
+  Indigo out of product UI, so the section is now Ink, Paper and Signal only.
+  (`BrandPillars` still uses the indigo GlowCard. Flagged, not changed.)
+- **No numbers.** The six reasons are parallel claims, not a sequence, so their 01–06
+  labels are no longer shown. The `number` field stays in translations as the React key.
+- **Quote.** It now closes the section on a Paper rule, set in Archivo Light, instead of
+  the cyan-bordered glow box.
+- **Visible at rest.** The fade-in from `opacity: 0` on scroll is removed, so the copy is
+  readable without JavaScript timing and in crawls.
+- No copy changed in either language.
+
 ### Changed — 2026-10-18 (Stepper icons lose their frame)
 
 **Decision 161 — The engagement icons sit unframed on the panel, larger:**
