@@ -719,3 +719,31 @@ main > section:not(#hero) {
     padding-bottom: 76px;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Engagement stepper (Decision 160). When a step's panel is shown, its icon
+   fades up and the Signal strokes marked `.draw` trace themselves in. Each
+   drawn path sets pathLength="1", so one dash value fits every shape.
+   ───────────────────────────────────────────────────────────────────────── */
+.engagement-panel:not([hidden]) .engagement-draw {
+  animation: engagement-rise 0.5s ease-out both;
+}
+.engagement-panel:not([hidden]) .engagement-draw .draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: engagement-draw 0.9s 0.15s ease-out forwards;
+}
+@keyframes engagement-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes engagement-draw {
+  to { stroke-dashoffset: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .engagement-panel .engagement-draw,
+  .engagement-panel .engagement-draw .draw {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}

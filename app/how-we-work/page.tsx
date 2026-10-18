@@ -4,6 +4,7 @@ import SectionImage from '@/components/ui/SectionImage'
 import Button from '@/components/ui/Button'
 import WhyCompass from '@/components/sections/WhyCompass'
 import ContactCTA from '@/components/sections/ContactCTA'
+import EngagementStepper from '@/components/sections/EngagementStepper'
 
 // Copy is verbatim from CONTENT.md "How We Work Page (/how-we-work)"; title and
 // description verbatim from SEO.md.
@@ -141,29 +142,8 @@ export default function HowWeWorkPage() {
           </div>
         </section>
 
-        {/* Six steps */}
-        <section className="bg-paper py-20 lg:py-28 relative z-[1]">
-          <div className="max-w-content mx-auto px-6 lg:px-20">
-            <div className="mb-14">
-              <EyebrowLabel className="mb-4 block">THE ENGAGEMENT MODEL</EyebrowLabel>
-              <h2 className="font-archivo text-heading-2 font-medium text-ink tracking-[-0.02em]">
-                Six steps, nothing skipped.
-              </h2>
-            </div>
-
-            <ol className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12">
-              {steps.map((step) => (
-                <li key={step.n} id={`step-${step.n}`}>
-                  <p className="font-jetbrains text-xs text-signal tracking-eyebrow mb-4">{step.n}</p>
-                  <h3 className="font-archivo font-medium text-ink text-[22px] tracking-[-0.02em] mb-3">
-                    {step.name}
-                  </h3>
-                  <p className="font-barlow text-body text-ink/60 leading-[28px]">{step.body}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
+        {/* Six steps. Decision 160. */}
+        <EngagementStepper steps={steps} />
 
         <WhyCompass />
         <ContactCTA />

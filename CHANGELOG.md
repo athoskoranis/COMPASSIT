@@ -21,6 +21,35 @@
 
 ## [Unreleased]
 
+### Changed — 2026-10-15 (How We Work steps become a stepper with drawn icons)
+
+**Decision 160 — The engagement model becomes a stepper, one drawn icon per step:**
+The owner asked for a redesign of the six steps on `/how-we-work`, which were plain text
+in a grid on Paper. After reviewing ten mocked directions, they chose a stepper with a
+drawn visual for each step. `components/sections/EngagementStepper.tsx` replaces the grid.
+
+- **Rail.** All six steps sit on a line across the top: numbered nodes, with names from
+  `md` up. The line and nodes fill Signal up to the current step.
+- **Panel.** One Ink card (`radius-lg`, `.raised-light`, `.bracketed`) holds the selected
+  step: its icon in a framed square over the topo-lines pattern, an `01 / 06` counter,
+  the name at display size (72px Archivo Light) and the body at `body-l`. Round Signal
+  arrow buttons step back and forward.
+- **Icons.** Six line drawings made for this page, in `components/ui/EngagementIcons.tsx`:
+  a lens over contour lines (Discovery), a route that branches with one path chosen and
+  flagged (Strategy), a wireframe with a pen curve (Creativity), a monitor and phone each
+  ticked (Execution), A/B bars with a rising trend (Optimisation), and a report with a KPI
+  ring (Reporting). They use 1.5px Paper strokes with the meaningful element in Signal.
+  When a step is shown its Signal strokes draw in (`.engagement-draw` in globals.css);
+  under `prefers-reduced-motion` they appear already drawn.
+- **Accessibility and SEO.** The stepper uses the WAI-ARIA tabs pattern (Left, Right,
+  Home and End move between steps). All six panels are rendered, with the inactive ones
+  `hidden`, so every step's text is in the HTML and the HowTo schema's `step-NN` anchors
+  resolve to the panels.
+- No copy changed. The arrow buttons' accessible names ("Previous step", "Next step")
+  are the only new strings, and they are not visible.
+- It also ends the repeated three-column card shape between the steps and `WhyCompass`
+  below them.
+
 ### Changed — 2026-10-15 (More Signal on the services hub)
 
 **Decision 159 — Signal on the row CTAs, list markers and hero index:**
