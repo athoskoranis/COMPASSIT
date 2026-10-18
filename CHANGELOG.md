@@ -21,6 +21,29 @@
 
 ## [Unreleased]
 
+### Changed — 2026-10-18 (Brand pillars become a fibre split)
+
+**Decision 163 — BrandPillars draws the three pillars as one fibre splitting three ways:**
+After two rounds of mocked directions, the owner chose the fibre split for "Three things
+we don't compromise on." The section is on `/about` and `/ar`, in both languages.
+
+- **Drawing.** One trunk enters from the top, passes through a splice box, and divides
+  into three strands. Each strand terminates in a lit port above its pillar, and light
+  travels down each one. It says one partner and three commitments from the same source.
+- **How it holds together.** The strands are an SVG stretched to the grid with
+  non-scaling strokes, ending at the centres of the three columns, so they land on their
+  ports at any desktop width. The ports and splice box are HTML, so they stay crisp. The
+  drawing is symmetrical, so Arabic needs no mirroring; the columns reverse under RTL.
+- **Phones.** Below `md` the pillars stack along one Signal line on the inline-start edge,
+  each with its port.
+- **Motion.** The travelling light is hidden under `prefers-reduced-motion`; the strands
+  stay lit. The old fade-in from `opacity: 0` is removed, so the copy is visible at rest.
+- **Indigo removed.** The indigo `GlowCard`s are gone, which closes the flag in Decision
+  162. Type goes up: the heading to `heading-1`, pillar names to 52px Archivo Light.
+- **No copy changed.** The ports are labelled with the pillars' existing 01–03 numbers
+  rather than the "PORT 01" labels in the mock, so nothing new is needed in either
+  language.
+
 ### Changed — 2026-10-18 (Six reasons get drawn icons)
 
 **Decision 162 — WhyCompass drops its indigo cards for one drawn icon per reason:**
