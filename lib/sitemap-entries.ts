@@ -34,8 +34,10 @@ const services = [
 ]
 
 // Article dates are fixed, not build-time — a post that hasn't changed
-// shouldn't report a fresh lastModified on every deploy.
-const posts = [
+// shouldn't report a fresh lastModified on every deploy. The RSS feed at /feed
+// reads its pubDates from here too, so a post missing from this list is left
+// out of the feed rather than published with an invented date.
+export const postDates = [
   { slug: 'why-choose-professional-system-integrators-qatar', published: '2026-10-16' },
   { slug: 'how-businesses-use-degaussers-for-secure-data-erasure', published: '2026-10-13' },
   { slug: 'ai-challenges-and-solutions-qatar-businesses', published: '2026-10-09' },
@@ -85,7 +87,7 @@ export function sitemapEntries(): MetadataRoute.Sitemap {
   // -- through both the rebuild of this page into a featured-plus-grid layout
   // and the nav change that put ten more links in its markup. A page can change
   // without its list of posts changing.
-  const newestPost = posts
+  const newestPost = postDates
     .map((p) => p.updated ?? p.published)
     .concat(CONTENT_UPDATED)
     .sort()
@@ -169,7 +171,7 @@ export function sitemapEntries(): MetadataRoute.Sitemap {
       priority: route === '/' ? 0.9 : 0.7,
       alternates: { languages: absolute(alternatesFor(route)) },
     })),
-    ...posts.map((post) => ({
+    ...postDates.map((post) => ({
       url: `${BASE}/blog/${post.slug}`,
       lastModified: new Date(post.updated ?? post.published),
       changeFrequency: 'monthly' as const,
