@@ -263,6 +263,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {/* Feed discovery. A literal tag rather than metadata.alternates.types:
+            Next replaces alternates wholesale when a page sets its own canonical,
+            which nearly every page here does, so the link would vanish there. */}
+        <link rel="alternate" type="application/rss+xml" title="Compass IT Solutions" href="/feed" />
       </head>
       <body
         className={`${archivo.variable} ${barlow.variable} ${jetbrainsMono.variable} ${cairo.variable} font-archivo bg-ink text-paper antialiased`}

@@ -21,6 +21,21 @@
 
 ## [Unreleased]
 
+### Added — 2026-10-19 (RSS feed)
+
+**Decision 164 — The blog gets an RSS 2.0 feed at `/feed`:**
+Requested so Compass ITS matches the group's other sites (compasswaterproof.com,
+compass-arabia.com, compassfmgcc.com, sunsetmediame.com), which all serve `/feed/`.
+
+- **Route.** `app/feed/route.ts`, static, `application/rss+xml`. `/feed/` 308s to
+  `/feed` under the site's default trailing-slash rule, so the WordPress-style URL works.
+- **Sources.** Titles, excerpts, categories and images from `lib/posts.ts`; pubDates from
+  the fixed publish dates in `lib/sitemap-entries.ts` (now exported as `postDates`),
+  since `posts.ts` only carries month and year. A post missing a date is left out.
+- **Discovery.** A literal `<link rel="alternate" type="application/rss+xml">` in the root
+  layout head. `metadata.alternates.types` was not used: a page that sets its own
+  canonical replaces `alternates` wholesale, so the link would drop off most pages.
+
 ### Changed — 2026-10-18 (Brand pillars become a fibre split)
 
 **Decision 163 — BrandPillars draws the three pillars as one fibre splitting three ways:**
