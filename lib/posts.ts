@@ -13,6 +13,16 @@ export type Post = {
 // silently go stale. Newest first.
 export const posts: Post[] = [
   {
+    slug: 'enterprise-it-solutions-smart-city-development-doha',
+    category: 'IT SERVICES',
+    title: 'Enterprise IT Solutions for Smarter City Development in Doha',
+    excerpt:
+      'Smart city projects in Doha depend on enterprise IT choices made long before any sensor goes live. This post covers the network foundation, data integration, security, and how the work lines up with Qatar National Vision 2030.',
+    date: 'October 2026',
+    readTime: '6 min read',
+    image: '/images/blog/enterprise-it-solutions-smart-city-development-doha-1.jpg',
+  },
+  {
     slug: 'why-choose-professional-system-integrators-qatar',
     category: 'IT SERVICES',
     title: 'Why Choose Professional System Integrators in Qatar?',
