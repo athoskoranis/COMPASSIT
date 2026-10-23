@@ -13,6 +13,16 @@ export type Post = {
 // silently go stale. Newest first.
 export const posts: Post[] = [
   {
+    slug: 'what-is-a-data-center-guide-qatar-businesses',
+    category: 'IT SERVICES',
+    title: 'What Is a Data Center? A Guide for Qatar Businesses',
+    excerpt:
+      'A data center is where the servers, storage and networks behind your business systems actually live. This guide explains what is inside one, how storage and high performance computing differ, and how Qatar businesses should choose between on-premises, colocation and cloud.',
+    date: 'October 2026',
+    readTime: '6 min read',
+    image: '/images/blog/what-is-a-data-center-guide-qatar-businesses-1.jpg',
+  },
+  {
     slug: 'enterprise-it-solutions-smart-city-development-doha',
     category: 'IT SERVICES',
     title: 'Enterprise IT Solutions for Smarter City Development in Doha',
