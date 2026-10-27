@@ -13,6 +13,16 @@ export type Post = {
 // silently go stale. Newest first.
 export const posts: Post[] = [
   {
+    slug: 'dubai-digital-transformation-guide-key-trends-2026',
+    category: 'IT SERVICES',
+    title: 'Dubai Digital Transformation Guide: Key Trends for 2026',
+    excerpt:
+      'Dubai sets the pace for digital business in the Gulf, and companies in Qatar and across the GCC are watching. This guide explains what digital transformation means in practice, where automation and digitalization pay off first, and how to use digital assist tools without losing control of your data.',
+    date: 'October 2026',
+    readTime: '6 min read',
+    image: '/images/blog/dubai-digital-transformation-guide-key-trends-2026-1.jpg',
+  },
+  {
     slug: 'what-is-a-data-center-guide-qatar-businesses',
     category: 'IT SERVICES',
     title: 'What Is a Data Center? A Guide for Qatar Businesses',

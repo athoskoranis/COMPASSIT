@@ -36,6 +36,7 @@ const services = [
 // Article dates are fixed, not build-time — a post that hasn't changed
 // shouldn't report a fresh lastModified on every deploy.
 const posts = [
+  { slug: 'dubai-digital-transformation-guide-key-trends-2026', published: '2026-10-27' },
   { slug: 'what-is-a-data-center-guide-qatar-businesses', published: '2026-10-23' },
   { slug: 'enterprise-it-solutions-smart-city-development-doha', published: '2026-10-20' },
   { slug: 'why-choose-professional-system-integrators-qatar', published: '2026-10-16' },
