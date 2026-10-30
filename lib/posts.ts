@@ -13,6 +13,16 @@ export type Post = {
 // silently go stale. Newest first.
 export const posts: Post[] = [
   {
+    slug: '10-best-mobile-app-interfaces-to-inspire-your-next-design',
+    category: 'IT SERVICES',
+    title: '10 Best Mobile App Interfaces to Inspire Your Next Design',
+    excerpt:
+      'Ten mobile app interface patterns that consistently work, from focused onboarding to bilingual Arabic and English layouts. A practical reference for GCC businesses briefing a designer or a mobile app development company.',
+    date: 'October 2026',
+    readTime: '6 min read',
+    image: '/images/blog/10-best-mobile-app-interfaces-to-inspire-your-next-design-1.jpg',
+  },
+  {
     slug: 'dubai-digital-transformation-guide-key-trends-2026',
     category: 'IT SERVICES',
     title: 'Dubai Digital Transformation Guide: Key Trends for 2026',
